@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Script from 'next/script'
-import Image from 'next/image'
 
 export function Footer() {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
@@ -271,65 +270,51 @@ export function Footer() {
         <div className="site-footer__copyright">
           <div className="container-fluid">
             <div className="d-flex flex-lg-row flex--sm-column flex-column-reverse">
-              <div className="flex-lg-grow-1">
-                <div className="d-flex flex-column text-lg-left text-center pt-lg-0 pt-3">
-                  <div className="d-flex flex-lg-row align-items-center justify-content-lg-start justify-content-center"></div>
-                  <div className="pt-2">
-                    <span className="pavan-theme">
-                      Copyright © {new Date().getFullYear()} | Rustic Stone
-                    </span>
-                  </div>
-                </div>
-              </div>
               <div className="footer-copy-right">
                 <ul
                   id="footer-payment-methods"
                   className="list-inline payment-icons text-center text-lg-right"
+                  style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}
                 >
                   <li className="list-inline-item footer-payment-icon">
-                    <Image
-                      src="/resources/images/upi.svg"
-                      alt="UPI"
-                      width={42}
-                      height={24}
-                      className="payment-icon-img"
-                    />
+                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/upi.svg?v=1763794145" width="42px" height="auto" alt="UPI" />
                   </li>
                   <li className="list-inline-item footer-payment-icon">
-                    <Image
-                      src="/resources/images/paytm.svg"
-                      alt="Paytm"
-                      width={42}
-                      height={24}
-                      className="payment-icon-img"
-                    />
+                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/paytm.svg?v=1763794144" width="42px" height="auto" alt="Paytm" />
                   </li>
                   <li className="list-inline-item footer-payment-icon">
-                    <Image
-                      src="/resources/images/google-pay.svg"
-                      alt="Google Pay"
-                      width={42}
-                      height={24}
-                      className="payment-icon-img"
-                    />
+                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/google-pay.svg?v=1763794144" width="42px" height="auto" alt="Google Pay" />
+                  </li>
+                  <li className="list-inline-item footer-payment-icon">
+                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/amazon-pay.svg?v=1763794144" width="64px" height="auto" alt="Amazon Pay" />
                   </li>
                 </ul>
                 <div className="pt-3">
-                  <ul className="list-unstyled list-inline d-flex text-lg-right text-center footer-bottom-link flex-wrap justify-content-center justify-content-lg-end">
+                  <ul className="footer-bottom-link flex-wrap justify-content-center">
                     <li>
-                      <Link href="/policies/privacy-policy">Privacy Policy</Link>
+                      <Link href="/policies/privacy-policy">Privacy</Link>
                     </li>
                     <li>
-                      <Link href="/policies/shipping-policy">Shipping Policy</Link>
+                      <Link href="/policies/shipping-policy">Shipping</Link>
                     </li>
                     <li>
-                      <Link href="/policies/refund-policy">Refund Policy</Link>
+                      <Link href="/policies/refund-policy">Refund</Link>
                     </li>
                     <li>
                       <Link href="/policies/terms-of-service">Terms of Service</Link>
                     </li>
                   </ul>
                 </div>
+                <div className="flex-lg-grow-1">
+                <div className="d-flex flex-column text-lg-left text-center pt-lg-0 pt-3">
+                  <div className="d-flex flex-lg-row align-items-center justify-content-lg-start justify-content-center"></div>
+                  <div className="pt-2">
+                    <span className="pavan-theme">
+                      Copyright © {new Date().getFullYear()} | Tathastu
+                    </span>
+                  </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>
