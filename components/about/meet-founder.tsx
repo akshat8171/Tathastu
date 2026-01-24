@@ -37,7 +37,7 @@ export function MeetFounder() {
                     <h3 className={styles.founderTitle}>Meet Our Founder</h3>
                     <div className={styles.founderDescription}>
                       <p>
-                        Hello! I&apos;m <em><strong>Kanupriya Kajaria</strong></em>, the founder of Tathastu. 
+                        Hello! I&apos;m <em><strong>Akshat Garg</strong></em>, the founder of Tathastu. 
                         After spending seven years in investment banking and private equity in Dubai, 
                         I returned to India, drawn back by the warmth of home and the beauty of our artisanal heritage.
                       </p>
