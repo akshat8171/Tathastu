@@ -165,34 +165,6 @@
   margin-top: 2rem;
 }
 
-.btn {
-  display: inline-block;
-  padding: var(--g-padding-ver-btn) var(--g-padding-hoz-btn);
-  font-family: var(--g-font-family_btn);
-  font-size: var(--g-font-size-btn);
-  font-weight: var(--g-font-weight-btn);
-  text-transform: var(--g-text-transform-btn);
-  letter-spacing: var(--g-font-spacing-btn);
-  text-decoration: none;
-  border: 1px solid var(--g-btn-outline-color);
-  background-color: transparent;
-  color: var(--g-btn-outline-color);
-  transition: all var(--duration-default) var(--anim-transition);
-  cursor: pointer;
-}
-
-.btnTheme {
-  border-color: #3e4f47;
-  color: #ffffff;
-  background-color: #3e4f47;
-}
-
-.btnTheme:hover {
-  background-color: var(--g-btn-hover-color);
-  color: #3e4f47;
-  border-color: #3e4f47;
-}
-
 .overflowHidden {
   overflow: hidden;
 }
