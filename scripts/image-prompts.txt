@@ -1,0 +1,169 @@
+=== HERO BANNER ===
+File: hero/hero-banner.jpg
+Aspect: 16:9
+Resolution: 1920x1080 (8K if possible)
+
+PROMPT:
+A professional website hero banner for a 3D printing miniature studio. High-detail 8k resolution image of a hand-painted resin miniature of an Ancient Dragon standing on a wooden tabletop with soft cinematic lighting. In the background, out of focus, are more miniatures and a 3D printer glowing slightly. Earthy, rustic aesthetic with a premium feel. Wide horizontal aspect ratio 16:9, warm color palette with cream and charcoal tones, lifestyle photography style
+
+---
+
+=== CATEGORY: FANTASY WARRIOR ===
+File: categories/fantasy-warrior.jpg
+Aspect: 1:1
+Resolution: 400x400px minimum
+
+PROMPT:
+A 32mm fantasy warrior miniature, centered on a neutral off-white background with soft shadows, premium boutique store style, product photography, clean lighting, square composition
+
+---
+
+=== CATEGORY: TERRAIN PIECE ===
+File: categories/terrain-piece.jpg
+Aspect: 1:1
+Resolution: 400x400px minimum
+
+PROMPT:
+A large-scale tabletop terrain piece, ruined castle, centered on a neutral off-white background with soft shadows, premium boutique store style, product photography, clean lighting, square composition
+
+---
+
+=== CATEGORY: SCI-FI MECH ===
+File: categories/sci-fi-mech.jpg
+Aspect: 1:1
+Resolution: 400x400px minimum
+
+PROMPT:
+A sci-fi mech unit miniature, centered on a neutral off-white background with soft shadows, premium boutique store style, product photography, clean lighting, square composition
+
+---
+
+=== WATCH & SHOP: PRINTER NOZZLE ===
+File: watch-shop/printer-nozzle.jpg
+Aspect: 3:4
+Resolution: 600x800px minimum
+
+PROMPT:
+A close-up macro photograph of a 3D printer nozzle precisely depositing layers of resin, soft warm lighting, minimalist workshop background, professional product photography, vertical composition
+
+---
+
+=== WATCH & SHOP: REMOVING SUPPORTS ===
+File: watch-shop/removing-supports.jpg
+Aspect: 3:4
+Resolution: 600x800px minimum
+
+PROMPT:
+A pair of hands carefully removing supports from a highly detailed miniature, soft warm lighting, minimalist workshop background, professional product photography, vertical composition
+
+---
+
+=== WATCH & SHOP: TEXTURE CLOSEUP ===
+File: watch-shop/texture-closeup.jpg
+Aspect: 3:4
+Resolution: 600x800px minimum
+
+PROMPT:
+A macro shot of the texture on a printed miniature's armor showing extreme detail, soft warm lighting, minimalist workshop background, professional product photography, vertical composition
+
+---
+
+=== WATCH & SHOP: DESIGN PROCESS ===
+File: watch-shop/design-process.jpg
+Aspect: 4:3
+Resolution: 1200x900px minimum
+
+PROMPT:
+A 3D modeling workspace showing digital design process, computer screen with 3D model, sketches, soft warm lighting, professional photography, horizontal composition
+
+---
+
+=== PRODUCT: DRAGON (Main) ===
+File: products/dragon.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+An Ancient Dragon 3D printed miniature, unpainted grey resin, displayed on a stone pedestal, showing extreme detail and texture, lifestyle photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== PRODUCT: DRAGON (Angle 2) ===
+File: products/dragon-2.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+An Ancient Dragon 3D printed miniature, unpainted grey resin, side view angle, displayed on a stone pedestal, showing extreme detail and texture, lifestyle photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== PRODUCT: DRAGON (Detail) ===
+File: products/dragon-3.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+Close-up detail shot of an Ancient Dragon 3D printed miniature's head and scales, unpainted grey resin, showing extreme texture and detail, macro photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== PRODUCT: ELVEN ARCHER ===
+File: products/elven-archer.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+An Elven Archer 3D printed miniature set, unpainted grey resin, displayed on a wooden pedestal, showing extreme detail, lifestyle photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== PRODUCT: CASTLE TERRAIN ===
+File: products/castle-terrain.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+A Ruined Castle terrain piece, 3D printed, unpainted grey resin, displayed on a stone pedestal, showing extreme detail, lifestyle photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== PRODUCT: CYBERPUNK HERO ===
+File: products/cyberpunk-hero.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+A Cyberpunk Hero 3D printed miniature, unpainted grey resin, displayed on a modern pedestal, showing extreme detail, lifestyle photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== PRODUCT: STONE TROLL ===
+File: products/stone-troll.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+A Stone Troll 3D printed miniature, unpainted grey resin, displayed on a stone pedestal, showing extreme detail and texture, lifestyle photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== PRODUCT: TREASURE CHEST ===
+File: products/treasure-chest.jpg
+Aspect: 1:1
+Resolution: 800x800px minimum
+
+PROMPT:
+A Treasure Chest 3D printed miniature, unpainted grey resin, displayed on a wooden pedestal, showing extreme detail, lifestyle photography, warm lighting, premium e-commerce style, square composition
+
+---
+
+=== ABOUT: ARTISAN WORKSHOP ===
+File: about/artisan-workshop.jpg
+Aspect: 4:3
+Resolution: 1200x900px minimum
+
+PROMPT:
+A warm, inviting artisan workshop scene, creator's desk cluttered with sketches, paint pots, brushes, and various 3D printed prototypes, vintage-style lamp casting warm glow, organized chaos aesthetic, professional and creative, horizontal composition
+
+---
