@@ -16,8 +16,8 @@ export function MeetFounder() {
                 <div className={`${styles.imageContainer} ${styles.overflowHidden}`}>
                   <div className={styles.imageWrapper}>
                     <Image
-                      src="https://shoprusticstone.com/cdn/shop/files/Kanupriya_Kajaria_Founder_-_Rustic_Stone_India_16e80925-590b-408f-b1bb-968a3dd5f833.jpg?v=1752557651&width=1080"
-                      alt="Kanupriya Kajaria - Founder of Tathastu"
+                      src="/images/founder/Founder-Image.jpg"
+                      alt="Akshat Garg - Founder of Tathastu"
                       className={`${styles.image} ${styles.scaleIn}`}
                       fill
                       style={{ objectFit: 'cover' }}
