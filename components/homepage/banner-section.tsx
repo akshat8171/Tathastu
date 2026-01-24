@@ -1,7 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import Image from 'next/image'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
 interface Slide {
@@ -43,80 +42,96 @@ const slides: Slide[] = [
   },
 ]
 
-export function HeroSection() {
+export function BannerSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [slideInterval, setSlideInterval] = useState<NodeJS.Timeout | null>(null)
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const showSlide = useCallback((index: number) => {
-    setCurrentSlide(index)
-  }, [])
-
-  const nextSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length)
-  }, [])
-
-  const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
-  }, [])
-
-  const resetInterval = useCallback(() => {
-    if (slideInterval) {
-      clearInterval(slideInterval)
-    }
-    const interval = setInterval(nextSlide, 4000)
-    setSlideInterval(interval)
-  }, [nextSlide, slideInterval])
-
+  // Auto-slide functionality
   useEffect(() => {
-    const interval = setInterval(nextSlide, 4000)
-    setSlideInterval(interval)
+    const startAutoSlide = () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
+      intervalRef.current = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length)
+      }, 4000)
+    }
+
+    startAutoSlide()
 
     return () => {
-      if (interval) clearInterval(interval)
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+      }
     }
-  }, [nextSlide])
+  }, [])
 
   const handleNext = () => {
-    nextSlide()
-    resetInterval()
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+    setCurrentSlide((prev) => {
+      const next = (prev + 1) % slides.length
+      return next
+    })
+    // Restart interval after manual navigation
+    setTimeout(() => {
+      if (intervalRef.current === null) {
+        intervalRef.current = setInterval(() => {
+          setCurrentSlide((prev) => (prev + 1) % slides.length)
+        }, 4000)
+      }
+    }, 100)
   }
 
   const handlePrev = () => {
-    prevSlide()
-    resetInterval()
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+    setCurrentSlide((prev) => {
+      const next = (prev - 1 + slides.length) % slides.length
+      return next
+    })
+    // Restart interval after manual navigation
+    setTimeout(() => {
+      if (intervalRef.current === null) {
+        intervalRef.current = setInterval(() => {
+          setCurrentSlide((prev) => (prev + 1) % slides.length)
+        }, 4000)
+      }
+    }, 100)
   }
 
   return (
     <section className="custom-slideshow" id="customSlideshow">
-      {slides.map((slide, index) => (
-        <Link
-          key={slide.id}
-          href={slide.href}
-          className={`slide ${index === currentSlide ? 'active' : ''}`}
-        >
-          <Image
-            src={slide.desktopImg}
-            alt={`${slide.alt} Desktop`}
-            className="desktop-img"
-            fill
-            priority={index === 0}
-            sizes="100vw"
-            style={{ objectFit: 'cover' }}
-          />
-          <Image
-            src={slide.mobileImg}
-            alt={`${slide.alt} Mobile`}
-            className="mobile-img"
-            fill
-            priority={index === 0}
-            sizes="100vw"
-            style={{ objectFit: 'cover' }}
-          />
-        </Link>
-      ))}
+      {slides.map((slide, index) => {
+        const isActive = index === currentSlide
+        return (
+          <Link
+            key={slide.id}
+            href={slide.href}
+            className={isActive ? 'slide active' : 'slide'}
+            style={{ pointerEvents: isActive ? 'auto' : 'none' }}
+          >
+            <img
+              src={slide.desktopImg}
+              alt={`${slide.alt} Desktop`}
+              className="desktop-img"
+            />
+            <img
+              src={slide.mobileImg}
+              alt={`${slide.alt} Mobile`}
+              className="mobile-img"
+            />
+          </Link>
+        )
+      })}
 
       {/* Navigation Arrows */}
       <button
+        type="button"
         className="arrow left"
         onClick={(e) => {
           e.preventDefault()
@@ -128,6 +143,7 @@ export function HeroSection() {
         ❮
       </button>
       <button
+        type="button"
         className="arrow right"
         onClick={(e) => {
           e.preventDefault()
@@ -139,57 +155,63 @@ export function HeroSection() {
         ❯
       </button>
 
-      <style jsx>{`
+      <style jsx global>{`
         .custom-slideshow {
           position: relative;
           overflow: hidden;
           width: 100%;
-          height: 80vh;
-          min-height: 600px;
+          height: 60vh;
+          min-height: 300px;
           max-height: 900px;
         }
 
-        .slide {
-          display: none;
+        .custom-slideshow .slide {
           position: absolute;
           width: 100%;
           height: 100%;
           top: 0;
           left: 0;
-          transition: opacity 0.8s ease-in-out;
           opacity: 0;
-        }
-
-        .slide.active {
+          transition: opacity 0.8s ease-in-out;
+          z-index: 1;
           display: block;
-          position: relative;
-          opacity: 1;
         }
 
-        .slide img {
+        .custom-slideshow .slide.active {
+          opacity: 1;
+          z-index: 2;
+        }
+
+        .custom-slideshow .slide img {
+          top: 0;
+          left: 0;
           width: 100%;
           height: 100%;
+          object-fit: cover;
+          object-position: center;
           display: block;
         }
 
-        .desktop-img {
+        .custom-slideshow .desktop-img {
           display: block;
         }
 
-        .mobile-img {
+        .custom-slideshow .mobile-img {
           display: none;
         }
 
         @media only screen and (max-width: 749px) {
-          .desktop-img {
-            display: none;
+          .custom-slideshow .desktop-img {
+            display: none !important;
+            visibility: hidden;
           }
-          .mobile-img {
-            display: block;
+          .custom-slideshow .mobile-img {
+            display: block !important;
+            visibility: visible;
           }
         }
 
-        .arrow {
+        .custom-slideshow .arrow {
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
@@ -202,38 +224,39 @@ export function HeroSection() {
           text-align: center;
           line-height: 45px;
           cursor: pointer;
-          z-index: 9;
+          z-index: 100;
           user-select: none;
           border: none;
           padding: 0;
           transition: background 0.3s ease;
+          pointer-events: auto;
         }
 
-        .arrow:hover {
+        .custom-slideshow .arrow:hover {
           background: rgba(0, 0, 0, 0.7);
         }
 
-        .arrow.left {
+        .custom-slideshow .arrow.left {
           left: 15px;
         }
 
-        .arrow.right {
+        .custom-slideshow .arrow.right {
           right: 15px;
         }
 
         @media (max-width: 749px) {
-          .arrow {
+          .custom-slideshow .arrow {
             width: 40px;
             height: 40px;
             line-height: 40px;
             font-size: 20px;
           }
 
-          .arrow.left {
+          .custom-slideshow .arrow.left {
             left: 10px;
           }
 
-          .arrow.right {
+          .custom-slideshow .arrow.right {
             right: 10px;
           }
         }

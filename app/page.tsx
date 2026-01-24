@@ -1,4 +1,4 @@
-import { HeroSection } from '@/components/homepage/hero-section'
+import { BannerSection } from '@/components/homepage/banner-section'
 import { CategoryIcons } from '@/components/homepage/category-icons'
 import { WatchShopSection } from '@/components/homepage/watch-shop-section'
 import { BestSellers } from '@/components/homepage/best-sellers'
@@ -10,7 +10,7 @@ import { BulkOrdersSection } from '@/components/homepage/bulk-orders-section'
 export default function HomePage() {
   return (
     <>
-      <HeroSection />
+      <BannerSection />
       <CategoryIcons />
       <BestSellers />
       <WatchShopSection />
