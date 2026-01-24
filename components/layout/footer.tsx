@@ -28,14 +28,16 @@ export function Footer() {
           <div className="container-fluid">
             <div className="row footer-sections-row">
               {/* About us */}
-              <div className="col-lg-2 col-md-4 footer-section footer-section-about">
+              <div className="col-lg-3 col-md-6 footer-section footer-section-about">
                 <div className="site-footer__section text-lg-left">
                   <button
-                    className="site-footer__section-title accordion-toggle"
+                    className="accordion-toggle"
                     onClick={() => toggleSection('about')}
                     aria-expanded={expandedSections.about}
                   >
-                    <span>About us</span>
+                    <h4 className="h5 site-footer__section-title">
+                      About us
+                    </h4>
                     <span className="accordion-icon">
                       {expandedSections.about ? '−' : '+'}
                     </span>
@@ -56,11 +58,11 @@ export function Footer() {
               <div className="col-lg-2 col-md-4 footer-section">
                 <div className="site-footer__section text-lg-left">
                   <button
-                    className="site-footer__section-title accordion-toggle"
+                    className="accordion-toggle"
                     onClick={() => toggleSection('collection')}
                     aria-expanded={expandedSections.collection}
                   >
-                    <span>Collection</span>
+                    <h4 className="h5 site-footer__section-title">Collection</h4>
                     <span className="accordion-icon">
                       {expandedSections.collection ? '−' : '+'}
                     </span>
@@ -96,11 +98,11 @@ export function Footer() {
               <div className="col-lg-2 col-md-4 footer-section">
                 <div className="site-footer__section text-lg-left">
                   <button
-                    className="site-footer__section-title accordion-toggle"
+                    className="accordion-toggle"
                     onClick={() => toggleSection('company')}
                     aria-expanded={expandedSections.company}
                   >
-                    <span>Company</span>
+                    <h4 className="h5 site-footer__section-title">Company</h4>
                     <span className="accordion-icon">
                       {expandedSections.company ? '−' : '+'}
                     </span>
@@ -139,11 +141,11 @@ export function Footer() {
               <div className="col-lg-2 col-md-4 footer-section">
                 <div className="site-footer__section text-lg-left">
                   <button
-                    className="site-footer__section-title accordion-toggle"
+                    className="accordion-toggle"
                     onClick={() => toggleSection('policy')}
                     aria-expanded={expandedSections.policy}
                   >
-                    <span>Policy</span>
+                    <h4 className="h5 site-footer__section-title">Policy</h4>
                     <span className="accordion-icon">
                       {expandedSections.policy ? '−' : '+'}
                     </span>
@@ -173,11 +175,11 @@ export function Footer() {
               <div className="col-lg-2 col-md-4 footer-section">
                 <div className="site-footer__section text-lg-left">
                   <button
-                    className="site-footer__section-title accordion-toggle"
+                    className="accordion-toggle"
                     onClick={() => toggleSection('needHelp')}
                     aria-expanded={expandedSections.needHelp}
                   >
-                    <span>Need help</span>
+                    <h4 className="h5 site-footer__section-title">Need help</h4>
                     <span className="accordion-icon">
                       {expandedSections.needHelp ? '−' : '+'}
                     </span>
@@ -206,14 +208,14 @@ export function Footer() {
               </div>
 
               {/* Social Links */}
-              <div className="col-lg-2 col-md-4">
+              <div className="col-lg-2 col-md-4 footer-section">
                 <div className="site-footer__section text-lg-left">
                   <button
-                    className="site-footer__section-title accordion-toggle"
+                    className="accordion-toggle"
                     onClick={() => toggleSection('socialLinks')}
                     aria-expanded={expandedSections.socialLinks}
                   >
-                    <span>Social Links</span>
+                    <h4 className="h5 site-footer__section-title">Social Links</h4>
                     <span className="accordion-icon">
                       {expandedSections.socialLinks ? '−' : '+'}
                     </span>
@@ -389,6 +391,9 @@ export function Footer() {
         .footer-sections-row {
           display: flex;
           flex-wrap: wrap;
+          width: 100%;
+          margin-right: -15px;
+          margin-left: -15px;
         }
 
         .footer-section {
@@ -398,10 +403,10 @@ export function Footer() {
           padding-left: 15px;
         }
 
-        /* Desktop: Single line with About taking 2x space */
+        /* Desktop: Single line with About taking col-lg-3 (25%) */
         @media (min-width: 992px) {
           .footer-sections-row {
-            flex-wrap: nowrap;
+            flex-wrap: wrap;
           }
           
           .footer-section {
@@ -411,18 +416,18 @@ export function Footer() {
           }
           
           .footer-section-about {
-            flex: 2 1 0;
-            max-width: 33.333333%;
-            flex-basis: 33.333333%;
+            flex: 0 0 25%;
+            max-width: 25%;
+            flex-basis: 25%;
           }
         }
 
-        /* Tablet: 2 columns */
+        /* Tablet: 2 columns - About us takes col-md-6 (50%), others take col-md-4 (33.33%) */
         @media (min-width: 768px) and (max-width: 991px) {
           .footer-section {
-            flex: 0 0 50%;
-            max-width: 50%;
-            flex-basis: 50%;
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+            flex-basis: 33.333333%;
           }
           
           .footer-section-about {
@@ -450,6 +455,13 @@ export function Footer() {
         .col-lg-3 {
           flex: 0 0 25%;
           max-width: 25%;
+          padding-right: 15px;
+          padding-left: 15px;
+        }
+
+        .col-md-6 {
+          flex: 0 0 50%;
+          max-width: 50%;
           padding-right: 15px;
           padding-left: 15px;
         }
@@ -489,18 +501,23 @@ export function Footer() {
           max-width: none;
         }
 
+        .footer-sections-row .footer-section.col-lg-3 {
+          flex: 1 1 0;
+          max-width: none;
+        }
+
         /* Desktop: Single line layout */
         @media (min-width: 992px) {
           .footer-sections-row .footer-section.col-lg-2 {
-            flex: 1 1 0;
+            flex: 0 0 16.666667%;
             max-width: 16.666667%;
             flex-basis: 16.666667%;
           }
           
-          .footer-sections-row .footer-section-about.col-lg-2 {
-            flex: 2 1 0;
-            max-width: 33.333333%;
-            flex-basis: 33.333333%;
+          .footer-sections-row .footer-section-about.col-lg-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+            flex-basis: 25%;
           }
         }
 
@@ -508,12 +525,13 @@ export function Footer() {
         @media (min-width: 768px) and (max-width: 991px) {
           .footer-sections-row .footer-section.col-lg-2,
           .footer-sections-row .footer-section.col-md-4 {
-            flex: 0 0 50%;
-            max-width: 50%;
-            flex-basis: 50%;
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+            flex-basis: 33.333333%;
           }
           
-          .footer-sections-row .footer-section-about.col-lg-2 {
+          .footer-sections-row .footer-section-about.col-lg-3,
+          .footer-sections-row .footer-section-about.col-md-6 {
             flex: 0 0 50%;
             max-width: 50%;
             flex-basis: 50%;
@@ -523,13 +541,9 @@ export function Footer() {
         /* Mobile: Full width */
         @media (max-width: 767px) {
           .footer-sections-row .footer-section.col-lg-2,
-          .footer-sections-row .footer-section.col-md-4 {
-            flex: 0 0 100%;
-            max-width: 100%;
-            flex-basis: 100%;
-          }
-          
-          .footer-sections-row .footer-section-about.col-lg-2 {
+          .footer-sections-row .footer-section.col-lg-3,
+          .footer-sections-row .footer-section.col-md-4,
+          .footer-sections-row .footer-section.col-md-6 {
             flex: 0 0 100%;
             max-width: 100%;
             flex-basis: 100%;
@@ -568,15 +582,20 @@ export function Footer() {
           margin: 0;
           cursor: pointer;
           text-align: left;
+          font-family: inherit;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+        }
+
+        .accordion-toggle .h5 {
+          margin: 0;
+          padding: 0;
           color: var(--footer-title);
           text-transform: var(--footer-font-type);
           font-weight: var(--footer-font-weight);
           font-size: var(--footer-font-size);
           letter-spacing: var(--footer-font-space);
-          font-family: inherit;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
         }
 
         .accordion-toggle:focus {
@@ -690,6 +709,39 @@ export function Footer() {
           font-size: var(--g-p-font-size);
           line-height: var(--g-p-font-lineheight);
           color: var(--footer-text);
+          font-family: var(--g-font-2);
+          font-weight: var(--g-font-weight-body);
+          letter-spacing: normal;
+        }
+
+        .rte-setting div {
+          margin-bottom: 0.5rem;
+        }
+
+        .rte-setting a {
+          color: var(--footer-text);
+          text-decoration: none;
+          transition: color var(--duration-default) var(--anim-transition);
+          position: relative;
+        }
+
+        .rte-setting a::before {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background-color: var(--footer-text-hover);
+          transition: width var(--duration-default) var(--anim-transition);
+        }
+
+        .rte-setting a:hover {
+          color: var(--footer-text-hover);
+        }
+
+        .rte-setting a:hover::before {
+          width: 100%;
         }
 
         .site-footer__list {
@@ -706,6 +758,13 @@ export function Footer() {
           position: relative;
           text-decoration: none;
           transition: color var(--duration-default) var(--anim-transition);
+          color: var(--footer-text);
+          font-family: var(--g-font-2);
+          font-weight: var(--g-font-weight-body);
+        }
+
+        .site-footer__list-item a:hover {
+          color: var(--footer-text-hover);
         }
 
         .site-footer__list-item a::before {

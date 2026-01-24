@@ -37,3 +37,6 @@ next-env.d.ts
 /.cursor/*
 *.md
 env.example
+
+*.mp4
+*.jpg
