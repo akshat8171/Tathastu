@@ -13,29 +13,35 @@ interface VideoContent {
 
 const videoContent: VideoContent[] = [
   {
-    id: 'design',
-    title: 'Design Process',
-    videoUrl: '/images/watch-shop/design-process.mp4',
-    productUrl: '/products/1',
-  },
-  {
-    id: 'printing',
-    title: 'Precision Printing',
-    videoUrl: '/images/watch-shop/design-process.mp4',
+    id: 'Tissue Roller',
+    title: 'Tissue Roller',
+    videoUrl: '/images/watch-shop/tissue-roller-design.mp4',
     productUrl: '/products/2',
   },
   {
-    id: 'finishing',
-    title: 'Hand Finishing',
-    videoUrl: '/images/watch-shop/design-process.mp4',
+    id: 'Flower Base',
+    title: 'Flower Base',
+    videoUrl: '/images/watch-shop/flower-base-design.mp4',
     productUrl: '/products/3',
   },
   {
-    id: 'quality',
-    title: 'Quality Detail',
-    videoUrl: '/images/watch-shop/design-process.mp4',
+    id: 'JBL Cover',
+    title: 'JBL Cover',
+    videoUrl: '/images/watch-shop/jbl-cover.mp4',
     productUrl: '/products/4',
   },
+  {
+    id: 'Lamps',
+    title: 'Lamps',
+    videoUrl: '/images/watch-shop/lamps-design.mp4',
+    productUrl: '/products/1',
+  },
+  {
+    id: 'Toilet Organizer',
+    title: 'Toilet Organizer',
+    videoUrl: '/images/watch-shop/Toilet-organizer.mp4',
+    productUrl: '/products/4',
+  }
 ]
 
 function VideoItem({ item }: { item: VideoContent }) {
@@ -112,7 +118,7 @@ export function WatchShopSection() {
 
   return (
     <section className="py-5 bg-[#f7f1e7]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
         <div className="watch-shop-headline mb-4">
           <h2 className="text-center">Watch &amp; shop</h2>
         </div>
@@ -138,15 +144,19 @@ export function WatchShopSection() {
           text-align: center;
         }
 
+        .watch-shop-container {
+          display: flex;
+          justify-content: center;
+        }
+
         .watch-shop-wrapper {
           display: flex;
           gap: 8px;
-          padding-top: 10px;
-          padding-left: 10px;
-          padding-right: 10px;
+          padding: 20px;
           overflow-x: auto;
           scroll-behavior: smooth;
           -webkit-overflow-scrolling: touch;
+          justify-content: center;
         }
 
         .watch-shop-wrapper::-webkit-scrollbar {
