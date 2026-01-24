@@ -41,7 +41,7 @@ export function BulkOrdersSection() {
                       bulk order options tailored to your needs.
                     </p>
                     <div className={styles.buttonWrapper}>
-                      <Link href="/bulk-order" className={`${styles.btn} ${styles.btnTheme}`}>
+                      <Link href="/bulk-order" className="btn btn-slide-theme">
                         Know More
                       </Link>
                     </div>
