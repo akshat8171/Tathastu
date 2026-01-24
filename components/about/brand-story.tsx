@@ -9,7 +9,7 @@ export function BrandStory() {
       <div className="container-fluid">
         <div className="section-block">
           <div className="row justify-content-center">
-            <div className="col-lg-7 col-12">
+            <div className="col-lg-7 col-12 brand-story-content">
               <h3 className="section-title-1 text-center mb-3">About the Brand</h3>
               <div className="text-center">
                 <div className="d-flex justify-content-center">
@@ -42,7 +42,7 @@ export function BrandStory() {
                 </div>
                 <div className="d-flex justify-content-center align-items-center">
                   <div className="mt-3 mb-1">
-                    <Link href="/about" className="btn btn-theme">
+                    <Link href="/about" className="btn btn-slide-theme">
                       Read More
                     </Link>
                   </div>
@@ -53,7 +53,7 @@ export function BrandStory() {
         </div>
       </div>
 
-      <style jsx>{`
+      <style jsx global>{`
         .about-brand-banner {
           background: #99a58f;
           padding: 60px 0px;
@@ -76,9 +76,19 @@ export function BrandStory() {
           padding-left: 15px;
           margin-right: auto;
           margin-left: auto;
+          display: flex;
+          justify-content: center;
         }
 
         .section-block {
+          width: 100%;
+          max-width: 1000px;
+          margin: 0 auto;
+          display: flex;
+          justify-content: center;
+        }
+
+        .brand-story-content {
           width: 100%;
         }
 
@@ -162,7 +172,7 @@ export function BrandStory() {
         .image-content__image-container {
           position: relative;
           width: 100%;
-          max-width: 600px;
+          max-width: 400px;
         }
 
         .hero-img__wrap {
@@ -218,33 +228,6 @@ export function BrandStory() {
           color: var(--color-body-text);
         }
 
-        .btn {
-          display: inline-block;
-          padding: var(--g-padding-ver-btn) var(--g-padding-hoz-btn);
-          font-family: var(--g-font-family_btn);
-          font-size: var(--g-font-size-btn);
-          font-weight: var(--g-font-weight-btn);
-          text-transform: var(--g-text-transform-btn);
-          letter-spacing: var(--g-font-spacing-btn);
-          text-decoration: none;
-          border: 1px solid var(--g-btn-outline-color);
-          background-color: transparent;
-          color: var(--g-btn-outline-color);
-          transition: all var(--duration-default) var(--anim-transition);
-          cursor: pointer;
-        }
-
-        .btn-theme {
-          border-color: #3e4f47;
-          color: #ffffff;
-          background-color: #3e4f47;
-        }
-
-        .btn-theme:hover {
-          background-color: var(--g-btn-hover-color);
-          color: #3e4f47;
-          border-color: #3e4f47;
-        }
 
         .overflow-hidden {
           overflow: hidden;
