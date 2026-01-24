@@ -1,0 +1,328 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Nunito:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Animation Durations */
+  --duration-short: .1s;
+  --duration-default: .2s;
+  --duration-long: .5s;
+  
+  /* Font Families */
+  --g-font-1: "Tenor Sans", sans-serif;
+  --g-font-2: Nunito, sans-serif;
+  --g-font-3: Blackseas;
+  --font-playfair: 'Playfair Display', serif; /* Keep for backward compatibility */
+  --font-nunito: 'Nunito', sans-serif; /* Keep for backward compatibility */
+  
+  /* Font Sizes */
+  --g-font-size: 14px;
+  --g-p-font-size: 12px;
+  --g-font-size-subtop: 10px;
+  --g-slide-font-size: 40px;
+  --g-slide-font-size-mobile: 20px;
+  
+  /* Font Weights */
+  --g-font-weight-body: 300;
+  --g-font-weight-subtop: 300;
+  --g-font-weight-btn: 500;
+  --g-p-font-weight: 400;
+  --g-h1-font-weight: 400;
+  --g-h2-font-weight: 400;
+  --g-h3-font-weight: 400;
+  --g-h4-font-weight: 400;
+  --g-h5-font-weight: 500;
+  --g-h6-font-weight: 400;
+  --g-slide-font-weight: 400;
+  
+  /* Line Heights */
+  --g-body-lineheight: 1.7;
+  --g-p-font-lineheight: 1.3;
+  --g-h1-font-lineheight: 1.;
+  --g-h2-font-lineheight: 1.4;
+  --g-h3-font-lineheight: 1.4;
+  --g-h4-font-lineheight: 1.4;
+  --g-h5-font-lineheight: 1.4;
+  --g-h6-font-lineheight: 1.2;
+  --g-slide-font-lineheight: 1.5;
+  
+  /* Letter Spacing */
+  --g-font-spacing-subtop: 0.2em;
+  --g-font-spacing-btn: 0.2em;
+  --g-p-font-spacing: 0.1em;
+  --g-label-space: 0.1em;
+  --g-h1-font-spacing: 0.em;
+  --g-h2-font-spacing: 0.em;
+  --g-h3-font-spacing: 0.em;
+  --g-h4-font-spacing: 0.em;
+  --g-h5-font-spacing: 0.em;
+  --g-h6-font-spacing: 0.em;
+  --g-slide-font-spacing: 0.em;
+  
+  /* Text Transform */
+  --g-text-transform-btn: uppercase;
+  --g-h1-font-transform: capitalize;
+  --g-h2-font-transform: capitalize;
+  --g-h3-font-transform: uppercase;
+  --g-h4-font-transform: uppercase;
+  --g-h5-font-transform: uppercase;
+  --g-h6-font-transform: uppercase;
+  --g-slide-font-transform: uppercase;
+  --g-p-font-transform: capitalize;
+  
+  /* Heading Sizes */
+  --g-h1-font-size: 38px;
+  --g-h1-font-size-mobile: 16px;
+  --g-h2-font-size: 30px;
+  --g-h2-font-size-mobile: 16px;
+  --g-h3-font-size: 24px;
+  --g-h3-font-size-mobile: 20px;
+  --g-h4-font-size: 20px;
+  --g-h4-font-size-mobile: 18px;
+  --g-h5-font-size: 16px;
+  --g-h5-font-size-mobile: 16px;
+  --g-h6-font-size: 13px;
+  --g-h6-font-size_mobile: 14px;
+  
+  /* Paragraph Font */
+  --g-p-font_family: var(--g-font-1);
+  
+  /* Colors - Main */
+  --g-main: #8b7b6c;
+  --g-main-2: #3e4f47;
+  --g-color-heading: #000000;
+  --g-color-heading-rgb: 0, 0, 0;
+  --g-cta-button: #3e4f47;
+  --g-cta-text: #edeae5;
+  --g-font-color-subtop: #343a40;
+  
+  /* Colors - General */
+  --color-body-text: #282828;
+  --color-body-text-rgb: 40, 40, 40;
+  --color-body: #ffffff;
+  --color-content: #ffffff;
+  --color-background: 255, 255, 255;
+  --color-accent: #8b7b6c;
+  --color-foreground: 40, 40, 40;
+  
+  /* Colors - Alert */
+  --g-alert: #000000;
+  --g-alert-bg: #91aba7;
+  --g-alert-bd: #000000;
+  
+  /* Colors - Sale */
+  --g-bg-sale: #fce5df;
+  --g-cl-sale: #80270f;
+  
+  /* Colors - Form */
+  --color-form: #f4f4f4;
+  --color-form-text: #333;
+  --color-disabled: #d5d5d5;
+  --color-disabled-border: #cecece;
+  --color-disabled-text: rgba(0, 0, 0, 0.4);
+  --color-error: #ec523e;
+  --color-error-bg: #ec523e;
+  --color-drawer-text: #000000;
+  --g-input-bg: ;
+  --g-input-border: #dee2e6;
+  
+  /* Colors - Border */
+  --color-border: 233, 233, 233;
+  
+  /* Colors - Button */
+  --g-btn-outline-color: #000000;
+  --g-btn-hover-color: #ffffff;
+  
+  /* Container & Layout */
+  --g-container: 1200px;
+  --g-gutter: 30px;
+  --g-hgutter: 15px;
+  --height-announbar: 0px;
+  
+  /* Button Styles */
+  --g-font-family_btn: Nunito, sans-serif;
+  --g-font-size-btn: 12px;
+  --g-font-radius-btn: 0px;
+  --g-font-border-bottom-btn: 1px;
+  --g-padding-ver-btn: 17px;
+  --g-padding-hoz-btn: 32px;
+  --g-height-border-btnline: 1px;
+  
+  /* Input Styles */
+  --g-input-height: 48px;
+  --g-input-radius: 0px;
+  
+  /* Image Styles */
+  --g-object: cover;
+  --g-img-portrait: 130%;
+  --g-img-square: 100%;
+  --g-img-wide: 60%;
+  --g-img-landscape: 75%;
+  
+  /* Label Styles */
+  --g-radius-label: 0px;
+  --g-pos-top-label: 16px;
+  --g-pos-left-label: 16px;
+  --g-label-size: 10px;
+  --g-font-topbar: ;
+  
+  /* Animation */
+  --anim-transition: cubic-bezier(.785, .135, .15, .86);
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: #F5F5DC;
+  color: var(--color-body-text);
+}
+
+body,
+input,
+textarea,
+button,
+select {
+  font-family: var(--g-font-2);
+  font-size: var(--g-font-size);
+  color: var(--color-body-text);
+  line-height: var(--g-body-lineheight);
+  font-weight: var(--g-font-weight-body);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+p {
+  font-family: var(--g-p-font_family);
+  font-size: var(--g-p-font-size);
+  font-weight: var(--g-p-font-weight);
+  letter-spacing: var(--g-p-font-spacing);
+  line-height: var(--g-p-font-lineheight);
+  text-transform: var(--g-p-font-transform);
+  color: var(--color-body-text);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--g-font-1);
+  color: var(--g-color-heading);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
+
+h1 {
+  font-size: var(--g-h1-font-size);
+  font-weight: var(--g-h1-font-weight);
+  letter-spacing: var(--g-h1-font-spacing);
+  line-height: var(--g-h1-font-lineheight);
+  text-transform: var(--g-h1-font-transform);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--g-h1-font-size-mobile);
+  }
+}
+
+h2 {
+  font-size: var(--g-h2-font-size);
+  font-weight: var(--g-h2-font-weight);
+  letter-spacing: var(--g-h2-font-spacing);
+  line-height: var(--g-h2-font-lineheight);
+  text-transform: var(--g-h2-font-transform);
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: var(--g-h2-font-size-mobile);
+  }
+}
+
+h3 {
+  font-size: var(--g-h3-font-size);
+  font-weight: var(--g-h3-font-weight);
+  letter-spacing: var(--g-h3-font-spacing);
+  line-height: var(--g-h3-font-lineheight);
+  text-transform: var(--g-h3-font-transform);
+}
+
+@media (max-width: 768px) {
+  h3 {
+    font-size: var(--g-h3-font-size-mobile);
+  }
+}
+
+h4 {
+  font-size: var(--g-h4-font-size);
+  font-weight: var(--g-h4-font-weight);
+  letter-spacing: var(--g-h4-font-spacing);
+  line-height: var(--g-h4-font-lineheight);
+  text-transform: var(--g-h4-font-transform);
+}
+
+@media (max-width: 768px) {
+  h4 {
+    font-size: var(--g-h4-font-size-mobile);
+  }
+}
+
+h5 {
+  font-size: var(--g-h5-font-size);
+  font-weight: var(--g-h5-font-weight);
+  letter-spacing: var(--g-h5-font-spacing);
+  line-height: var(--g-h5-font-lineheight);
+  text-transform: var(--g-h5-font-transform);
+}
+
+@media (max-width: 768px) {
+  h5 {
+    font-size: var(--g-h5-font-size-mobile);
+  }
+}
+
+h6 {
+  font-size: var(--g-h6-font-size);
+  font-weight: var(--g-h6-font-weight);
+  letter-spacing: var(--g-h6-font-spacing);
+  line-height: var(--g-h6-font-lineheight);
+  text-transform: var(--g-h6-font-transform);
+}
+
+@media (max-width: 768px) {
+  h6 {
+    font-size: var(--g-h6-font-size_mobile);
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Consistent typography for all text elements */
+span,
+div,
+li,
+td,
+th {
+  font-family: var(--g-font-2);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
