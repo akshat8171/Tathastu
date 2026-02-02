@@ -184,7 +184,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
-  background-color: #F5F5DC;
+  background-color: #ffffff;
   color: var(--color-body-text);
 }
 
@@ -219,14 +219,23 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
   font-family: var(--g-font-1);
   color: var(--g-color-heading);
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
-h1 {
+h1,
+.h1 {
   font-size: var(--g-h1-font-size);
   font-weight: var(--g-h1-font-weight);
   letter-spacing: var(--g-h1-font-spacing);
@@ -234,27 +243,52 @@ h1 {
   text-transform: var(--g-h1-font-transform);
 }
 
-@media (max-width: 768px) {
-  h1 {
+@media only screen and (max-width: 749px) {
+  h1,
+  .h1 {
     font-size: var(--g-h1-font-size-mobile);
   }
 }
 
-h2 {
+h2,
+.h2 {
   font-size: var(--g-h2-font-size);
   font-weight: var(--g-h2-font-weight);
   letter-spacing: var(--g-h2-font-spacing);
   line-height: var(--g-h2-font-lineheight);
   text-transform: var(--g-h2-font-transform);
+  margin-top: 0;
+  margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  h2 {
+@media only screen and (max-width: 749px) {
+  h2,
+  .h2 {
     font-size: var(--g-h2-font-size-mobile);
   }
 }
 
-h3 {
+.custom-headline h2 {
+  text-align: center;
+}
+
+h1:last-child,
+h2:last-child,
+h3:last-child,
+h4:last-child,
+h5:last-child,
+h6:last-child,
+.h1:last-child,
+.h2:last-child,
+.h3:last-child,
+.h4:last-child,
+.h5:last-child,
+.h6:last-child {
+  margin-bottom: 0px;
+}
+
+h3,
+.h3 {
   font-size: var(--g-h3-font-size);
   font-weight: var(--g-h3-font-weight);
   letter-spacing: var(--g-h3-font-spacing);
@@ -262,13 +296,15 @@ h3 {
   text-transform: var(--g-h3-font-transform);
 }
 
-@media (max-width: 768px) {
-  h3 {
+@media only screen and (max-width: 749px) {
+  h3,
+  .h3 {
     font-size: var(--g-h3-font-size-mobile);
   }
 }
 
-h4 {
+h4,
+.h4 {
   font-size: var(--g-h4-font-size);
   font-weight: var(--g-h4-font-weight);
   letter-spacing: var(--g-h4-font-spacing);
@@ -276,13 +312,15 @@ h4 {
   text-transform: var(--g-h4-font-transform);
 }
 
-@media (max-width: 768px) {
-  h4 {
+@media only screen and (max-width: 749px) {
+  h4,
+  .h4 {
     font-size: var(--g-h4-font-size-mobile);
   }
 }
 
-h5 {
+h5,
+.h5 {
   font-size: var(--g-h5-font-size);
   font-weight: var(--g-h5-font-weight);
   letter-spacing: var(--g-h5-font-spacing);
@@ -290,13 +328,15 @@ h5 {
   text-transform: var(--g-h5-font-transform);
 }
 
-@media (max-width: 768px) {
-  h5 {
+@media only screen and (max-width: 749px) {
+  h5,
+  .h5 {
     font-size: var(--g-h5-font-size-mobile);
   }
 }
 
-h6 {
+h6,
+.h6 {
   font-size: var(--g-h6-font-size);
   font-weight: var(--g-h6-font-weight);
   letter-spacing: var(--g-h6-font-spacing);
@@ -304,8 +344,9 @@ h6 {
   text-transform: var(--g-h6-font-transform);
 }
 
-@media (max-width: 768px) {
-  h6 {
+@media only screen and (max-width: 749px) {
+  h6,
+  .h6 {
     font-size: var(--g-h6-font-size_mobile);
   }
 }
@@ -380,4 +421,180 @@ th {
 .btn-slide-theme:not(:hover)::before {
   transform: translateX(100%);
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Breadcrumb Styles */
+.g-breadcrumb {
+  border-radius: 0;
+  flex-direction: column;
+  color: #000000;
+  padding: 16px 0;
+  margin: 0;
+  background: #ffffff;
+  border-top: 1px solid #f4efe9;
+}
+
+.g-breadcrumb a,
+.g-breadcrumb span {
+  padding: 0 3px;
+  font-size: 14px;
+  line-height: 20px;
+  display: inline-block;
+}
+
+.g-breadcrumb a {
+  color: #000000;
+}
+
+.g-breadcrumb .container,
+.g-breadcrumb .container-fluid {
+  z-index: 2;
+  position: relative;
+}
+
+.br-title {
+  color: #000000;
+}
+
+.br-title svg {
+  width: 23px;
+  height: 23px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media only screen and (min-width: 750px) {
+  .container {
+    padding: 0 var(--g-gutter);
+  }
+}
+
+/* Critical CSS for logo to prevent layout shift - targets Next.js Image wrapper */
+/* This loads early to prevent FOUC */
+header a[href="/"] > div > div:last-child,
+header [class*="logoWrapper"]:last-child {
+  position: relative !important;
+  width: 200px !important;
+  height: 36px !important;
+  overflow: hidden !important;
+  max-width: 200px !important;
+  max-height: 36px !important;
+  flex-shrink: 0 !important;
+}
+
+header a[href="/"] > div > div:last-child img,
+header [class*="logoWrapper"]:last-child img,
+header [class*="logoImage"] {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+@media (max-width: 640px) {
+  header a[href="/"] > div > div:last-child,
+  header [class*="logoWrapper"]:last-child {
+    width: 150px !important;
+    height: 27px !important;
+    max-width: 150px !important;
+    max-height: 27px !important;
+  }
+}
+
+/* Critical CSS for category icons to prevent layout shift */
+.custom-circle-image-wrapper,
+[class*="custom-circle-image-wrapper"] {
+  position: relative !important;
+  width: 120px !important;
+  height: 120px !important;
+  overflow: hidden !important;
+  max-width: 120px !important;
+  max-height: 120px !important;
+}
+
+.custom-circle-image-wrapper img,
+.custom-circle-image-wrapper span,
+.custom-circle-image-wrapper span img,
+[class*="custom-circle-image-wrapper"] img,
+[class*="custom-circle-image-wrapper"] span,
+[class*="custom-circle-image-wrapper"] span img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  /* width: auto !important; */
+  /* height: auto !important; */
+  object-fit: cover !important;
+}
+
+@media (max-width: 1024px) {
+  .custom-circle-image-wrapper,
+  [class*="custom-circle-image-wrapper"] {
+    width: 100px !important;
+    height: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-circle-image-wrapper,
+  [class*="custom-circle-image-wrapper"] {
+    width: 90px !important;
+    height: 90px !important;
+    max-width: 90px !important;
+    max-height: 90px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-circle-image-wrapper,
+  [class*="custom-circle-image-wrapper"] {
+    width: 100px !important;
+    height: 100px !important;
+    max-width: 100px !important;
+    max-height: 100px !important;
+  }
+}
+
+/* Critical CSS for brand-story logo to prevent layout shift */
+.image-content__image-container,
+[class*="image-content__image-container"] {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  overflow: hidden !important;
+}
+
+.image-content__image-wrapper,
+[class*="image-content__image-wrapper"] {
+  position: relative !important;
+  width: 100% !important;
+  display: block !important;
+  overflow: hidden !important;
+}
+
+.image-content__image-wrapper img,
+.image-content__image-wrapper span,
+.image-content__image-wrapper span img,
+[class*="image-content__image-wrapper"] img,
+[class*="image-content__image-wrapper"] span,
+[class*="image-content__image-wrapper"] span img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+@media (max-width: 768px) {
+  .image-content__image-container,
+  [class*="image-content__image-container"] {
+    max-width: 100% !important;
+  }
 }

@@ -24,7 +24,7 @@ function getLabelStyles(labelType?: ProductLabelType, isSoldOut?: boolean) {
   if (isSoldOut) {
     return {
       text: 'Sold Out',
-      className: 'bg-gray-800 text-white',
+      bgColor: '#99a58f',
     }
   }
 
@@ -32,22 +32,22 @@ function getLabelStyles(labelType?: ProductLabelType, isSoldOut?: boolean) {
     case 'trending':
       return {
         text: 'Trending Now',
-        className: 'bg-[#3e4f47] text-white',
+        bgColor: '#99a58f',
       }
     case 'editors-choice':
       return {
         text: "Editors' Choice",
-        className: 'bg-[#8b7b6c] text-white',
+        bgColor: '#8b7b6c',
       }
     case 'lightning-deal':
       return {
         text: 'Lightning Deal',
-        className: 'bg-[#80270f] text-white',
+        bgColor: '#3e4f47',
       }
     case 'new':
       return {
         text: 'New',
-        className: 'bg-[#3e4f47] text-white',
+        bgColor: '#3e4f47',
       }
     default:
       return null
@@ -79,58 +79,103 @@ export function ProductCard({
         ? Math.round(((comparePrice - price) / comparePrice) * 100)
         : null
 
+  const labelText = label?.text || badge
+
   return (
-    <Link
-      href={`/products/${id}`}
-      className="group block"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="relative aspect-square overflow-hidden rounded-[10px] mb-4 bg-[#f5f5f5]">
-        {(label || badge) && (
-          <div
-            className={`absolute top-4 left-4 z-10 px-3 py-1 rounded-[4px] text-[10px] font-semibold uppercase tracking-[0.1em] ${
-              label?.className || 'bg-[#3e4f47] text-white'
-            }`}
+    <div className="product-card js-product-card product-card--style7" data-price={price * 100}>
+      <div className="product-card__image-wr overflow-hidden">
+        <Link
+          href={`/products/${id}`}
+          className="product-card__image js image-content__image-wrapper square"
+          style={{ maxWidth: '800px', paddingTop: '100.0%', position: 'relative', display: 'block' }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <Image
+            src={image}
+            alt={name}
+            fill
+            className="scale-in first-image lazyautosizes lazyloaded"
+            sizes="(max-width: 640px) 180px, (max-width: 1024px) 360px, 540px"
+            style={{ objectFit: 'cover' }}
+            unoptimized
+            priority={false}
+            onError={(e) => {
+              console.error('Image failed to load:', image, e)
+            }}
+            onLoad={() => {
+              console.log('Image loaded successfully:', image)
+            }}
+          />
+          {secondImageUrl && (
+            <Image
+              src={secondImageUrl}
+              alt={name}
+              fill
+              className={`transition second-image lazyautosizes lazyloaded ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+              sizes="(max-width: 640px) 180px, (max-width: 1024px) 360px, 540px"
+              style={{ objectFit: 'cover' }}
+              unoptimized
+              priority={false}
+            />
+          )}
+        </Link>
+        <div className="product-card__overlay d-flex justify-content-center flex-column">
+          <span className="btn product-card__overlay-btn js-grid-cart" title="Add to Cart">
+            <svg aria-hidden="true" fill="none" focusable="false" width="24" className="svg-cart" viewBox="0 0 24 24">
+              <path d="M10 7h13l-4 9H7.5L5 3H1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
+              <circle cx="9" cy="20" r="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></circle>
+              <circle cx="17" cy="20" r="1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></circle>
+            </svg>
+            <div className="product-card__loading spinner-grow" role="status"></div>
+            <span>Add to Cart</span>
+          </span>
+        </div>
+
+        {/* Product Label */}
+        {labelText && (
+          <span
+            style={{
+              position: 'absolute',
+              top: '4px',
+              left: '4px',
+              backgroundColor: label?.bgColor || '#99a58f',
+              borderRadius: 'var(--g-radius-label)',
+              color: '#ffffff',
+              fontSize: 'calc(var(--g-label-size) + 2px)',
+              fontFamily: 'var(--g-font-2)',
+              letterSpacing: 'var(--g-label-space)',
+              fontWeight: 500,
+              lineHeight: 1,
+              padding: '6px 10px',
+            }}
           >
-            {label?.text || badge}
-          </div>
+            {labelText}
+          </span>
         )}
-        <Image
-          src={displayImage}
-          alt={name}
-          fill
-          className="object-cover transition-opacity duration-300"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
-        {isSoldOut && (
-          <div className="absolute inset-0 bg-black/40 flex items-center justify-center z-10">
-            <span className="text-white font-semibold text-lg uppercase tracking-wide">
-              Sold Out
-            </span>
-          </div>
-        )}
+
+        <div className="product-label" style={{ top: '4px', left: '4px', right: 'auto' }}></div>
       </div>
-      <h3 className="font-sans text-base font-semibold text-[#000000] mb-2 group-hover:text-[#3e4f47] transition-colors">
-        {name}
-      </h3>
-      <div className="flex items-center gap-2 flex-wrap">
-        <span className="font-sans text-lg font-bold text-[#000000]">
-          ₹{price.toLocaleString()}
-        </span>
-        {(originalPrice || comparePrice) && (
-          <>
-            <span className="font-sans text-sm text-[#666666] line-through">
-              ₹{(originalPrice || comparePrice)?.toLocaleString()}
-            </span>
-            {calculatedDiscount && (
-              <span className="font-sans text-xs text-[#80270f] font-semibold">
-                ({calculatedDiscount}% OFF)
-              </span>
-            )}
-          </>
-        )}
+      <div className="product-card__info">
+        <Link href={`/products/${id}`} title={name} className="product-card__name d-block">
+          {name}
+        </Link>
+        <div className={`product-card__price ${originalPrice || comparePrice ? 'product-card__pricesale' : ''}`}>
+          <span className="visually-hidden">Regular price</span>
+          <span className="money">₹ {price.toLocaleString()}</span>
+          {(originalPrice || comparePrice) && (
+            <>
+              <s className="product-card__regular-price">
+                <span className="money">₹ {(originalPrice || comparePrice)?.toLocaleString()}</span>
+              </s>
+              <span className="visually-hidden">Sale price</span>
+              {calculatedDiscount && (
+                <span className="badge percent_off"> ({calculatedDiscount}% OFF) </span>
+              )}
+            </>
+          )}
+        </div>
       </div>
-    </Link>
+    </div>
   )
 }

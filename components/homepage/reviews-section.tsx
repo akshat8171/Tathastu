@@ -16,28 +16,28 @@ const reviews: Review[] = [
     name: 'Nisha Agarwal',
     location: 'Mumbai',
     rating: 5,
-    text: "I've been searching for high-quality, handcrafted homeware in India, and Tathastu exceeded my expectations. The ceramic platters are not only beautiful but also durable. I love how they elevate my dining experience.",
+    text: "I've been searching for high-quality, handcrafted homeware in India, and Layerix exceeded my expectations. The ceramic platters are not only beautiful but also durable. I love how they elevate my dining experience.",
   },
   {
     id: 2,
     name: 'Rohan Sinha',
     location: 'Kolkata',
     rating: 5,
-    text: "I ordered a set of bowls, and the craftsmanship is evident in every detail. They've become my go-to for unique gifts and home decor. Tathastu's collection is simply amazing.",
+    text: "I ordered a set of bowls, and the craftsmanship is evident in every detail. They've become my go-to for unique gifts and home decor. Layerix's collection is simply amazing.",
   },
   {
     id: 3,
     name: 'Aditi Rao',
     location: 'Chennai',
     rating: 5,
-    text: 'I needed something special for a housewarming gift, and Tathastu delivered exactly what I had in mind. The ceramics are gorgeous, and the packaging was elegant too. My family loved these products.',
+    text: 'I needed something special for a housewarming gift, and Layerix delivered exactly what I had in mind. The ceramics are gorgeous, and the packaging was elegant too. My family loved these products.',
   },
   {
     id: 4,
     name: 'Simran Kaur',
     location: 'Chandigarh',
     rating: 5,
-    text: 'I love supporting local artisans, and Tathastu makes it so easy with their beautifully crafted products. The ceramic glasses I bought are not just practical but also add a stylish touch to my kitchen.',
+    text: 'I love supporting local artisans, and Layerix makes it so easy with their beautifully crafted products. The ceramic glasses I bought are not just practical but also add a stylish touch to my kitchen.',
   },
 ]
 

@@ -52,13 +52,6 @@ export function ProductInfo({
 
   return (
     <div className="space-y-6">
-      {/* Breadcrumbs */}
-      <nav className="text-sm text-charcoal/60">
-        <span>Home</span>
-        <span className="mx-2">/</span>
-        <span>{name}</span>
-      </nav>
-
       {/* Product Title */}
       <h1 className="font-serif text-3xl md:text-4xl font-bold text-charcoal">
         {name}

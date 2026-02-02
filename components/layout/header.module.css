@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 5rem;
+  height: 3.5rem;
 }
 
 .leftSection {
@@ -68,15 +68,65 @@
 }
 
 .logoContainer {
-  position: relative;
-  width: 120px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   height: 40px;
+}
+
+.logoWrapper {
+  position: relative;
+  width: 46px;
+  height: 36px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoWrapper:last-child {
+  width: 200px !important;
+  height: 36px !important;
+  overflow: hidden !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 200px !important;
+  max-height: 36px !important;
+  flex-shrink: 0;
+}
+
+.logoWrapper:last-child img,
+.logoWrapper:last-child span,
+.logoWrapper:last-child span img,
+.logoImage {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.logoImage {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
 }
 
 @media (max-width: 640px) {
   .logoContainer {
-    width: 100px;
     height: 33px;
+    gap: 0.5rem;
+  }
+  
+  .logoWrapper {
+    width: 35px;
+    height: 27px;
+  }
+  
+  .logoWrapper:last-child {
+    width: 150px;
+    height: 27px;
   }
 }
 

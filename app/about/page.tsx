@@ -15,7 +15,7 @@ export default function AboutPage() {
               Our Mission
             </h2>
             <p>
-              We believe that tabletop gaming is more than just a hobby—it's an
+              We believe that tabletop gaming is more than just a hobby—it&apos;s an
               art form. Every miniature we create is designed to be a centerpiece,
               a conversation starter, and a work of art that enhances your gaming
               experience.
@@ -38,11 +38,11 @@ export default function AboutPage() {
                 a work of art, not just a product.
               </li>
               <li>
-                <strong>Community Focus:</strong> We're gamers and painters ourselves,
+                <strong>Community Focus:</strong> We&apos;re gamers and painters ourselves,
                 and we understand what you need.
               </li>
               <li>
-                <strong>Sustainability:</strong> We're committed to responsible
+                <strong>Sustainability:</strong> We&apos;re committed to responsible
                 manufacturing and packaging practices.
               </li>
             </ul>

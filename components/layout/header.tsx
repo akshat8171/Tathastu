@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import styles from './header.module.css'
 
@@ -13,9 +12,38 @@ export function Header() {
   }
 
   return (
-    <header className={styles.header}>
-      <div className={styles.headerContainer}>
-        <div className={styles.headerContent}>
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        /* Critical inline CSS for logo - prevents layout shift during initial render */
+        header a[href="/"] > div > div:last-child {
+          position: relative !important;
+          width: 200px !important;
+          height: 36px !important;
+          max-width: 200px !important;
+          max-height: 36px !important;
+          overflow: hidden !important;
+          flex-shrink: 0 !important;
+        }
+        header a[href="/"] > div > div:last-child img {
+          max-width: 100% !important;
+          max-height: 100% !important;
+          width: 100% !important;
+          height: 100% !important;
+          object-fit: contain !important;
+          display: block !important;
+        }
+        @media (max-width: 640px) {
+          header a[href="/"] > div > div:last-child {
+            width: 150px !important;
+            height: 27px !important;
+            max-width: 150px !important;
+            max-height: 27px !important;
+          }
+        }
+      `}} />
+      <header className={styles.header}>
+        <div className={styles.headerContainer}>
+          <div className={styles.headerContent}>
           {/* Left: Menu & Search */}
           <div className={styles.leftSection}>
             <button
@@ -36,35 +64,49 @@ export function Header() {
                 />
               </svg>
             </button>
-            <button
-              className={styles.iconButton}
-              aria-label="Search"
-            >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </button>
           </div>
 
           {/* Center: Logo */}
           <Link href="/" className={styles.logoLink}>
             <div className={styles.logoContainer}>
-              <Image
-                src="/images/logo/Tathastu Logo.png"
-                alt="Tathastu Logo"
-                fill
-                className="object-contain"
-                priority
-              />
+              {/* <div className={styles.logoWrapper}>
+                <Image
+                  src="/images/logo/Layerix.svg"
+                  alt="LayeriX Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div> */}
+              <div 
+                className={styles.logoWrapper}
+                style={{
+                  position: 'relative',
+                  width: '200px',
+                  height: '36px',
+                  maxWidth: '200px',
+                  maxHeight: '36px',
+                  overflow: 'hidden',
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <img
+                  src="/images/logo/Layerix_text.svg"
+                  alt="LayeriX Logo with Text"
+                  className={styles.logoImage}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'contain',
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    display: 'block',
+                  }}
+                />
+              </div>
             </div>
           </Link>
 
@@ -120,6 +162,7 @@ export function Header() {
           </div>
         </nav>
       )}
-    </header>
+      </header>
+    </>
   )
 }

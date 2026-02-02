@@ -48,7 +48,7 @@ export function Footer() {
                     }`}
                   >
                     <div className="rte-setting">
-                      A home should be a collection of stories and textures that stand the test of time. We curate pieces where raw, natural materials meet functional, modern design—from hand-thrown ceramics to reclaimed wood. We're here to help you find timeless objects that turn everyday rituals into lasting memories.
+                      A home should be a collection of stories and textures that stand the test of time. We curate pieces where raw, natural materials meet functional, modern design—from hand-thrown ceramics to reclaimed wood. We&apos;re here to help you find timeless objects that turn everyday rituals into lasting memories.
                     </div>
                   </div>
                 </div>
@@ -312,7 +312,7 @@ export function Footer() {
                   <div className="d-flex flex-lg-row align-items-center justify-content-lg-start justify-content-center"></div>
                   <div className="pt-2">
                     <span className="pavan-theme">
-                      Copyright © {new Date().getFullYear()} | Tathastu
+                      Copyright © {new Date().getFullYear()} | Layerix
                     </span>
                   </div>
                 </div>

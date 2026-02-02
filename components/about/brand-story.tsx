@@ -5,8 +5,38 @@ import Link from 'next/link'
 
 export function BrandStory() {
   return (
-    <div className="about-brand-banner">
-      <div className="container-fluid">
+    <>
+      <style dangerouslySetInnerHTML={{ __html: `
+        /* Critical inline CSS for brand-story logo - prevents layout shift */
+        .image-content__image-container {
+          position: relative !important;
+          width: 100% !important;
+          max-width: 400px !important;
+          overflow: hidden !important;
+        }
+        .image-content__image-wrapper {
+          position: relative !important;
+          width: 100% !important;
+          display: block !important;
+          overflow: hidden !important;
+        }
+        .image-content__image-wrapper img,
+        .image-content__image-wrapper span,
+        .image-content__image-wrapper span img {
+          max-width: 100% !important;
+          max-height: 100% !important;
+          width: auto !important;
+          height: auto !important;
+          object-fit: contain !important;
+        }
+        @media (max-width: 768px) {
+          .image-content__image-container {
+            max-width: 100% !important;
+          }
+        }
+      `}} />
+      <div className="about-brand-banner">
+        <div className="container-fluid">
         <div className="section-block">
           <div className="row justify-content-center">
             <div className="col-lg-7 col-12 brand-story-content">
@@ -15,22 +45,41 @@ export function BrandStory() {
                 <div className="d-flex justify-content-center">
                   <div 
                     className="image-content__image-container overflow-hidden hero-img__wrap"
-                    style={{ '--img-in-hero': '152px', paddingLeft: '7rem', paddingRight: '7rem' } as React.CSSProperties}
+                    style={{ 
+                      '--img-in-hero': '152px', 
+                      paddingLeft: '7rem', 
+                      paddingRight: '7rem',
+                      position: 'relative',
+                      width: '100%',
+                      maxWidth: '400px',
+                      overflow: 'hidden',
+                    } as React.CSSProperties}
                   >
                     <a 
                       href="" 
                       className="image-content__image-wrapper" 
-                      style={{ paddingTop: '35.94755661501788%' }}
+                      style={{ 
+                        paddingTop: '35.94755661501788%',
+                        position: 'relative',
+                        width: '100%',
+                        display: 'block',
+                        overflow: 'hidden',
+                      }}
                       onClick={(e) => e.preventDefault()}
                     >
                       <Image
-                        src="/images/logo/Tathastu Logo.png"
-                        alt="Tathastu Logo"
+                        src="/images/logo/Layerix_text.svg"
+                        alt="LayeriX Logo"
                         className="image-content__image scale-in"
                         priority
                         fill
+                        sizes="(max-width: 768px) 100vw, 400px"
                         style={{
                           objectFit: 'contain',
+                          width: '100%',
+                          height: '100%',
+                          maxWidth: '100%',
+                          maxHeight: '100%',
                         }}
                       />
                     </a>
@@ -38,7 +87,7 @@ export function BrandStory() {
                 </div>
                 <div className="hero-image__space" style={{ '--hero-spacer': '10px' } as React.CSSProperties}></div>
                 <div className="m-0 parallax-banner__sub rte mb-3 txt-body">
-                  At Tathastu, we believe that every miniature tells a story. We don't just create products; we craft art pieces that bring your tabletop worlds to life. Our journey began with a passion for combining cutting-edge 3D printing technology with traditional craftsmanship. Each piece undergoes meticulous design, precision printing, and careful hand-finishing to ensure the highest quality. We curate heirloom-quality essentials for collectors, painters, and gamers who appreciate the artistry behind every detail.
+                  At Layerix, we believe that every miniature tells a story. We don&apos;t just create products; we craft art pieces that bring your tabletop worlds to life. Our journey began with a passion for combining cutting-edge 3D printing technology with traditional craftsmanship. Each piece undergoes meticulous design, precision printing, and careful hand-finishing to ensure the highest quality. We curate heirloom-quality essentials for collectors, painters, and gamers who appreciate the artistry behind every detail.
                 </div>
                 <div className="d-flex justify-content-center align-items-center">
                   <div className="mt-3 mb-1">
@@ -170,9 +219,10 @@ export function BrandStory() {
         }
 
         .image-content__image-container {
-          position: relative;
-          width: 100%;
-          max-width: 400px;
+          position: relative !important;
+          width: 100% !important;
+          max-width: 400px !important;
+          overflow: hidden !important;
         }
 
         .hero-img__wrap {
@@ -180,15 +230,24 @@ export function BrandStory() {
         }
 
         .image-content__image-wrapper {
-          position: relative;
-          width: 100%;
-          display: block;
-          overflow: hidden;
+          position: relative !important;
+          width: 100% !important;
+          display: block !important;
+          overflow: hidden !important;
           text-decoration: none;
         }
 
         .image-content__image {
           transition: transform var(--duration-default) var(--anim-transition);
+        }
+        
+        .image-content__image-wrapper img,
+        .image-content__image-wrapper span,
+        .image-content__image-wrapper span img {
+          max-width: 100% !important;
+          max-height: 100% !important;
+          width: auto !important;
+          height: auto !important;
         }
 
         .scale-in {
@@ -237,6 +296,7 @@ export function BrandStory() {
           margin: 0;
         }
       `}</style>
-    </div>
+      </div>
+    </>
   )
 }

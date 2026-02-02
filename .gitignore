@@ -36,7 +36,10 @@ yarn-error.log*
 next-env.d.ts
 /.cursor/*
 *.md
-env.example
+!DEPLOYMENT.md
+!README.md
+!.env.example
 
 *.mp4
 *.jpg
+/public/images/products/*

@@ -1,0 +1,130 @@
+[
+  {
+    "id": "lamps-lamp2",
+    "name": "Lamp 2",
+    "description": "A beautifully crafted lamp that combines modern design with rustic charm. Perfect for adding ambient lighting to any room. Made with premium materials and attention to detail, this lamp will be a statement piece in your home decor.",
+    "price": 2499,
+    "originalPrice": 2999,
+    "images": [
+      "/images/products/lamps/lamp2/IMG_2517.jpeg",
+      "/images/products/lamps/lamp2/IMG_2585.jpeg"
+    ],
+    "category": "lamps",
+    "rating": 4.5,
+    "reviewCount": 28,
+    "badge": "Trending Now",
+    "labelType": "trending",
+    "isSoldOut": false,
+    "careGuide": "Clean with a soft, dry cloth. Avoid using harsh chemicals. Keep away from direct sunlight to prevent fading. For optimal performance, use LED bulbs.",
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery takes 3-5 business days. Express delivery available for metro cities."
+  },
+  {
+    "id": "lamps-lamp3",
+    "name": "Lamp 3",
+    "description": "An elegant and sophisticated lamp design that brings warmth and style to your living space. Features a unique base design and premium finish. Ideal for bedside tables, study desks, or as a decorative accent piece.",
+    "price": 2799,
+    "originalPrice": 3299,
+    "images": [
+      "/images/products/lamps/lamp3/2025-05-16_6a8ec33265afa8.webp",
+      "/images/products/lamps/lamp3/2025-05-16_af6d1e89fb36e8.webp",
+      "/images/products/lamps/lamp3/2025-11-18_19d636c83adc7.webp",
+      "/images/products/lamps/lamp3/2025-11-18_4ef0ad1cd37bd8.webp",
+      "/images/products/lamps/lamp3/2025-11-18_98ad47b29ecd68.webp",
+      "/images/products/lamps/lamp3/2025-11-18_d5a4285ca59b28.webp"
+    ],
+    "category": "lamps",
+    "rating": 4.7,
+    "reviewCount": 42,
+    "badge": "Editors' Choice",
+    "labelType": "editors-choice",
+    "isSoldOut": false,
+    "careGuide": "Dust regularly with a microfiber cloth. Use mild soap and water for deeper cleaning. Ensure the lamp is unplugged before cleaning. Replace bulbs as needed.",
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Express delivery: 1-2 business days (metro cities only)."
+  },
+  {
+    "id": "lamps-Lamp4",
+    "name": "Lamp 4",
+    "description": "A stunning contemporary lamp that blends functionality with artistic design. Perfect for modern interiors, this lamp features a unique silhouette and premium materials. Creates the perfect ambiance for any setting.",
+    "price": 3199,
+    "originalPrice": 3799,
+    "images": [
+      "/images/products/lamps/Lamp4/2025-06-19_055478830772c8.webp",
+      "/images/products/lamps/Lamp4/2025-06-19_17e91217ec664.webp",
+      "/images/products/lamps/Lamp4/2025-06-19_1f854ddc599c88.webp",
+      "/images/products/lamps/Lamp4/2025-06-19_5e9df64ab4803.webp",
+      "/images/products/lamps/Lamp4/dfd.png",
+      "/images/products/lamps/Lamp4/IMG_8965.png",
+      "/images/products/lamps/Lamp4/IMG_8987.png"
+    ],
+    "category": "lamps",
+    "rating": 4.6,
+    "reviewCount": 35,
+    "badge": "New",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe clean with a damp cloth. Avoid abrasive cleaners. Keep in a dry place. Use compatible bulbs as specified in the product manual.",
+    "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 4-6 business days. Express delivery available."
+  },
+  {
+    "id": "organizers-organizer1",
+    "name": "Organizer 1",
+    "description": "A beautifully designed organizer that helps you keep your space tidy and organized. Features multiple compartments and a sleek design that complements any decor style. Perfect for desks, shelves, or countertops.",
+    "price": 1899,
+    "originalPrice": 2299,
+    "images": [
+      "/images/products/organizers/organizer1/2025-02-05_2c663f44c88c1.webp",
+      "/images/products/organizers/organizer1/2025-02-20_225ce91d4d28.webp"
+    ],
+    "category": "organizers",
+    "rating": 4.4,
+    "reviewCount": 31,
+    "badge": "Customer Favourite",
+    "labelType": null,
+    "isSoldOut": false,
+    "careGuide": "Clean with a soft cloth and mild detergent. Avoid soaking in water. Dry thoroughly after cleaning. Store in a cool, dry place.",
+    "shippingInfo": "Free shipping on orders above ₹1500. Standard delivery: 3-5 business days. Express delivery available for select cities."
+  },
+  {
+    "id": "organizers-organizer2",
+    "name": "Organizer 2",
+    "description": "An elegant storage solution that combines form and function. This organizer features a modern design with ample storage space. Ideal for organizing office supplies, cosmetics, or small accessories.",
+    "price": 2199,
+    "originalPrice": 2599,
+    "images": [
+      "/images/products/organizers/organizer2/d6452f90-c897-11ef-b2c7-2dc1a7392ad7.png",
+      "/images/products/organizers/organizer2/d64d9400-c897-11ef-b2c7-2dc1a7392ad7.png"
+    ],
+    "category": "organizers",
+    "rating": 4.3,
+    "reviewCount": 24,
+    "badge": null,
+    "labelType": null,
+    "isSoldOut": false,
+    "careGuide": "Wipe clean with a damp cloth. Use mild soap for stubborn stains. Avoid using harsh chemicals. Keep away from direct heat sources.",
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 4-6 business days. Express delivery available."
+  },
+  {
+    "id": "planters-planter3",
+    "name": "Planter 3",
+    "description": "A beautiful planter that brings nature into your home. Crafted with care, this planter is perfect for indoor plants and adds a touch of greenery to any space. Features excellent drainage and a timeless design.",
+    "price": 1599,
+    "originalPrice": 1999,
+    "images": [
+      "/images/products/planters/planter3/505751278_2776802065850577_2088282476028971300_n.heic",
+      "/images/products/planters/planter3/520240430_1269250021243974_702475807418238034_n.heic",
+      "/images/products/planters/planter3/522473905_1078952713756877_2208573506382327271_n.heic",
+      "/images/products/planters/planter3/523366374_759401346647866_9210675544240139149_n.heic",
+      "/images/products/planters/planter3/534304277_8581257368665064_6532748285101630091_n.heic",
+      "/images/products/planters/planter3/534802890_625446397282664_884205804788957422_n.heic",
+      "/images/products/planters/planter3/536175710_4049773615288146_5655395017572448998_n.heic"
+    ],
+    "category": "planters",
+    "rating": 4.8,
+    "reviewCount": 56,
+    "badge": "Trending Now",
+    "labelType": "trending",
+    "isSoldOut": false,
+    "careGuide": "Clean regularly to prevent buildup. Ensure proper drainage. Use a saucer to protect surfaces. Avoid overwatering. Suitable for both indoor and outdoor use.",
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Handle with care during unpacking."
+  }
+]

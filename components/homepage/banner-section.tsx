@@ -44,10 +44,60 @@ const slides: Slide[] = [
 
 export function BannerSection() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isLoaded, setIsLoaded] = useState(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
+  // Check if CSS is loaded and first slide images are ready
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    let imageLoaded = false
+    let cssReady = false
+
+    const checkComplete = () => {
+      if (imageLoaded && cssReady) {
+        setIsLoaded(true)
+      }
+    }
+
+    // Wait for CSS to be applied (give it a moment)
+    const cssTimer = setTimeout(() => {
+      cssReady = true
+      checkComplete()
+    }, 100)
+
+    // Preload first slide images
+    const firstSlide = slides[0]
+    const desktopImg = new Image()
+    const mobileImg = new Image()
+
+    const handleImageLoad = () => {
+      if (desktopImg.complete && mobileImg.complete) {
+        imageLoaded = true
+        checkComplete()
+      }
+    }
+
+    desktopImg.onload = handleImageLoad
+    mobileImg.onload = handleImageLoad
+    desktopImg.src = firstSlide.desktopImg
+    mobileImg.src = firstSlide.mobileImg
+
+    // Fallback: show content after max 800ms
+    const fallbackTimer = setTimeout(() => {
+      setIsLoaded(true)
+    }, 800)
+
+    return () => {
+      clearTimeout(cssTimer)
+      clearTimeout(fallbackTimer)
+    }
+  }, [])
 
   // Auto-slide functionality
   useEffect(() => {
+    if (!isLoaded) return
+
     const startAutoSlide = () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
@@ -64,7 +114,7 @@ export function BannerSection() {
         clearInterval(intervalRef.current)
       }
     }
-  }, [])
+  }, [isLoaded])
 
   const handleNext = () => {
     if (intervalRef.current) {
@@ -106,54 +156,65 @@ export function BannerSection() {
 
   return (
     <section className="custom-slideshow" id="customSlideshow">
-      {slides.map((slide, index) => {
-        const isActive = index === currentSlide
-        return (
-          <Link
-            key={slide.id}
-            href={slide.href}
-            className={isActive ? 'slide active' : 'slide'}
-            style={{ pointerEvents: isActive ? 'auto' : 'none' }}
-          >
-            <img
-              src={slide.desktopImg}
-              alt={`${slide.alt} Desktop`}
-              className="desktop-img"
-            />
-            <img
-              src={slide.mobileImg}
-              alt={`${slide.alt} Mobile`}
-              className="mobile-img"
-            />
-          </Link>
-        )
-      })}
+      {!isLoaded && (
+        <div className="slideshow-skeleton">
+          <div className="skeleton-shimmer" />
+        </div>
+      )}
+      <div style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}>
+        {slides.map((slide, index) => {
+          const isActive = index === currentSlide
+          return (
+            <Link
+              key={slide.id}
+              href={slide.href}
+              className={isActive ? 'slide active' : 'slide'}
+              style={{ pointerEvents: isActive ? 'auto' : 'none' }}
+            >
+              <img
+                src={slide.desktopImg}
+                alt={`${slide.alt} Desktop`}
+                className="desktop-img"
+              />
+              <img
+                src={slide.mobileImg}
+                alt={`${slide.alt} Mobile`}
+                className="mobile-img"
+              />
+            </Link>
+          )
+        })}
+      </div>
 
       {/* Navigation Arrows */}
-      <button
-        type="button"
-        className="arrow left"
-        onClick={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          handlePrev()
-        }}
-        aria-label="Previous slide"
-      >
-        ❮
-      </button>
-      <button
-        type="button"
-        className="arrow right"
-        onClick={(e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          handleNext()
-        }}
-        aria-label="Next slide"
-      >
-        ❯
-      </button>
+      {isLoaded && (
+        <>
+          <button
+            type="button"
+            className="arrow left"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              handlePrev()
+            }}
+            aria-label="Previous slide"
+          >
+            ❮
+          </button>
+          <button
+            type="button"
+            className="arrow right"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              handleNext()
+            }}
+            aria-label="Next slide"
+          >
+            ❯
+          </button>
+        </>
+      )}
 
       <style jsx global>{`
         .custom-slideshow {
@@ -259,6 +320,32 @@ export function BannerSection() {
           .custom-slideshow .arrow.right {
             right: 10px;
           }
+        }
+
+        .custom-slideshow .slideshow-skeleton {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          z-index: 10;
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+
+        .custom-slideshow .skeleton-shimmer {
+          width: 100%;
+          height: 100%;
         }
       `}</style>
     </section>

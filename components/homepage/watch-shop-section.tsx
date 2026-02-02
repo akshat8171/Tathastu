@@ -1,7 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
-import Image from 'next/image'
+import { useRef, useEffect } from 'react'
 import Link from 'next/link'
 
 interface VideoContent {
@@ -46,7 +45,6 @@ const videoContent: VideoContent[] = [
 
 function VideoItem({ item }: { item: VideoContent }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const [isMuted, setIsMuted] = useState(true)
 
   useEffect(() => {
     const video = videoRef.current
@@ -65,7 +63,7 @@ function VideoItem({ item }: { item: VideoContent }) {
         })
       },
       {
-        threshold: 0.5, // Play when 50% visible
+        threshold: 0.5,
       }
     )
 
@@ -76,36 +74,18 @@ function VideoItem({ item }: { item: VideoContent }) {
     }
   }, [])
 
-  function toggleMute() {
-    const video = videoRef.current
-    if (!video) return
-
-    video.muted = !video.muted
-    setIsMuted(video.muted)
-  }
-
-  const isVideo = item.videoUrl.endsWith('.mp4')
-
   return (
     <div className="watch-shop-video-item">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted={isMuted}
-          loop
-          playsInline
-          className="watch-shop-video"
-        >
-          <source src={item.videoUrl} type="video/mp4" />
-        </video>
-  
-      {/* <button
-        onClick={toggleMute}
-        className="volume-btn"
-        aria-label={isMuted ? 'Unmute' : 'Mute'}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="watch-shop-video"
       >
-        {isMuted ? '🔇' : '🔊'}
-      </button> */}
+        <source src={item.videoUrl} type="video/mp4" />
+      </video>
       {item.productUrl && (
         <Link href={item.productUrl} target="_blank" className="watch-shop-circle-btn" />
       )}
@@ -117,81 +97,149 @@ export function WatchShopSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
   return (
-    <section className="py-5 bg-[#f7f1e7]">
-      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="watch-shop-headline mb-4">
-          <h2 className="text-center">Watch &amp; shop</h2>
+    <section className="watch-shop-section">
+      <div className="watch-shop-content">
+        <div className="watch-shop-headline">
+          <h2>Watch &amp; shop</h2>
         </div>
 
-        <div className="watch-shop-container">
-          <div
-            ref={scrollContainerRef}
-            className="watch-shop-wrapper"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-            }}
-          >
-            {videoContent.map((item) => (
-              <VideoItem key={item.id} item={item} />
-            ))}
-          </div>
+        <div className="watch-shop-wrapper" ref={scrollContainerRef}>
+          {videoContent.map((item) => (
+            <VideoItem key={item.id} item={item} />
+          ))}
         </div>
       </div>
 
       <style jsx global>{`
-        .watch-shop-headline h2 {
-          text-align: center;
+        .watch-shop-section {
+          background: #f7f1e7;
+          padding: 1rem 0;
+          width: 100%;
+          overflow-x: hidden;
         }
 
-        .watch-shop-container {
-          display: flex;
-          justify-content: center;
+        .watch-shop-content {
+          width: 100%;
+          max-width: 100%;
+          margin: 0 auto;
         }
+
+        .watch-shop-headline {
+          text-align: center;
+          padding: 0 1rem 1rem;
+        }
+
+        @media (min-width: 640px) {
+          .watch-shop-headline {
+            padding: 0 1rem 1.5rem;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .watch-shop-headline {
+            padding: 0 2rem 2rem;
+          }
+        }
+
 
         .watch-shop-wrapper {
           display: flex;
-          gap: 8px;
-          padding: 20px;
+          gap: 0.5rem;
           overflow-x: auto;
+          overflow-y: hidden;
           scroll-behavior: smooth;
           -webkit-overflow-scrolling: touch;
-          justify-content: center;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          padding: 1rem 0;
+          width: 100%;
         }
 
         .watch-shop-wrapper::-webkit-scrollbar {
-          height: 8px;
+          display: none;
         }
 
-        .watch-shop-wrapper:hover::-webkit-scrollbar-thumb {
-          background: #ccc;
-          border-radius: 4px;
+        /* Mobile: Start from edge, add padding at end */
+        .watch-shop-wrapper {
+          padding-left: 2.5rem;
+          padding-right: 1rem;
         }
 
-        .watch-shop-wrapper::-webkit-scrollbar-thumb {
-          background: transparent;
-          border-radius: 4px;
+        @media (min-width: 640px) {
+          .watch-shop-wrapper {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .watch-shop-wrapper {
+            padding-left: 2rem;
+            padding-right: 2rem;
+            justify-content: center;
+          }
         }
 
         .watch-shop-video-item {
-          flex: 0 0 16%;
-          max-width: 16%;
+          flex: 0 0 auto;
           border-radius: 10px;
           overflow: hidden;
           position: relative;
           transition: transform 0.3s ease-in-out;
+          min-width: 0;
         }
 
         .watch-shop-video-item:hover {
           transform: scale(1.05);
         }
 
+        /* Mobile: 48% width */
+        .watch-shop-video-item {
+          width: 48%;
+          max-width: 48%;
+        }
+
+        /* Tablet: 30% width */
+        @media (min-width: 481px) {
+          .watch-shop-video-item {
+            width: 30%;
+            max-width: 30%;
+          }
+        }
+
+        /* Desktop: 16% width */
+        @media (min-width: 1025px) {
+          .watch-shop-video-item {
+            width: 16%;
+            max-width: 16%;
+          }
+        }
+
         .watch-shop-video {
+          width: 100%;
           height: auto;
-          max-height: 500px;
           display: block;
           border-radius: 10px;
           object-fit: cover;
+          max-height: 300px;
+        }
+
+        @media (min-width: 481px) {
+          .watch-shop-video {
+            max-height: 400px;
+          }
+        }
+
+        @media (min-width: 769px) {
+          .watch-shop-video {
+            max-height: 500px;
+          }
+        }
+
+        @media (min-width: 1025px) {
+          .watch-shop-video {
+            max-height: 600px;
+          }
         }
 
         .watch-shop-circle-btn {
@@ -220,39 +268,6 @@ export function WatchShopSection() {
 
         .watch-shop-circle-btn:hover {
           transform: scale(1.2);
-        }
-
-        @media (max-width: 1024px) {
-          .watch-shop-video-item {
-            flex: 0 0 30%;
-            max-width: 30%;
-          }
-
-          .watch-shop-video {
-            max-height: 600px;
-          }
-        }
-
-        @media (max-width: 768px) {
-          .watch-shop-video-item {
-            flex: 0 0 45%;
-            max-width: 45%;
-          }
-
-          .watch-shop-video {
-            max-height: 400px;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .watch-shop-video-item {
-            flex: 0 0 48%;
-            max-width: 48%;
-          }
-
-          .watch-shop-video {
-            max-height: 300px;
-          }
         }
       `}</style>
     </section>

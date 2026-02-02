@@ -49,7 +49,7 @@ export default function WatchShopPage() {
           </h1>
           <p className="text-xl text-charcoal/70 max-w-2xl mx-auto">
             See our process and build trust in the quality of every print. From
-            design to delivery, we're transparent about how we create your
+            design to delivery, we&apos;re transparent about how we create your
             miniatures.
           </p>
         </div>
