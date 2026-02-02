@@ -1,7 +1,27 @@
 [
   {
+    "id": "lamps-lamp1",
+    "name": "Rustic Charm Lamp",
+    "description": "A stunning rustic lamp that brings warmth and character to any space. Features a unique design with natural textures and earthy tones. Perfect for creating a cozy ambiance in living rooms, bedrooms, or study areas. Handcrafted with attention to detail.",
+    "price": 2299,
+    "originalPrice": 2799,
+    "images": [
+      "/images/products/lamps/lamp1/34952bf0-2a35-11f0-8ecc-91091a12b35c.jpg",
+      "/images/products/lamps/lamp1/c77cb000-3e62-11f0-8b94-d7698adcec77.jpg",
+      "/images/products/lamps/lamp1/c7845120-3e62-11f0-8b94-d7698adcec77.jpg"
+    ],
+    "category": "lamps",
+    "rating": 4.6,
+    "reviewCount": 32,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Clean with a soft, dry cloth. Avoid using harsh chemicals. Keep away from direct sunlight to prevent fading. Use LED bulbs for optimal performance and energy efficiency.",
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery takes 3-5 business days. Express delivery available for metro cities."
+  },
+  {
     "id": "lamps-lamp2",
-    "name": "Lamp 2",
+    "name": "Modern Elegance Lamp",
     "description": "A beautifully crafted lamp that combines modern design with rustic charm. Perfect for adding ambient lighting to any room. Made with premium materials and attention to detail, this lamp will be a statement piece in your home decor.",
     "price": 2499,
     "originalPrice": 2999,
@@ -20,7 +40,7 @@
   },
   {
     "id": "lamps-lamp3",
-    "name": "Lamp 3",
+    "name": "Contemporary Style Lamp",
     "description": "An elegant and sophisticated lamp design that brings warmth and style to your living space. Features a unique base design and premium finish. Ideal for bedside tables, study desks, or as a decorative accent piece.",
     "price": 2799,
     "originalPrice": 3299,
@@ -42,32 +62,53 @@
     "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Express delivery: 1-2 business days (metro cities only)."
   },
   {
-    "id": "lamps-Lamp4",
-    "name": "Lamp 4",
+    "id": "lamps-lamp4",
+    "name": "Artistic Designer Lamp",
     "description": "A stunning contemporary lamp that blends functionality with artistic design. Perfect for modern interiors, this lamp features a unique silhouette and premium materials. Creates the perfect ambiance for any setting.",
     "price": 3199,
     "originalPrice": 3799,
     "images": [
-      "/images/products/lamps/Lamp4/2025-06-19_055478830772c8.webp",
-      "/images/products/lamps/Lamp4/2025-06-19_17e91217ec664.webp",
-      "/images/products/lamps/Lamp4/2025-06-19_1f854ddc599c88.webp",
-      "/images/products/lamps/Lamp4/2025-06-19_5e9df64ab4803.webp",
-      "/images/products/lamps/Lamp4/dfd.png",
-      "/images/products/lamps/Lamp4/IMG_8965.png",
-      "/images/products/lamps/Lamp4/IMG_8987.png"
+      "/images/products/lamps/lamp4/2025-06-19_055478830772c8.webp",
+      "/images/products/lamps/lamp4/2025-06-19_17e91217ec664.webp",
+      "/images/products/lamps/lamp4/2025-06-19_1f854ddc599c88.webp",
+      "/images/products/lamps/lamp4/2025-06-19_5e9df64ab4803.webp",
+      "/images/products/lamps/lamp4/dfd.png",
+      "/images/products/lamps/lamp4/IMG_8965.png",
+      "/images/products/lamps/lamp4/IMG_8987.png"
     ],
     "category": "lamps",
     "rating": 4.6,
     "reviewCount": 35,
-    "badge": "New",
-    "labelType": "new",
+    "badge": "Premium",
+    "labelType": null,
     "isSoldOut": false,
     "careGuide": "Wipe clean with a damp cloth. Avoid abrasive cleaners. Keep in a dry place. Use compatible bulbs as specified in the product manual.",
     "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 4-6 business days. Express delivery available."
   },
   {
+    "id": "lamps-lamp5",
+    "name": "Minimalist Modern Lamp",
+    "description": "A sleek and minimalist lamp design that complements contemporary interiors. Features clean lines and a sophisticated aesthetic. Perfect for modern homes and offices. Provides excellent lighting while serving as a stylish decor piece.",
+    "price": 2899,
+    "originalPrice": 3399,
+    "images": [
+      "/images/products/lamps/lamp5/09d2f170-e355-11f0-a875-5de986fdb37b.jpg",
+      "/images/products/lamps/lamp5/1e1873a1-f9d3-11f0-8107-5181291209f7.jpg",
+      "/images/products/lamps/lamp5/ea475e10-d524-11f0-b9e0-49223024dc0c.jpg",
+      "/images/products/lamps/lamp5/ea486f80-d524-11f0-b9e0-49223024dc0c.jpg"
+    ],
+    "category": "lamps",
+    "rating": 4.8,
+    "reviewCount": 48,
+    "badge": "Trending Now",
+    "labelType": "trending",
+    "isSoldOut": false,
+    "careGuide": "Clean with a soft microfiber cloth. Avoid water contact with electrical components. Use recommended wattage bulbs. Keep away from heat sources.",
+    "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 3-5 business days. Express delivery available for select cities."
+  },
+  {
     "id": "organizers-organizer1",
-    "name": "Organizer 1",
+    "name": "Multi-Purpose Desk Organizer",
     "description": "A beautifully designed organizer that helps you keep your space tidy and organized. Features multiple compartments and a sleek design that complements any decor style. Perfect for desks, shelves, or countertops.",
     "price": 1899,
     "originalPrice": 2299,
@@ -86,13 +127,15 @@
   },
   {
     "id": "organizers-organizer2",
-    "name": "Organizer 2",
+    "name": "Premium Storage Organizer",
     "description": "An elegant storage solution that combines form and function. This organizer features a modern design with ample storage space. Ideal for organizing office supplies, cosmetics, or small accessories.",
     "price": 2199,
     "originalPrice": 2599,
     "images": [
       "/images/products/organizers/organizer2/d6452f90-c897-11ef-b2c7-2dc1a7392ad7.png",
-      "/images/products/organizers/organizer2/d64d9400-c897-11ef-b2c7-2dc1a7392ad7.png"
+      "/images/products/organizers/organizer2/d64d9400-c897-11ef-b2c7-2dc1a7392ad7.png",
+      "/images/products/organizers/organizer2/d657cd30-c897-11ef-b2c7-2dc1a7392ad7.jpg",
+      "/images/products/organizers/organizer2/d65a6540-c897-11ef-b2c7-2dc1a7392ad7.jpg"
     ],
     "category": "organizers",
     "rating": 4.3,
@@ -104,8 +147,88 @@
     "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 4-6 business days. Express delivery available."
   },
   {
+    "id": "organizers-organizer3",
+    "name": "TISTWO Tissue Box Organizer",
+    "description": "A stylish tissue box organizer with hidden magnets for secure placement. Features a modern design that blends seamlessly with any decor. Keeps tissues easily accessible while maintaining a clean, organized look.",
+    "price": 1599,
+    "originalPrice": 1899,
+    "images": [
+      "/images/products/organizers/organizer3/TISTWO20tissue20box.jpg",
+      "/images/products/organizers/organizer3/TISTWO20tissue20box202.jpg",
+      "/images/products/organizers/organizer3/Hidden20magnets (2).jpg"
+    ],
+    "category": "organizers",
+    "rating": 4.5,
+    "reviewCount": 27,
+    "badge": "New",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Clean with a damp cloth. Avoid excessive moisture. Magnets are strong - handle with care. Suitable for standard tissue box sizes.",
+    "shippingInfo": "Free shipping on orders above ₹1500. Standard delivery: 3-5 business days. Lightweight and easy to install."
+  },
+  {
+    "id": "organizers-organizer4",
+    "name": "THALOR Kitchen Tissue Holder",
+    "description": "A practical kitchen tissue holder designed for convenience and style. Features easy mounting and quick tissue access. Perfect for kitchens, dining areas, or bathrooms. Durable construction ensures long-lasting use.",
+    "price": 1399,
+    "originalPrice": 1699,
+    "images": [
+      "/images/products/organizers/organizer4/THALOR20kitchen20tissue20holder.jpg",
+      "/images/products/organizers/organizer4/THALOR20kitchen20tissue20holder202.jpg",
+      "/images/products/organizers/organizer4/THALOR20kitchen20tissue20holder203.jpg"
+    ],
+    "category": "organizers",
+    "rating": 4.6,
+    "reviewCount": 39,
+    "badge": "Best Value",
+    "labelType": null,
+    "isSoldOut": false,
+    "careGuide": "Wipe clean with a damp cloth. Avoid harsh chemicals. Easy to install and remove. Compatible with standard paper towel rolls.",
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days. Includes mounting hardware."
+  },
+  {
+    "id": "planters-planter1",
+    "name": "CACTIA Cactus Planter",
+    "description": "A charming cactus-themed planter perfect for succulents and small plants. Features a unique design that adds personality to any space. Made with durable materials and excellent drainage. Ideal for indoor gardening enthusiasts.",
+    "price": 1499,
+    "originalPrice": 1799,
+    "images": [
+      "/images/products/planters/planter1/CACTIA20planter202.jpg",
+      "/images/products/planters/planter1/CACTIA20planter203.jpg"
+    ],
+    "category": "planters",
+    "rating": 4.7,
+    "reviewCount": 44,
+    "badge": "Trending Now",
+    "labelType": "trending",
+    "isSoldOut": false,
+    "careGuide": "Clean regularly to prevent buildup. Ensure proper drainage. Use a saucer to protect surfaces. Perfect for cacti and succulents. Suitable for indoor use.",
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days. Handle with care during unpacking."
+  },
+  {
+    "id": "planters-planter2",
+    "name": "STEMRA Stackable Planter Set",
+    "description": "Innovative stackable planters that maximize vertical space. Perfect for creating a living wall or herb garden. Features modular design for flexible arrangements. Ideal for small spaces and urban gardening.",
+    "price": 2199,
+    "originalPrice": 2699,
+    "images": [
+      "/images/products/planters/planter2/STACKABLE.jpg",
+      "/images/products/planters/planter2/STACKABLE20(2).jpg",
+      "/images/products/planters/planter2/STEMRA2011.jpg",
+      "/images/products/planters/planter2/STEMRA2012.jpg"
+    ],
+    "category": "planters",
+    "rating": 4.8,
+    "reviewCount": 51,
+    "badge": "Editors' Choice",
+    "labelType": "editors-choice",
+    "isSoldOut": false,
+    "careGuide": "Clean with mild soap and water. Ensure proper drainage in each tier. Stack securely on a stable surface. Suitable for herbs, flowers, and small plants.",
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 4-6 business days. Includes stacking hardware."
+  },
+  {
     "id": "planters-planter3",
-    "name": "Planter 3",
+    "name": "Artisan Ceramic Planter",
     "description": "A beautiful planter that brings nature into your home. Crafted with care, this planter is perfect for indoor plants and adds a touch of greenery to any space. Features excellent drainage and a timeless design.",
     "price": 1599,
     "originalPrice": 1999,
@@ -121,8 +244,8 @@
     "category": "planters",
     "rating": 4.8,
     "reviewCount": 56,
-    "badge": "Trending Now",
-    "labelType": "trending",
+    "badge": "Premium Quality",
+    "labelType": null,
     "isSoldOut": false,
     "careGuide": "Clean regularly to prevent buildup. Ensure proper drainage. Use a saucer to protect surfaces. Avoid overwatering. Suitable for both indoor and outdoor use.",
     "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Handle with care during unpacking."

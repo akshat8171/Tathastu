@@ -101,6 +101,8 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
               description={product.description}
               careGuide={product.careGuide}
               shippingInfo={product.shippingInfo}
+              productId={product.id}
+              image={product.images[0]}
             />
           </div>
         </div>

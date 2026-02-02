@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useCart } from '@/components/cart/cart-context'
 
 interface ProductInfoProps {
   name: string
@@ -11,6 +12,8 @@ interface ProductInfoProps {
   description: string
   careGuide?: string
   shippingInfo?: string
+  productId?: string
+  image?: string
 }
 
 export function ProductInfo({
@@ -22,11 +25,15 @@ export function ProductInfo({
   description,
   careGuide,
   shippingInfo,
+  productId = 'default-id',
+  image = '/images/hero/hero-banner.jpg',
 }: ProductInfoProps) {
   const [quantity, setQuantity] = useState(1)
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set()
   )
+  const [isAdding, setIsAdding] = useState(false)
+  const { addItem } = useCart()
 
   function toggleSection(section: string) {
     const newExpanded = new Set(expandedSections)
@@ -48,6 +55,26 @@ export function ProductInfo({
 
   function decrementQuantity() {
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1))
+  }
+
+  async function handleAddToCart() {
+    setIsAdding(true)
+    
+    // Add item to cart
+    addItem({
+      id: productId,
+      name: name,
+      variant: 'Default',
+      price: price,
+      originalPrice: originalPrice || price,
+      quantity: quantity,
+      image: image
+    })
+
+    // Show success feedback
+    setTimeout(() => {
+      setIsAdding(false)
+    }, 500)
   }
 
   return (
@@ -159,8 +186,34 @@ export function ProductInfo({
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row gap-4">
-        <button className="flex-1 border-2 border-charcoal text-charcoal py-4 rounded-lg font-semibold hover:bg-charcoal hover:text-white transition-colors">
-          ADD TO CART
+        <button 
+          onClick={handleAddToCart}
+          disabled={isAdding}
+          className="flex-1 border-2 border-charcoal text-charcoal py-4 rounded-lg font-semibold hover:bg-charcoal hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        >
+          {isAdding ? (
+            <>
+              <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                <circle 
+                  className="opacity-25" 
+                  cx="12" 
+                  cy="12" 
+                  r="10" 
+                  stroke="currentColor" 
+                  strokeWidth="4"
+                  fill="none"
+                />
+                <path 
+                  className="opacity-75" 
+                  fill="currentColor" 
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+              ADDING...
+            </>
+          ) : (
+            'ADD TO CART'
+          )}
         </button>
         <button className="flex-1 bg-sage-green hover:bg-sage-green/90 text-white py-4 rounded-lg font-semibold transition-colors">
           BUY IT NOW

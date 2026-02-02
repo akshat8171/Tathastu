@@ -285,7 +285,7 @@ export function BannerSection() {
           text-align: center;
           line-height: 45px;
           cursor: pointer;
-          z-index: 100;
+          z-index: 10;
           user-select: none;
           border: none;
           padding: 0;

@@ -3,12 +3,20 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styles from './header.module.css'
+import { CartSidebar } from '@/components/cart/cart-sidebar'
+import { useCart } from '@/components/cart/cart-context'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isCartOpen, setIsCartOpen] = useState(false)
+  const { itemCount } = useCart()
 
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  function toggleCart() {
+    setIsCartOpen(!isCartOpen)
   }
 
   return (
@@ -112,8 +120,8 @@ export function Header() {
 
           {/* Right: Cart */}
           <div className={styles.rightSection}>
-            <Link
-              href="/cart"
+            <button
+              onClick={toggleCart}
               className={styles.cartLink}
               aria-label="Shopping cart"
             >
@@ -130,9 +138,9 @@ export function Header() {
                 />
               </svg>
               <span className={styles.cartBadge}>
-                0
+                {itemCount}
               </span>
-            </Link>
+            </button>
           </div>
         </div>
       </div>
@@ -162,6 +170,9 @@ export function Header() {
           </div>
         </nav>
       )}
+      
+      {/* Cart Sidebar */}
+      <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
       </header>
     </>
   )
