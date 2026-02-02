@@ -94,7 +94,7 @@ export function Header() {
                 }}
               >
                 <img
-                  src="/images/logo/Layerix_text.svg"
+                  src="/images/logo/layerix_text.svg"
                   alt="LayeriX Logo with Text"
                   className={styles.logoImage}
                   style={{

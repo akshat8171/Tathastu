@@ -68,7 +68,7 @@ export function BrandStory() {
                       onClick={(e) => e.preventDefault()}
                     >
                       <Image
-                        src="/images/logo/Layerix_text.svg"
+                        src="/images/logo/layerix_text.svg"
                         alt="LayeriX Logo"
                         className="image-content__image scale-in"
                         priority
