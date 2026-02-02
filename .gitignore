@@ -42,4 +42,3 @@ next-env.d.ts
 
 *.mp4
 *.jpg
-/public/images/products/*
