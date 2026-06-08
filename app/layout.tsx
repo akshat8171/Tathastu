@@ -6,7 +6,7 @@ import { CartProvider } from '@/components/cart/cart-context'
 
 export const metadata: Metadata = {
   title: 'Layerix | If it exists, we can print it.',
-  description: 'Premium 3D printed miniatures for tabletop gaming, painting, and collecting. If it exists, we can print it. Lifestyle-first presentation of handcrafted art pieces.',
+  description: 'Premium 3D printed miniatures, lamps, signs, and custom creations. Precision printing from India. If it exists, we can print it.',
 }
 
 export default function RootLayout({
@@ -15,11 +15,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" className="dark">
+      <body className="min-h-screen flex flex-col">
         <CartProvider>
           <Header />
-          <main className="min-h-screen">
+          <main className="flex-1">
             {children}
           </main>
           <Footer />
