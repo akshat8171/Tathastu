@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 import { POST } from '@/app/api/payment/verify/route'
 import { NextRequest } from 'next/server'
 import crypto from 'crypto'

@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import Razorpay from 'razorpay'
 
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-})
+export const dynamic = 'force-dynamic'
+
+async function getRazorpay() {
+  const Razorpay = (await import('razorpay')).default
+  return new Razorpay({
+    key_id: process.env.RAZORPAY_KEY_ID!,
+    key_secret: process.env.RAZORPAY_KEY_SECRET!,
+  })
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,6 +18,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid amount' }, { status: 400 })
     }
 
+    const razorpay = await getRazorpay()
     const order = await razorpay.orders.create({
       amount: Math.round(amount * 100),
       currency,

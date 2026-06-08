@@ -1,54 +1,48 @@
-import { BrandStory } from '@/components/about/brand-story'
-import { MeetFounder } from '@/components/about/meet-founder'
-
 export default function AboutPage() {
   return (
-    <div className="bg-cream min-h-screen">
-      <BrandStory />
-      <MeetFounder />
-      
-      {/* Additional About Content */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-8 text-lg leading-relaxed text-charcoal/80">
-            <h2 className="font-serif text-4xl font-bold text-charcoal mb-6">
-              Our Mission
-            </h2>
-            <p>
-              We believe that tabletop gaming is more than just a hobby—it&apos;s an
-              art form. Every miniature we create is designed to be a centerpiece,
-              a conversation starter, and a work of art that enhances your gaming
-              experience.
-            </p>
-            <p>
-              Our commitment to quality means we use only the finest materials and
-              most advanced printing technology. Each piece is carefully inspected
-              and finished by hand to ensure it meets our exacting standards.
-            </p>
-            <h2 className="font-serif text-4xl font-bold text-charcoal mt-12 mb-6">
-              Our Values
-            </h2>
-            <ul className="space-y-4 list-disc list-inside">
-              <li>
-                <strong>Quality First:</strong> We never compromise on the quality
-                of our prints or the materials we use.
-              </li>
-              <li>
-                <strong>Artisan Craftsmanship:</strong> Every piece is treated as
-                a work of art, not just a product.
-              </li>
-              <li>
-                <strong>Community Focus:</strong> We&apos;re gamers and painters ourselves,
-                and we understand what you need.
-              </li>
-              <li>
-                <strong>Sustainability:</strong> We&apos;re committed to responsible
-                manufacturing and packaging practices.
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
+    <div className="max-w-4xl mx-auto px-4 py-16">
+      <h1 className="text-4xl font-display font-bold mb-8">
+        About <span className="gradient-text">Layerix</span>
+      </h1>
+
+      <div className="space-y-8 text-lg leading-relaxed text-gray-300">
+        <p>
+          We believe that 3D printing is more than just technology—it&apos;s an
+          art form. Every miniature, lamp, and sign we create is designed to be a
+          centerpiece, a conversation starter, and a work of art.
+        </p>
+
+        <h2 className="font-display text-2xl font-bold text-white mt-12">
+          Our Mission
+        </h2>
+        <p>
+          If it exists, we can print it. Layer by layer, we bring imagination to
+          life using cutting-edge 3D printing technology combined with hand-finishing
+          by skilled artisans.
+        </p>
+
+        <h2 className="font-display text-2xl font-bold text-white mt-12">
+          Our Values
+        </h2>
+        <ul className="space-y-4 list-disc list-inside text-gray-300">
+          <li>
+            <strong className="text-white">Precision:</strong> We never compromise on print
+            quality or the materials we use.
+          </li>
+          <li>
+            <strong className="text-white">Craftsmanship:</strong> Every piece is hand-finished
+            and inspected before shipping.
+          </li>
+          <li>
+            <strong className="text-white">Community:</strong> We&apos;re gamers and makers
+            ourselves — we understand what you need.
+          </li>
+          <li>
+            <strong className="text-white">Custom First:</strong> Your imagination is the only
+            limit. We print what you dream.
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }
