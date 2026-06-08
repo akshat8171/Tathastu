@@ -1,72 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server'
+import crypto from 'crypto'
 
-/**
- * Verify Cashfree Payment Status
- * API Documentation: https://docs.cashfree.com/reference/pgfetchorder
- */
 export async function POST(request: NextRequest) {
   try {
-    const { orderId } = await request.json()
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await request.json()
 
-    if (!orderId) {
-      return NextResponse.json(
-        { error: 'Order ID is required' },
-        { status: 400 }
-      )
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return NextResponse.json({ error: 'Missing payment details' }, { status: 400 })
     }
 
-    // Validate environment variables
-    const appId = process.env.NEXT_PUBLIC_CASHFREE_APP_ID
-    const secretKey = process.env.CASHFREE_SECRET_KEY
-    const env = process.env.NEXT_PUBLIC_CASHFREE_ENV || 'TEST'
+    const body = `${razorpay_order_id}|${razorpay_payment_id}`
+    const expectedSignature = crypto
+      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET!)
+      .update(body)
+      .digest('hex')
 
-    if (!appId || !secretKey) {
-      return NextResponse.json(
-        { error: 'Payment gateway not configured' },
-        { status: 500 }
-      )
+    const isValid = expectedSignature === razorpay_signature
+
+    if (!isValid) {
+      return NextResponse.json({ error: 'Invalid payment signature' }, { status: 400 })
     }
 
-    // Cashfree API endpoint
-    const apiUrl = env === 'PROD'
-      ? `https://api.cashfree.com/pg/orders/${orderId}`
-      : `https://sandbox.cashfree.com/pg/orders/${orderId}`
-
-    // Make API call to Cashfree
-    const response = await fetch(apiUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-client-id': appId,
-        'x-client-secret': secretKey,
-        'x-api-version': '2023-08-01',
-      },
-    })
-
-    const orderData = await response.json()
-
-    if (!response.ok) {
-      console.error('Cashfree Verify Error:', orderData)
-      return NextResponse.json(
-        { error: orderData.message || 'Failed to verify order' },
-        { status: response.status }
-      )
-    }
-
-    // Return payment status
     return NextResponse.json({
       success: true,
-      orderId: orderData.order_id,
-      orderStatus: orderData.order_status,
-      orderAmount: orderData.order_amount,
-      paymentMethod: orderData.payment_method,
-      customerDetails: orderData.customer_details,
+      verified: true,
+      orderId: razorpay_order_id,
+      paymentId: razorpay_payment_id,
     })
-
-  } catch (error) {
-    console.error('Error verifying payment:', error)
+  } catch (error: any) {
+    console.error('Razorpay verify error:', error)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: error.message || 'Verification failed' },
       { status: 500 }
     )
   }
