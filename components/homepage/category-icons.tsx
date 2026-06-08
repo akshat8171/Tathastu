@@ -1,55 +1,37 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const categories = [
-  {
-    name: 'Miniatures',
-    description: 'Dragons, knights, elves & more',
-    href: '/products?category=miniatures',
-    emoji: '🐉',
-    gradient: 'from-purple-600 to-pink-600',
-  },
-  {
-    name: 'Lamps',
-    description: 'Lithophane & mood lighting',
-    href: '/products?category=lamps',
-    emoji: '💡',
-    gradient: 'from-orange-500 to-yellow-500',
-  },
-  {
-    name: 'Signs',
-    description: 'Custom name & LED signs',
-    href: '/products?category=signs',
-    emoji: '✍️',
-    gradient: 'from-green-500 to-teal-500',
-  },
-  {
-    name: 'Custom Orders',
-    description: 'Your idea, our printer',
-    href: '/custom',
-    emoji: '✨',
-    gradient: 'from-pink-500 to-rose-500',
-  },
+  { name: 'Lamps', href: '/products?category=lamps', image: '/images/categories/lamps.jpg' },
+  { name: 'Miniatures', href: '/products?category=miniatures', image: '/images/categories/miniatures.jpg' },
+  { name: 'Signs', href: '/products?category=signs', image: '/images/categories/signs.jpg' },
+  { name: 'Custom', href: '/custom', image: '/images/categories/custom.jpg' },
 ]
 
 export function CategoryIcons() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-12 sm:py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl font-display font-bold text-center mb-12">
-          What We <span className="gradient-text">Print</span>
-        </h2>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="flex gap-6 sm:gap-8 overflow-x-auto pb-4 justify-center">
           {categories.map(cat => (
             <Link
               key={cat.name}
               href={cat.href}
-              className="card p-6 sm:p-8 text-center group hover:scale-105 transition-all duration-300"
+              className="flex flex-col items-center gap-3 flex-shrink-0 group"
             >
-              <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${cat.gradient} flex items-center justify-center text-3xl group-hover:scale-110 transition-transform`}>
-                {cat.emoji}
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-warm-border group-hover:border-sage-green transition-colors">
+                <div className="w-full h-full bg-cream-dark relative">
+                  <Image
+                    src={cat.image}
+                    alt={cat.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
-              <h3 className="font-display font-semibold text-lg mb-1">{cat.name}</h3>
-              <p className="text-sm text-gray-400">{cat.description}</p>
+              <span className="text-sm font-medium text-charcoal group-hover:text-sage-green transition-colors">
+                {cat.name}
+              </span>
             </Link>
           ))}
         </div>

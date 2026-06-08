@@ -63,7 +63,7 @@ export function CheckoutForm() {
   if (items.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-400 mb-4">Your cart is empty</p>
+        <p className="text-charcoal-light mb-4">Your cart is empty</p>
         <a href="/products" className="btn-primary">Shop Now</a>
       </div>
     )
@@ -73,24 +73,24 @@ export function CheckoutForm() {
     <div>
       {step === 'details' ? (
         <form onSubmit={handleDetailsSubmit} className="space-y-4">
-          <h2 className="font-display font-semibold text-lg mb-4">Shipping Details</h2>
+          <h2 className="font-serif font-semibold text-lg mb-4">Shipping Details</h2>
           <div className="grid sm:grid-cols-2 gap-4">
             <input name="name" value={form.name} onChange={handleChange} placeholder="Full Name" required
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-light text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-purple" />
+              className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green" />
             <input name="phone" value={form.phone} onChange={handleChange} placeholder="Phone (10 digits)" required maxLength={10} pattern="[6-9][0-9]{9}"
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-light text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-purple" />
+              className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green" />
           </div>
           <input name="email" value={form.email} onChange={handleChange} placeholder="Email (optional)" type="email"
-            className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-light text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-purple" />
+            className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green" />
           <textarea name="address" value={form.address} onChange={handleChange} placeholder="Full Address" required rows={3}
-            className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-light text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-purple resize-none" />
+            className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green resize-none" />
           <div className="grid grid-cols-3 gap-4">
             <input name="city" value={form.city} onChange={handleChange} placeholder="City" required
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-light text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-purple" />
+              className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green" />
             <input name="state" value={form.state} onChange={handleChange} placeholder="State" required
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-light text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-purple" />
+              className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green" />
             <input name="pincode" value={form.pincode} onChange={handleChange} placeholder="Pincode" required maxLength={6} pattern="[0-9]{6}"
-              className="w-full px-4 py-3 rounded-xl bg-surface border border-surface-light text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-purple" />
+              className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green" />
           </div>
           <button type="submit" className="btn-primary w-full text-lg">
             Continue to Payment
@@ -98,12 +98,12 @@ export function CheckoutForm() {
         </form>
       ) : (
         <div className="space-y-4">
-          <h2 className="font-display font-semibold text-lg mb-4">Payment</h2>
+          <h2 className="font-serif font-semibold text-lg mb-4">Payment</h2>
           <div className="card p-4 mb-4">
-            <p className="text-sm text-gray-400">Delivering to:</p>
-            <p className="font-medium">{form.name}</p>
-            <p className="text-sm text-gray-300">{form.address}, {form.city}, {form.state} - {form.pincode}</p>
-            <button onClick={() => setStep('details')} className="text-brand-purple text-sm mt-2 hover:underline">Edit</button>
+            <p className="text-sm text-charcoal-light">Delivering to:</p>
+            <p className="font-medium text-charcoal">{form.name}</p>
+            <p className="text-sm text-charcoal-light">{form.address}, {form.city}, {form.state} - {form.pincode}</p>
+            <button onClick={() => setStep('details')} className="text-sage-green text-sm mt-2 hover:underline">Edit</button>
           </div>
           <RazorpayCheckout
             amount={total}
