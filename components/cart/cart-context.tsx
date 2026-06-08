@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
 export interface CartItem {
   id: string
@@ -24,17 +24,22 @@ export interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined)
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([
-    {
-      id: '1',
-      name: 'Midnight Meadow Appetizer Platter',
-      variant: 'Black',
-      price: 1100,
-      originalPrice: 1400,
-      quantity: 1,
-      image: '/images/categories/customized-signs.jpg'
+  const [items, setItems] = useState<CartItem[]>([])
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('layerix-cart')
+    if (saved) {
+      try { setItems(JSON.parse(saved)) } catch {}
     }
-  ])
+    setLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (loaded) {
+      localStorage.setItem('layerix-cart', JSON.stringify(items))
+    }
+  }, [items, loaded])
 
   const addItem = (item: CartItem) => {
     setItems(currentItems => {
