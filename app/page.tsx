@@ -6,7 +6,7 @@
  * client-component boundaries: BestSellers, CategoryRails.
  */
 
-import { BannerSection }   from '@/components/homepage/banner-section'
+import { HeroCarousel }    from '@/components/homepage/hero-carousel'
 import { CategoryIcons }   from '@/components/homepage/category-icons'
 import { PromoStrip }      from '@/components/homepage/promo-strip'
 import { BestSellers }     from '@/components/homepage/best-sellers'
@@ -18,8 +18,8 @@ import { IdeaCta }         from '@/components/homepage/idea-cta'
 export default function HomePage() {
   return (
     <>
-      {/* 1. Hero */}
-      <BannerSection />
+      {/* 1. Hero carousel */}
+      <HeroCarousel />
 
       {/* 2. Category grid */}
       <CategoryIcons />

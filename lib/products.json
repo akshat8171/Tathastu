@@ -475,5 +475,545 @@
     "isSoldOut": false,
     "careGuide": "Wipe clean with a damp cloth. Suitable for indoor and covered outdoor use. Use a saucer to protect flooring. Supports up to 3kg of soil.",
     "shippingInfo": "Free shipping on all orders. Standard delivery: 5-7 business days. Packed in reinforced box."
+  },
+  {
+    "id": "pooja-decor-ganesha",
+    "name": "Golden Ganesha Idol",
+    "description": "Golden Ganesha Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 899,
+    "originalPrice": 1199,
+    "images": [
+      "/images/3dps/products/key-07.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.9,
+    "reviewCount": 78,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-trishul",
+    "name": "Shiva Trishul & Om Stand",
+    "description": "Shiva Trishul & Om Stand — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 699,
+    "originalPrice": 999,
+    "images": [
+      "/images/3dps/products/key-08.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.8,
+    "reviewCount": 54,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-incense",
+    "name": "Lotus Incense Holder",
+    "description": "Lotus Incense Holder — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 299,
+    "originalPrice": 449,
+    "images": [
+      "/images/3dps/products/key-11.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.7,
+    "reviewCount": 41,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-saraswati",
+    "name": "Maa Saraswati Idol",
+    "description": "Maa Saraswati Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 999,
+    "originalPrice": 1399,
+    "images": [
+      "/images/3dps/products/key-12.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.8,
+    "reviewCount": 33,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-shiva",
+    "name": "Meditating Mahadev Idol",
+    "description": "Meditating Mahadev Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 1199,
+    "originalPrice": 1599,
+    "images": [
+      "/images/3dps/products/pooja-01.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.9,
+    "reviewCount": 62,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-lakshmi",
+    "name": "Mahalakshmi Idol on Lotus",
+    "description": "Mahalakshmi Idol on Lotus — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 1099,
+    "originalPrice": 1499,
+    "images": [
+      "/images/3dps/products/pooja-02.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.8,
+    "reviewCount": 47,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-krishna",
+    "name": "Bal Krishna Idol",
+    "description": "Bal Krishna Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 799,
+    "originalPrice": 1099,
+    "images": [
+      "/images/3dps/products/pooja-03.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.7,
+    "reviewCount": 39,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-temple",
+    "name": "Kedarnath Temple Miniature",
+    "description": "Kedarnath Temple Miniature — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 1499,
+    "originalPrice": 1999,
+    "images": [
+      "/images/3dps/products/pooja-04.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.9,
+    "reviewCount": 58,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "pooja-decor-sign",
+    "name": "Shrikrishna Devotional Sign",
+    "description": "Shrikrishna Devotional Sign — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 499,
+    "originalPrice": 699,
+    "images": [
+      "/images/3dps/products/key-06.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 4.6,
+    "reviewCount": 27,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-piano",
+    "name": "Piano Keys Keychain",
+    "description": "Piano Keys Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "originalPrice": 249,
+    "images": [
+      "/images/3dps/products/key-01.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.7,
+    "reviewCount": 44,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-popit",
+    "name": "Pop-It Fidget Keychain",
+    "description": "Pop-It Fidget Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "originalPrice": 199,
+    "images": [
+      "/images/3dps/products/key-02.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.6,
+    "reviewCount": 51,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-backpack",
+    "name": "Mini Backpack Keychain",
+    "description": "Mini Backpack Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "originalPrice": 229,
+    "images": [
+      "/images/3dps/products/key-03.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.7,
+    "reviewCount": 36,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-caduceus",
+    "name": "Caduceus Medical Keychain",
+    "description": "Caduceus Medical Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 179,
+    "originalPrice": 279,
+    "images": [
+      "/images/3dps/products/key-04.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.8,
+    "reviewCount": 29,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-oreo",
+    "name": "Oreo Cookie Keychain",
+    "description": "Oreo Cookie Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "originalPrice": 199,
+    "images": [
+      "/images/3dps/products/key-05.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.6,
+    "reviewCount": 63,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-shiva",
+    "name": "Mahadev Face Keychain",
+    "description": "Mahadev Face Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "originalPrice": 229,
+    "images": [
+      "/images/3dps/products/key-09.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.8,
+    "reviewCount": 72,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-name",
+    "name": "Custom Name Keychain",
+    "description": "Custom Name Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "/images/3dps/products/key-10.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.9,
+    "reviewCount": 88,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-numberplate",
+    "name": "Custom Number Plate Keychain",
+    "description": "Custom Number Plate Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "/images/3dps/products/pooja-06.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.8,
+    "reviewCount": 67,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-airplane",
+    "name": "Paper Airplane Keychain",
+    "description": "Paper Airplane Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "originalPrice": 199,
+    "images": [
+      "/images/3dps/products/pooja-07.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.5,
+    "reviewCount": 31,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-nike",
+    "name": "Slides Keychain",
+    "description": "Slides Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "originalPrice": 229,
+    "images": [
+      "/images/3dps/products/pooja-08.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.6,
+    "reviewCount": 42,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-iphone",
+    "name": "Mini Phone Keychain",
+    "description": "Mini Phone Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 179,
+    "originalPrice": 269,
+    "images": [
+      "/images/3dps/products/game-02.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.7,
+    "reviewCount": 38,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-gymplate",
+    "name": "Custom Gym Weight Plate Keychain",
+    "description": "Custom Gym Weight Plate Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "/images/3dps/products/game-03.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.8,
+    "reviewCount": 55,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-puppy",
+    "name": "Knitted Puppy Keychain",
+    "description": "Knitted Puppy Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "/images/3dps/products/decor-02.webp"
+    ],
+    "category": "keyrings",
+    "rating": 4.9,
+    "reviewCount": 74,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "keyrings-tennis",
+    "name": "Tennis Ball Keychain",
+    "description": "Tennis Ball Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "originalPrice": 199,
+    "images": [
+      "/images/3dps/products/decor-03.png"
+    ],
+    "category": "keyrings",
+    "rating": 4.6,
+    "reviewCount": 49,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "gaming-ak47",
+    "name": "AK-47 Keychain",
+    "description": "AK-47 Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 179,
+    "originalPrice": 279,
+    "images": [
+      "/images/3dps/products/game-01.png"
+    ],
+    "category": "gaming",
+    "rating": 4.7,
+    "reviewCount": 46,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "gaming-marlboro",
+    "name": "Marlboro Keychain",
+    "description": "Marlboro Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 149,
+    "originalPrice": 229,
+    "images": [
+      "/images/3dps/products/game-04.png"
+    ],
+    "category": "gaming",
+    "rating": 4.5,
+    "reviewCount": 33,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "gaming-toad",
+    "name": "Toad Character Keychain",
+    "description": "Toad Character Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "/images/3dps/products/pooja-05.png"
+    ],
+    "category": "gaming",
+    "rating": 4.8,
+    "reviewCount": 41,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "gaming-shield",
+    "name": "Captain America Shield Keychain",
+    "description": "Captain America Shield Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "/images/3dps/products/decor-01.webp"
+    ],
+    "category": "gaming",
+    "rating": 4.9,
+    "reviewCount": 69,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "gaming-streamer",
+    "name": "Gamer Character Keychain",
+    "description": "Gamer Character Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 199,
+    "originalPrice": 299,
+    "images": [
+      "/images/3dps/products/decor-04.png"
+    ],
+    "category": "gaming",
+    "rating": 4.7,
+    "reviewCount": 37,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "gaming-gamepad",
+    "name": "Gamepad Keychain",
+    "description": "Gamepad Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 179,
+    "originalPrice": 269,
+    "images": [
+      "/images/3dps/hero/slide-5.png"
+    ],
+    "category": "gaming",
+    "rating": 4.8,
+    "reviewCount": 58,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+  },
+  {
+    "id": "gaming-question",
+    "name": "Question Block Keychain",
+    "description": "Question Block Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 149,
+    "originalPrice": 229,
+    "images": [
+      "/images/3dps/hero/slide-6.png"
+    ],
+    "category": "gaming",
+    "rating": 4.7,
+    "reviewCount": 44,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
   }
 ]

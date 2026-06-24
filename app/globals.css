@@ -121,3 +121,15 @@
     @apply bg-panel rounded-card overflow-hidden;
   }
 }
+
+/* ─── Utilities ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* Hide scrollbars on carousel/scroll-rail tracks (still scrollable). */
+  .no-scrollbar {
+    -ms-overflow-style: none;     /* IE / old Edge */
+    scrollbar-width: none;        /* Firefox */
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;                /* Chrome / Safari / WebKit */
+  }
+}

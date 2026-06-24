@@ -2,7 +2,9 @@
  * Layerix — canonical category taxonomy.
  *
  * Slugs must match the `category` field in lib/products.json.
- * Images must be real files in public/images/categories/.
+ * Images must be real files in public/images/.
+ *
+ * Order here is the display order on the homepage "Shop by Category" rail.
  */
 
 export interface Category {
@@ -17,6 +19,30 @@ export interface Category {
 
 export const categories: Category[] = [
   {
+    slug: 'pooja-decor',
+    name: 'pooja-decor',
+    displayName: 'Pooja & Decor',
+    description:
+      'Devotional pieces, beautifully printed — idols, temples, and incense holders crafted to order for your sacred space.',
+    image: '/images/3dps/categories/pooja-decor.png',
+  },
+  {
+    slug: 'keyrings',
+    name: 'keyrings',
+    displayName: 'Keyrings & Bag Tags',
+    description:
+      'Personalised, multi-colour and built to last — name keyrings, bag tags, and fun collectible charms.',
+    image: '/images/3dps/categories/keyrings.png',
+  },
+  {
+    slug: 'gaming',
+    name: 'gaming',
+    displayName: 'Gaming',
+    description:
+      'Collectible 3D-printed pieces for fans and gamers — crisp detail and vibrant colour, made to order.',
+    image: '/images/3dps/categories/gaming.png',
+  },
+  {
     slug: 'lamps',
     name: 'lamps',
     displayName: 'Lamps & Lighting',
@@ -29,8 +55,8 @@ export const categories: Category[] = [
     name: 'organizers',
     displayName: 'Desk & Workspace',
     description:
-      'Stylish desk organisers and tissue holders that keep your workspace neat and looking great.',
-    image: '/images/categories/organizer.jpg',
+      'Stylish desk organisers, phone stands, and tissue holders that keep your workspace neat and looking great.',
+    image: '/images/3dps/categories/workspace.png',
   },
   {
     slug: 'planters',
@@ -46,7 +72,7 @@ export const categories: Category[] = [
     displayName: 'Customise Now',
     description:
       "Upload your design and we'll print it for you. Personalised gifts, signs, keychains, and more.",
-    image: '/images/categories/customized-signs.jpg',
+    image: '/images/3dps/categories/customized.png',
     isCta: true,
   },
 ]
