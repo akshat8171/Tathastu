@@ -189,6 +189,56 @@ export async function getOrderByOrderNumber(orderNumber: string): Promise<Order 
 }
 
 /**
+ * Get order by Razorpay order id.
+ * migration-001 added the `razorpay_order_id` column to the orders table.
+ * We also fall back to querying `payment_order_id` for older rows.
+ */
+export async function getOrderByPaymentOrderId(razorpayOrderId: string): Promise<Order | null> {
+  // Try the new razorpay_order_id column first (added in migration-001)
+  const { data: byRazorpay, error: err1 } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('razorpay_order_id', razorpayOrderId)
+    .maybeSingle()
+
+  if (!err1 && byRazorpay) return byRazorpay
+
+  // Fall back to the original payment_order_id column
+  const { data: byPaymentOrderId, error: err2 } = await supabase
+    .from('orders')
+    .select('*')
+    .eq('payment_order_id', razorpayOrderId)
+    .maybeSingle()
+
+  if (err2) {
+    console.error('Error fetching order by payment order id:', err2)
+    return null
+  }
+
+  return byPaymentOrderId ?? null
+}
+
+/**
+ * Check whether a Razorpay payment has already been logged (idempotency guard).
+ * Returns true if a row with this razorpay_payment_id already exists in payment_logs.
+ */
+export async function hasPaymentBeenLogged(razorpayPaymentId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('payment_logs')
+    .select('id')
+    .eq('razorpay_payment_id', razorpayPaymentId)
+    .maybeSingle()
+
+  if (error) {
+    console.error('Error checking payment idempotency:', error)
+    // On error, allow processing to continue to avoid silently dropping payments
+    return false
+  }
+
+  return !!data
+}
+
+/**
  * Get order items
  */
 export async function getOrderItems(orderId: string): Promise<OrderItem[]> {
@@ -224,12 +274,19 @@ export async function getCustomerOrders(customerEmail: string): Promise<Order[]>
 }
 
 /**
- * Log payment transaction
+ * Log payment transaction.
+ *
+ * Uses the Razorpay columns added in migration-001:
+ *   payment_logs.razorpay_order_id, razorpay_payment_id, razorpay_signature
+ *
+ * The original schema.sql columns (cashfree_order_id, cashfree_payment_id) still
+ * exist in the table but are no longer populated here.
  */
 export async function logPayment(paymentData: {
   order_id: string
-  cashfree_order_id?: string
-  cashfree_payment_id?: string
+  razorpay_order_id?: string
+  razorpay_payment_id?: string
+  razorpay_signature?: string
   amount: number
   payment_method?: string
   payment_status?: string
@@ -240,8 +297,9 @@ export async function logPayment(paymentData: {
     .from('payment_logs')
     .insert({
       order_id: paymentData.order_id,
-      cashfree_order_id: paymentData.cashfree_order_id,
-      cashfree_payment_id: paymentData.cashfree_payment_id,
+      razorpay_order_id: paymentData.razorpay_order_id,
+      razorpay_payment_id: paymentData.razorpay_payment_id,
+      razorpay_signature: paymentData.razorpay_signature,
       amount: paymentData.amount,
       currency: 'INR',
       payment_method: paymentData.payment_method,

@@ -23,6 +23,7 @@ module.exports = {
       fontFamily: {
         serif: ['Tenor Sans', 'serif'],
         sans: ['Nunito', 'sans-serif'],
+        display: ['Tenor Sans', 'serif'],
       },
     },
   },

@@ -21,7 +21,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="font-serif text-2xl font-bold text-charcoal tracking-wide">
-            Layeri<span className="text-sage-green">X</span>
+            Tathast<span className="text-sage-green">u</span>
           </Link>
 
           {/* Desktop Nav */}

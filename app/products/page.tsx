@@ -34,8 +34,8 @@ export default async function ProductsPage({
             href={cat.slug === 'all' ? '/products' : `/products?category=${cat.slug}`}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               (category || 'all') === cat.slug
-                ? 'bg-gradient-brand text-white'
-                : 'bg-surface border border-surface-light text-gray-300 hover:border-brand-purple'
+                ? 'bg-sage-green text-white'
+                : 'bg-white border border-warm-border text-charcoal hover:border-sage-green'
             }`}
           >
             {cat.label}
@@ -46,14 +46,14 @@ export default async function ProductsPage({
       {/* Product grid */}
       {products.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-gray-400 text-lg">No products found in this category yet.</p>
-          <Link href="/products" className="text-brand-purple hover:underline mt-2 inline-block">View all products</Link>
+          <p className="text-charcoal-light text-lg">No products found in this category yet.</p>
+          <Link href="/products" className="text-sage-green hover:underline mt-2 inline-block">View all products</Link>
         </div>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           {products.map(product => (
             <Link key={product.id} href={`/products/${product.id}`} className="card overflow-hidden group">
-              <div className="relative aspect-square bg-surface overflow-hidden">
+              <div className="relative aspect-square bg-cream-dark overflow-hidden">
                 {product.images?.[0] && (
                   <Image
                     src={product.images[0]}
@@ -63,22 +63,22 @@ export default async function ProductsPage({
                   />
                 )}
                 {product.discount_percentage && product.discount_percentage > 0 && (
-                  <span className="absolute top-3 left-3 bg-brand-pink text-white text-xs font-bold px-2 py-1 rounded-full">
+                  <span className="absolute top-3 left-3 bg-sage-green text-white text-xs font-bold px-2 py-1 rounded-full">
                     {product.discount_percentage}% OFF
                   </span>
                 )}
               </div>
               <div className="p-4">
-                <p className="text-xs text-brand-purple font-medium uppercase tracking-wide mb-1">{product.category}</p>
+                <p className="text-xs text-sage-green font-medium uppercase tracking-wide mb-1">{product.category}</p>
                 <h3 className="font-display font-semibold text-sm mb-2 line-clamp-2">{product.name}</h3>
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-yellow-400 text-xs">{'★'.repeat(Math.round(product.rating))}</span>
-                  <span className="text-xs text-gray-400">({product.review_count})</span>
+                  <span className="text-xs text-charcoal-light">({product.review_count})</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="font-bold">₹{product.price.toLocaleString('en-IN')}</span>
                   {product.original_price && (
-                    <span className="text-xs text-gray-500 line-through">₹{product.original_price.toLocaleString('en-IN')}</span>
+                    <span className="text-xs text-charcoal-light line-through">₹{product.original_price.toLocaleString('en-IN')}</span>
                   )}
                 </div>
               </div>

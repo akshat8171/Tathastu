@@ -59,7 +59,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-white/20 text-center text-sm text-white/50">
-          © 2026 Layerix. All rights reserved.
+          © 2026 Tathastu. All rights reserved.
         </div>
       </div>
     </footer>

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createRazorpayOrderSchema } from '@/lib/validation/order'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,15 +13,20 @@ async function getRazorpay() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { amount, currency = 'INR', receipt, notes } = await request.json()
+    const body = await request.json()
 
-    if (!amount || amount <= 0) {
-      return NextResponse.json({ error: 'Invalid amount' }, { status: 400 })
+    // Validate request shape with Zod
+    const parsed = createRazorpayOrderSchema.safeParse(body)
+    if (!parsed.success) {
+      const message = parsed.error.errors.map(e => e.message).join('; ')
+      return NextResponse.json({ error: message }, { status: 400 })
     }
+
+    const { amount, currency, receipt, notes } = parsed.data
 
     const razorpay = await getRazorpay()
     const order = await razorpay.orders.create({
-      amount: Math.round(amount * 100),
+      amount: Math.round(amount * 100), // convert rupees → paise
       currency,
       receipt: receipt || `order_${Date.now()}`,
       notes: notes || {},
