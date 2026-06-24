@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/footer'
 import { CartProvider } from '@/components/cart/cart-context'
 
 export const metadata: Metadata = {
-  title: 'Layerix | If it exists, we can print it.',
+  title: 'Tathastu | If it exists, we can print it.',
   description: 'Premium 3D printed miniatures, lamps, signs, and custom creations. Precision printing from India. If it exists, we can print it.',
 }
 

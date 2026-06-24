@@ -54,7 +54,7 @@ export default function BulkOrderPage() {
             <h2 className="section-title">Taking Bulk Orders</h2>
             <p className="description">
               Looking for high-quality homeware items in bulk? We&apos;ve got you covered! Whether you&apos;re a café, restaurant, 
-              corporate event planner, or retailer, Layerix offers bespoke bulk & corporate ordering solutions tailored 
+              corporate event planner, or retailer, Tathastu offers bespoke bulk & corporate ordering solutions tailored
               to your needs.
             </p>
             <p className="description">

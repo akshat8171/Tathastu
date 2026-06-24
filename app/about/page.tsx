@@ -2,7 +2,7 @@ export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-16">
       <h1 className="text-4xl font-serif font-bold mb-8 text-charcoal">
-        About <span className="text-sage-green">Layerix</span>
+        About <span className="text-sage-green">Tathastu</span>
       </h1>
 
       <div className="space-y-8 text-lg leading-relaxed text-charcoal-light">
