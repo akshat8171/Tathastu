@@ -9,93 +9,93 @@ interface ProductGalleryProps {
 }
 
 export function ProductGallery({ images, productName }: ProductGalleryProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const safeImages = images.length > 0 ? images : ['/images/categories/lamps.jpg']
 
-  function goToPrevious() {
-    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
+  function goToPrev() {
+    setActiveIndex((prev) => (prev === 0 ? safeImages.length - 1 : prev - 1))
   }
-
   function goToNext() {
-    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))
+    setActiveIndex((prev) => (prev === safeImages.length - 1 ? 0 : prev + 1))
   }
 
   return (
-    <div className="relative">
-      <div className="relative aspect-square overflow-hidden rounded-lg">
+    <div className="flex flex-col gap-4">
+      {/* ── Main image ────────────────────────────────────────────────────────── */}
+      <div className="relative aspect-square bg-panel rounded-card2 overflow-hidden group">
         <Image
-          src={images[currentIndex]}
-          alt={`${productName} - Image ${currentIndex + 1}`}
+          src={safeImages[activeIndex]}
+          alt={`${productName} — view ${activeIndex + 1}`}
           fill
           priority
-          className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          unoptimized
         />
+
+        {/* Prev / Next arrows — only if multiple images */}
+        {safeImages.length > 1 && (
+          <>
+            <button
+              onClick={goToPrev}
+              aria-label="Previous image"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow-card flex items-center justify-center hover:bg-white transition-colors opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+            >
+              <svg className="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={goToNext}
+              aria-label="Next image"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-white/90 shadow-card flex items-center justify-center hover:bg-white transition-colors opacity-0 group-hover:opacity-100 focus-visible:opacity-100"
+            >
+              <svg className="w-4 h-4 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </>
+        )}
+
+        {/* Image counter */}
+        {safeImages.length > 1 && (
+          <span className="absolute bottom-3 right-3 z-10 bg-black/40 text-white text-xs font-sans px-2.5 py-1 rounded-pill backdrop-blur-sm">
+            {activeIndex + 1} / {safeImages.length}
+          </span>
+        )}
       </div>
 
-      {images.length > 1 && (
-        <>
-          <button
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 transition-colors z-10"
-            aria-label="Previous image"
-          >
-            <svg
-              className="w-6 h-6 text-charcoal"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+      {/* ── Thumbnail strip ───────────────────────────────────────────────────── */}
+      {safeImages.length > 1 && (
+        <div
+          role="tablist"
+          aria-label="Product images"
+          className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide"
+        >
+          {safeImages.map((img, idx) => (
+            <button
+              key={idx}
+              role="tab"
+              aria-selected={idx === activeIndex}
+              aria-label={`View image ${idx + 1}`}
+              onClick={() => setActiveIndex(idx)}
+              className={`relative flex-shrink-0 w-[72px] h-[72px] rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                idx === activeIndex
+                  ? 'border-brand shadow-sm'
+                  : 'border-transparent hover:border-gray-300'
+              }`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
+              <Image
+                src={img}
+                alt={`${productName} thumbnail ${idx + 1}`}
+                fill
+                sizes="72px"
+                className="object-cover"
+                unoptimized
               />
-            </svg>
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-3 transition-colors z-10"
-            aria-label="Next image"
-          >
-            <svg
-              className="w-6 h-6 text-charcoal"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-
-          {/* Thumbnails */}
-          <div className="flex gap-2 mt-4 overflow-x-auto">
-            {images.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`relative w-20 h-20 flex-shrink-0 rounded-md overflow-hidden border-2 transition-colors ${
-                  index === currentIndex
-                    ? 'border-sage-green'
-                    : 'border-transparent'
-                }`}
-              >
-                <Image
-                  src={image}
-                  alt={`${productName} thumbnail ${index + 1}`}
-                  fill
-                  className="object-cover"
-                  sizes="80px"
-                />
-              </button>
-            ))}
-          </div>
-        </>
+            </button>
+          ))}
+        </div>
       )}
     </div>
   )

@@ -1,619 +1,175 @@
-'use client'
-
-import { useState, useEffect, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
-import { ProductCard, ProductCardProps } from '@/components/products/product-card'
 import './products.css'
+import Link from 'next/link'
+import { getProductCategories, getCategoryBySlug } from '@/lib/categories'
+import { CategoryFilter } from '@/components/products/category-filter'
+import { CatalogClient } from './catalog-client'
+import type { ProductCardData } from '@/components/ui/product-card'
+import productsJson from '@/lib/products.json'
 
-// Category mapping - matches the categories from category-icons.tsx
-const categoryMap: Record<string, { name: string; description: string }> = {
-  lamps: {
-    name: 'Lamps',
-    description: 'Illuminate your space with our handcrafted lamp collection.',
-  },
-  organizers: {
-    name: 'Organizers',
-    description: 'Keep your space tidy with our elegant organizers.',
-  },
-  planters: {
-    name: 'Planters',
-    description: 'Bring nature indoors with our beautiful planters.',
-  },
-  keychains: {
-    name: 'Keychains',
-    description: 'Add style to your keys with our unique keychains.',
-  },
-  'customized-signs': {
-    name: 'Customized Signs',
-    description: 'Personalize your space with custom signs.',
-  },
-  'customized-miniatures': {
-    name: 'Customized Miniatures',
-    description: 'Collectible miniatures crafted just for you.',
-  },
+// ── Trust chips shown in the hero band ──────────────────────────────────────
+const TRUST_CHIPS = [
+  { icon: 'cod',      label: 'COD Available' },
+  { icon: 'india',    label: 'Pan-India Delivery' },
+  { icon: 'custom',   label: 'Made to Order' },
+  { icon: 'quality',  label: '100% Original' },
+]
+
+interface CatalogPageProps {
+  searchParams: Promise<{ category?: string }>
 }
 
-function ProductsContent() {
-  const searchParams = useSearchParams()
-  const categoryParam = searchParams.get('category')
-  
-  // Get category info or default to "Best Sellers"
-  const categoryInfo = categoryParam && categoryMap[categoryParam]
-    ? categoryMap[categoryParam]
-    : { name: 'Best Sellers', description: 'Popular enough to brag about, subtle enough to use daily.' }
+export default async function CatalogPage({ searchParams }: CatalogPageProps) {
+  const { category: categorySlug } = await searchParams
+  const productCategories = getProductCategories()
 
-  const [products, setProducts] = useState<ProductCardProps[]>([])
-  const [loading, setLoading] = useState(true)
-  const [expandedFilters, setExpandedFilters] = useState<Record<string, boolean>>({
-    availability: true,
-    price: true,
-  })
+  // Active category object
+  const activeCategory = categorySlug ? getCategoryBySlug(categorySlug) : null
 
-  const [priceRange, setPriceRange] = useState({ min: 0, max: 3299.00 })
-  const [gridColumns, setGridColumns] = useState<2 | 3 | 4>(3)
-  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
+  // Filter products from JSON (resolveJsonModule is enabled in tsconfig)
+  const allProducts = productsJson as ProductCardData[]
+  const filtered: ProductCardData[] =
+    categorySlug && categorySlug !== 'all'
+      ? allProducts.filter((p) => p.category === categorySlug)
+      : allProducts
 
-  // Fetch products dynamically from API
-  useEffect(() => {
-    async function fetchProducts() {
-      setLoading(true)
-      try {
-        const categoryQuery = categoryParam ? `?category=${categoryParam}` : ''
-        const response = await fetch(`/api/products${categoryQuery}`)
-        const data = await response.json()
-        
-        if (data.products) {
-          setProducts(data.products)
-          // Update price range based on products
-          if (data.products.length > 0) {
-            const prices = data.products.map((p: ProductCardProps) => p.originalPrice || p.price)
-            const maxPrice = Math.max(...prices)
-            const roundedMax = Math.ceil(maxPrice / 100) * 100
-            setPriceRange(prev => ({ ...prev, max: roundedMax }))
-          } else {
-            // Reset to default if no products
-            setPriceRange({ min: 0, max: 3299.00 })
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching products:', error)
-        setProducts([])
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchProducts()
-  }, [categoryParam])
-
-  const toggleFilter = (filter: string) => {
-    setExpandedFilters((prev) => ({
-      ...prev,
-      [filter]: !prev[filter],
-    }))
-  }
-
-  const handlePriceChange = (type: 'min' | 'max', value: number) => {
-    setPriceRange((prev) => {
-      const maxLimit = prev.max || 3299
-      const newValue = Math.max(0, Math.min(maxLimit, value))
-      if (type === 'min') {
-        return {
-          ...prev,
-          min: Math.min(newValue, prev.max),
-        }
-      } else {
-        return {
-          ...prev,
-          max: Math.max(newValue, prev.min),
-        }
-      }
-    })
-  }
+  const categoryTitle = activeCategory ? activeCategory.displayName : 'All Products'
+  const categoryDesc = activeCategory
+    ? activeCategory.description
+    : 'Handcrafted 3D-printed home decor, desk accessories, and planters — made in India, shipped pan-India.'
 
   return (
-    <main className="main-content" id="MainContent" role="main">
-      {/* Best Sellers Header Section */}
-      <div className="index-section-custom" style={{ background: '#ffffff', padding: '30px 0px 10px 0px', margin: '0px' }}>
-        <div className="container">
-          <div className="section-block">
-            <div className="row justify-content-center">
-              <div className="col-lg-7 col-12">
-                <h3 className="section-title-1 text-center mb-3">
-                  {categoryInfo.name.toUpperCase()}
-                </h3>
-                <div className="rte text-center txt-body-70">
-                  <p className="my-0">{categoryInfo.description}</p>
-                </div>
-              </div>
+    <main className="bg-white min-h-screen">
+      {/* ── Breadcrumb ───────────────────────────────────────────────────────── */}
+      <nav
+        aria-label="Breadcrumb"
+        className="bg-surface border-b border-gray-100"
+      >
+        <div className="container-page py-3">
+          <ol className="flex items-center gap-1.5 text-xs text-muted font-sans" role="list">
+            <li>
+              <Link href="/" className="hover:text-brand transition-colors">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </li>
+            <li>
+              <Link href="/products" className="hover:text-brand transition-colors">
+                Shop
+              </Link>
+            </li>
+            {activeCategory && (
+              <>
+                <li aria-hidden="true">
+                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </li>
+                <li>
+                  <span className="text-ink font-medium">{activeCategory.displayName}</span>
+                </li>
+              </>
+            )}
+          </ol>
+        </div>
+      </nav>
+
+      {/* ── Hero band ─────────────────────────────────────────────────────────── */}
+      <section className="bg-surface border-b border-gray-100">
+        <div className="container-page py-8 md:py-10">
+          <div className="max-w-2xl">
+            <p className="text-xs font-display font-semibold uppercase tracking-widest text-brand mb-2">
+              Tathastu Collection
+            </p>
+            <h1 className="font-display font-bold text-2xl md:text-3xl text-ink leading-tight mb-3">
+              {categoryTitle}
+              {activeCategory && (
+                <span className="block text-base font-normal text-muted mt-1">
+                  3D Printed, Made in India
+                </span>
+              )}
+            </h1>
+            <p className="text-sm text-muted font-sans leading-relaxed mb-5 max-w-lg">
+              {categoryDesc}
+            </p>
+            {/* Trust chips */}
+            <div className="flex flex-wrap gap-2">
+              {TRUST_CHIPS.map((chip) => (
+                <TrustChip key={chip.icon} label={chip.label} icon={chip.icon} />
+              ))}
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Product Grid Section */}
-      <div className="main-collection section-template--product-grid-padding container collection-vertical" style={{ backgroundColor: '#ffffff' }}>
-        <div className="facets-vertical row">
-          {/* Filters Sidebar */}
-          <aside aria-labelledby="verticalTitle" className="facets-wrapper col-md-3 v-col" id="main-collection-filters">
-            <div className="facets-container pt-0 js-stick-parent">
-              <div className="facets small-hide">
-                <form id="FacetFiltersForm" className="facets__form-vertical">
-                  <div id="FacetsWrapperDesktop">
-                    <div className="active-facets active-facets-desktop">
-                      <div className="active-facets-vertical-filter">
-                        <h3 className="facets__heading facets__heading--vertical caption-large text-body" id="verticalTitle" tabIndex={-1}>
-                          FILTER:
-                        </h3>
-                      </div>
-                    </div>
+      {/* ── Main content: sidebar + grid ──────────────────────────────────────── */}
+      <div className="container-page py-8">
+        {/* Mobile filter chips */}
+        <div className="mb-6 lg:hidden">
+          <CategoryFilter
+            categories={productCategories}
+            activeSlug={categorySlug ?? null}
+          />
+        </div>
 
-                    {/* Availability Filter */}
-                    <div className="facets__display">
-                      <div className="facets__header">
-                        <button
-                          type="button"
-                          className="facets__summary"
-                          onClick={() => toggleFilter('availability')}
-                          aria-expanded={expandedFilters.availability}
-                        >
-                          <span className="facets__summary-inner">
-                            <span className="facets__summary-text">AVAILABILITY</span>
-                            <span className="facets__display-icon">
-                              <svg
-                                className={`icon icon-arrow ${expandedFilters.availability ? 'icon-arrow-up' : 'icon-arrow-down'}`}
-                                aria-hidden="true"
-                                focusable="false"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 10 6"
-                              >
-                                <path fillRule="evenodd" d="m9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708z" />
-                              </svg>
-                            </span>
-                          </span>
-                        </button>
-                      </div>
-                      {expandedFilters.availability && (
-                        <div className="facets__display-list">
-                          <div className="facets__item">
-                            <label className="facet-checkbox">
-                              <input
-                                type="checkbox"
-                                className="facet-checkbox__input"
-                                name="availability"
-                                value="in-stock"
-                              />
-                              <span className="facet-checkbox__label">
-                                In stock (30)
-                              </span>
-                            </label>
-                          </div>
-                          <div className="facets__item">
-                            <label className="facet-checkbox">
-                              <input
-                                type="checkbox"
-                                className="facet-checkbox__input"
-                                name="availability"
-                                value="out-of-stock"
-                              />
-                              <span className="facet-checkbox__label">
-                                Out of stock (1)
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Price Filter */}
-                    <div className="facets__display">
-                      <div className="facets__header">
-                        <button
-                          type="button"
-                          className="facets__summary"
-                          onClick={() => toggleFilter('price')}
-                          aria-expanded={expandedFilters.price}
-                        >
-                          <span className="facets__summary-inner">
-                            <span className="facets__summary-text">PRICE</span>
-                            <span className="facets__display-icon">
-                              <svg
-                                className={`icon icon-arrow ${expandedFilters.price ? 'icon-arrow-up' : 'icon-arrow-down'}`}
-                                aria-hidden="true"
-                                focusable="false"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 10 6"
-                              >
-                                <path fillRule="evenodd" d="m9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708z" />
-                              </svg>
-                            </span>
-                          </span>
-                        </button>
-                      </div>
-                      {expandedFilters.price && (
-                        <div className="facets__display-list">
-                          <div className="price-range-wrapper">
-                            <div className="price-range-slider">
-                              <input
-                                type="range"
-                                min="0"
-                                max={priceRange.max}
-                                value={priceRange.min}
-                                onChange={(e) => handlePriceChange('min', Number(e.target.value))}
-                                className="price-range-input price-range-input--min"
-                              />
-                              <input
-                                type="range"
-                                min="0"
-                                max={priceRange.max}
-                                value={priceRange.max}
-                                onChange={(e) => handlePriceChange('max', Number(e.target.value))}
-                                className="price-range-input price-range-input--max"
-                              />
-                              <div className="price-range-track">
-                                <div
-                                  className="price-range-fill"
-                                  style={{
-                                    left: `${(priceRange.min / priceRange.max) * 100}%`,
-                                    width: `${((priceRange.max - priceRange.min) / priceRange.max) * 100}%`,
-                                  }}
-                                />
-                              </div>
-                            </div>
-                            <div className="price-range-inputs">
-                              <div className="price-input-wrapper">
-                                <span className="price-input-currency">₹</span>
-                                <input
-                                  type="number"
-                                  min="0"
-                                  max={priceRange.max}
-                                  step="0.01"
-                                  value={priceRange.min === 0 ? '0' : priceRange.min.toFixed(2)}
-                                  onChange={(e) => handlePriceChange('min', Number(e.target.value))}
-                                  className="price-input"
-                                />
-                              </div>
-                              <div className="price-input-wrapper">
-                                <span className="price-input-currency">₹</span>
-                                <input
-                                  type="number"
-                                  min="0"
-                                  max={priceRange.max}
-                                  step="0.01"
-                                  value={priceRange.max.toFixed(2)}
-                                  onChange={(e) => handlePriceChange('max', Number(e.target.value))}
-                                  className="price-input"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+        <div className="flex gap-8">
+          {/* Desktop sidebar */}
+          <aside className="hidden lg:block w-52 flex-shrink-0">
+            <CategoryFilter
+              categories={productCategories}
+              activeSlug={categorySlug ?? null}
+            />
           </aside>
 
-          {/* Product Grid Container */}
-          <div id="ProductGridContainer" className="col-md-9 pl-lg-5">
-            {/* Mobile Filter/Sort Button */}
-            <div className="mobile-filter-sort-button-wrapper">
-              <button
-                type="button"
-                className="mobile-filter-sort-btn"
-                onClick={() => setIsMobileSidebarOpen(true)}
-                aria-label="Open filters and sort"
-              >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2.5 5H17.5M5 10H15M7.5 15H12.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-                <span>Filter & Sort</span>
-              </button>
-              <div className="mobile-product-count">
-                {loading ? '...' : products.length} Products
-              </div>
-            </div>
-
-            {/* Grid View Controls - Desktop Only */}
-            <div className="product-grid-controls desktop-only">
-              <div className="grid-view-buttons">
-                <button
-                  type="button"
-                  className={`grid-view-btn ${gridColumns === 2 ? 'active' : ''}`}
-                  onClick={() => setGridColumns(2)}
-                  aria-label="2 columns"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="6" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <rect x="9" y="1" width="6" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  className={`grid-view-btn ${gridColumns === 3 ? 'active' : ''}`}
-                  onClick={() => setGridColumns(3)}
-                  aria-label="3 columns"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0.5" y="1" width="4" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <rect x="6" y="1" width="4" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <rect x="11.5" y="1" width="4" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                  </svg>
-                </button>
-                <button
-                  type="button"
-                  className={`grid-view-btn ${gridColumns === 4 ? 'active' : ''}`}
-                  onClick={() => setGridColumns(4)}
-                  aria-label="4 columns"
-                >
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="0.5" y="1" width="3" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <rect x="4.5" y="1" width="3" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <rect x="8.5" y="1" width="3" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                    <rect x="12.5" y="1" width="3" height="14" stroke="currentColor" strokeWidth="1.5" fill="none"/>
-                  </svg>
-                </button>
-              </div>
-              <div className="product-grid-header-right">
-                <div className="sort-by-wrapper">
-                  <label htmlFor="sort-by" className="sort-by-label">Sort by:</label>
-                  <select id="sort-by" className="sort-by-select">
-                    <option value="featured">Featured</option>
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="name-asc">Name: A to Z</option>
-                    <option value="name-desc">Name: Z to A</option>
-                  </select>
-                </div>
-                <div className="product-count">
-                  {loading ? '...' : products.length} Products
-                </div>
-              </div>
-            </div>
-
-            <div className="collection pt-4">
-              <div className={`loading-overlay gradient ${loading ? '' : 'hidden'}`}></div>
-              {loading ? (
-                <div className="text-center py-8">
-                  <p>Loading products...</p>
-                </div>
-              ) : products.length > 0 ? (
-                <ul
-                  id="product-grid"
-                  data-id="template--25165094551837__product-grid"
-                  className={`product-grid-new product-grid-${gridColumns}-col mobile-grid-2-col`}
-                >
-                  {products.map((product) => (
-                    <li key={product.id} className="product-grid-item">
-                      <div className="product-grid-item-inner">
-                        <ProductCard {...product} />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <div className="text-center py-8">
-                  <p>No products found for this category.</p>
-                </div>
-              )}
-            </div>
+          {/* Product grid + controls */}
+          <div className="flex-1 min-w-0">
+            <CatalogClient products={filtered} categoryName={categoryTitle} />
           </div>
-        </div>
-      </div>
-
-      {/* Mobile Sidebar Overlay */}
-      {isMobileSidebarOpen && (
-        <div 
-          className="mobile-sidebar-overlay show"
-          onClick={() => setIsMobileSidebarOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Mobile Sidebar */}
-      <div className={`mobile-sidebar ${isMobileSidebarOpen ? 'mobile-sidebar-open' : ''}`}>
-        <div className="mobile-sidebar-header">
-          <h3 className="mobile-sidebar-title">Filter & Sort</h3>
-          <button
-            type="button"
-            className="mobile-sidebar-close"
-            onClick={() => setIsMobileSidebarOpen(false)}
-            aria-label="Close filters"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </button>
-        </div>
-
-        <div className="mobile-sidebar-content">
-          {/* Sort Options in Mobile Sidebar */}
-          <div className="mobile-sidebar-section">
-            <h4 className="mobile-sidebar-section-title">Sort by</h4>
-            <div className="sort-by-wrapper mobile-sort-wrapper">
-              <select id="sort-by-mobile" className="sort-by-select mobile-sort-select">
-                <option value="featured">Featured</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="name-asc">Name: A to Z</option>
-                <option value="name-desc">Name: Z to A</option>
-              </select>
-            </div>
-          </div>
-
-          {/* Filters in Mobile Sidebar */}
-          <div className="mobile-sidebar-section">
-            <h4 className="mobile-sidebar-section-title">FILTER:</h4>
-            
-            {/* Availability Filter */}
-            <div className="facets__display">
-              <div className="facets__header">
-                <button
-                  type="button"
-                  className="facets__summary"
-                  onClick={() => toggleFilter('availability')}
-                  aria-expanded={expandedFilters.availability}
-                >
-                  <span className="facets__summary-inner">
-                    <span className="facets__summary-text">AVAILABILITY</span>
-                    <span className="facets__display-icon">
-                      <svg
-                        className={`icon icon-arrow ${expandedFilters.availability ? 'icon-arrow-up' : 'icon-arrow-down'}`}
-                        aria-hidden="true"
-                        focusable="false"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 10 6"
-                      >
-                        <path fillRule="evenodd" d="m9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708z" />
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-              </div>
-              {expandedFilters.availability && (
-                <div className="facets__display-list">
-                  <div className="facets__item">
-                    <label className="facet-checkbox">
-                      <input
-                        type="checkbox"
-                        className="facet-checkbox__input"
-                        name="availability"
-                        value="in-stock"
-                      />
-                      <span className="facet-checkbox__label">
-                        In stock (30)
-                      </span>
-                    </label>
-                  </div>
-                  <div className="facets__item">
-                    <label className="facet-checkbox">
-                      <input
-                        type="checkbox"
-                        className="facet-checkbox__input"
-                        name="availability"
-                        value="out-of-stock"
-                      />
-                      <span className="facet-checkbox__label">
-                        Out of stock (1)
-                      </span>
-                    </label>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Price Filter */}
-            <div className="facets__display">
-              <div className="facets__header">
-                <button
-                  type="button"
-                  className="facets__summary"
-                  onClick={() => toggleFilter('price')}
-                  aria-expanded={expandedFilters.price}
-                >
-                  <span className="facets__summary-inner">
-                    <span className="facets__summary-text">PRICE</span>
-                    <span className="facets__display-icon">
-                      <svg
-                        className={`icon icon-arrow ${expandedFilters.price ? 'icon-arrow-up' : 'icon-arrow-down'}`}
-                        aria-hidden="true"
-                        focusable="false"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 10 6"
-                      >
-                        <path fillRule="evenodd" d="m9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708z" />
-                      </svg>
-                    </span>
-                  </span>
-                </button>
-              </div>
-              {expandedFilters.price && (
-                <div className="facets__display-list">
-                  <div className="price-range-wrapper">
-                    <div className="price-range-slider">
-                      <input
-                        type="range"
-                        min="0"
-                        max={priceRange.max}
-                        value={priceRange.min}
-                        onChange={(e) => handlePriceChange('min', Number(e.target.value))}
-                        className="price-range-input price-range-input--min"
-                      />
-                      <input
-                        type="range"
-                        min="0"
-                        max={priceRange.max}
-                        value={priceRange.max}
-                        onChange={(e) => handlePriceChange('max', Number(e.target.value))}
-                        className="price-range-input price-range-input--max"
-                      />
-                      <div className="price-range-track">
-                        <div
-                          className="price-range-fill"
-                          style={{
-                            left: `${(priceRange.min / priceRange.max) * 100}%`,
-                            width: `${((priceRange.max - priceRange.min) / priceRange.max) * 100}%`,
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="price-range-inputs">
-                      <div className="price-input-wrapper">
-                        <span className="price-input-currency">₹</span>
-                        <input
-                          type="number"
-                          min="0"
-                          max={priceRange.max}
-                          step="0.01"
-                          value={priceRange.min === 0 ? '0' : priceRange.min.toFixed(2)}
-                          onChange={(e) => handlePriceChange('min', Number(e.target.value))}
-                          className="price-input"
-                        />
-                      </div>
-                      <div className="price-input-wrapper">
-                        <span className="price-input-currency">₹</span>
-                        <input
-                          type="number"
-                          min="0"
-                          max={priceRange.max}
-                          step="0.01"
-                          value={priceRange.max.toFixed(2)}
-                          onChange={(e) => handlePriceChange('max', Number(e.target.value))}
-                          className="price-input"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="mobile-sidebar-footer">
-          <button
-            type="button"
-            className="mobile-sidebar-apply-btn"
-            onClick={() => setIsMobileSidebarOpen(false)}
-          >
-            Apply Filters
-          </button>
         </div>
       </div>
     </main>
   )
 }
 
-export default function ProductsPage() {
+// ── Sub-components ───────────────────────────────────────────────────────────
+
+function TrustChip({ label, icon }: { label: string; icon: string }) {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading products...</p>
-      </div>
-    }>
-      <ProductsContent />
-    </Suspense>
+    <span className="inline-flex items-center gap-1.5 bg-white border border-gray-200 text-ink text-xs font-sans px-3 py-1.5 rounded-pill shadow-sm">
+      <TrustIcon slug={icon} />
+      {label}
+    </span>
   )
+}
+
+function TrustIcon({ slug }: { slug: string }) {
+  switch (slug) {
+    case 'cod':
+      return (
+        <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      )
+    case 'india':
+      return (
+        <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      )
+    case 'custom':
+      return (
+        <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+        </svg>
+      )
+    default:
+      return (
+        <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+        </svg>
+      )
+  }
 }

@@ -1,1001 +1,195 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
-import Script from 'next/script'
+
+const shopLinks = [
+  { href: '/products?category=lamps', label: 'Lamps & Lighting' },
+  { href: '/products?category=organizers', label: 'Desk & Workspace' },
+  { href: '/products?category=planters', label: 'Planters & Garden' },
+  { href: '/products', label: 'All Products' },
+]
+
+const serviceLinks = [
+  { href: '/customize', label: 'Customise Now' },
+  { href: '/customize', label: 'Upload Your Design' },
+  { href: '/account', label: 'Track Order' },
+  { href: '/account', label: 'My Account' },
+  { href: '/cart', label: 'Cart' },
+  { href: '/bulk-order', label: 'Bulk Orders' },
+]
+
+const contactInfo = {
+  phone: '+91 78274 22309',
+  phoneTel: 'tel:+917827422309',
+  email: 'hello@tathastu.in',
+  whatsapp: 'https://wa.me/918882065253',
+}
 
 export function Footer() {
-  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
-    about: false,
-    collection: false,
-    company: false,
-    policy: false,
-    needHelp: false,
-    socialLinks: false,
-  })
-
-  const toggleSection = (section: string) => {
-    setExpandedSections((prev) => ({
-      ...prev,
-      [section]: !prev[section],
-    }))
-  }
-
   return (
-    <>
-      <footer className="site-footer footer-sections--25165095698717__footer footer-acc-mobile">
-        <div className="site-footer--head">
-          <div className="container-fluid">
-            <div className="row footer-sections-row">
-              {/* About us */}
-              <div className="col-lg-3 col-md-6 footer-section footer-section-about">
-                <div className="site-footer__section text-lg-left">
-                  <button
-                    className="accordion-toggle"
-                    onClick={() => toggleSection('about')}
-                    aria-expanded={expandedSections.about}
-                  >
-                    <h4 className="h5 site-footer__section-title">
-                      About us
-                    </h4>
-                    <span className="accordion-icon">
-                      {expandedSections.about ? '−' : '+'}
-                    </span>
-                  </button>
-                  <div
-                    className={`site-footer-block footer-left accordion-content ${
-                      expandedSections.about ? 'expanded' : 'collapsed'
-                    }`}
-                  >
-                    <div className="rte-setting">
-                      A home should be a collection of stories and textures that stand the test of time. We curate pieces where raw, natural materials meet functional, modern design—from hand-thrown ceramics to reclaimed wood. We&apos;re here to help you find timeless objects that turn everyday rituals into lasting memories.
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <footer className="section-dark relative overflow-hidden" data-testid="site-footer">
+      {/* Large faint watermark wordmark */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-center overflow-hidden"
+        aria-hidden="true"
+      >
+        <span
+          className="font-display font-extrabold uppercase tracking-widest text-white/[0.04] select-none"
+          style={{ fontSize: 'clamp(3rem, 12vw, 10rem)', lineHeight: '0.85' }}
+        >
+          TATHASTU
+        </span>
+      </div>
 
-              {/* Collection */}
-              <div className="col-lg-2 col-md-4 footer-section">
-                <div className="site-footer__section text-lg-left">
-                  <button
-                    className="accordion-toggle"
-                    onClick={() => toggleSection('collection')}
-                    aria-expanded={expandedSections.collection}
-                  >
-                    <h4 className="h5 site-footer__section-title">Collection</h4>
-                    <span className="accordion-icon">
-                      {expandedSections.collection ? '−' : '+'}
-                    </span>
-                  </button>
-                  <ul
-                    className={`site-footer__list site-footer-block accordion-content ${
-                      expandedSections.collection ? 'expanded' : 'collapsed'
-                    }`}
-                  >
-                    <li className="site-footer__list-item">
-                      <Link href="/collections/drinkware">Drinkware</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/collections/plates-platters">Plates & Platters</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/collections/bowls">Bowls</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/collections/table-essentials">Table Essentials</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/collections/urban-eden">Planters</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/collections/all-products">All Products</Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+      <div className="container-page relative py-14">
+        {/* ── Top grid ──────────────────────────────────── */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
 
-              {/* Company */}
-              <div className="col-lg-2 col-md-4 footer-section">
-                <div className="site-footer__section text-lg-left">
-                  <button
-                    className="accordion-toggle"
-                    onClick={() => toggleSection('company')}
-                    aria-expanded={expandedSections.company}
-                  >
-                    <h4 className="h5 site-footer__section-title">Company</h4>
-                    <span className="accordion-icon">
-                      {expandedSections.company ? '−' : '+'}
-                    </span>
-                  </button>
-                  <ul
-                    className={`site-footer__list site-footer-block accordion-content ${
-                      expandedSections.company ? 'expanded' : 'collapsed'
-                    }`}
-                  >
-                    <li className="site-footer__list-item">
-                      <Link href="/pages/about-us">About Us</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/pages/visit-us">Visit Us</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/pages/faqs">FAQ&apos;s</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/pages/contact">Contact</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/pages/bulk-order">Bulk Order</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/blogs/news">Blog Posts</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/search">Search</Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+          {/* Column 1 — Brand */}
+          <div className="lg:col-span-1">
+            <Link href="/" className="font-display font-bold text-2xl text-white tracking-tight" aria-label="Tathastu home">
+              Tathast<span className="text-brand">u</span>
+            </Link>
+            <p className="mt-4 text-sm font-sans text-white/60 leading-relaxed">
+              Premium 3D-printed home décor, workspace accessories, and custom prints — crafted layer by layer and shipped across India.
+            </p>
 
-              {/* Policy */}
-              <div className="col-lg-2 col-md-4 footer-section">
-                <div className="site-footer__section text-lg-left">
-                  <button
-                    className="accordion-toggle"
-                    onClick={() => toggleSection('policy')}
-                    aria-expanded={expandedSections.policy}
-                  >
-                    <h4 className="h5 site-footer__section-title">Policy</h4>
-                    <span className="accordion-icon">
-                      {expandedSections.policy ? '−' : '+'}
-                    </span>
-                  </button>
-                  <ul
-                    className={`site-footer__list site-footer-block accordion-content ${
-                      expandedSections.policy ? 'expanded' : 'collapsed'
-                    }`}
-                  >
-                    <li className="site-footer__list-item">
-                      <Link href="/policies/privacy-policy">Privacy Policy</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/policies/shipping-policy">Shipping Policy</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/policies/refund-policy">Refund Policy</Link>
-                    </li>
-                    <li className="site-footer__list-item">
-                      <Link href="/policies/terms-of-service">Terms of Service</Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              {/* Need help */}
-              <div className="col-lg-2 col-md-4 footer-section">
-                <div className="site-footer__section text-lg-left">
-                  <button
-                    className="accordion-toggle"
-                    onClick={() => toggleSection('needHelp')}
-                    aria-expanded={expandedSections.needHelp}
-                  >
-                    <h4 className="h5 site-footer__section-title">Need help</h4>
-                    <span className="accordion-icon">
-                      {expandedSections.needHelp ? '−' : '+'}
-                    </span>
-                  </button>
-                  <div
-                    className={`site-footer-block footer-left accordion-content ${
-                      expandedSections.needHelp ? 'expanded' : 'collapsed'
-                    }`}
-                  >
-                    <div className="rte-setting">
-                      <div>Chat on Whatsapp</div>
-                      <br />
-                      <a href="https://wa.me/+918882065253" target="_blank" rel="noopener noreferrer">
-                        +91 8882065253
-                      </a>
-                      <br />
-                      <br />
-                      <div>For Bulk Orders & Enquiry:</div>
-                      <br />
-                      <a href="mailto:business@shoprusticstone.com" target="_blank" rel="noopener noreferrer">
-                        business@shoprusticstone.com
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social Links */}
-              <div className="col-lg-2 col-md-4 footer-section">
-                <div className="site-footer__section text-lg-left">
-                  <button
-                    className="accordion-toggle"
-                    onClick={() => toggleSection('socialLinks')}
-                    aria-expanded={expandedSections.socialLinks}
-                  >
-                    <h4 className="h5 site-footer__section-title">Social Links</h4>
-                    <span className="accordion-icon">
-                      {expandedSections.socialLinks ? '−' : '+'}
-                    </span>
-                  </button>
-                  <div
-                    className={`site-footer-block footer-left accordion-content ${
-                      expandedSections.socialLinks ? 'expanded' : 'collapsed'
-                    }`}
-                  >
-                    <div className="rte-setting">
-                      <div>Follow us on</div>
-                      <div className="social-icons">
-                        <a
-                          href="https://www.facebook.com/profile.php?id=61565239826970"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="social-icon"
-                        >
-                          <i className="fa fa-facebook-f"></i>
-                        </a>
-                        <a
-                          href="https://www.instagram.com/shop.rusticstone"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="social-icon"
-                        >
-                          <i className="fa fa-instagram"></i>
-                        </a>
-                        <a
-                          href="https://in.pinterest.com/shoprusticstone/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="social-icon"
-                        >
-                          <i className="fa fa-pinterest-p"></i>
-                        </a>
-                        <a
-                          href="https://www.linkedin.com/company/shoprusticstone/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="social-icon"
-                        >
-                          <i className="fa fa-linkedin"></i>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            {/* Trust strip */}
+            <div className="mt-6 flex flex-col gap-2 text-xs font-sans text-white/50">
+              <span className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 8a2 2 0 002 2h8a2 2 0 002-2l1-8" />
+                </svg>
+                Pan-India delivery · COD available
+              </span>
+              <span className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                100% secure payments
+              </span>
+              <span className="flex items-center gap-2">
+                <svg className="w-4 h-4 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Dispatched in 2–4 business days
+              </span>
             </div>
           </div>
-        </div>
 
-        <div className="site-footer__copyright">
-          <div className="container-fluid">
-            <div className="d-flex flex-lg-row flex--sm-column flex-column-reverse">
-              <div className="footer-copy-right">
-                <ul
-                  id="footer-payment-methods"
-                  className="list-inline payment-icons text-center text-lg-right"
-                  style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}
+          {/* Column 2 — Shop */}
+          <div>
+            <h3 className="font-display font-semibold text-sm uppercase tracking-widest text-white/40 mb-4">
+              Shop
+            </h3>
+            <ul className="space-y-2.5">
+              {shopLinks.map((link) => (
+                <li key={link.href + link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm font-sans text-white/70 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3 — Services */}
+          <div>
+            <h3 className="font-display font-semibold text-sm uppercase tracking-widest text-white/40 mb-4">
+              Services
+            </h3>
+            <ul className="space-y-2.5">
+              {serviceLinks.map((link) => (
+                <li key={link.href + link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm font-sans text-white/70 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4 — Contact */}
+          <div>
+            <h3 className="font-display font-semibold text-sm uppercase tracking-widest text-white/40 mb-4">
+              Contact
+            </h3>
+            <ul className="space-y-3">
+              <li>
+                <a
+                  href={contactInfo.phoneTel}
+                  className="flex items-center gap-2 text-sm font-sans text-white/70 hover:text-white transition-colors"
                 >
-                  <li className="list-inline-item footer-payment-icon">
-                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/upi.svg?v=1763794145" width="42px" height="auto" alt="UPI" />
-                  </li>
-                  <li className="list-inline-item footer-payment-icon">
-                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/paytm.svg?v=1763794144" width="42px" height="auto" alt="Paytm" />
-                  </li>
-                  <li className="list-inline-item footer-payment-icon">
-                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/google-pay.svg?v=1763794144" width="42px" height="auto" alt="Google Pay" />
-                  </li>
-                  <li className="list-inline-item footer-payment-icon">
-                    <img src="https://cdn.shopify.com/s/files/1/0893/1563/9581/files/amazon-pay.svg?v=1763794144" width="64px" height="auto" alt="Amazon Pay" />
-                  </li>
-                </ul>
-                <div className="pt-3">
-                  <ul className="footer-bottom-link flex-wrap justify-content-center">
-                    <li>
-                      <Link href="/policies/privacy-policy">Privacy</Link>
-                    </li>
-                    <li>
-                      <Link href="/policies/shipping-policy">Shipping</Link>
-                    </li>
-                    <li>
-                      <Link href="/policies/refund-policy">Refund</Link>
-                    </li>
-                    <li>
-                      <Link href="/policies/terms-of-service">Terms of Service</Link>
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex-lg-grow-1">
-                <div className="d-flex flex-column text-lg-left text-center pt-lg-0 pt-3">
-                  <div className="d-flex flex-lg-row align-items-center justify-content-lg-start justify-content-center"></div>
-                  <div className="pt-2">
-                    <span className="pavan-theme">
-                      Copyright © {new Date().getFullYear()} | Layerix
-                    </span>
-                  </div>
-                </div>
-              </div>
-              </div>
-            </div>
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  {contactInfo.phone}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${contactInfo.email}`}
+                  className="flex items-center gap-2 text-sm font-sans text-white/70 hover:text-white transition-colors"
+                >
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  {contactInfo.email}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={contactInfo.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm font-sans text-white/70 hover:text-white transition-colors"
+                  aria-label="Chat with us on WhatsApp"
+                >
+                  <svg className="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                  </svg>
+                  WhatsApp Us
+                </a>
+              </li>
+              <li>
+                <Link
+                  href="/about"
+                  className="flex items-center gap-2 text-sm font-sans text-white/70 hover:text-white transition-colors"
+                >
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  About Tathastu
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
-      </footer>
 
-      {/* Font Awesome Script */}
-      <Script
-        src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"
-        strategy="lazyOnload"
-      />
-
-      <style jsx>{`
-        .site-footer {
-          --footer-bg: #3e5048;
-          --footer-text: #ffffff;
-          --footer-title: #ffffff;
-          --footer-text-hover: #edeae5;
-          --footer-font-size: 12px;
-          --footer-font-weight: 500;
-          --footer-font-space: 0.2em;
-          --footer-font-type: uppercase;
-          --footer-head-border: #e7e7e7;
-          --color-footer-text-rgb: 255, 255, 255;
-          --color-body-text: var(--footer-text);
-          --footer-paddingtop: 64px;
-          --footer-paddingbottom: 64px;
-          --footer-paddingtop-m: 32px;
-          --footer-paddingbottom-m: 0px;
-
-          background-color: var(--footer-bg);
-          color: var(--footer-text);
-          border-top: 1px solid var(--footer-head-border);
-        }
-
-        .site-footer a {
-          color: var(--footer-text);
-        }
-
-        .site-footer a:focus,
-        .site-footer a:hover {
-          color: var(--footer-text-hover);
-        }
-
-        .site-footer--head {
-          padding-top: var(--footer-paddingtop);
-          padding-bottom: var(--footer-paddingtop);
-        }
-
-        @media (max-width: 768px) {
-          .site-footer--head {
-            padding-top: var(--footer-paddingtop-m);
-            padding-bottom: var(--footer-paddingtop-m);
-          }
-        }
-
-        .container-fluid {
-          width: 100%;
-          padding-right: 15px;
-          padding-left: 15px;
-          margin-right: auto;
-          margin-left: auto;
-        }
-
-        .row {
-          display: flex;
-          flex-wrap: wrap;
-          margin-right: -15px;
-          margin-left: -15px;
-        }
-
-        .footer-sections-row {
-          display: flex;
-          flex-wrap: wrap;
-          width: 100%;
-          margin-right: -15px;
-          margin-left: -15px;
-        }
-
-        .footer-section {
-          flex: 1 1 0;
-          min-width: 0;
-          padding-right: 15px;
-          padding-left: 15px;
-        }
-
-        /* Desktop: Single line with About taking col-lg-3 (25%) */
-        @media (min-width: 992px) {
-          .footer-sections-row {
-            flex-wrap: wrap;
-          }
-          
-          .footer-section {
-            flex: 1 1 0;
-            max-width: 16.666667%;
-            flex-basis: 16.666667%;
-          }
-          
-          .footer-section-about {
-            flex: 0 0 25%;
-            max-width: 25%;
-            flex-basis: 25%;
-          }
-        }
-
-        /* Tablet: 2 columns - About us takes col-md-6 (50%), others take col-md-4 (33.33%) */
-        @media (min-width: 768px) and (max-width: 991px) {
-          .footer-section {
-            flex: 0 0 33.333333%;
-            max-width: 33.333333%;
-            flex-basis: 33.333333%;
-          }
-          
-          .footer-section-about {
-            flex: 0 0 50%;
-            max-width: 50%;
-            flex-basis: 50%;
-          }
-        }
-
-        /* Mobile: Full width */
-        @media (max-width: 767px) {
-          .footer-section {
-            flex: 0 0 100%;
-            max-width: 100%;
-            flex-basis: 100%;
-          }
-          
-          .footer-section-about {
-            flex: 0 0 100%;
-            max-width: 100%;
-            flex-basis: 100%;
-          }
-        }
-
-        .col-lg-3 {
-          flex: 0 0 25%;
-          max-width: 25%;
-          padding-right: 15px;
-          padding-left: 15px;
-        }
-
-        .col-md-6 {
-          flex: 0 0 50%;
-          max-width: 50%;
-          padding-right: 15px;
-          padding-left: 15px;
-        }
-
-        .col-lg-2 {
-          flex: 0 0 16.666667%;
-          max-width: 16.666667%;
-          padding-right: 15px;
-          padding-left: 15px;
-        }
-
-        .col-md-6 {
-          flex: 0 0 50%;
-          max-width: 50%;
-          padding-right: 15px;
-          padding-left: 15px;
-        }
-
-        .col-md-4 {
-          flex: 0 0 33.333333%;
-          max-width: 33.333333%;
-          padding-right: 15px;
-          padding-left: 15px;
-        }
-
-        @media (max-width: 991px) {
-          .col-lg-3,
-          .col-lg-2 {
-            flex: 0 0 50%;
-            max-width: 50%;
-          }
-        }
-
-        /* Override Bootstrap classes for footer sections to ensure proper width distribution */
-        .footer-sections-row .footer-section.col-lg-2 {
-          flex: 1 1 0;
-          max-width: none;
-        }
-
-        .footer-sections-row .footer-section.col-lg-3 {
-          flex: 1 1 0;
-          max-width: none;
-        }
-
-        /* Desktop: Single line layout */
-        @media (min-width: 992px) {
-          .footer-sections-row .footer-section.col-lg-2 {
-            flex: 0 0 16.666667%;
-            max-width: 16.666667%;
-            flex-basis: 16.666667%;
-          }
-          
-          .footer-sections-row .footer-section-about.col-lg-3 {
-            flex: 0 0 25%;
-            max-width: 25%;
-            flex-basis: 25%;
-          }
-        }
-
-        /* Tablet: 2 columns */
-        @media (min-width: 768px) and (max-width: 991px) {
-          .footer-sections-row .footer-section.col-lg-2,
-          .footer-sections-row .footer-section.col-md-4 {
-            flex: 0 0 33.333333%;
-            max-width: 33.333333%;
-            flex-basis: 33.333333%;
-          }
-          
-          .footer-sections-row .footer-section-about.col-lg-3,
-          .footer-sections-row .footer-section-about.col-md-6 {
-            flex: 0 0 50%;
-            max-width: 50%;
-            flex-basis: 50%;
-          }
-        }
-
-        /* Mobile: Full width */
-        @media (max-width: 767px) {
-          .footer-sections-row .footer-section.col-lg-2,
-          .footer-sections-row .footer-section.col-lg-3,
-          .footer-sections-row .footer-section.col-md-4,
-          .footer-sections-row .footer-section.col-md-6 {
-            flex: 0 0 100%;
-            max-width: 100%;
-            flex-basis: 100%;
-          }
-        }
-
-        @media (max-width: 767px) {
-          .col-md-6,
-          .col-md-4 {
-            flex: 0 0 100%;
-            max-width: 100%;
-          }
-        }
-
-        .site-footer__section {
-          margin-bottom: 2rem;
-        }
-
-        .site-footer__section-title {
-          color: var(--footer-title);
-          text-transform: var(--footer-font-type);
-          font-weight: var(--footer-font-weight);
-          font-size: var(--footer-font-size);
-          letter-spacing: var(--footer-font-space);
-          margin-bottom: 1rem;
-        }
-
-        .accordion-toggle {
-          width: 100%;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          background: none;
-          border: none;
-          padding: 0;
-          margin: 0;
-          cursor: pointer;
-          text-align: left;
-          font-family: inherit;
-          -webkit-appearance: none;
-          -moz-appearance: none;
-          appearance: none;
-        }
-
-        .accordion-toggle .h5 {
-          margin: 0;
-          padding: 0;
-          color: var(--footer-title);
-          text-transform: var(--footer-font-type);
-          font-weight: var(--footer-font-weight);
-          font-size: var(--footer-font-size);
-          letter-spacing: var(--footer-font-space);
-        }
-
-        .accordion-toggle:focus {
-          outline: none;
-        }
-
-        .accordion-icon {
-          font-size: 18px;
-          font-weight: 300;
-          line-height: 1;
-          color: var(--footer-text);
-          transition: transform var(--duration-default) var(--anim-transition);
-        }
-
-        .accordion-content {
-          overflow: hidden;
-          transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-                      opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                      padding-top 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                      padding-bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                      margin-top 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          will-change: max-height, opacity;
-        }
-
-        .accordion-content.collapsed {
-          max-height: 0;
-          opacity: 0;
-          padding-top: 0;
-          padding-bottom: 0;
-          margin-top: 0;
-          margin-bottom: 0;
-        }
-
-        .accordion-content.expanded {
-          max-height: 2000px;
-          opacity: 1;
-          padding-top: 0;
-          padding-bottom: 0;
-        }
-
-        /* On desktop, always show content and hide accordion icons */
-        @media (min-width: 992px) {
-          .accordion-icon {
-            display: none;
-          }
-
-          .accordion-content {
-            max-height: none !important;
-            opacity: 1 !important;
-            transition: none !important;
-          }
-
-          .accordion-content.collapsed,
-          .accordion-content.expanded {
-            max-height: none;
-            opacity: 1;
-            padding-top: 0;
-            padding-bottom: 0;
-            margin-top: 0;
-          }
-        }
-
-        /* On mobile, show accordion functionality */
-        @media (max-width: 991px) {
-          .site-footer__section-title {
-            margin-bottom: 0;
-          }
-
-          .accordion-content.collapsed {
-            max-height: 0;
-            opacity: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-            margin-top: 0;
-          }
-
-          .accordion-content.expanded {
-            max-height: 2000px;
-            opacity: 1;
-            margin-top: 1rem;
-            padding-top: 0;
-            padding-bottom: 0;
-          }
-        }
-
-        .h5 {
-          font-size: var(--g-h5-font-size);
-          font-weight: var(--g-h5-font-weight);
-          line-height: var(--g-h5-font-lineheight);
-        }
-
-        .text-lg-left {
-          text-align: left;
-        }
-
-        @media (max-width: 991px) {
-          .text-lg-left {
-            text-align: left;
-          }
-        }
-
-        .site-footer-block {
-          margin-bottom: 1rem;
-        }
-
-        .footer-left {
-          text-align: left;
-        }
-
-        .rte-setting {
-          font-size: var(--g-p-font-size);
-          line-height: var(--g-p-font-lineheight);
-          color: var(--footer-text);
-          font-family: var(--g-font-2);
-          font-weight: var(--g-font-weight-body);
-          letter-spacing: normal;
-        }
-
-        .rte-setting div {
-          margin-bottom: 0.5rem;
-        }
-
-        .rte-setting a {
-          color: var(--footer-text);
-          text-decoration: none;
-          transition: color var(--duration-default) var(--anim-transition);
-          position: relative;
-        }
-
-        .rte-setting a::before {
-          content: '';
-          position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 0;
-          height: 1px;
-          background-color: var(--footer-text-hover);
-          transition: width var(--duration-default) var(--anim-transition);
-        }
-
-        .rte-setting a:hover {
-          color: var(--footer-text-hover);
-        }
-
-        .rte-setting a:hover::before {
-          width: 100%;
-        }
-
-        .site-footer__list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .site-footer__list-item {
-          margin-bottom: 0.5rem;
-        }
-
-        .site-footer__list-item a {
-          position: relative;
-          text-decoration: none;
-          transition: color var(--duration-default) var(--anim-transition);
-          color: var(--footer-text);
-          font-family: var(--g-font-2);
-          font-weight: var(--g-font-weight-body);
-        }
-
-        .site-footer__list-item a:hover {
-          color: var(--footer-text-hover);
-        }
-
-        .site-footer__list-item a::before {
-          content: '';
-          position: absolute;
-          bottom: -2px;
-          left: 0;
-          width: 0;
-          height: 1px;
-          background-color: var(--footer-text-hover);
-          transition: width var(--duration-default) var(--anim-transition);
-        }
-
-        .site-footer__list-item a:hover::before {
-          width: 100%;
-        }
-
-        .social-icons {
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
-          gap: 25px;
-          margin-top: 20px;
-        }
-
-        .social-icon {
-          color: var(--footer-text);
-          font-size: 16px;
-          text-decoration: none;
-          transition: color 0.3s ease;
-        }
-
-        .social-icon:hover {
-          color: #f0a500;
-        }
-
-        .site-footer__copyright {
-          padding-top: 2rem;
-          padding-bottom: 2rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .d-flex {
-          display: flex;
-        }
-
-        .flex-lg-row {
-          flex-direction: row;
-        }
-
-        .flex--sm-column {
-          flex-direction: column;
-        }
-
-        .flex-column-reverse {
-          flex-direction: column-reverse;
-        }
-
-        @media (min-width: 992px) {
-          .flex-lg-row {
-            flex-direction: row;
-          }
-        }
-
-        @media (max-width: 991px) {
-          .flex--sm-column {
-            flex-direction: column;
-          }
-        }
-
-        .flex-lg-grow-1 {
-          display: flex;
-          flex-grow: 1;
-        }
-
-        @media (min-width: 992px) {
-          .flex-lg-grow-1 {
-            flex-grow: 1;
-          }
-        }
-
-        .flex-column {
-          flex-direction: column;
-        }
-
-        .text-center {
-          text-align: center;
-        }
-
-        .text-lg-right {
-          text-align: right;
-        }
-
-        @media (min-width: 992px) {
-          .text-lg-right {
-            text-align: right;
-          }
-        }
-
-        .pt-lg-0 {
-          padding-top: 0;
-        }
-
-        @media (min-width: 992px) {
-          .pt-lg-0 {
-            padding-top: 0;
-          }
-        }
-
-        .pt-3 {
-          padding-top: 1rem;
-        }
-
-        .pt-2 {
-          padding-top: 0.5rem;
-        }
-
-        .pavan-theme {
-          color: var(--footer-text);
-          font-size: var(--g-p-font-size);
-        }
-
-        .footer-copy-right {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-        }
-
-        @media (max-width: 991px) {
-          .footer-copy-right {
-            align-items: center;
-          }
-        }
-
-        .list-inline {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .list-inline-item {
-          display: inline-block;
-        }
-
-        .payment-icons {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 6px;
-          align-items: center;
-        }
-
-        .payment-icon {
-          width: 38px;
-          height: 24px;
-        }
-
-        .footer-payment-icon {
-          display: inline-flex;
-          align-items: center;
-        }
-
-        .payment-icon-img {
-          height: auto;
-          width: auto;
-        }
-
-        .list-unstyled {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .footer-bottom-link {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0;
-          align-items: center;
-        }
-
-        .footer-bottom-link li {
-          margin: 0;
-          display: flex;
-          align-items: center;
-        }
-
-        .footer-bottom-link li:not(:last-child)::after {
-          content: '|';
-          margin: 0 1rem;
-          color: var(--footer-text);
-          opacity: 0.6;
-        }
-
-        .footer-bottom-link a {
-          color: var(--footer-text);
-          text-decoration: none;
-          font-size: var(--g-p-font-size);
-          transition: color var(--duration-default) var(--anim-transition);
-        }
-
-        .footer-bottom-link a:hover {
-          color: var(--footer-text-hover);
-        }
-
-        .justify-content-center {
-          justify-content: center;
-        }
-
-        .justify-content-lg-end {
-          justify-content: flex-end;
-        }
-
-        @media (min-width: 992px) {
-          .justify-content-lg-end {
-            justify-content: flex-end;
-          }
-        }
-
-        .align-items-center {
-          align-items: center;
-        }
-
-        .justify-content-lg-start {
-          justify-content: flex-start;
-        }
-
-        @media (min-width: 992px) {
-          .justify-content-lg-start {
-            justify-content: flex-start;
-          }
-        }
-      `}</style>
-    </>
+        {/* ── Bottom bar ────────────────────────────────── */}
+        <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs font-sans text-white/40 text-center sm:text-left">
+            © 2026 Tathastu. All rights reserved.
+          </p>
+
+          {/* Payment methods / trust icons */}
+          <div className="flex items-center gap-3 text-xs font-sans text-white/40">
+            <span>Secure payments:</span>
+            <span className="flex items-center gap-2">
+              {/* UPI */}
+              <span className="bg-white/10 rounded px-2 py-0.5 text-white/60 font-display font-bold text-[10px] tracking-wide">UPI</span>
+              {/* Cards */}
+              <span className="bg-white/10 rounded px-2 py-0.5 text-white/60 font-display font-bold text-[10px] tracking-wide">CARD</span>
+              {/* COD */}
+              <span className="bg-white/10 rounded px-2 py-0.5 text-white/60 font-display font-bold text-[10px] tracking-wide">COD</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
   )
 }

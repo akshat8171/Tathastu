@@ -1,353 +1,102 @@
-'use client'
+import Image from 'next/image'
+import { Button } from '@/components/ui'
 
-import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
-
-interface Slide {
-  id: number
-  href: string
-  desktopImg: string
-  mobileImg: string
-  alt: string
-}
-
-const slides: Slide[] = [
+// Pick 4 hero product images from real files confirmed in products.json / DESIGN_SPEC
+const heroImages = [
   {
-    id: 1,
-    href: '/collections/best-seller',
-    desktopImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/Bestseller_1.jpg?v=1761383447',
-    mobileImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/bestseller_mobile.jpg?v=1761383447',
-    alt: 'Best Seller Collection',
+    src: '/images/products/lamps/lamp5/09d2f170-e355-11f0-a875-5de986fdb37b.jpg',
+    alt: 'Minimalist Modern Lamp',
   },
   {
-    id: 2,
-    href: '/collections/new-arrivals',
-    desktopImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/Rustic_Newarival_homepage_3.jpg?v=1768227630',
-    mobileImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/festive_sale_5.jpg?v=1768229871',
-    alt: 'New Arrivals Collection',
+    src: '/images/products/planters/planter2/STACKABLE.jpg',
+    alt: 'Stackable Planter Set',
   },
   {
-    id: 3,
-    href: '/pages/bulk-order',
-    desktopImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/Wedding_6.jpg?v=1761383448',
-    mobileImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/wedding_mobile_1.jpg?v=1761383448',
-    alt: 'Bulk Orders',
+    src: '/images/products/organizers/organizer3/TISTWO20tissue20box.jpg',
+    alt: 'TISTWO Tissue Box Organizer',
   },
   {
-    id: 4,
-    href: '/collections/urban-eden',
-    desktopImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/Planters_1.jpg?v=1761922595',
-    mobileImg: 'https://cdn.shopify.com/s/files/1/0893/1563/9581/files/Planters_Msite.jpg?v=1761922594',
-    alt: 'Planters Collection',
+    src: '/images/products/lamps/lamp3/2025-11-18_19d636c83adc7.webp',
+    alt: 'Contemporary Style Lamp',
   },
 ]
 
 export function BannerSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-
-  // Check if CSS is loaded and first slide images are ready
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    let imageLoaded = false
-    let cssReady = false
-
-    const checkComplete = () => {
-      if (imageLoaded && cssReady) {
-        setIsLoaded(true)
-      }
-    }
-
-    // Wait for CSS to be applied (give it a moment)
-    const cssTimer = setTimeout(() => {
-      cssReady = true
-      checkComplete()
-    }, 100)
-
-    // Preload first slide images
-    const firstSlide = slides[0]
-    const desktopImg = new Image()
-    const mobileImg = new Image()
-
-    const handleImageLoad = () => {
-      if (desktopImg.complete && mobileImg.complete) {
-        imageLoaded = true
-        checkComplete()
-      }
-    }
-
-    desktopImg.onload = handleImageLoad
-    mobileImg.onload = handleImageLoad
-    desktopImg.src = firstSlide.desktopImg
-    mobileImg.src = firstSlide.mobileImg
-
-    // Fallback: show content after max 800ms
-    const fallbackTimer = setTimeout(() => {
-      setIsLoaded(true)
-    }, 800)
-
-    return () => {
-      clearTimeout(cssTimer)
-      clearTimeout(fallbackTimer)
-    }
-  }, [])
-
-  // Auto-slide functionality
-  useEffect(() => {
-    if (!isLoaded) return
-
-    const startAutoSlide = () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
-      intervalRef.current = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length)
-      }, 4000)
-    }
-
-    startAutoSlide()
-
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current)
-      }
-    }
-  }, [isLoaded])
-
-  const handleNext = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-      intervalRef.current = null
-    }
-    setCurrentSlide((prev) => {
-      const next = (prev + 1) % slides.length
-      return next
-    })
-    // Restart interval after manual navigation
-    setTimeout(() => {
-      if (intervalRef.current === null) {
-        intervalRef.current = setInterval(() => {
-          setCurrentSlide((prev) => (prev + 1) % slides.length)
-        }, 4000)
-      }
-    }, 100)
-  }
-
-  const handlePrev = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-      intervalRef.current = null
-    }
-    setCurrentSlide((prev) => {
-      const next = (prev - 1 + slides.length) % slides.length
-      return next
-    })
-    // Restart interval after manual navigation
-    setTimeout(() => {
-      if (intervalRef.current === null) {
-        intervalRef.current = setInterval(() => {
-          setCurrentSlide((prev) => (prev + 1) % slides.length)
-        }, 4000)
-      }
-    }, 100)
-  }
-
   return (
-    <section className="custom-slideshow" id="customSlideshow">
-      {!isLoaded && (
-        <div className="slideshow-skeleton">
-          <div className="skeleton-shimmer" />
+    <section className="relative overflow-hidden bg-gradient-to-br from-violet/10 via-surface to-white">
+      <div className="container-page py-14 sm:py-20 lg:py-24">
+        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+          {/* ── Left: Copy + CTAs ──────────────────────────────────────────── */}
+          <div className="flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0">
+            {/* Eyebrow */}
+            <p className="inline-flex items-center gap-2 text-xs font-display font-semibold uppercase tracking-widest text-violet mb-4 bg-violet/10 px-3 py-1.5 rounded-full">
+              <span>🇮🇳</span>
+              Made-to-order across India
+            </p>
+
+            {/* Headline */}
+            <h1 className="font-display font-extrabold text-ink text-4xl sm:text-5xl lg:text-6xl leading-tight mb-4">
+              If it exists,{' '}
+              <span className="text-brand">
+                we can print it.
+              </span>
+            </h1>
+
+            {/* Sub-copy */}
+            <p className="font-sans text-muted text-lg sm:text-xl leading-relaxed mb-8 max-w-md mx-auto lg:mx-0">
+              Custom 3D-printed lamps, planters, and desk accessories — handcrafted to order
+              and delivered to every PIN code in India.
+            </p>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+              <Button variant="primary" size="lg" href="/products">
+                Shop all products
+              </Button>
+              <Button variant="outline" size="lg" href="/customize">
+                Customise Now
+              </Button>
+            </div>
+
+            {/* Social proof line */}
+            <p className="mt-6 text-xs font-sans text-muted">
+              <span className="font-semibold text-ink">4,200+</span> happy customers ·{' '}
+              <span className="font-semibold text-ink">4.7 ★</span> average rating
+            </p>
+          </div>
+
+          {/* ── Right: Product image cluster ───────────────────────────────── */}
+          <div className="flex-1 w-full max-w-lg lg:max-w-none">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              {heroImages.map((img, i) => (
+                <div
+                  key={img.src}
+                  className={`relative overflow-hidden rounded-2xl bg-panel shadow-card
+                    ${i === 0 ? 'aspect-[4/5]' : ''}
+                    ${i === 1 ? 'aspect-square mt-6' : ''}
+                    ${i === 2 ? 'aspect-square' : ''}
+                    ${i === 3 ? 'aspect-[4/5] -mt-6' : ''}
+                  `}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(max-width: 640px) 45vw, (max-width: 1024px) 35vw, 22vw"
+                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    unoptimized
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
         </div>
-      )}
-      <div style={{ opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s ease' }}>
-        {slides.map((slide, index) => {
-          const isActive = index === currentSlide
-          return (
-            <Link
-              key={slide.id}
-              href={slide.href}
-              className={isActive ? 'slide active' : 'slide'}
-              style={{ pointerEvents: isActive ? 'auto' : 'none' }}
-            >
-              <img
-                src={slide.desktopImg}
-                alt={`${slide.alt} Desktop`}
-                className="desktop-img"
-              />
-              <img
-                src={slide.mobileImg}
-                alt={`${slide.alt} Mobile`}
-                className="mobile-img"
-              />
-            </Link>
-          )
-        })}
       </div>
 
-      {/* Navigation Arrows */}
-      {isLoaded && (
-        <>
-          <button
-            type="button"
-            className="arrow left"
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              handlePrev()
-            }}
-            aria-label="Previous slide"
-          >
-            ❮
-          </button>
-          <button
-            type="button"
-            className="arrow right"
-            onClick={(e) => {
-              e.preventDefault()
-              e.stopPropagation()
-              handleNext()
-            }}
-            aria-label="Next slide"
-          >
-            ❯
-          </button>
-        </>
-      )}
-
-      <style jsx global>{`
-        .custom-slideshow {
-          position: relative;
-          overflow: hidden;
-          width: 100%;
-          height: 60vh;
-          min-height: 300px;
-          max-height: 900px;
-        }
-
-        .custom-slideshow .slide {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          top: 0;
-          left: 0;
-          opacity: 0;
-          transition: opacity 0.8s ease-in-out;
-          z-index: 1;
-          display: block;
-        }
-
-        .custom-slideshow .slide.active {
-          opacity: 1;
-          z-index: 2;
-        }
-
-        .custom-slideshow .slide img {
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-          display: block;
-        }
-
-        .custom-slideshow .desktop-img {
-          display: block;
-        }
-
-        .custom-slideshow .mobile-img {
-          display: none;
-        }
-
-        @media only screen and (max-width: 749px) {
-          .custom-slideshow .desktop-img {
-            display: none !important;
-            visibility: hidden;
-          }
-          .custom-slideshow .mobile-img {
-            display: block !important;
-            visibility: visible;
-          }
-        }
-
-        .custom-slideshow .arrow {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          background: rgba(0, 0, 0, 0.5);
-          color: #fff;
-          font-size: 24px;
-          width: 45px;
-          height: 45px;
-          border-radius: 50%;
-          text-align: center;
-          line-height: 45px;
-          cursor: pointer;
-          z-index: 100;
-          user-select: none;
-          border: none;
-          padding: 0;
-          transition: background 0.3s ease;
-          pointer-events: auto;
-        }
-
-        .custom-slideshow .arrow:hover {
-          background: rgba(0, 0, 0, 0.7);
-        }
-
-        .custom-slideshow .arrow.left {
-          left: 15px;
-        }
-
-        .custom-slideshow .arrow.right {
-          right: 15px;
-        }
-
-        @media (max-width: 749px) {
-          .custom-slideshow .arrow {
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            font-size: 20px;
-          }
-
-          .custom-slideshow .arrow.left {
-            left: 10px;
-          }
-
-          .custom-slideshow .arrow.right {
-            right: 10px;
-          }
-        }
-
-        .custom-slideshow .slideshow-skeleton {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-          background-size: 200% 100%;
-          animation: shimmer 1.5s infinite;
-          z-index: 10;
-        }
-
-        @keyframes shimmer {
-          0% {
-            background-position: -200% 0;
-          }
-          100% {
-            background-position: 200% 0;
-          }
-        }
-
-        .custom-slideshow .skeleton-shimmer {
-          width: 100%;
-          height: 100%;
-        }
-      `}</style>
+      {/* Subtle bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-b from-transparent to-white pointer-events-none" />
     </section>
   )
 }

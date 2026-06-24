@@ -1,38 +1,46 @@
-import { BannerSection } from '@/components/homepage/banner-section'
-import { CategoryIcons } from '@/components/homepage/category-icons'
-import { WatchShopSection } from '@/components/homepage/watch-shop-section'
-import { BestSellers } from '@/components/homepage/best-sellers'
-import { BrandStory } from '@/components/about/brand-story'
-import { MeetFounder } from '@/components/about/meet-founder'
-import { ReviewsSection } from '@/components/homepage/reviews-section'
-import { BulkOrdersSection } from '@/components/homepage/bulk-orders-section'
-import { ScrollAnimate } from '@/components/layout/scroll-animate'
+/**
+ * Tathastu — Homepage
+ *
+ * Server component that composes all homepage sections.
+ * Sections that rely on useCart (ProductCard) are wrapped in
+ * client-component boundaries: BestSellers, CategoryRails.
+ */
+
+import { BannerSection }   from '@/components/homepage/banner-section'
+import { CategoryIcons }   from '@/components/homepage/category-icons'
+import { PromoStrip }      from '@/components/homepage/promo-strip'
+import { BestSellers }     from '@/components/homepage/best-sellers'
+import { TrustBand }       from '@/components/homepage/trust-band'
+import { CategoryRails }   from '@/components/homepage/category-rails'
+import { ReviewsSection }  from '@/components/homepage/reviews-section'
+import { IdeaCta }         from '@/components/homepage/idea-cta'
 
 export default function HomePage() {
   return (
     <>
+      {/* 1. Hero */}
       <BannerSection />
-      <ScrollAnimate direction="up" delay={0}>
-        <CategoryIcons />
-      </ScrollAnimate>
-      <ScrollAnimate direction="up" delay={100}>
-        <WatchShopSection />
-      </ScrollAnimate>
-      <ScrollAnimate direction="up" delay={200}>
-        <BestSellers />
-      </ScrollAnimate>
-      <ScrollAnimate direction="up" delay={0}>
-        <BrandStory />
-      </ScrollAnimate>
-      <ScrollAnimate direction="up" delay={100}>
-        <MeetFounder />
-      </ScrollAnimate>
-      <ScrollAnimate direction="up" delay={200}>
-        <ReviewsSection />
-      </ScrollAnimate>
-      <ScrollAnimate direction="up" delay={0}>
-        <BulkOrdersSection />
-      </ScrollAnimate>
+
+      {/* 2. Category grid */}
+      <CategoryIcons />
+
+      {/* 3. Promo strip */}
+      <PromoStrip />
+
+      {/* 4. Best Sellers */}
+      <BestSellers />
+
+      {/* 5. Trust band */}
+      <TrustBand />
+
+      {/* 6. Per-category rails */}
+      <CategoryRails />
+
+      {/* 7. Customer reviews */}
+      <ReviewsSection />
+
+      {/* 8. Idea / Custom CTA */}
+      <IdeaCta />
     </>
   )
 }
