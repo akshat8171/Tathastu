@@ -19,7 +19,7 @@ export function openRazorpayCheckout(options: RazorpayOptions) {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
     amount: options.amount,
     currency: 'INR',
-    name: 'Tathastu',
+    name: 'Layerix',
     description: '3D Printed Goods',
     order_id: options.orderId,
     prefill: {

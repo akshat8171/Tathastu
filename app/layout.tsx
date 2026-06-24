@@ -7,7 +7,7 @@ import { WhatsAppFloat } from '@/components/layout/whatsapp-float'
 import { CartProvider } from '@/components/cart/cart-context'
 
 export const metadata: Metadata = {
-  title: 'Tathastu | If it exists, we can print it.',
+  title: 'Layerix | If it exists, we can print it.',
   description: 'Premium 3D printed home décor, lamps, planters, workspace organisers, and custom creations. Precision printing from India. If it exists, we can print it.',
 }
 

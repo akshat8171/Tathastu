@@ -14,7 +14,20 @@ jest.mock('@/lib/supabase/client', () => ({
 
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn(), refresh: jest.fn() }),
+  useSearchParams: () => ({ get: () => null }),
 }))
+
+// OTP send now POSTs to /api/auth/send-otp (rate-limited server route).
+beforeEach(() => {
+  global.fetch = jest.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({ success: true }),
+  }) as unknown as typeof fetch
+})
+
+afterEach(() => {
+  jest.restoreAllMocks()
+})
 
 describe('PhoneOtpForm', () => {
   it('renders phone input initially', () => {

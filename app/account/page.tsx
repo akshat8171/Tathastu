@@ -116,7 +116,7 @@ export default async function AccountPage() {
         <div className="bg-white rounded-card2 shadow-card p-5 flex items-center justify-between">
           <div>
             <p className="font-display font-semibold text-ink text-sm">Sign out</p>
-            <p className="font-sans text-muted text-xs mt-0.5">Log out of your Tathastu account</p>
+            <p className="font-sans text-muted text-xs mt-0.5">Log out of your Layerix account</p>
           </div>
           <LogoutButton />
         </div>

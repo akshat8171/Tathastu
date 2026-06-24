@@ -1,4 +1,4 @@
-import { createClient } from '@supabase/supabase-js'
+import { createBrowserClient } from '@supabase/ssr'
 
 // Supabase client configuration
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -8,8 +8,11 @@ if (!supabaseUrl || !supabaseKey) {
   throw new Error('Missing Supabase environment variables')
 }
 
-// Create Supabase client
-export const supabase = createClient(supabaseUrl, supabaseKey)
+// Browser client backed by cookies (not localStorage) via @supabase/ssr.
+// This is what lets the server (createServerClient) read the same auth
+// session: access + refresh tokens are stored in httpOnly cookies and
+// rotated automatically by the middleware's getUser() call.
+export const supabase = createBrowserClient(supabaseUrl, supabaseKey)
 
 // Database Types
 export interface Customer {

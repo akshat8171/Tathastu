@@ -108,7 +108,7 @@ export default function CustomizePage() {
               </Button>
               <Button
                 variant="outline"
-                href="https://wa.me/918882065253"
+                href="https://wa.me/919154892790"
                 size="lg"
               >
                 Chat on WhatsApp
@@ -166,7 +166,7 @@ export default function CustomizePage() {
                 a quote. You can also reach us instantly on WhatsApp.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="primary" href="https://wa.me/918882065253" size="lg">
+                <Button variant="primary" href="https://wa.me/919154892790" size="lg">
                   Chat on WhatsApp
                 </Button>
                 <Button variant="outline" href="/products" size="lg">
@@ -273,7 +273,7 @@ export default function CustomizePage() {
               {/* Direct contact CTAs */}
               <div className="grid sm:grid-cols-2 gap-4">
                 <a
-                  href="https://wa.me/918882065253"
+                  href="https://wa.me/919154892790"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 hover:border-brand/30 hover:bg-brand/5 transition-colors group"
@@ -285,12 +285,12 @@ export default function CustomizePage() {
                   </div>
                   <div>
                     <p className="font-display font-semibold text-ink text-sm">Chat on WhatsApp</p>
-                    <p className="font-sans text-muted text-xs">+91 88820 65253</p>
+                    <p className="font-sans text-muted text-xs">+91 91548 92790</p>
                   </div>
                 </a>
 
                 <a
-                  href="mailto:hello@tathastu.in"
+                  href="mailto:layerix.in@gmail.com"
                   className="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 hover:border-brand/30 hover:bg-brand/5 transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0">
@@ -300,7 +300,7 @@ export default function CustomizePage() {
                   </div>
                   <div>
                     <p className="font-display font-semibold text-ink text-sm">Email us</p>
-                    <p className="font-sans text-muted text-xs">hello@tathastu.in</p>
+                    <p className="font-sans text-muted text-xs">layerix.in@gmail.com</p>
                   </div>
                 </a>
               </div>
@@ -343,7 +343,7 @@ export default function CustomizePage() {
           <div className="text-center mt-10">
             <p className="font-sans text-muted text-sm mb-4">Still have questions?</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" href="https://wa.me/918882065253" size="md">
+              <Button variant="primary" href="https://wa.me/919154892790" size="md">
                 WhatsApp us
               </Button>
               <Button variant="outline" href="/bulk-order" size="md">

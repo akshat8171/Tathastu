@@ -1,10 +1,19 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 type Step = 'phone' | 'otp'
+
+const RESEND_COOLDOWN_SECONDS = 60
+
+function sanitizeNext(raw: string | null): string {
+  if (!raw) return '/account'
+  if (!raw.startsWith('/') || raw.startsWith('//')) return '/account'
+  if (raw.includes('://') || raw.includes('\\')) return '/account'
+  return raw
+}
 
 export function PhoneOtpForm() {
   const [step, setStep] = useState<Step>('phone')
@@ -12,7 +21,42 @@ export function PhoneOtpForm() {
   const [otp, setOtp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [cooldown, setCooldown] = useState(0)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const next = sanitizeNext(searchParams.get('next'))
+
+  // Countdown timer for the resend cooldown
+  useEffect(() => {
+    if (cooldown <= 0) return
+    const t = setTimeout(() => setCooldown(c => c - 1), 1000)
+    return () => clearTimeout(t)
+  }, [cooldown])
+
+  const sendOtp = useCallback(async (cleaned: string) => {
+    // POST to our server route (rate-limited) instead of calling Supabase
+    // directly from the browser. This is the choke-point a scripted attacker
+    // cannot bypass.
+    let res: Response
+    try {
+      res = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: cleaned }),
+      })
+    } catch {
+      setError('Network error. Please try again.')
+      return false
+    }
+
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) {
+      setError(data.error || 'Could not send OTP. Please try again.')
+      return false
+    }
+    setCooldown(RESEND_COOLDOWN_SECONDS)
+    return true
+  }, [])
 
   async function handleSendOtp(e: React.FormEvent) {
     e.preventDefault()
@@ -26,15 +70,16 @@ export function PhoneOtpForm() {
       return
     }
 
-    const { error: authError } = await supabase.auth.signInWithOtp({
-      phone: `+91${cleaned}`,
-    })
+    const ok = await sendOtp(cleaned)
+    if (ok) setStep('otp')
+    setLoading(false)
+  }
 
-    if (authError) {
-      setError(authError.message)
-    } else {
-      setStep('otp')
-    }
+  async function handleResend() {
+    if (cooldown > 0 || loading) return
+    setError('')
+    setLoading(true)
+    await sendOtp(phone.replace(/\D/g, ''))
     setLoading(false)
   }
 
@@ -53,7 +98,7 @@ export function PhoneOtpForm() {
     if (authError) {
       setError(authError.message)
     } else {
-      router.push('/account')
+      router.push(next)
       router.refresh()
     }
     setLoading(false)
@@ -120,6 +165,18 @@ export function PhoneOtpForm() {
           >
             {loading ? 'Verifying...' : 'Verify & Login'}
           </button>
+
+          {/* Resend OTP with cooldown */}
+          <button
+            type="button"
+            onClick={handleResend}
+            disabled={cooldown > 0 || loading}
+            data-testid="resend-otp"
+            className="text-sm text-muted hover:text-brand transition-colors w-full text-center font-sans disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:text-muted"
+          >
+            {cooldown > 0 ? `Resend OTP in ${cooldown}s` : 'Resend OTP'}
+          </button>
+
           <button
             type="button"
             onClick={() => { setStep('phone'); setError('') }}

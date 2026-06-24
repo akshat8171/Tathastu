@@ -17,10 +17,10 @@ const serviceLinks = [
 ]
 
 const contactInfo = {
-  phone: '+91 78274 22309',
-  phoneTel: 'tel:+917827422309',
-  email: 'hello@tathastu.in',
-  whatsapp: 'https://wa.me/918882065253',
+  phone: '+91 91548 92790',
+  phoneTel: 'tel:+919154892790',
+  email: 'layerix.in@gmail.com',
+  whatsapp: 'https://wa.me/919154892790',
 }
 
 export function Footer() {
@@ -35,7 +35,7 @@ export function Footer() {
           className="font-display font-extrabold uppercase tracking-widest text-white/[0.04] select-none"
           style={{ fontSize: 'clamp(3rem, 12vw, 10rem)', lineHeight: '0.85' }}
         >
-          TATHASTU
+          LAYERIX
         </span>
       </div>
 
@@ -45,8 +45,8 @@ export function Footer() {
 
           {/* Column 1 — Brand */}
           <div className="lg:col-span-1">
-            <Link href="/" className="font-display font-bold text-2xl text-white tracking-tight" aria-label="Tathastu home">
-              Tathast<span className="text-brand">u</span>
+            <Link href="/" className="font-display font-bold text-2xl text-white tracking-tight" aria-label="Layerix home">
+              Layeri<span className="text-brand">x</span>
             </Link>
             <p className="mt-4 text-sm font-sans text-white/60 leading-relaxed">
               Premium 3D-printed home décor, workspace accessories, and custom prints — crafted layer by layer and shipped across India.
@@ -163,7 +163,7 @@ export function Footer() {
                   <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  About Tathastu
+                  About Layerix
                 </Link>
               </li>
             </ul>
@@ -173,7 +173,7 @@ export function Footer() {
         {/* ── Bottom bar ────────────────────────────────── */}
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs font-sans text-white/40 text-center sm:text-left">
-            © 2026 Tathastu. All rights reserved.
+            © 2026 Layerix. All rights reserved.
           </p>
 
           {/* Payment methods / trust icons */}

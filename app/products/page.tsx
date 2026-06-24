@@ -82,7 +82,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         <div className="container-page py-8 md:py-10">
           <div className="max-w-2xl">
             <p className="text-xs font-display font-semibold uppercase tracking-widest text-brand mb-2">
-              Tathastu Collection
+              Layerix Collection
             </p>
             <h1 className="font-display font-bold text-2xl md:text-3xl text-ink leading-tight mb-3">
               {categoryTitle}

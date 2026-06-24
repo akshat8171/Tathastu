@@ -1,5 +1,5 @@
 /**
- * Tathastu — Homepage
+ * Layerix — Homepage
  *
  * Server component that composes all homepage sections.
  * Sections that rely on useCart (ProductCard) are wrapped in

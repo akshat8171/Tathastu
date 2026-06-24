@@ -57,9 +57,9 @@ export function Header() {
           <Link
             href="/"
             className="flex items-center font-display font-bold text-xl text-ink tracking-tight"
-            aria-label="Tathastu — home"
+            aria-label="Layerix — home"
           >
-            Tathast<span className="text-brand">u</span>
+            Layeri<span className="text-brand">x</span>
           </Link>
 
           {/* ── Desktop Nav ───────────────────────────────── */}

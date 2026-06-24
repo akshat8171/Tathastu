@@ -21,8 +21,8 @@ const contactMethods = [
       </svg>
     ),
     title: 'Call Us',
-    value: '+91-88820-65253',
-    href: 'tel:+918882065253',
+    value: '+91 91548 92790',
+    href: 'tel:+919154892790',
     label: 'Call now',
   },
   {
@@ -32,8 +32,8 @@ const contactMethods = [
       </svg>
     ),
     title: 'WhatsApp',
-    value: '+91 88820 65253',
-    href: 'https://wa.me/918882065253',
+    value: '+91 91548 92790',
+    href: 'https://wa.me/919154892790',
     label: 'Chat on WhatsApp',
     external: true,
   },
@@ -44,8 +44,8 @@ const contactMethods = [
       </svg>
     ),
     title: 'Email',
-    value: 'business@tathastu.in',
-    href: 'mailto:business@tathastu.in',
+    value: 'layerix.in@gmail.com',
+    href: 'mailto:layerix.in@gmail.com',
     label: 'Send email',
   },
 ]
@@ -115,7 +115,7 @@ export default function BulkOrderPage() {
             </h2>
             <p className="font-sans text-muted text-base leading-relaxed mb-3">
               Looking for high-quality homeware items in bulk? We&apos;ve got you covered! Whether
-              you&apos;re a café, restaurant, corporate event planner, or retailer, Tathastu offers
+              you&apos;re a café, restaurant, corporate event planner, or retailer, Layerix offers
               bespoke bulk &amp; corporate ordering solutions tailored to your needs.
             </p>
             <p className="font-sans text-muted text-base leading-relaxed mb-3">
@@ -125,12 +125,12 @@ export default function BulkOrderPage() {
             <p className="font-sans text-muted text-sm leading-relaxed">
               For any inquiries or to discuss your bulk / corporate order needs, please reach out to
               us at{' '}
-              <a href="mailto:business@tathastu.in" className="text-brand hover:underline font-medium">
-                business@tathastu.in
+              <a href="mailto:layerix.in@gmail.com" className="text-brand hover:underline font-medium">
+                layerix.in@gmail.com
               </a>{' '}
               or call / WhatsApp us at{' '}
-              <a href="tel:+918882065253" className="text-brand hover:underline font-medium">
-                +91 88820 65253
+              <a href="tel:+919154892790" className="text-brand hover:underline font-medium">
+                +91 91548 92790
               </a>.
             </p>
           </div>

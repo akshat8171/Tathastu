@@ -1,5 +1,5 @@
 {
-  "name": "tathastu-website",
+  "name": "layerix-website",
   "version": "0.2.0",
   "private": true,
   "scripts": {
@@ -16,6 +16,8 @@
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.39.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "clsx": "^2.1.0",
     "next": "^14.2.0",
     "razorpay": "^2.9.6",
