@@ -2,6 +2,7 @@
 export { CartSidebar } from './cart-sidebar'
 export { CartProvider, useCart } from './cart-context'
 export { AddToCartButton } from './add-to-cart-button'
+export type { AddToCartButtonProps, AddToCartButtonProduct } from './add-to-cart-button'
 
 // Re-export types for convenience
 export type { CartItem, CartContextType } from './cart-context'

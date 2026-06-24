@@ -1,39 +1,67 @@
-import Link from 'next/link'
 import Image from 'next/image'
-
-const categories = [
-  { name: 'Lamps', href: '/products?category=lamps', image: '/images/categories/lamps.jpg' },
-  { name: 'Miniatures', href: '/products?category=miniatures', image: '/images/categories/miniatures.jpg' },
-  { name: 'Signs', href: '/products?category=signs', image: '/images/categories/signs.jpg' },
-  { name: 'Custom', href: '/custom', image: '/images/categories/custom.jpg' },
-]
+import Link from 'next/link'
+import { SectionHeading } from '@/components/ui'
+import { categories } from '@/lib/categories'
 
 export function CategoryIcons() {
   return (
-    <section className="py-12 sm:py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-6 sm:gap-8 overflow-x-auto pb-4 justify-center">
-          {categories.map(cat => (
-            <Link
-              key={cat.name}
-              href={cat.href}
-              className="flex flex-col items-center gap-3 flex-shrink-0 group"
-            >
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-warm-border group-hover:border-sage-green transition-colors">
-                <div className="w-full h-full bg-cream-dark relative">
-                  <Image
-                    src={cat.image}
-                    alt={cat.name}
-                    fill
-                    className="object-cover"
-                  />
+    <section className="py-12 sm:py-16 bg-surface">
+      <div className="container-page">
+        <SectionHeading
+          title="Shop by Category"
+          subtitle="Lamps, planters, desk organisers, and fully custom prints."
+          centered
+        />
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 mt-8">
+          {categories.map((cat) => {
+            const href = cat.isCta
+              ? '/customize'
+              : `/products?category=${cat.slug}`
+
+            return (
+              <Link
+                key={cat.slug}
+                href={href}
+                className="group relative overflow-hidden rounded-2xl bg-panel shadow-sm hover:shadow-card-hover transition-shadow duration-300 aspect-[3/4] block"
+                aria-label={`Shop ${cat.displayName}`}
+              >
+                {/* Category image */}
+                <Image
+                  src={cat.image}
+                  alt={cat.displayName}
+                  fill
+                  sizes="(max-width: 640px) 50vw, 25vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  unoptimized
+                />
+
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+
+                {/* Label */}
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="font-display font-semibold text-white text-sm sm:text-base leading-tight">
+                    {cat.displayName}
+                  </p>
+                  {cat.isCta && (
+                    <p className="font-sans text-white/80 text-xs mt-0.5">
+                      Upload your design →
+                    </p>
+                  )}
                 </div>
-              </div>
-              <span className="text-sm font-medium text-charcoal group-hover:text-sage-green transition-colors">
-                {cat.name}
-              </span>
-            </Link>
-          ))}
+
+                {/* Customise badge */}
+                {cat.isCta && (
+                  <div className="absolute top-3 right-3">
+                    <span className="badge-new text-xs px-2 py-1 rounded-full font-display">
+                      Custom
+                    </span>
+                  </div>
+                )}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

@@ -45,8 +45,6 @@
     "price": 2799,
     "originalPrice": 3299,
     "images": [
-      "/images/products/lamps/lamp3/2025-05-16_6a8ec33265afa8.webp",
-      "/images/products/lamps/lamp3/2025-05-16_af6d1e89fb36e8.webp",
       "/images/products/lamps/lamp3/2025-11-18_19d636c83adc7.webp",
       "/images/products/lamps/lamp3/2025-11-18_4ef0ad1cd37bd8.webp",
       "/images/products/lamps/lamp3/2025-11-18_98ad47b29ecd68.webp",
@@ -105,6 +103,65 @@
     "isSoldOut": false,
     "careGuide": "Clean with a soft microfiber cloth. Avoid water contact with electrical components. Use recommended wattage bulbs. Keep away from heat sources.",
     "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 3-5 business days. Express delivery available for select cities."
+  },
+  {
+    "id": "lamps-glow-arc",
+    "name": "Glow Arc Pendant Lamp",
+    "description": "An arc-shaped pendant lamp with a smooth matte finish, designed to hang over dining tables or reading nooks. The curved silhouette creates a soft halo effect that's as beautiful unlit as it is glowing.",
+    "price": 1999,
+    "originalPrice": 2499,
+    "images": [
+      "/images/products/lamps/lamp2/IMG_2517.jpeg",
+      "/images/products/lamps/lamp2/IMG_2585.jpeg"
+    ],
+    "category": "lamps",
+    "rating": 4.4,
+    "reviewCount": 19,
+    "badge": "Sale",
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe with a dry microfiber cloth. Do not use wet cloths near the cord or bulb fitting. Hang on a sturdy hook rated for 500g.",
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 3-5 business days."
+  },
+  {
+    "id": "lamps-terra-glow",
+    "name": "Terra Glow Table Lamp",
+    "description": "Earth-toned 3D-printed lamp with a terracotta-inspired palette. The geometric lattice pattern casts stunning shadow patterns on your walls. A conversation-starter for any boho or earthy interior.",
+    "price": 2149,
+    "originalPrice": 2599,
+    "images": [
+      "/images/products/lamps/lamp1/34952bf0-2a35-11f0-8ecc-91091a12b35c.jpg",
+      "/images/products/lamps/lamp1/c77cb000-3e62-11f0-8b94-d7698adcec77.jpg",
+      "/images/products/lamps/lamp1/c7845120-3e62-11f0-8b94-d7698adcec77.jpg"
+    ],
+    "category": "lamps",
+    "rating": 4.5,
+    "reviewCount": 23,
+    "badge": "Sale",
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Dust gently with a dry cloth. Avoid placing near high-humidity areas. Use bulbs under 15W for best shadow effects.",
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 3-5 business days."
+  },
+  {
+    "id": "lamps-lunar-night",
+    "name": "Lunar Night Lamp",
+    "description": "Inspired by the moon's craters and surface, this night lamp casts a warm celestial glow. Ideal as a bedside lamp, nursery light, or a thoughtful gift. Printed in translucent filament for maximum diffusion.",
+    "price": 1699,
+    "originalPrice": 1999,
+    "images": [
+      "/images/products/lamps/lamp3/2025-11-18_98ad47b29ecd68.webp",
+      "/images/products/lamps/lamp3/2025-11-18_d5a4285ca59b28.webp",
+      "/images/products/lamps/lamp3/2025-11-18_19d636c83adc7.webp"
+    ],
+    "category": "lamps",
+    "rating": 4.9,
+    "reviewCount": 67,
+    "badge": "Best Seller",
+    "labelType": "trending",
+    "isSoldOut": false,
+    "careGuide": "Clean with a soft dry cloth only. Protect from drops. Use a 5W LED bulb for optimal moon-like effect.",
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days."
   },
   {
     "id": "organizers-organizer1",
@@ -187,6 +244,82 @@
     "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days. Includes mounting hardware."
   },
   {
+    "id": "organizers-stackdesk-pro",
+    "name": "StackDesk Pro Organizer",
+    "description": "A modular stacking desk organizer system with interlocking tiers. Configure it as a pen caddy, cable manager, or card holder — all in one elegant unit. Printed in smooth matte PLA for a professional look.",
+    "price": 999,
+    "originalPrice": 1299,
+    "images": [
+      "/images/products/organizers/organizer1/2025-02-05_2c663f44c88c1.webp",
+      "/images/products/organizers/organizer1/2025-02-20_225ce91d4d28.webp"
+    ],
+    "category": "organizers",
+    "rating": 4.5,
+    "reviewCount": 22,
+    "badge": "Sale",
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe with a dry or slightly damp cloth. Do not immerse in water. Avoid placing near radiators.",
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+  },
+  {
+    "id": "organizers-cable-den",
+    "name": "Cable Den Desk Tidy",
+    "description": "Tame the cable chaos on your desk with this wall-mountable or freestanding cable organizer. Hidden routing channels keep USB, power, and headphone cables neat and tangle-free. Minimal design suits any workspace.",
+    "price": 799,
+    "originalPrice": 999,
+    "images": [
+      "/images/products/organizers/organizer2/d657cd30-c897-11ef-b2c7-2dc1a7392ad7.jpg",
+      "/images/products/organizers/organizer2/d6452f90-c897-11ef-b2c7-2dc1a7392ad7.png"
+    ],
+    "category": "organizers",
+    "rating": 4.3,
+    "reviewCount": 18,
+    "badge": "Sale",
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe clean. Do not apply pressure to cable slots. Compatible with cables up to 6mm diameter.",
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+  },
+  {
+    "id": "organizers-mag-tissue",
+    "name": "MagBase Tissue Caddy",
+    "description": "Magnetic-base tissue caddy that stays put on metallic surfaces — fridges, filing cabinets, whiteboards. A clean alternative to plastic holders, printed in a range of matte finishes. Gift-ready packaging included.",
+    "price": 1299,
+    "originalPrice": 1599,
+    "images": [
+      "/images/products/organizers/organizer3/TISTWO20tissue20box.jpg",
+      "/images/products/organizers/organizer3/Hidden20magnets (2).jpg"
+    ],
+    "category": "organizers",
+    "rating": 4.7,
+    "reviewCount": 33,
+    "badge": "Trending Now",
+    "labelType": "trending",
+    "isSoldOut": false,
+    "careGuide": "Wipe with a damp cloth. Magnets are strong — keep away from credit cards. Fits standard 200-pull tissue boxes.",
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+  },
+  {
+    "id": "organizers-counter-caddy",
+    "name": "Counter Caddy Kitchen Holder",
+    "description": "Keep your kitchen counter clutter-free with this slim and practical caddy. Holds paper towels, spatulas, and small utensils in one spot. Weighted base prevents tipping. Dishwasher safe.",
+    "price": 1199,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/organizers/organizer4/THALOR20kitchen20tissue20holder.jpg",
+      "/images/products/organizers/organizer4/THALOR20kitchen20tissue20holder202.jpg"
+    ],
+    "category": "organizers",
+    "rating": 4.4,
+    "reviewCount": 29,
+    "badge": "New",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Dishwasher safe on the top rack. Avoid high temperatures. Check stability before placing heavy items.",
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+  },
+  {
     "id": "planters-planter1",
     "name": "CACTIA Cactus Planter",
     "description": "A charming cactus-themed planter perfect for succulents and small plants. Features a unique design that adds personality to any space. Made with durable materials and excellent drainage. Ideal for indoor gardening enthusiasts.",
@@ -228,18 +361,13 @@
   },
   {
     "id": "planters-planter3",
-    "name": "Artisan Ceramic Planter",
-    "description": "A beautiful planter that brings nature into your home. Crafted with care, this planter is perfect for indoor plants and adds a touch of greenery to any space. Features excellent drainage and a timeless design.",
+    "name": "Artisan Geometric Planter",
+    "description": "A beautiful geometric planter that brings nature into your home. Crafted with care, this planter is perfect for indoor plants and adds a touch of greenery to any space. Features excellent drainage and a timeless faceted design. NOTE: original .heic images pending conversion — currently showing alternate display images.",
     "price": 1599,
     "originalPrice": 1999,
     "images": [
-      "/images/products/planters/planter3/505751278_2776802065850577_2088282476028971300_n.heic",
-      "/images/products/planters/planter3/520240430_1269250021243974_702475807418238034_n.heic",
-      "/images/products/planters/planter3/522473905_1078952713756877_2208573506382327271_n.heic",
-      "/images/products/planters/planter3/523366374_759401346647866_9210675544240139149_n.heic",
-      "/images/products/planters/planter3/534304277_8581257368665064_6532748285101630091_n.heic",
-      "/images/products/planters/planter3/534802890_625446397282664_884205804788957422_n.heic",
-      "/images/products/planters/planter3/536175710_4049773615288146_5655395017572448998_n.heic"
+      "/images/products/planters/planter1/CACTIA20planter202.jpg",
+      "/images/products/planters/planter1/CACTIA20planter203.jpg"
     ],
     "category": "planters",
     "rating": 4.8,
@@ -249,5 +377,103 @@
     "isSoldOut": false,
     "careGuide": "Clean regularly to prevent buildup. Ensure proper drainage. Use a saucer to protect surfaces. Avoid overwatering. Suitable for both indoor and outdoor use.",
     "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Handle with care during unpacking."
+  },
+  {
+    "id": "planters-herb-tower",
+    "name": "Herb Tower Planter",
+    "description": "A tall tower planter with three self-watering pockets — perfect for growing basil, mint, and coriander on your kitchen windowsill. The modular tiers can be removed for easy harvesting. Compact and lightweight.",
+    "price": 1299,
+    "originalPrice": 1599,
+    "images": [
+      "/images/products/planters/planter2/STEMRA2011.jpg",
+      "/images/products/planters/planter2/STEMRA2012.jpg",
+      "/images/products/planters/planter2/STACKABLE.jpg"
+    ],
+    "category": "planters",
+    "rating": 4.6,
+    "reviewCount": 38,
+    "badge": "Sale",
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Rinse with water to clean. Ensure bottom drainage hole is clear. Not suitable for outdoor use in heavy rain. Best for herbs and trailing plants.",
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+  },
+  {
+    "id": "planters-wall-bloom",
+    "name": "Wall Bloom Hanging Planter",
+    "description": "Mount it, hang it, or set it on a shelf — this versatile planter works three ways. The integrated hanger is load-tested for 1.5kg. Comes in warm terracotta-inspired tones that look gorgeous with trailing pothos or string-of-pearls.",
+    "price": 899,
+    "originalPrice": 1099,
+    "images": [
+      "/images/products/planters/planter1/CACTIA20planter202.jpg",
+      "/images/products/planters/planter1/CACTIA20planter203.jpg"
+    ],
+    "category": "planters",
+    "rating": 4.5,
+    "reviewCount": 29,
+    "badge": "Sale",
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe clean. Ensure wall anchor is secure before hanging. Not suitable for plants heavier than 1.5kg.",
+    "shippingInfo": "Free shipping on orders above ₹1000. Standard delivery: 3-5 business days. Wall anchors included."
+  },
+  {
+    "id": "planters-urban-pot",
+    "name": "Urban Pocket Pot Set",
+    "description": "A set of two minimalist pocket pots for desk succulents or air plants. The slim silhouette takes up barely any desk real estate, while the built-in drainage keeps your plants happy. A great gifting option.",
+    "price": 699,
+    "originalPrice": 899,
+    "images": [
+      "/images/products/planters/planter2/STACKABLE20(2).jpg",
+      "/images/products/planters/planter2/STACKABLE.jpg"
+    ],
+    "category": "planters",
+    "rating": 4.4,
+    "reviewCount": 21,
+    "badge": "New",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Rinse with clean water. Suitable for succulents and air plants only. Avoid direct outdoor sun for extended periods.",
+    "shippingInfo": "Free shipping on orders above ₹800. Standard delivery: 3-5 business days. Set of 2 pots."
+  },
+  {
+    "id": "planters-terrace-trio",
+    "name": "Terrace Trio Planter Bundle",
+    "description": "Three graduating-size planters sold as a bundle — small for succulents, medium for herbs, large for a statement monstera. Designed to stack or display in a row. A popular housewarming gift.",
+    "price": 2499,
+    "originalPrice": 2999,
+    "images": [
+      "/images/products/planters/planter2/STEMRA2011.jpg",
+      "/images/products/planters/planter2/STEMRA2012.jpg",
+      "/images/products/planters/planter2/STACKABLE.jpg",
+      "/images/products/planters/planter2/STACKABLE20(2).jpg"
+    ],
+    "category": "planters",
+    "rating": 4.9,
+    "reviewCount": 72,
+    "badge": "Best Seller",
+    "labelType": "trending",
+    "isSoldOut": false,
+    "careGuide": "Clean with mild soap and water. Ensure drainage holes are clear. Bundle includes three matching saucers.",
+    "shippingInfo": "Free shipping on all orders above ₹2000. Standard delivery: 4-6 business days. Bundle packed securely."
+  },
+  {
+    "id": "planters-geo-fern",
+    "name": "Geo Fern Floor Planter",
+    "description": "A bold geometric floor planter that makes a statement in hallways, living corners, and entryways. Its 30cm height is ideal for ferns, fiddle-leaf figs, or tall ornamental grasses. Printed in weather-resistant PETG.",
+    "price": 3499,
+    "originalPrice": 3999,
+    "images": [
+      "/images/products/planters/planter1/CACTIA20planter202.jpg",
+      "/images/products/planters/planter1/CACTIA20planter203.jpg"
+    ],
+    "category": "planters",
+    "rating": 4.7,
+    "reviewCount": 41,
+    "badge": "Editors' Choice",
+    "labelType": "editors-choice",
+    "isSoldOut": false,
+    "careGuide": "Wipe clean with a damp cloth. Suitable for indoor and covered outdoor use. Use a saucer to protect flooring. Supports up to 3kg of soil.",
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 5-7 business days. Packed in reinforced box."
   }
 ]

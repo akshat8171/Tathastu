@@ -1,36 +1,123 @@
+/* ─── Google Fonts ────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Tenor+Sans&family=Nunito:wght@400;500;600;700&display=swap');
-
+/* ─── Base ────────────────────────────────────────────────────────────────── */
 @layer base {
   body {
-    @apply bg-cream text-charcoal font-sans antialiased;
+    @apply bg-white text-ink font-sans antialiased;
   }
 
-  h1, h2, h3, h4 {
-    @apply font-serif;
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-ink;
+  }
+
+  /* Smooth scroll for anchor links */
+  html {
+    scroll-behavior: smooth;
   }
 }
 
+/* ─── Design-system components ───────────────────────────────────────────── */
 @layer components {
+
+  /* ── Buttons ── */
   .btn-primary {
-    @apply bg-sage-green text-white font-semibold px-6 py-3 rounded-lg
-           hover:bg-sage-dark transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2
+           bg-brand text-white font-display font-semibold
+           px-6 py-3 rounded-pill text-sm
+           hover:bg-brand-600 active:bg-brand-700
+           transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
-  .btn-secondary {
-    @apply border-2 border-charcoal text-charcoal font-semibold px-6 py-3 rounded-lg
-           hover:bg-charcoal hover:text-white transition-all duration-300;
+  .btn-primary-full {
+    @apply btn-primary w-full;
   }
 
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2
+           border-2 border-brand text-brand font-display font-semibold
+           px-6 py-3 rounded-pill text-sm bg-transparent
+           hover:bg-brand hover:text-white
+           transition-colors duration-200
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-outline-full {
+    @apply btn-outline w-full;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2
+           text-brand font-display font-medium text-sm bg-transparent border-0
+           hover:underline underline-offset-2
+           transition-colors duration-150;
+  }
+
+  /* ── Badges ── */
+  .badge-sale {
+    @apply inline-block bg-sale text-white text-xs font-display font-semibold
+           px-2 py-0.5 rounded shadow-badge leading-none;
+  }
+
+  .badge-discount {
+    @apply inline-block bg-discount text-white text-xs font-display font-semibold
+           px-2 py-0.5 rounded shadow-badge leading-none;
+  }
+
+  .badge-new {
+    @apply inline-block bg-violet text-white text-xs font-display font-semibold
+           px-2 py-0.5 rounded shadow-badge leading-none;
+  }
+
+  /* ── Product card ── */
   .card {
-    @apply bg-white rounded-xl border border-warm-border
-           shadow-sm hover:shadow-md transition-all duration-300;
+    @apply bg-white rounded-card2 border border-gray-100
+           shadow-card hover:shadow-card-hover
+           transition-shadow duration-300;
   }
 
+  /* ── Announcement bar ── */
+  .announcement-bar {
+    @apply w-full bg-violet text-white text-xs font-sans font-medium
+           text-center py-2 px-4;
+  }
+
+  /* ── Promo strip ── */
+  .promo-gradient {
+    @apply w-full text-white;
+    background: linear-gradient(135deg, #4C2A86 0%, #3730A3 100%);
+  }
+
+  /* ── Consistent page container ── */
+  .container-page {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* ── Dark footer section ── */
   .section-dark {
-    @apply bg-[#4A5D3A] text-white;
+    @apply bg-ink text-white;
+  }
+
+  /* ── Section title row with optional "View all" link ── */
+  .section-heading {
+    @apply flex items-end justify-between mb-6;
+  }
+
+  .section-heading__title {
+    @apply font-display font-bold text-ink text-2xl sm:text-3xl;
+  }
+
+  .section-heading__link {
+    @apply text-brand text-sm font-display font-medium hover:underline underline-offset-2 flex-shrink-0;
+  }
+
+  /* ── Panel (light blue-gray image background used in cards) ── */
+  .image-panel {
+    @apply bg-panel rounded-card overflow-hidden;
   }
 }

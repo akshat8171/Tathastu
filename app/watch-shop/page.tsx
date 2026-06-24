@@ -40,14 +40,14 @@ const processSteps = [
 
 export default function WatchShopPage() {
   return (
-    <div className="bg-cream min-h-screen">
+    <div className="bg-surface min-h-screen">
       {/* Hero Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-charcoal mb-6">
-            WATCH & SHOP
+          <h1 className="font-display text-5xl md:text-6xl font-bold text-ink mb-6">
+            WATCH &amp; SHOP
           </h1>
-          <p className="text-xl text-charcoal/70 max-w-2xl mx-auto">
+          <p className="text-xl text-muted max-w-2xl mx-auto">
             See our process and build trust in the quality of every print. From
             design to delivery, we&apos;re transparent about how we create your
             miniatures.
@@ -91,14 +91,14 @@ export default function WatchShopPage() {
                 </div>
                 <div className="w-full md:w-1/2 space-y-4">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="font-serif text-4xl font-bold text-sage-green">
+                    <span className="font-display text-4xl font-bold text-brand">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <h2 className="font-serif text-3xl font-bold text-charcoal">
+                    <h2 className="font-display text-3xl font-bold text-ink">
                       {step.title}
                     </h2>
                   </div>
-                  <p className="text-lg text-charcoal/80 leading-relaxed">
+                  <p className="text-lg text-muted leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -111,16 +111,16 @@ export default function WatchShopPage() {
       {/* CTA Section */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-serif text-4xl font-bold text-charcoal mb-6">
+          <h2 className="font-display text-4xl font-bold text-ink mb-6">
             Ready to Start Your Collection?
           </h2>
-          <p className="text-lg text-charcoal/70 mb-8">
+          <p className="text-lg text-muted mb-8">
             Browse our collection of premium 3D printed miniatures and find the
             perfect pieces for your tabletop adventures.
           </p>
           <Link
             href="/products"
-            className="inline-block bg-sage-green hover:bg-sage-green/90 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-colors"
+            className="inline-block bg-brand hover:bg-brand-600 text-white px-8 py-4 rounded-pill font-display font-semibold text-lg transition-colors"
           >
             SHOP NOW
           </Link>

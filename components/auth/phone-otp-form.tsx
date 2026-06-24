@@ -64,11 +64,11 @@ export function PhoneOtpForm() {
       {step === 'phone' ? (
         <form onSubmit={handleSendOtp} className="space-y-4">
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-charcoal mb-2">
+            <label htmlFor="phone" className="block text-sm font-medium text-ink mb-2">
               Mobile Number
             </label>
             <div className="flex">
-              <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-warm-border bg-warm-gray text-charcoal-light text-sm">
+              <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-gray-200 bg-surface text-muted text-sm font-sans">
                 +91
               </span>
               <input
@@ -78,23 +78,27 @@ export function PhoneOtpForm() {
                 onChange={e => setPhone(e.target.value)}
                 placeholder="9876543210"
                 maxLength={10}
-                className="flex-1 px-4 py-3 rounded-r-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green"
+                className="flex-1 px-4 py-3 rounded-r-xl bg-surface border border-gray-200 text-ink placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand font-sans"
                 required
               />
             </div>
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-primary w-full disabled:opacity-50">
+          {error && <p className="text-red-500 text-sm font-sans">{error}</p>}
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full disabled:opacity-50"
+          >
             {loading ? 'Sending...' : 'Send OTP'}
           </button>
         </form>
       ) : (
         <form onSubmit={handleVerifyOtp} className="space-y-4">
-          <p className="text-sm text-charcoal-light mb-4">
+          <p className="text-sm text-muted mb-4 font-sans">
             OTP sent to +91 {phone.replace(/\D/g, '')}
           </p>
           <div>
-            <label htmlFor="otp" className="block text-sm font-medium text-charcoal mb-2">
+            <label htmlFor="otp" className="block text-sm font-medium text-ink mb-2">
               Enter OTP
             </label>
             <input
@@ -104,18 +108,22 @@ export function PhoneOtpForm() {
               onChange={e => setOtp(e.target.value)}
               placeholder="123456"
               maxLength={6}
-              className="w-full px-4 py-3 rounded-xl bg-warm-gray border border-warm-border text-charcoal placeholder-charcoal-light/50 focus:outline-none focus:ring-2 focus:ring-sage-green text-center text-2xl tracking-widest"
+              className="w-full px-4 py-3 rounded-xl bg-surface border border-gray-200 text-ink placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand text-center text-2xl tracking-widest font-sans"
               required
             />
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-          <button type="submit" disabled={loading} className="btn-primary w-full disabled:opacity-50">
+          {error && <p className="text-red-500 text-sm font-sans">{error}</p>}
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-primary w-full disabled:opacity-50"
+          >
             {loading ? 'Verifying...' : 'Verify & Login'}
           </button>
           <button
             type="button"
             onClick={() => { setStep('phone'); setError('') }}
-            className="text-sm text-charcoal-light hover:text-sage-green transition-colors w-full text-center"
+            className="text-sm text-muted hover:text-brand transition-colors w-full text-center font-sans"
           >
             Change number
           </button>
