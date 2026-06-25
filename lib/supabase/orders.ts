@@ -2,6 +2,44 @@ import { supabaseAdmin } from './admin'
 import type { Order, OrderItem } from './client'
 
 /**
+ * Resolve catalog slugs (e.g. "lamps-lamp1") to the products-table UUID primary
+ * key.
+ *
+ * order_items.product_id is a UUID foreign key → products(id), but the cart,
+ * product URLs, pricing, and the entire app identify products by their string
+ * slug. Rather than reshape the cart's localStorage or the catalog routes, we
+ * translate slug → UUID at this single DB write boundary.
+ *
+ * Runs on the service-role client (bypasses RLS). Behaviour is deliberately
+ * forgiving: any slug that isn't found in the products table (unseeded catalog,
+ * or a DB where migration-003 hasn't run yet) maps to `null`. Because
+ * order_items.product_id is nullable and the product_* snapshot columns already
+ * capture name/price/image, an order is NEVER rejected merely because a slug is
+ * missing from the products table — we just lose the FK link for that line.
+ */
+async function resolveSlugsToUuids(slugs: string[]): Promise<Map<string, string>> {
+  const unique = Array.from(new Set(slugs.filter(Boolean)))
+  if (unique.length === 0) return new Map()
+
+  const { data, error } = await supabaseAdmin
+    .from('products')
+    .select('id, slug')
+    .in('slug', unique)
+
+  if (error) {
+    // e.g. products.slug column doesn't exist yet → degrade gracefully to null FKs.
+    console.error('Error resolving product slugs to UUIDs:', error)
+    return new Map()
+  }
+
+  const map = new Map<string, string>()
+  for (const row of (data ?? []) as Array<{ id: string; slug: string | null }>) {
+    if (row.slug) map.set(row.slug, row.id)
+  }
+  return map
+}
+
+/**
  * Order persistence layer.
  *
  * All functions here run SERVER-SIDE ONLY (API routes, server components) and
@@ -69,10 +107,15 @@ export async function createOrder(orderData: {
       return { order: null, error: orderError }
     }
 
+    // Map each item's catalog slug to its products-table UUID. order_items
+    // .product_id is a UUID FK; the app passes string slugs ("lamps-lamp1").
+    // Unresolved slugs become null (column is nullable, snapshot cols remain).
+    const uuidBySlug = await resolveSlugsToUuids(orderData.items.map(i => i.product_id))
+
     // Create order items
     const orderItems = orderData.items.map(item => ({
       order_id: order.id,
-      product_id: item.product_id,
+      product_id: uuidBySlug.get(item.product_id) ?? null,
       product_name: item.product_name,
       product_variant: item.product_variant,
       product_image: item.product_image,
