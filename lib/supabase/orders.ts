@@ -1,4 +1,20 @@
-import { supabase, Order, OrderItem } from './client'
+import { supabaseAdmin } from './admin'
+import type { Order, OrderItem } from './client'
+
+/**
+ * Order persistence layer.
+ *
+ * All functions here run SERVER-SIDE ONLY (API routes, server components) and
+ * use the SERVICE-ROLE client (supabaseAdmin), which bypasses RLS. This is
+ * required by migration-002-rls-policies.sql: the browser anon role is granted
+ * only INSERT on orders/order_items — it has no UPDATE (so payment-status
+ * updates would no-op) and no SELECT (so order look-ups would return null).
+ * Running these on the server with the service role makes the full
+ * create → mark-paid → confirmation-read flow work under RLS.
+ *
+ * NEVER import this module from a Client Component — supabaseAdmin is
+ * `server-only` and carries the service-role key.
+ */
 
 /**
  * Create a new order
@@ -29,7 +45,7 @@ export async function createOrder(orderData: {
     const orderNumber = `ORDER_${Date.now()}_${Math.floor(Math.random() * 10000)}`
 
     // Create order
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
       .insert({
         order_number: orderNumber,
@@ -66,13 +82,13 @@ export async function createOrder(orderData: {
       subtotal: item.price * item.quantity,
     }))
 
-    const { error: itemsError } = await supabase
+    const { error: itemsError } = await supabaseAdmin
       .from('order_items')
       .insert(orderItems)
 
     if (itemsError) {
       // Rollback order if items insert fails
-      await supabase.from('orders').delete().eq('id', order.id)
+      await supabaseAdmin.from('orders').delete().eq('id', order.id)
       return { order: null, error: itemsError }
     }
 
@@ -103,7 +119,7 @@ export async function updateOrderPaymentStatus(
     updateData.status = 'paid'
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('orders')
     .update(updateData)
     .eq('id', orderId)
@@ -139,7 +155,7 @@ export async function updateOrderStatus(
     updateData.cancelled_at = new Date().toISOString()
   }
 
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('orders')
     .update(updateData)
     .eq('id', orderId)
@@ -156,7 +172,7 @@ export async function updateOrderStatus(
  * Get order by ID
  */
 export async function getOrderById(orderId: string): Promise<Order | null> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('orders')
     .select('*')
     .eq('id', orderId)
@@ -174,7 +190,7 @@ export async function getOrderById(orderId: string): Promise<Order | null> {
  * Get order by order number
  */
 export async function getOrderByOrderNumber(orderNumber: string): Promise<Order | null> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('orders')
     .select('*')
     .eq('order_number', orderNumber)
@@ -195,7 +211,7 @@ export async function getOrderByOrderNumber(orderNumber: string): Promise<Order 
  */
 export async function getOrderByPaymentOrderId(razorpayOrderId: string): Promise<Order | null> {
   // Try the new razorpay_order_id column first (added in migration-001)
-  const { data: byRazorpay, error: err1 } = await supabase
+  const { data: byRazorpay, error: err1 } = await supabaseAdmin
     .from('orders')
     .select('*')
     .eq('razorpay_order_id', razorpayOrderId)
@@ -204,7 +220,7 @@ export async function getOrderByPaymentOrderId(razorpayOrderId: string): Promise
   if (!err1 && byRazorpay) return byRazorpay
 
   // Fall back to the original payment_order_id column
-  const { data: byPaymentOrderId, error: err2 } = await supabase
+  const { data: byPaymentOrderId, error: err2 } = await supabaseAdmin
     .from('orders')
     .select('*')
     .eq('payment_order_id', razorpayOrderId)
@@ -223,7 +239,7 @@ export async function getOrderByPaymentOrderId(razorpayOrderId: string): Promise
  * Returns true if a row with this razorpay_payment_id already exists in payment_logs.
  */
 export async function hasPaymentBeenLogged(razorpayPaymentId: string): Promise<boolean> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('payment_logs')
     .select('id')
     .eq('razorpay_payment_id', razorpayPaymentId)
@@ -242,7 +258,7 @@ export async function hasPaymentBeenLogged(razorpayPaymentId: string): Promise<b
  * Get order items
  */
 export async function getOrderItems(orderId: string): Promise<OrderItem[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('order_items')
     .select('*')
     .eq('order_id', orderId)
@@ -259,7 +275,7 @@ export async function getOrderItems(orderId: string): Promise<OrderItem[]> {
  * Get customer orders
  */
 export async function getCustomerOrders(customerEmail: string): Promise<Order[]> {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseAdmin
     .from('orders')
     .select('*')
     .eq('customer_email', customerEmail)
@@ -293,7 +309,7 @@ export async function logPayment(paymentData: {
   response_data?: any
   error_message?: string
 }): Promise<boolean> {
-  const { error } = await supabase
+  const { error } = await supabaseAdmin
     .from('payment_logs')
     .insert({
       order_id: paymentData.order_id,

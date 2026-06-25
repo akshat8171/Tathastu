@@ -158,6 +158,18 @@ export function PhoneOtpForm() {
             />
           </div>
           {error && <p className="text-red-500 text-sm font-sans">{error}</p>}
+
+          {/* Dev-only hint for local E2E testing via Supabase "Test OTP".
+              Renders only in `next dev` (NODE_ENV==='development'); never in
+              production builds, and never during Jest (NODE_ENV==='test'). */}
+          {process.env.NODE_ENV === 'development' && (
+            <p className="text-xs font-sans text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
+              <span className="font-semibold">Dev / E2E:</span> no SMS is sent. Enter
+              the fixed code you set under Supabase → Authentication → Phone →
+              Test OTP. See docs/E2E_TESTING_GUIDE.md.
+            </p>
+          )}
+
           <button
             type="submit"
             disabled={loading}
