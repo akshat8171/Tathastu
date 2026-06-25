@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Badge } from './badge'
 import { Rating } from './rating'
 import { Price } from './price'
 import { useCart } from '@/components/cart/cart-context'
+import { useWishlist } from '@/components/wishlist/wishlist-context'
 
 // ── Product shape — must match lib/products.json ──────────────────────────────
 export interface ProductCardData {
@@ -48,6 +50,8 @@ export function ProductCard({
   const [isHovered, setIsHovered] = useState(false)
   const [isAdding, setIsAdding] = useState(false)
   const { addItem } = useCart()
+  const router = useRouter()
+  const { isWishlisted, toggle, requiresAuth } = useWishlist()
 
   const primaryImage   = images[0] ?? ''
   const secondaryImage = images[1] ?? images[0] ?? ''
@@ -135,10 +139,30 @@ export function ProductCard({
         {/* ── Wishlist heart – top-right (moves down when discount badge present) ── */}
         <button
           className={`absolute ${showDiscountBadge ? 'top-9' : 'top-2'} right-2 z-10 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white`}
-          aria-label={`Add ${name} to wishlist`}
-          onClick={(e) => { e.preventDefault(); e.stopPropagation() }}
+          aria-label={isWishlisted(id) ? `Remove ${name} from wishlist` : `Add ${name} to wishlist`}
+          aria-pressed={isWishlisted(id)}
+          onClick={async (e) => {
+            e.preventDefault()
+            e.stopPropagation()
+            if (requiresAuth) {
+              router.push('/login')
+            } else {
+              await toggle(id)
+            }
+          }}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6B7280" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill={isWishlisted(id) ? 'currentColor' : 'none'}
+            stroke={isWishlisted(id) ? 'currentColor' : '#6B7280'}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            className={isWishlisted(id) ? 'text-red-500' : ''}
+          >
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
         </button>

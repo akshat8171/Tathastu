@@ -27,10 +27,28 @@ jest.mock('next/link', () => ({
   ),
 }))
 
-// ── Mock next/navigation (useRouter is not used but Link may pull it in) ────
+// ── Mock next/navigation (ProductCard uses useRouter for the wishlist redirect) ─
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn() }),
   usePathname: () => '/',
+}))
+
+// ── Mock the wishlist context ─────────────────────────────────────────────────
+// ProductCard's heart button calls useWishlist(). A unit test for card rendering
+// should not exercise the context's /api/account/wishlist fetch, so stub the hook
+// (same philosophy as the next/* mocks above).
+jest.mock('@/components/wishlist/wishlist-context', () => ({
+  __esModule: true,
+  useWishlist: () => ({
+    ids: new Set(),
+    isWishlisted: () => false,
+    toggle: jest.fn(),
+    count: 0,
+    isReady: true,
+    requiresAuth: false,
+  }),
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  WishlistProvider: ({ children }: any) => children,
 }))
 
 // ── Wrapper ──────────────────────────────────────────────────────────────────
