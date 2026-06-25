@@ -3,21 +3,34 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { PhoneOtpForm } from '@/components/auth/phone-otp-form'
 
-jest.mock('@/lib/supabase/client', () => ({
-  supabase: {
-    auth: {
-      signInWithOtp: jest.fn().mockResolvedValue({ error: null }),
-      verifyOtp: jest.fn().mockResolvedValue({ error: null }),
-    },
-  },
+// Mock Firebase client — prevents real initializeApp from running in jsdom.
+jest.mock('@/lib/firebase/client', () => ({
+  getFirebaseAuth: jest.fn(() => ({})),
+  isFirebaseConfigured: true,
 }))
 
+// Mock Firebase Auth SDK — no real network calls.
+jest.mock('firebase/auth', () => ({
+  RecaptchaVerifier: jest.fn().mockImplementation(() => ({
+    clear: jest.fn(),
+    render: jest.fn().mockResolvedValue(1),
+  })),
+  signInWithPhoneNumber: jest.fn().mockResolvedValue({
+    confirm: jest.fn().mockResolvedValue({
+      user: {
+        getIdToken: jest.fn().mockResolvedValue('fake-id-token'),
+      },
+    }),
+  }),
+}))
+
+// Mock Next.js navigation.
 jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn(), refresh: jest.fn() }),
   useSearchParams: () => ({ get: () => null }),
 }))
 
-// OTP send now POSTs to /api/auth/send-otp (rate-limited server route).
+// Mock global fetch — covers /api/auth/send-otp and /api/auth/firebase-session.
 beforeEach(() => {
   global.fetch = jest.fn().mockResolvedValue({
     ok: true,

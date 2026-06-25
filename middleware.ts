@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { FIREBASE_SESSION_COOKIE } from '@/lib/auth/cookies'
 
 // Routes that require an authenticated user. A logged-out visitor is
 // redirected to /login?next=<path> so they return here after signing in.
@@ -34,13 +35,21 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
+  // Firebase session: presence-only check on the Edge — the real cryptographic
+  // verification happens in Server Components via getCurrentUser() (which calls
+  // firebase-admin, a Node-only module). Do NOT import firebase-admin here.
+  const hasFirebaseSession = Boolean(request.cookies.get(FIREBASE_SESSION_COOKIE)?.value)
+
+  // The visitor is authenticated if EITHER session is present.
+  const isAuthenticated = Boolean(user) || hasFirebaseSession
+
   const { pathname } = request.nextUrl
 
   // Gate protected routes
   const isProtected = PROTECTED_PREFIXES.some(
     p => pathname === p || pathname.startsWith(`${p}/`)
   )
-  if (isProtected && !user) {
+  if (isProtected && !isAuthenticated) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     url.searchParams.set('next', pathname)
@@ -48,7 +57,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // A signed-in user has no reason to see /login — send them to their account
-  if (pathname === '/login' && user) {
+  if (pathname === '/login' && isAuthenticated) {
     const url = request.nextUrl.clone()
     url.pathname = '/account'
     url.search = ''

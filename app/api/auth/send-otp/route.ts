@@ -1,21 +1,25 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
 import { checkOtpRateLimit } from '@/lib/rate-limit'
 
 export const runtime = 'nodejs'
 
 /**
- * Server-side OTP send endpoint.
+ * Rate-limit pre-check for phone OTP.
  *
- * The phone-OTP form POSTs here instead of calling Supabase directly from the
- * browser, so we get a real server choke-point to rate limit (an attacker can
- * no longer bypass the client-side cooldown by scripting the request).
+ * The actual SMS is now sent client-side by the Firebase JS SDK (via
+ * RecaptchaVerifier + signInWithPhoneNumber). This endpoint exists purely as
+ * a server-side choke-point so an attacker cannot bypass the client cooldown
+ * by scripting direct Firebase requests — we enforce an app-layer rate limit
+ * before the browser SDK is permitted to proceed.
  *
- * Layers of protection:
- *  1. App-layer rate limit (per-phone + per-IP) — this route, via lib/rate-limit
- *  2. Supabase project rate limits (dashboard) — second line of defense
- *  3. CAPTCHA on the Supabase auth endpoint (dashboard) — see AUTH_SETUP_GUIDE
+ * Defense-in-depth layers:
+ *   1. App-layer rate limit (per-phone + per-IP) — this route, via lib/rate-limit
+ *   2. Firebase project quotas (Firebase console) — second line of defense
+ *   3. reCAPTCHA enforced by Firebase's RecaptchaVerifier in the browser
+ *
+ * Rate-limit policy (unchanged from previous implementation):
+ *   - 3 OTP requests per 15 min per phone number
+ *   - 10 OTP requests per 60 min per IP address
  */
 export async function POST(request: NextRequest) {
   let body: { phone?: string }
@@ -51,33 +55,6 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  const cookieStore = cookies()
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return cookieStore.getAll()
-        },
-        setAll(cookiesToSet) {
-          try {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            )
-          } catch {
-            // Called outside a mutable cookie context — ignore
-          }
-        },
-      },
-    }
-  )
-
-  const { error } = await supabase.auth.signInWithOtp({ phone })
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 400 })
-  }
-
+  // Rate limit passed — the client may now trigger Firebase phone auth.
   return NextResponse.json({ success: true })
 }

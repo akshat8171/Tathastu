@@ -18,11 +18,13 @@ jest.mock('@/lib/products.json', () => [
 const mockCreateOrder = jest.fn()
 const mockUpdateOrderPaymentStatus = jest.fn().mockResolvedValue(true)
 const mockLogPayment = jest.fn().mockResolvedValue(true)
+const mockUpsertCustomerByPhone = jest.fn().mockResolvedValue('customer-uuid-789')
 
 jest.mock('@/lib/supabase/orders', () => ({
   createOrder: (...args: any[]) => mockCreateOrder(...args),
   updateOrderPaymentStatus: (...args: any[]) => mockUpdateOrderPaymentStatus(...args),
   logPayment: (...args: any[]) => mockLogPayment(...args),
+  upsertCustomerByPhone: (...args: any[]) => mockUpsertCustomerByPhone(...args),
 }))
 
 // ---------------------------------------------------------------------------
@@ -177,6 +179,47 @@ describe('POST /api/orders', () => {
 
     expect(mockCreateOrder).toHaveBeenCalledWith(
       expect.objectContaining({ shipping: 0 }) // 2299 > 999 → free shipping
+    )
+  })
+
+  it('upserts the customer by phone and links customer_id onto the order', async () => {
+    const req = makeRequest({
+      customer: VALID_CUSTOMER,
+      items: [
+        { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
+      ],
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+
+    // Customer is upserted from the order's contact details
+    expect(mockUpsertCustomerByPhone).toHaveBeenCalledWith(
+      expect.objectContaining({
+        phone: '9876543210',
+        name: 'Rahul Sharma',
+        email: 'rahul@example.com',
+      })
+    )
+    // The resolved customer id is linked onto the order
+    expect(mockCreateOrder).toHaveBeenCalledWith(
+      expect.objectContaining({ customer_id: 'customer-uuid-789' })
+    )
+  })
+
+  it('still creates the order when customer upsert fails (never blocks a sale)', async () => {
+    mockUpsertCustomerByPhone.mockResolvedValueOnce(null)
+    const req = makeRequest({
+      customer: VALID_CUSTOMER,
+      items: [
+        { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
+      ],
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    expect(mockCreateOrder).toHaveBeenCalledWith(
+      expect.objectContaining({ customer_id: null })
     )
   })
 

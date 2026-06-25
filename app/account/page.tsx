@@ -71,20 +71,30 @@ export default async function AccountPage() {
             <div className="flex-1 min-w-0">
               <h2 className="font-display font-semibold text-ink text-lg mb-1">Profile</h2>
               <div className="space-y-1 font-sans text-sm">
-                <p>
-                  <span className="text-muted">Phone:&nbsp;</span>
-                  <span className="text-ink font-medium">{user.phone}</span>
-                </p>
-                <p>
-                  <span className="text-muted">Member since:&nbsp;</span>
-                  <span className="text-ink font-medium">
-                    {new Date(user.created_at).toLocaleDateString('en-IN', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </span>
-                </p>
+                {user.phone && (
+                  <p>
+                    <span className="text-muted">Phone:&nbsp;</span>
+                    <span className="text-ink font-medium">{user.phone}</span>
+                  </p>
+                )}
+                {user.email && (
+                  <p>
+                    <span className="text-muted">Email:&nbsp;</span>
+                    <span className="text-ink font-medium">{user.email}</span>
+                  </p>
+                )}
+                {user.createdAt && (
+                  <p>
+                    <span className="text-muted">Member since:&nbsp;</span>
+                    <span className="text-ink font-medium">
+                      {new Date(user.createdAt).toLocaleDateString('en-IN', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </span>
+                  </p>
+                )}
               </div>
             </div>
           </div>

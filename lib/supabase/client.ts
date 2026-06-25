@@ -17,8 +17,8 @@ export const supabase = createBrowserClient(supabaseUrl, supabaseKey)
 // Database Types
 export interface Customer {
   id: string
-  email: string
-  name: string
+  email?: string
+  name?: string
   phone?: string
   created_at: string
   updated_at: string

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createOrder, updateOrderPaymentStatus, logPayment } from '@/lib/supabase/orders'
+import { createOrder, updateOrderPaymentStatus, logPayment, upsertCustomerByPhone } from '@/lib/supabase/orders'
 import { createOrderSchema } from '@/lib/validation/order'
 import { repriceItems } from '@/lib/pricing'
 
@@ -34,10 +34,20 @@ export async function POST(request: NextRequest) {
       quantity: i.quantity,
     }))
 
+    // Upsert a customers row keyed by phone number.
+    // On failure the result is null and the order proceeds with customer_id = null.
+    // This must never block a sale: any error is logged inside upsertCustomerByPhone.
+    const customerId = await upsertCustomerByPhone({
+      phone: customer.phone,
+      name: customer.name,
+      email: customer.email || undefined,
+    })
+
     const { order, error } = await createOrder({
       customer_name: customer.name,
       customer_email: customer.email || '',
       customer_phone: customer.phone,
+      customer_id: customerId,
       items: dbItems,
       subtotal,
       shipping,

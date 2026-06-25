@@ -1,6 +1,5 @@
 import { Suspense } from 'react'
-import { PhoneOtpForm } from '@/components/auth/phone-otp-form'
-import { GoogleSignInButton } from '@/components/auth/google-signin-button'
+import { LoginForm } from '@/components/auth/login-form'
 
 export default function LoginPage() {
   return (
@@ -23,23 +22,9 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* Google OAuth */}
-          <div className="max-w-sm mx-auto mb-6">
-            <Suspense fallback={null}>
-              <GoogleSignInButton />
-            </Suspense>
-          </div>
-
-          {/* Divider */}
-          <div className="max-w-sm mx-auto flex items-center gap-4 mb-6">
-            <span className="flex-1 h-px bg-gray-200" />
-            <span className="text-xs font-sans text-muted uppercase tracking-widest">or</span>
-            <span className="flex-1 h-px bg-gray-200" />
-          </div>
-
-          {/* Phone OTP — wrapped in Suspense because it reads useSearchParams() */}
+          {/* Unified login form — wrapped in Suspense because it reads useSearchParams() */}
           <Suspense fallback={null}>
-            <PhoneOtpForm />
+            <LoginForm />
           </Suspense>
 
           <p className="mt-6 text-center font-sans text-xs text-muted">

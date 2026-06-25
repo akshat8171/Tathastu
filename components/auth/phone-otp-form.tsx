@@ -1,8 +1,10 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '@/lib/supabase/client'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { signInWithPhoneNumber, RecaptchaVerifier, type ConfirmationResult } from 'firebase/auth'
+import { getFirebaseAuth, isFirebaseConfigured } from '@/lib/firebase/client'
+import { isIndianMobile, toE164 } from '@/lib/auth/identifier'
 
 type Step = 'phone' | 'otp'
 
@@ -15,28 +17,74 @@ function sanitizeNext(raw: string | null): string {
   return raw
 }
 
-export function PhoneOtpForm() {
+function mapFirebaseError(code: string): string {
+  switch (code) {
+    case 'auth/invalid-verification-code':
+      return 'Incorrect code. Please check and try again.'
+    case 'auth/code-expired':
+      return 'Code expired. Please resend and try again.'
+    case 'auth/too-many-requests':
+      return 'Too many attempts. Please wait before trying again.'
+    case 'auth/invalid-phone-number':
+      return 'Invalid phone number. Please enter a valid 10-digit Indian mobile.'
+    default:
+      return 'Something went wrong. Please try again.'
+  }
+}
+
+interface PhoneOtpFormProps {
+  /** Optionally pre-seed the phone field (10-digit local or E.164). */
+  initialPhone?: string
+}
+
+export function PhoneOtpForm({ initialPhone }: PhoneOtpFormProps = {}) {
   const [step, setStep] = useState<Step>('phone')
-  const [phone, setPhone] = useState('')
+  const [phone, setPhone] = useState(initialPhone?.replace(/^\+91/, '') ?? '')
   const [otp, setOtp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [cooldown, setCooldown] = useState(0)
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const next = sanitizeNext(searchParams.get('next'))
 
-  // Countdown timer for the resend cooldown
+  // Store the Firebase ConfirmationResult across re-renders.
+  const confirmationRef = useRef<ConfirmationResult | null>(null)
+  // Reuse a single RecaptchaVerifier instance; create lazily in the browser.
+  const recaptchaVerifierRef = useRef<RecaptchaVerifier | null>(null)
+
+  // Countdown timer for the resend cooldown.
   useEffect(() => {
     if (cooldown <= 0) return
     const t = setTimeout(() => setCooldown(c => c - 1), 1000)
     return () => clearTimeout(t)
   }, [cooldown])
 
-  const sendOtp = useCallback(async (cleaned: string) => {
-    // POST to our server route (rate-limited) instead of calling Supabase
-    // directly from the browser. This is the choke-point a scripted attacker
-    // cannot bypass.
+  /** Get-or-create the invisible RecaptchaVerifier. */
+  function getOrCreateVerifier(): RecaptchaVerifier {
+    if (recaptchaVerifierRef.current) return recaptchaVerifierRef.current
+    // RecaptchaVerifier v9+ modular API: first arg is Auth instance. Auth is
+    // resolved lazily here (browser-only) — never at module/render scope.
+    const verifier = new RecaptchaVerifier(getFirebaseAuth(), 'recaptcha-container', {
+      size: 'invisible',
+    })
+    recaptchaVerifierRef.current = verifier
+    return verifier
+  }
+
+  /** Clear the verifier on error so it can be recreated on retry. */
+  function clearVerifier() {
+    try { recaptchaVerifierRef.current?.clear() } catch { /* ignore */ }
+    recaptchaVerifierRef.current = null
+  }
+
+  /**
+   * Server-side rate-limit gate → Firebase signInWithPhoneNumber.
+   * Returns true on success, false on failure (error already set).
+   */
+  const sendOtp = useCallback(async (cleaned: string): Promise<boolean> => {
+    // Step 1: server rate-limit pre-check.
     let res: Response
     try {
       res = await fetch('/api/auth/send-otp', {
@@ -54,8 +102,26 @@ export function PhoneOtpForm() {
       setError(data.error || 'Could not send OTP. Please try again.')
       return false
     }
-    setCooldown(RESEND_COOLDOWN_SECONDS)
-    return true
+
+    if (!isFirebaseConfigured) {
+      setError('Firebase is not configured. Contact support.')
+      return false
+    }
+
+    // Step 2–3: create invisible reCAPTCHA and trigger Firebase SMS.
+    try {
+      const verifier = getOrCreateVerifier()
+      const e164 = toE164(cleaned)!
+      const confirmation = await signInWithPhoneNumber(getFirebaseAuth(), e164, verifier)
+      confirmationRef.current = confirmation
+      setCooldown(RESEND_COOLDOWN_SECONDS)
+      return true
+    } catch (err: unknown) {
+      clearVerifier()
+      const code = (err as { code?: string }).code ?? ''
+      setError(mapFirebaseError(code))
+      return false
+    }
   }, [])
 
   async function handleSendOtp(e: React.FormEvent) {
@@ -64,7 +130,7 @@ export function PhoneOtpForm() {
     setLoading(true)
 
     const cleaned = phone.replace(/\D/g, '')
-    if (cleaned.length !== 10 || !/^[6-9]/.test(cleaned)) {
+    if (!isIndianMobile(cleaned)) {
       setError('Enter a valid 10-digit Indian mobile number')
       setLoading(false)
       return
@@ -88,24 +154,44 @@ export function PhoneOtpForm() {
     setError('')
     setLoading(true)
 
-    const cleaned = phone.replace(/\D/g, '')
-    const { error: authError } = await supabase.auth.verifyOtp({
-      phone: `+91${cleaned}`,
-      token: otp,
-      type: 'sms',
-    })
+    if (!confirmationRef.current) {
+      setError('Session expired. Please go back and resend the OTP.')
+      setLoading(false)
+      return
+    }
 
-    if (authError) {
-      setError(authError.message)
-    } else {
+    try {
+      const cred = await confirmationRef.current.confirm(otp)
+      const idToken = await cred.user.getIdToken()
+
+      // Exchange the Firebase ID token for an httpOnly session cookie.
+      const res = await fetch('/api/auth/firebase-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idToken }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        setError(data.error || 'Login failed. Please try again.')
+        setLoading(false)
+        return
+      }
+
       router.push(next)
       router.refresh()
+    } catch (err: unknown) {
+      const code = (err as { code?: string }).code ?? ''
+      setError(mapFirebaseError(code))
     }
     setLoading(false)
   }
 
   return (
     <div className="w-full max-w-sm mx-auto">
+      {/* Invisible reCAPTCHA anchor — must be in the DOM before verifier is created. */}
+      <div id="recaptcha-container" />
+
       {step === 'phone' ? (
         <form onSubmit={handleSendOtp} className="space-y-4">
           <div>
@@ -159,14 +245,15 @@ export function PhoneOtpForm() {
           </div>
           {error && <p className="text-red-500 text-sm font-sans">{error}</p>}
 
-          {/* Dev-only hint for local E2E testing via Supabase "Test OTP".
+          {/* Dev-only hint for local E2E testing via Firebase test phone numbers.
               Renders only in `next dev` (NODE_ENV==='development'); never in
               production builds, and never during Jest (NODE_ENV==='test'). */}
           {process.env.NODE_ENV === 'development' && (
             <p className="text-xs font-sans text-amber-600 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-              <span className="font-semibold">Dev / E2E:</span> no SMS is sent. Enter
-              the fixed code you set under Supabase → Authentication → Phone →
-              Test OTP. See docs/E2E_TESTING_GUIDE.md.
+              <span className="font-semibold">Dev / E2E:</span> no SMS is sent for{' '}
+              <strong>Firebase test phone numbers</strong>. Configure them under
+              Firebase console → Authentication → Sign-in method → Phone →
+              Phone numbers for testing.
             </p>
           )}
 

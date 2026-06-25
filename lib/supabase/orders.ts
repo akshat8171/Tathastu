@@ -1,5 +1,6 @@
 import { supabaseAdmin } from './admin'
 import type { Order, OrderItem } from './client'
+import { toE164 } from '@/lib/auth/identifier'
 
 /**
  * Resolve catalog slugs (e.g. "lamps-lamp1") to the products-table UUID primary
@@ -55,12 +56,65 @@ async function resolveSlugsToUuids(slugs: string[]): Promise<Map<string, string>
  */
 
 /**
+ * Upsert a customer row keyed by phone number (E.164, e.g. +91XXXXXXXXXX).
+ *
+ * - New phone → inserts a fresh row and returns its UUID.
+ * - Existing phone → returns the existing row's UUID (no data overwrite).
+ * - Bad / un-normalizable phone → returns null immediately.
+ * - Any DB error → logs and returns null; NEVER throws.
+ *
+ * This function intentionally never throws so that a customer-linkage
+ * failure cannot block checkout: callers receive null and proceed with
+ * orders.customer_id = null.
+ *
+ * Requires migration-004-customers-upsert.sql to have run (adds the UNIQUE
+ * constraint on phone that makes the upsert conflict-resolution possible).
+ */
+export async function upsertCustomerByPhone(input: {
+  phone: string       // 10-digit Indian mobile or E.164; will be normalised
+  name?: string
+  email?: string
+}): Promise<string | null> {
+  const e164 = toE164(input.phone)
+  if (!e164) {
+    console.error('upsertCustomerByPhone: could not normalise phone to E.164', input.phone)
+    return null
+  }
+
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('customers')
+      .upsert(
+        {
+          phone: e164,
+          name: input.name ?? null,
+          email: input.email || null,
+        },
+        { onConflict: 'phone' }
+      )
+      .select('id')
+      .single()
+
+    if (error || !data) {
+      console.error('upsertCustomerByPhone: DB error', error)
+      return null
+    }
+
+    return (data as { id: string }).id
+  } catch (err) {
+    console.error('upsertCustomerByPhone: unexpected error', err)
+    return null
+  }
+}
+
+/**
  * Create a new order
  */
 export async function createOrder(orderData: {
   customer_name: string
   customer_email: string
   customer_phone: string
+  customer_id?: string | null
   items: Array<{
     product_id: string
     product_name: string
@@ -87,6 +141,7 @@ export async function createOrder(orderData: {
       .from('orders')
       .insert({
         order_number: orderNumber,
+        customer_id: orderData.customer_id ?? null,
         customer_name: orderData.customer_name,
         customer_email: orderData.customer_email,
         customer_phone: orderData.customer_phone,
