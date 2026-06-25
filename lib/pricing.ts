@@ -34,6 +34,10 @@ export interface RepriceResult {
   subtotal: number
   shipping: number
   total: number
+  /** Coupon discount in rupees applied to this order (0 when none). */
+  discount: number
+  /** Normalized coupon code when one was applied, else null. */
+  couponCode: string | null
 }
 
 export interface RepriceError {
@@ -77,5 +81,31 @@ export function repriceItems(
   const shipping = subtotal > 999 ? 0 : 99
   const total = subtotal + shipping
 
-  return { ok: true, items: pricedItems, subtotal, shipping, total }
+  return { ok: true, items: pricedItems, subtotal, shipping, total, discount: 0, couponCode: null }
+}
+
+/**
+ * Apply a server-validated coupon discount to a RepriceResult.
+ *
+ * Kept separate from repriceItems() so the synchronous, DB-free repricing path
+ * (and its tests) stay untouched. The caller validates the coupon server-side
+ * (lib/coupons.validateCoupon) against `result.subtotal`, then passes the
+ * resulting discount here.
+ *
+ * Discount applies to the subtotal; total = subtotal - discount + shipping,
+ * floored at 0. Shipping is NOT discounted.
+ */
+export function applyDiscount(
+  result: RepriceResult,
+  discount: number,
+  couponCode: string | null
+): RepriceResult {
+  const safeDiscount = Math.min(Math.max(0, Math.round(discount || 0)), result.subtotal)
+  const total = Math.max(0, result.subtotal - safeDiscount + result.shipping)
+  return {
+    ...result,
+    discount: safeDiscount,
+    couponCode: safeDiscount > 0 ? couponCode : null,
+    total,
+  }
 }

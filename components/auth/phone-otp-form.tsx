@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { signInWithPhoneNumber, RecaptchaVerifier, type ConfirmationResult } from 'firebase/auth'
 import { getFirebaseAuth, isFirebaseConfigured } from '@/lib/firebase/client'
 import { isIndianMobile, toE164 } from '@/lib/auth/identifier'
+import { Spinner } from '@/components/ui/spinner'
 
 type Step = 'phone' | 'otp'
 
@@ -218,9 +219,16 @@ export function PhoneOtpForm({ initialPhone }: PhoneOtpFormProps = {}) {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full disabled:opacity-50"
+            className="btn-primary w-full disabled:opacity-50 inline-flex items-center justify-center gap-2"
           >
-            {loading ? 'Sending...' : 'Send OTP'}
+            {loading ? (
+              <>
+                <Spinner size="sm" />
+                <span>Sending…</span>
+              </>
+            ) : (
+              'Send OTP'
+            )}
           </button>
         </form>
       ) : (
@@ -260,9 +268,16 @@ export function PhoneOtpForm({ initialPhone }: PhoneOtpFormProps = {}) {
           <button
             type="submit"
             disabled={loading}
-            className="btn-primary w-full disabled:opacity-50"
+            className="btn-primary w-full disabled:opacity-50 inline-flex items-center justify-center gap-2"
           >
-            {loading ? 'Verifying...' : 'Verify & Login'}
+            {loading ? (
+              <>
+                <Spinner size="sm" />
+                <span>Verifying…</span>
+              </>
+            ) : (
+              'Verify & Login'
+            )}
           </button>
 
           {/* Resend OTP with cooldown */}

@@ -9,7 +9,7 @@ jest.mock('@/lib/products.json', () => [
   { id: 'organizers-organizer1', price: 1899 },
 ])
 
-import { repriceItems } from '@/lib/pricing'
+import { repriceItems, applyDiscount } from '@/lib/pricing'
 
 describe('repriceItems', () => {
   it('returns server-authoritative price, ignoring client price', () => {
@@ -89,5 +89,46 @@ describe('repriceItems', () => {
     expect(result.ok).toBe(true)
     if (!result.ok) return
     expect(result.total).toBe(result.subtotal + result.shipping)
+  })
+
+  it('initializes discount=0 and couponCode=null with no coupon', () => {
+    const result = repriceItems([
+      { product_id: 'lamps-lamp1', product_name: 'Lamp', quantity: 1 },
+    ])
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.discount).toBe(0)
+    expect(result.couponCode).toBeNull()
+  })
+})
+
+describe('applyDiscount', () => {
+  function base() {
+    const r = repriceItems([
+      { product_id: 'lamps-lamp1', product_name: 'Lamp', quantity: 1 }, // 2299, free shipping
+    ])
+    if (!r.ok) throw new Error('setup failed')
+    return r
+  }
+
+  it('subtracts discount from subtotal, leaves shipping intact', () => {
+    const r = applyDiscount(base(), 300, 'SAVE300')
+    expect(r.discount).toBe(300)
+    expect(r.couponCode).toBe('SAVE300')
+    expect(r.total).toBe(2299 - 300 + r.shipping) // shipping 0 here
+  })
+
+  it('clamps discount to subtotal (never negative total)', () => {
+    const r = applyDiscount(base(), 99999, 'HUGE')
+    expect(r.discount).toBe(2299)
+    expect(r.total).toBe(r.shipping) // subtotal fully discounted
+    expect(r.total).toBeGreaterThanOrEqual(0)
+  })
+
+  it('treats a zero discount as no coupon applied', () => {
+    const r = applyDiscount(base(), 0, 'NOOP')
+    expect(r.discount).toBe(0)
+    expect(r.couponCode).toBeNull()
+    expect(r.total).toBe(2299 + r.shipping)
   })
 })

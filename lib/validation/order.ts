@@ -76,6 +76,13 @@ export const createOrderSchema = z.object({
   subtotal: z.number().optional(),
   shipping: z.number().optional(),
   total: z.number().optional(),
+  // Payment method the customer chose. 'razorpay' (default, online) requires a
+  // payment proof; 'cod' (Cash on Delivery) creates a pending order with no
+  // proof. Anything else is rejected.
+  payment_method: z.enum(['razorpay', 'cod']).optional().default('razorpay'),
+  // Optional coupon code; the server re-validates and recomputes the discount
+  // (client-sent discount is never trusted).
+  couponCode: z.string().trim().max(50).optional(),
   payment: paymentSchema,
 })
 

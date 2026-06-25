@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase/client'
 import { detectIdentifier } from '@/lib/auth/identifier'
 import { PhoneOtpForm } from '@/components/auth/phone-otp-form'
+import { Spinner } from '@/components/ui/spinner'
 
 function sanitizeNext(raw: string | null): string {
   if (!raw) return '/account'
@@ -140,9 +141,16 @@ export function LoginForm() {
           type="submit"
           onClick={handlePasswordLogin}
           disabled={loading}
-          className="btn-primary w-full disabled:opacity-50"
+          className="btn-primary w-full disabled:opacity-50 inline-flex items-center justify-center gap-2"
         >
-          {loading ? 'Signing in...' : 'Login with Password'}
+          {loading ? (
+            <>
+              <Spinner size="sm" />
+              <span>Signing in…</span>
+            </>
+          ) : (
+            'Login with Password'
+          )}
         </button>
 
         <button

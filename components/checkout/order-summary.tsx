@@ -1,7 +1,10 @@
 'use client'
 
 import Image from 'next/image'
+import { useState } from 'react'
 import { useCart } from '@/components/cart/cart-context'
+import { useCheckout } from '@/components/checkout/checkout-context'
+import { Spinner } from '@/components/ui/spinner'
 
 // ── Free-delivery threshold (mirrors lib/pricing.ts) ─────────────────────────
 const FREE_SHIPPING_THRESHOLD = 999
@@ -14,11 +17,84 @@ function formatINR(amount: number): string {
   }).format(amount)
 }
 
+// ── Shape returned by POST /api/coupons/validate ───────────────────────────────
+interface CouponResult {
+  valid: boolean
+  discount: number
+  code: string
+  message: string
+  subtotal: number
+}
+
 export function OrderSummary() {
   const { items } = useCart()
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : 99
-  const total = subtotal + shipping
+
+  // ── Applied coupon is shared with CheckoutForm via CheckoutProvider so the
+  //    discount shown here is the one the order is actually placed with. ─────
+  const { appliedCoupon, setAppliedCoupon } = useCheckout()
+
+  // ── Local-only coupon input/validation UI state ──────────────────────────
+  const [couponInput, setCouponInput] = useState('')
+  const [couponLoading, setCouponLoading] = useState(false)
+  const [couponError, setCouponError] = useState<string | null>(null)
+
+  const discount = appliedCoupon?.discount ?? 0
+  const total = Math.max(0, subtotal - discount + shipping)
+
+  async function handleApplyCoupon() {
+    const code = couponInput.trim()
+    if (!code) return
+
+    setCouponLoading(true)
+    setCouponError(null)
+    setAppliedCoupon(null)
+
+    try {
+      const res = await fetch('/api/coupons/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code,
+          items: items.map(item => ({
+            product_id: item.id,
+            product_name: item.name,
+            product_image: item.image || undefined,
+            product_variant: item.variant || undefined,
+            quantity: item.quantity,
+          })),
+        }),
+      })
+
+      const data: CouponResult = await res.json()
+
+      if (data.valid) {
+        setAppliedCoupon({ code: data.code, discount: data.discount })
+        setCouponError(null)
+      } else {
+        setAppliedCoupon(null)
+        setCouponError(data.message || 'Invalid coupon code')
+      }
+    } catch {
+      setCouponError('Could not validate coupon. Please try again.')
+    } finally {
+      setCouponLoading(false)
+    }
+  }
+
+  function handleRemoveCoupon() {
+    setAppliedCoupon(null)
+    setCouponError(null)
+    setCouponInput('')
+  }
+
+  function handleCouponKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      handleApplyCoupon()
+    }
+  }
 
   return (
     <div className="card p-6">
@@ -58,12 +134,72 @@ export function OrderSummary() {
         ))}
       </div>
 
+      {/* Coupon input */}
+      <div className="mb-5">
+        {appliedCoupon ? (
+          <div className="flex items-center justify-between rounded-xl bg-green-50 border border-green-200 px-4 py-3">
+            <div>
+              <p className="text-sm font-display font-semibold text-green-700">
+                {appliedCoupon.code} applied
+              </p>
+              <p className="text-xs text-green-600 font-sans mt-0.5">
+                You save {formatINR(appliedCoupon.discount)}!
+              </p>
+            </div>
+            <button
+              onClick={handleRemoveCoupon}
+              className="text-xs font-sans text-red-500 hover:underline flex-shrink-0 ml-3"
+              aria-label="Remove coupon"
+            >
+              Remove
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={couponInput}
+                onChange={e => setCouponInput(e.target.value.toUpperCase())}
+                onKeyDown={handleCouponKeyDown}
+                placeholder="Coupon code"
+                className="flex-1 px-4 py-2.5 rounded-xl bg-surface border border-gray-200 text-ink placeholder-muted/60 font-sans text-sm focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-colors"
+                aria-label="Coupon code"
+              />
+              <button
+                onClick={handleApplyCoupon}
+                disabled={couponLoading || !couponInput.trim()}
+                className="px-4 py-2.5 rounded-xl bg-brand text-white font-sans text-sm font-medium hover:bg-brand/90 transition-colors disabled:opacity-50 flex items-center gap-1.5 flex-shrink-0"
+              >
+                {couponLoading ? (
+                  <Spinner size="xs" className="text-white" label="Validating coupon" />
+                ) : (
+                  'Apply'
+                )}
+              </button>
+            </div>
+            {couponError && (
+              <p className="text-xs text-red-600 font-sans">{couponError}</p>
+            )}
+          </div>
+        )}
+      </div>
+
       {/* Totals */}
       <div className="border-t border-gray-100 pt-4 space-y-2">
         <div className="flex justify-between text-sm text-muted font-sans">
           <span>Subtotal</span>
           <span className="font-semibold text-ink">{formatINR(subtotal)}</span>
         </div>
+
+        {discount > 0 && (
+          <div className="flex justify-between text-sm font-sans">
+            <span className="text-muted">
+              Discount{appliedCoupon?.code ? ` (${appliedCoupon.code})` : ''}
+            </span>
+            <span className="font-semibold text-green-600">−{formatINR(discount)}</span>
+          </div>
+        )}
 
         <div className="flex justify-between text-sm font-sans">
           <span className="text-muted">Shipping</span>

@@ -14,3 +14,5 @@ export type { ProductCardData, ProductCardProps } from './product-card'
 export { SectionHeading } from './section-heading'
 
 export { ScrollRail } from './scroll-rail'
+
+export { Spinner } from './spinner'

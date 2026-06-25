@@ -29,6 +29,9 @@ yarn-error.log*
 .env.local
 .env
 
+# agent artifacts (research notes, generated scratch — never committed)
+.agents/
+
 # vercel
 .vercel
 

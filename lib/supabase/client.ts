@@ -60,7 +60,7 @@ export interface Order {
   shipping: number
   total: number
   status: 'pending' | 'paid' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
-  payment_method: 'upi' | 'card' | 'netbanking' | 'wallet'
+  payment_method: 'upi' | 'card' | 'netbanking' | 'wallet' | 'razorpay' | 'cod'
   payment_status: 'pending' | 'paid' | 'failed' | 'refunded'
   payment_id?: string
   payment_order_id?: string

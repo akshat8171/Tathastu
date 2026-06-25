@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Spinner } from '@/components/ui/spinner'
 
 interface ProfileFormProps {
   initialFirstName?: string
@@ -170,9 +171,16 @@ export function ProfileForm({
         <button
           type="submit"
           disabled={loading}
-          className="btn-primary disabled:opacity-50"
+          className="btn-primary disabled:opacity-50 inline-flex items-center gap-2"
         >
-          {loading ? 'Saving…' : 'Save changes'}
+          {loading ? (
+            <>
+              <Spinner size="sm" />
+              <span>Saving…</span>
+            </>
+          ) : (
+            'Save changes'
+          )}
         </button>
       </div>
     </form>

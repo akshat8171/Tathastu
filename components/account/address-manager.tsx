@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Address, AddressType } from '@/lib/supabase/account'
+import { Spinner } from '@/components/ui/spinner'
 
 // ── Shared input class (matches existing forms) ───────────────────────────────
 const inputCls =
@@ -341,9 +342,16 @@ export function AddressManager({ type, label, initial }: AddressManagerProps) {
             <button
               type="submit"
               disabled={saving}
-              className="btn-primary disabled:opacity-50"
+              className="btn-primary disabled:opacity-50 inline-flex items-center gap-2"
             >
-              {saving ? 'Saving…' : 'Save'}
+              {saving ? (
+                <>
+                  <Spinner size="sm" />
+                  <span>Saving…</span>
+                </>
+              ) : (
+                'Save'
+              )}
             </button>
             <button
               type="button"
@@ -401,9 +409,16 @@ export function AddressManager({ type, label, initial }: AddressManagerProps) {
             type="button"
             onClick={handleRemove}
             disabled={removing}
-            className="text-red-500 hover:text-red-600 text-sm font-medium font-sans disabled:opacity-50"
+            className="text-red-500 hover:text-red-600 text-sm font-medium font-sans disabled:opacity-50 inline-flex items-center gap-1.5"
           >
-            {removing ? 'Removing…' : 'Remove'}
+            {removing ? (
+              <>
+                <Spinner size="xs" />
+                <span>Removing…</span>
+              </>
+            ) : (
+              'Remove'
+            )}
           </button>
         </div>
       </div>

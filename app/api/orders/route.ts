@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, updateOrderPaymentStatus, logPayment, upsertCustomerByPhone } from '@/lib/supabase/orders'
 import { createOrderSchema } from '@/lib/validation/order'
-import { repriceItems } from '@/lib/pricing'
+import { repriceItems, applyDiscount } from '@/lib/pricing'
+import { validateCoupon } from '@/lib/coupons'
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,15 +15,26 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: message }, { status: 400 })
     }
 
-    const { customer, items, payment } = parsed.data
+    const { customer, items, payment, payment_method, couponCode } = parsed.data
 
     // Server-side re-pricing: ignore ALL client-sent prices/totals
-    const repriced = repriceItems(items)
+    let repriced = repriceItems(items)
     if (!repriced.ok) {
       return NextResponse.json({ error: 'Invalid item in order' }, { status: 400 })
     }
 
-    const { subtotal, shipping, total, items: pricedItems } = repriced
+    // Server-validated coupon: recompute the discount against the trusted
+    // subtotal. An invalid/expired coupon is silently ignored (discount stays 0)
+    // so it can never block a sale; the checkout UI validates separately and
+    // shows the reason before the user reaches this point.
+    if (couponCode) {
+      const couponResult = await validateCoupon(couponCode, repriced.subtotal)
+      if (couponResult.valid) {
+        repriced = applyDiscount(repriced, couponResult.discount, couponResult.code)
+      }
+    }
+
+    const { subtotal, shipping, total, discount, items: pricedItems } = repriced
 
     // Build DB items using server-trusted prices
     const dbItems = pricedItems.map(i => ({
@@ -50,9 +62,10 @@ export async function POST(request: NextRequest) {
       customer_id: customerId,
       items: dbItems,
       subtotal,
+      discount,
       shipping,
       total,
-      payment_method: 'razorpay',
+      payment_method,
       notes: `Address: ${customer.address}, ${customer.city}, ${customer.state} - ${customer.pincode}`,
     })
 
@@ -60,7 +73,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create order' }, { status: 500 })
     }
 
-    if (payment?.razorpay_payment_id) {
+    // Cash on Delivery: no payment proof, order stays pending until delivery.
+    // Online (razorpay): mark paid + log the payment when proof is present.
+    if (payment_method === 'razorpay' && payment?.razorpay_payment_id) {
       await updateOrderPaymentStatus(
         order.id,
         'paid',
@@ -83,6 +98,9 @@ export async function POST(request: NextRequest) {
       success: true,
       orderId: order.id,
       orderNumber: order.order_number,
+      paymentMethod: payment_method,
+      total,
+      discount,
     })
   } catch (error) {
     console.error('Order creation error:', error)
