@@ -17,7 +17,53 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Clean with a soft, dry cloth. Avoid using harsh chemicals. Keep away from direct sunlight to prevent fading. Use LED bulbs for optimal performance and energy efficiency.",
-    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery takes 3-5 business days. Express delivery available for metro cities."
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery takes 3-5 business days. Express delivery available for metro cities.",
+    "colors": [
+      "Black",
+      "White",
+      "Terracotta",
+      "Sand"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Finish",
+        "values": [
+          "Matte",
+          "Gloss"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~30 cm height",
+      "weight": "~400 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "A stunning rustic lamp that brings warmth and character to any space. Features a unique design with natural textures and earthy tones. Perfect for creating a cozy ambiance in living rooms, bedrooms, or study areas. Handcrafted with attention to detail.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "lamps-lamp2",
@@ -36,7 +82,53 @@
     "labelType": "trending",
     "isSoldOut": false,
     "careGuide": "Clean with a soft, dry cloth. Avoid using harsh chemicals. Keep away from direct sunlight to prevent fading. For optimal performance, use LED bulbs.",
-    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery takes 3-5 business days. Express delivery available for metro cities."
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery takes 3-5 business days. Express delivery available for metro cities.",
+    "colors": [
+      "Black",
+      "White",
+      "Terracotta",
+      "Sand"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Finish",
+        "values": [
+          "Matte",
+          "Gloss"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~35 cm height",
+      "weight": "~420 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "A beautifully crafted lamp that combines modern design with rustic charm. Perfect for adding ambient lighting to any room. Made with premium materials and attention to detail, this lamp will be a statement piece in your home decor.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "lamps-lamp3",
@@ -57,7 +149,53 @@
     "labelType": "editors-choice",
     "isSoldOut": false,
     "careGuide": "Dust regularly with a microfiber cloth. Use mild soap and water for deeper cleaning. Ensure the lamp is unplugged before cleaning. Replace bulbs as needed.",
-    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Express delivery: 1-2 business days (metro cities only)."
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Express delivery: 1-2 business days (metro cities only).",
+    "colors": [
+      "Black",
+      "White",
+      "Terracotta",
+      "Sand"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Finish",
+        "values": [
+          "Matte",
+          "Gloss"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~32 cm height",
+      "weight": "~380 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "An elegant and sophisticated lamp design that brings warmth and style to your living space. Features a unique base design and premium finish. Ideal for bedside tables, study desks, or as a decorative accent piece.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "lamps-lamp4",
@@ -81,7 +219,53 @@
     "labelType": null,
     "isSoldOut": false,
     "careGuide": "Wipe clean with a damp cloth. Avoid abrasive cleaners. Keep in a dry place. Use compatible bulbs as specified in the product manual.",
-    "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 4-6 business days. Express delivery available."
+    "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 4-6 business days. Express delivery available.",
+    "colors": [
+      "Black",
+      "White",
+      "Terracotta",
+      "Sand"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Finish",
+        "values": [
+          "Matte",
+          "Gloss"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~38 cm height",
+      "weight": "~460 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "A stunning contemporary lamp that blends functionality with artistic design. Perfect for modern interiors, this lamp features a unique silhouette and premium materials. Creates the perfect ambiance for any setting.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "lamps-lamp5",
@@ -102,7 +286,53 @@
     "labelType": "trending",
     "isSoldOut": false,
     "careGuide": "Clean with a soft microfiber cloth. Avoid water contact with electrical components. Use recommended wattage bulbs. Keep away from heat sources.",
-    "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 3-5 business days. Express delivery available for select cities."
+    "shippingInfo": "Free shipping on orders above ₹2500. Standard delivery: 3-5 business days. Express delivery available for select cities.",
+    "colors": [
+      "Black",
+      "White",
+      "Terracotta",
+      "Sand"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Finish",
+        "values": [
+          "Matte",
+          "Gloss"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~34 cm height",
+      "weight": "~400 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "A sleek and minimalist lamp design that complements contemporary interiors. Features clean lines and a sophisticated aesthetic. Perfect for modern homes and offices. Provides excellent lighting while serving as a stylish decor piece.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "lamps-glow-arc",
@@ -121,7 +351,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe with a dry microfiber cloth. Do not use wet cloths near the cord or bulb fitting. Hang on a sturdy hook rated for 500g.",
-    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 3-5 business days.",
+    "colors": [
+      "White",
+      "Sand",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Finish",
+        "values": [
+          "Matte",
+          "Gloss"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~40 cm arc span",
+      "weight": "~350 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "An arc-shaped pendant lamp with a smooth matte finish, designed to hang over dining tables or reading nooks. The curved silhouette creates a soft halo effect that's as beautiful unlit as it is glowing.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "lamps-terra-glow",
@@ -141,7 +416,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Dust gently with a dry cloth. Avoid placing near high-humidity areas. Use bulbs under 15W for best shadow effects.",
-    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 3-5 business days.",
+    "colors": [
+      "Terracotta",
+      "Rust",
+      "Sand"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Finish",
+        "values": [
+          "Matte",
+          "Gloss"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~28 cm height",
+      "weight": "~360 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "Earth-toned 3D-printed lamp with a terracotta-inspired palette. The geometric lattice pattern casts stunning shadow patterns on your walls. A conversation-starter for any boho or earthy interior.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "lamps-lunar-night",
@@ -161,7 +481,52 @@
     "labelType": "trending",
     "isSoldOut": false,
     "careGuide": "Clean with a soft dry cloth only. Protect from drops. Use a 5W LED bulb for optimal moon-like effect.",
-    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days.",
+    "colors": [
+      "White",
+      "Light Grey",
+      "Translucent"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Size",
+        "values": [
+          "Small (~15cm)",
+          "Standard (~20cm)"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~20 cm diameter",
+      "weight": "~250 g"
+    },
+    "benefits": [
+      "Premium multi-colour 3D-printed design",
+      "Energy-efficient — use with LED bulbs",
+      "Crafted layer by layer to order",
+      "Lightweight and durable PLA construction",
+      "Unique statement piece for any room"
+    ],
+    "about": "Inspired by the moon's craters and surface, this night lamp casts a warm celestial glow. Ideal as a bedside lamp, nursery light, or a thoughtful gift. Printed in translucent filament for maximum diffusion.",
+    "keyFeatures": [
+      "3D-printed shell",
+      "Compatible with E27 LED bulbs",
+      "Easy wire-up"
+    ],
+    "perfectFor": [
+      "Living room décor",
+      "Bedroom accent lighting",
+      "Gifting",
+      "Home office"
+    ],
+    "whyBuy": "Hand-crafted in Hyderabad using premium PLA filament — every lamp is printed fresh to order so you get a truly unique piece, not a mass-produced replica.",
+    "createdAt": "2025-06-01T00:00:00.000Z"
   },
   {
     "id": "organizers-organizer1",
@@ -180,7 +545,53 @@
     "labelType": null,
     "isSoldOut": false,
     "careGuide": "Clean with a soft cloth and mild detergent. Avoid soaking in water. Dry thoroughly after cleaning. Store in a cool, dry place.",
-    "shippingInfo": "Free shipping on orders above ₹1500. Standard delivery: 3-5 business days. Express delivery available for select cities."
+    "shippingInfo": "Free shipping on orders above ₹1500. Standard delivery: 3-5 business days. Express delivery available for select cities.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~20×15×10 cm"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "A beautifully designed organizer that helps you keep your space tidy and organized. Features multiple compartments and a sleek design that complements any decor style. Perfect for desks, shelves, or countertops.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "organizers-organizer2",
@@ -201,7 +612,53 @@
     "labelType": null,
     "isSoldOut": false,
     "careGuide": "Wipe clean with a damp cloth. Use mild soap for stubborn stains. Avoid using harsh chemicals. Keep away from direct heat sources.",
-    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 4-6 business days. Express delivery available."
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 4-6 business days. Express delivery available.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~25×18×12 cm"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "An elegant storage solution that combines form and function. This organizer features a modern design with ample storage space. Ideal for organizing office supplies, cosmetics, or small accessories.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "organizers-organizer3",
@@ -221,7 +678,53 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Clean with a damp cloth. Avoid excessive moisture. Magnets are strong - handle with care. Suitable for standard tissue box sizes.",
-    "shippingInfo": "Free shipping on orders above ₹1500. Standard delivery: 3-5 business days. Lightweight and easy to install."
+    "shippingInfo": "Free shipping on orders above ₹1500. Standard delivery: 3-5 business days. Lightweight and easy to install.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "Fits standard tissue box"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "A stylish tissue box organizer with hidden magnets for secure placement. Features a modern design that blends seamlessly with any decor. Keeps tissues easily accessible while maintaining a clean, organized look.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "organizers-organizer4",
@@ -241,7 +744,53 @@
     "labelType": null,
     "isSoldOut": false,
     "careGuide": "Wipe clean with a damp cloth. Avoid harsh chemicals. Easy to install and remove. Compatible with standard paper towel rolls.",
-    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days. Includes mounting hardware."
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days. Includes mounting hardware.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "Fits standard paper towel roll"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "A practical kitchen tissue holder designed for convenience and style. Features easy mounting and quick tissue access. Perfect for kitchens, dining areas, or bathrooms. Durable construction ensures long-lasting use.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "organizers-stackdesk-pro",
@@ -260,7 +809,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe with a dry or slightly damp cloth. Do not immerse in water. Avoid placing near radiators.",
-    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Tiers",
+        "values": [
+          "2 tiers",
+          "3 tiers"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~20×12×15 cm (stacked)"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "A modular stacking desk organizer system with interlocking tiers. Configure it as a pen caddy, cable manager, or card holder — all in one elegant unit. Printed in smooth matte PLA for a professional look.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "organizers-cable-den",
@@ -279,7 +873,53 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe clean. Do not apply pressure to cable slots. Compatible with cables up to 6mm diameter.",
-    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~18×8×6 cm"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "Tame the cable chaos on your desk with this wall-mountable or freestanding cable organizer. Hidden routing channels keep USB, power, and headphone cables neat and tangle-free. Minimal design suits any workspace.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "organizers-mag-tissue",
@@ -298,7 +938,53 @@
     "labelType": "trending",
     "isSoldOut": false,
     "careGuide": "Wipe with a damp cloth. Magnets are strong — keep away from credit cards. Fits standard 200-pull tissue boxes.",
-    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "Fits 200-pull tissue box"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "Magnetic-base tissue caddy that stays put on metallic surfaces — fridges, filing cabinets, whiteboards. A clean alternative to plastic holders, printed in a range of matte finishes. Gift-ready packaging included.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "organizers-counter-caddy",
@@ -317,7 +1003,53 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Dishwasher safe on the top rack. Avoid high temperatures. Check stability before placing heavy items.",
-    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days.",
+    "colors": [
+      "Black",
+      "White",
+      "Grey",
+      "Sage Green"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Black",
+          "White",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~22×12×10 cm"
+    },
+    "benefits": [
+      "Keeps your desk clutter-free",
+      "Strong and durable PLA construction",
+      "Lightweight — easy to reposition",
+      "Minimal, modern aesthetic",
+      "Made fresh to order"
+    ],
+    "about": "Keep your kitchen counter clutter-free with this slim and practical caddy. Holds paper towels, spatulas, and small utensils in one spot. Weighted base prevents tipping. Dishwasher safe.",
+    "keyFeatures": [
+      "Multiple compartments",
+      "Stable weighted base",
+      "Easy to clean"
+    ],
+    "perfectFor": [
+      "Home office",
+      "Student desk",
+      "Kitchen counter",
+      "Gifting"
+    ],
+    "whyBuy": "Thoughtfully designed for Indian desks and counters — compact enough for small spaces, sturdy enough to last years. Printed locally in Hyderabad.",
+    "createdAt": "2025-08-01T00:00:00.000Z"
   },
   {
     "id": "planters-planter1",
@@ -336,7 +1068,53 @@
     "labelType": "trending",
     "isSoldOut": false,
     "careGuide": "Clean regularly to prevent buildup. Ensure proper drainage. Use a saucer to protect surfaces. Perfect for cacti and succulents. Suitable for indoor use.",
-    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days. Handle with care during unpacking."
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days. Handle with care during unpacking.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Terracotta",
+          "White",
+          "Sage Green"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~12 cm diameter, 10 cm height"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "A charming cactus-themed planter perfect for succulents and small plants. Features a unique design that adds personality to any space. Made with durable materials and excellent drainage. Ideal for indoor gardening enthusiasts.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "planters-planter2",
@@ -357,7 +1135,53 @@
     "labelType": "editors-choice",
     "isSoldOut": false,
     "careGuide": "Clean with mild soap and water. Ensure proper drainage in each tier. Stack securely on a stable surface. Suitable for herbs, flowers, and small plants.",
-    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 4-6 business days. Includes stacking hardware."
+    "shippingInfo": "Free shipping on orders above ₹2000. Standard delivery: 4-6 business days. Includes stacking hardware.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Tiers",
+        "values": [
+          "2 tiers",
+          "3 tiers",
+          "4 tiers"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~12 cm per tier"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "Innovative stackable planters that maximize vertical space. Perfect for creating a living wall or herb garden. Features modular design for flexible arrangements. Ideal for small spaces and urban gardening.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "planters-planter3",
@@ -376,7 +1200,53 @@
     "labelType": null,
     "isSoldOut": false,
     "careGuide": "Clean regularly to prevent buildup. Ensure proper drainage. Use a saucer to protect surfaces. Avoid overwatering. Suitable for both indoor and outdoor use.",
-    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Handle with care during unpacking."
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 3-5 business days. Handle with care during unpacking.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Terracotta",
+          "White",
+          "Sage Green"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~14 cm diameter, 12 cm height"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "A beautiful geometric planter that brings nature into your home. Crafted with care, this planter is perfect for indoor plants and adds a touch of greenery to any space. Features excellent drainage and a timeless faceted design. NOTE: original .heic images pending conversion — currently showing alternate display images.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "planters-herb-tower",
@@ -396,7 +1266,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Rinse with water to clean. Ensure bottom drainage hole is clear. Not suitable for outdoor use in heavy rain. Best for herbs and trailing plants.",
-    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days."
+    "shippingInfo": "Free shipping on orders above ₹1200. Standard delivery: 3-5 business days.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Pockets",
+        "values": [
+          "3 pockets",
+          "5 pockets"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~12 cm diameter, 45 cm tall (3-pocket)"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "A tall tower planter with three self-watering pockets — perfect for growing basil, mint, and coriander on your kitchen windowsill. The modular tiers can be removed for easy harvesting. Compact and lightweight.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "planters-wall-bloom",
@@ -415,7 +1330,53 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe clean. Ensure wall anchor is secure before hanging. Not suitable for plants heavier than 1.5kg.",
-    "shippingInfo": "Free shipping on orders above ₹1000. Standard delivery: 3-5 business days. Wall anchors included."
+    "shippingInfo": "Free shipping on orders above ₹1000. Standard delivery: 3-5 business days. Wall anchors included.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Terracotta",
+          "White",
+          "Sage Green"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~15 cm diameter"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "Mount it, hang it, or set it on a shelf — this versatile planter works three ways. The integrated hanger is load-tested for 1.5kg. Comes in warm terracotta-inspired tones that look gorgeous with trailing pothos or string-of-pearls.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "planters-urban-pot",
@@ -434,7 +1395,53 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Rinse with clean water. Suitable for succulents and air plants only. Avoid direct outdoor sun for extended periods.",
-    "shippingInfo": "Free shipping on orders above ₹800. Standard delivery: 3-5 business days. Set of 2 pots."
+    "shippingInfo": "Free shipping on orders above ₹800. Standard delivery: 3-5 business days. Set of 2 pots.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Terracotta",
+          "White",
+          "Sage Green"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~8 cm diameter each (set of 2)"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "A set of two minimalist pocket pots for desk succulents or air plants. The slim silhouette takes up barely any desk real estate, while the built-in drainage keeps your plants happy. A great gifting option.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "planters-terrace-trio",
@@ -455,7 +1462,53 @@
     "labelType": "trending",
     "isSoldOut": false,
     "careGuide": "Clean with mild soap and water. Ensure drainage holes are clear. Bundle includes three matching saucers.",
-    "shippingInfo": "Free shipping on all orders above ₹2000. Standard delivery: 4-6 business days. Bundle packed securely."
+    "shippingInfo": "Free shipping on all orders above ₹2000. Standard delivery: 4-6 business days. Bundle packed securely.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Terracotta",
+          "White",
+          "Sage Green"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "S: 8 cm, M: 12 cm, L: 18 cm diameter"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "Three graduating-size planters sold as a bundle — small for succulents, medium for herbs, large for a statement monstera. Designed to stack or display in a row. A popular housewarming gift.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "planters-geo-fern",
@@ -474,7 +1527,53 @@
     "labelType": "editors-choice",
     "isSoldOut": false,
     "careGuide": "Wipe clean with a damp cloth. Suitable for indoor and covered outdoor use. Use a saucer to protect flooring. Supports up to 3kg of soil.",
-    "shippingInfo": "Free shipping on all orders. Standard delivery: 5-7 business days. Packed in reinforced box."
+    "shippingInfo": "Free shipping on all orders. Standard delivery: 5-7 business days. Packed in reinforced box.",
+    "colors": [
+      "Terracotta",
+      "White",
+      "Sage Green",
+      "Black"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Terracotta",
+          "White",
+          "Sage Green"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~22 cm diameter, 30 cm height"
+    },
+    "benefits": [
+      "Built-in drainage hole keeps roots healthy",
+      "UV-stable PLA resists fading",
+      "Lightweight and easy to move",
+      "Unique geometric or organic designs",
+      "Made to order — no two exactly alike"
+    ],
+    "about": "A bold geometric floor planter that makes a statement in hallways, living corners, and entryways. Its 30cm height is ideal for ferns, fiddle-leaf figs, or tall ornamental grasses. Printed in weather-resistant PETG.",
+    "keyFeatures": [
+      "Drainage hole included",
+      "Suitable for indoor use",
+      "Stackable designs available"
+    ],
+    "perfectFor": [
+      "Indoor succulents",
+      "Herbs on kitchen windowsills",
+      "Housewarming gifts",
+      "Balcony gardening"
+    ],
+    "whyBuy": "Bring life and colour into your home with our 3D-printed planters — designed for India's succulents, herbs, and indoor greens, printed fresh in Hyderabad.",
+    "createdAt": "2025-07-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-ganesha",
@@ -492,7 +1591,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~12 cm height"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "This beautifully 3D-printed Golden Ganesha Idol brings divine blessings to your home or office. Printed in vivid multi-colour PLA to capture every intricate detail of the beloved Vighnaharta. A perfect gift for housewarmings, Ganesh Chaturthi, or as a daily companion in your puja room.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-trishul",
@@ -510,7 +1654,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~15 cm height"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "The sacred Trishul and Om symbol together on a sturdy stand — an ideal addition to any Shiva devotee's home mandir. Printed in vibrant, long-lasting multi-colour filament with crisp detailing.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-incense",
@@ -528,7 +1717,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~10 cm diameter"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "A graceful Lotus Incense Holder that elevates your daily puja ritual. Designed to hold standard agarbatti sticks, it catches ash neatly while the lotus form adds beauty to your sacred space.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-saraswati",
@@ -546,7 +1780,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~14 cm height"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "Maa Saraswati, the goddess of knowledge and wisdom, rendered in intricate multi-colour 3D print. A thoughtful gift for students, teachers, and anyone who values learning.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-shiva",
@@ -564,7 +1843,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~15 cm height"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "Meditating Mahadev in peaceful Samadhi pose — a powerful yet serene presence for your home mandir or meditation corner. Printed in rich, vivid colours with fine surface detail.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-lakshmi",
@@ -582,7 +1906,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~14 cm height"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "Mahalakshmi on a full-bloom Lotus — the goddess of prosperity and abundance, beautifully rendered in multi-colour 3D print. An auspicious gift for Diwali, housewarmings, or businesses.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-krishna",
@@ -600,7 +1969,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~11 cm height"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "Bal Krishna in his playful pose, printed with loving detail. A cherished idol for Krishna devotees and a delightful keepsake or puja gift.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-temple",
@@ -618,7 +2032,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~18 cm height"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "A miniature of the sacred Kedarnath Temple — one of the twelve Jyotirlingas — meticulously reproduced in 3D-printed detail. A devotional collector's item and a meaningful gift for Shiva bhakts.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "pooja-decor-sign",
@@ -636,7 +2095,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Golden",
+      "White"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Golden",
+          "Ivory White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "~12×8 cm"
+    },
+    "benefits": [
+      "Intricate details you can only achieve with 3D printing",
+      "Vivid, long-lasting multi-colour finish",
+      "Made to order — crafted fresh for your mandir",
+      "Lightweight — safe for all surfaces",
+      "Perfect as puja gifts or home décor"
+    ],
+    "about": "A decorative Shrikrishna devotional sign with the sacred name in traditional script. Ideal for door frames, puja rooms, or as a wall accent.",
+    "keyFeatures": [
+      "Multi-colour FDM printing",
+      "Intricate detailing",
+      "Eco-friendly PLA material"
+    ],
+    "perfectFor": [
+      "Home mandir / puja room",
+      "Gifting on festivals",
+      "Office desk blessings",
+      "Sacred spaces"
+    ],
+    "whyBuy": "Each idol and devotional piece is printed fresh to order in vibrant, lasting colours — a modern homage to ancient devotion, proudly Made in India.",
+    "createdAt": "2025-09-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-piano",
@@ -654,7 +2158,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Piano Keys Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-popit",
@@ -672,7 +2228,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Pop-It Fidget Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-backpack",
@@ -690,7 +2298,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Mini Backpack Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-caduceus",
@@ -708,7 +2368,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Caduceus Medical Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-oreo",
@@ -726,7 +2438,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Oreo Cookie Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-shiva",
@@ -744,7 +2508,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Mahadev Face Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-name",
@@ -762,7 +2578,59 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. Rahul, Priya, My Name"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "The most popular keychain on Layerix — your name or any text, printed in vibrant multi-colour 3D. A perfect personalised gift for birthdays, friendships, or just for yourself.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-numberplate",
@@ -780,7 +2648,59 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Number plate text",
+      "maxLength": 12,
+      "placeholder": "e.g. TS 09 EK 1234"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Your car's number plate, miniaturised as a 3D-printed keychain. A fun and unique accessory for car lovers — personalised with your actual registration number.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-airplane",
@@ -798,7 +2718,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Paper Airplane Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-nike",
@@ -816,7 +2788,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Slides Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-iphone",
@@ -834,7 +2858,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Mini Phone Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-gymplate",
@@ -852,7 +2928,59 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name or weight to print",
+      "maxLength": 15,
+      "placeholder": "e.g. Beast Mode, 100 KG"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Show off your gym dedication with a personalised weight-plate keychain. Customise it with your name, a motto, or your personal record.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-puppy",
@@ -870,7 +2998,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Knitted Puppy Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "keyrings-tennis",
@@ -888,7 +3068,59 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black & White",
+      "Red & White",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / text to print",
+      "maxLength": 20,
+      "placeholder": "e.g. RAHUL"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black & White",
+          "Red & White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm length",
+      "weight": "~10–15 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised with your name or text",
+      "Lightweight and durable PLA",
+      "Vivid multi-colour print that lasts",
+      "Makes a unique, affordable gift",
+      "Made to order in 2–4 days"
+    ],
+    "about": "Tennis Ball Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "keyFeatures": [
+      "Customisable text option",
+      "Steel key ring included",
+      "Multi-colour FDM"
+    ],
+    "perfectFor": [
+      "Personalised gifts",
+      "Bag tags",
+      "Car key fobs",
+      "Fan merchandise",
+      "Corporate gifting"
+    ],
+    "whyBuy": "The most affordable way to own a personalised 3D-printed keepsake — lightweight, colourful, and made fresh just for you in Hyderabad.",
+    "createdAt": "2025-10-01T00:00:00.000Z"
   },
   {
     "id": "gaming-ak47",
@@ -906,7 +3138,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black",
+      "Red"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Crisp, detailed prints fans will love",
+      "Vibrant multi-colour finish",
+      "Collectible quality at keychain price",
+      "Lightweight and durable PLA",
+      "Made to order — fresh every time"
+    ],
+    "about": "A miniature AK-47 keychain for action fans and gaming enthusiasts. Printed with crisp detail in multi-colour FDM for a realistic look at keychain scale.",
+    "keyFeatures": [
+      "High-detail FDM printing",
+      "Steel key ring included",
+      "Collectible design"
+    ],
+    "perfectFor": [
+      "Gamers and pop-culture fans",
+      "Collector displays",
+      "Gifting to friends",
+      "Fan merchandise"
+    ],
+    "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
+    "createdAt": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "gaming-marlboro",
@@ -924,7 +3201,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black",
+      "Red"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Crisp, detailed prints fans will love",
+      "Vibrant multi-colour finish",
+      "Collectible quality at keychain price",
+      "Lightweight and durable PLA",
+      "Made to order — fresh every time"
+    ],
+    "about": "A fun collectible Marlboro-themed keychain — great for vintage aesthetics lovers and collectors. Vibrant, durable, and unique.",
+    "keyFeatures": [
+      "High-detail FDM printing",
+      "Steel key ring included",
+      "Collectible design"
+    ],
+    "perfectFor": [
+      "Gamers and pop-culture fans",
+      "Collector displays",
+      "Gifting to friends",
+      "Fan merchandise"
+    ],
+    "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
+    "createdAt": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "gaming-toad",
@@ -942,7 +3264,52 @@
     "labelType": "new",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black",
+      "Red"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Crisp, detailed prints fans will love",
+      "Vibrant multi-colour finish",
+      "Collectible quality at keychain price",
+      "Lightweight and durable PLA",
+      "Made to order — fresh every time"
+    ],
+    "about": "Toad from the Mushroom Kingdom, tiny and adorable on your keyring. A delight for Nintendo fans and retro gaming collectors.",
+    "keyFeatures": [
+      "High-detail FDM printing",
+      "Steel key ring included",
+      "Collectible design"
+    ],
+    "perfectFor": [
+      "Gamers and pop-culture fans",
+      "Collector displays",
+      "Gifting to friends",
+      "Fan merchandise"
+    ],
+    "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
+    "createdAt": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "gaming-shield",
@@ -960,7 +3327,51 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue & Red & Silver",
+      "Multi-colour"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Crisp, detailed prints fans will love",
+      "Vibrant multi-colour finish",
+      "Collectible quality at keychain price",
+      "Lightweight and durable PLA",
+      "Made to order — fresh every time"
+    ],
+    "about": "The iconic Captain America vibranium shield, scaled to keychain perfection. A must-have for Marvel fans.",
+    "keyFeatures": [
+      "High-detail FDM printing",
+      "Steel key ring included",
+      "Collectible design"
+    ],
+    "perfectFor": [
+      "Gamers and pop-culture fans",
+      "Collector displays",
+      "Gifting to friends",
+      "Fan merchandise"
+    ],
+    "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
+    "createdAt": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "gaming-streamer",
@@ -978,7 +3389,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black",
+      "Red"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Crisp, detailed prints fans will love",
+      "Vibrant multi-colour finish",
+      "Collectible quality at keychain price",
+      "Lightweight and durable PLA",
+      "Made to order — fresh every time"
+    ],
+    "about": "A gamer character keychain for streamers and esports fans. Show your passion for gaming with this vibrant collectible.",
+    "keyFeatures": [
+      "High-detail FDM printing",
+      "Steel key ring included",
+      "Collectible design"
+    ],
+    "perfectFor": [
+      "Gamers and pop-culture fans",
+      "Collector displays",
+      "Gifting to friends",
+      "Fan merchandise"
+    ],
+    "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
+    "createdAt": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "gaming-gamepad",
@@ -996,7 +3452,52 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black",
+      "Red"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Crisp, detailed prints fans will love",
+      "Vibrant multi-colour finish",
+      "Collectible quality at keychain price",
+      "Lightweight and durable PLA",
+      "Made to order — fresh every time"
+    ],
+    "about": "A detailed gamepad keychain — instantly recognisable to every gamer. Great as a gift or personal daily-carry accessory.",
+    "keyFeatures": [
+      "High-detail FDM printing",
+      "Steel key ring included",
+      "Collectible design"
+    ],
+    "perfectFor": [
+      "Gamers and pop-culture fans",
+      "Collector displays",
+      "Gifting to friends",
+      "Fan merchandise"
+    ],
+    "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
+    "createdAt": "2025-11-01T00:00:00.000Z"
   },
   {
     "id": "gaming-question",
@@ -1014,6 +3515,51 @@
     "labelType": "sale",
     "isSoldOut": false,
     "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
-    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery."
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Black",
+      "Red"
+    ],
+    "customizable": false,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multi-colour",
+          "Black",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–8 cm",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Crisp, detailed prints fans will love",
+      "Vibrant multi-colour finish",
+      "Collectible quality at keychain price",
+      "Lightweight and durable PLA",
+      "Made to order — fresh every time"
+    ],
+    "about": "The legendary Question Block from Super Mario, 3D-printed as a keychain. Hit it for good luck! A must for Nintendo fans and retro gaming lovers.",
+    "keyFeatures": [
+      "High-detail FDM printing",
+      "Steel key ring included",
+      "Collectible design"
+    ],
+    "perfectFor": [
+      "Gamers and pop-culture fans",
+      "Collector displays",
+      "Gifting to friends",
+      "Fan merchandise"
+    ],
+    "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
+    "createdAt": "2025-11-01T00:00:00.000Z"
   }
 ]

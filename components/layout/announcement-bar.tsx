@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import { SITE } from '@/lib/site'
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
 
 export function AnnouncementBar() {
   return (
@@ -7,18 +9,18 @@ export function AnnouncementBar() {
         {/* Centered marquee message */}
         <div className="flex-1 text-center text-xs font-sans">
           <span className="hidden sm:inline">
-            Fast pan-India delivery&nbsp;🇮🇳&nbsp;&bull;&nbsp;Custom 3D prints made to order&nbsp;&bull;&nbsp;Free shipping on orders above ₹999
+            Fast pan-India delivery&nbsp;🇮🇳&nbsp;&bull;&nbsp;Custom 3D prints made to order&nbsp;&bull;&nbsp;Free shipping on orders above ₹{FREE_SHIPPING_THRESHOLD}
           </span>
           {/* Mobile — shorter */}
           <span className="sm:hidden">
-            Free shipping above ₹999&nbsp;&bull;&nbsp;Pan-India delivery
+            Free shipping above ₹{FREE_SHIPPING_THRESHOLD}&nbsp;&bull;&nbsp;Pan-India delivery
           </span>
         </div>
 
         {/* Desktop quick-links (right side) */}
         <div className="hidden md:flex items-center gap-4 text-xs font-sans shrink-0">
           <a
-            href="tel:+919154892790"
+            href={SITE.phoneTel}
             className="flex items-center gap-1 text-white/80 hover:text-white transition-colors"
             aria-label="Call us"
           >
@@ -31,7 +33,7 @@ export function AnnouncementBar() {
                 d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
               />
             </svg>
-            +91 91548 92790
+            {SITE.phone}
           </a>
 
           <span className="text-white/30">|</span>
@@ -46,7 +48,7 @@ export function AnnouncementBar() {
           <span className="text-white/30">|</span>
 
           <a
-            href="https://wa.me/919154892790"
+            href={SITE.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-white/80 hover:text-white transition-colors"

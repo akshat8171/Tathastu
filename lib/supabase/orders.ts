@@ -108,6 +108,35 @@ export async function upsertCustomerByPhone(input: {
 }
 
 /**
+ * Read-only lookup of an existing customer's UUID by phone number, WITHOUT
+ * creating a row. Used by the advisory coupon-validate path so first-order
+ * gating can be evaluated against the same id (`customers.id` = orders.customer_id)
+ * that the money path uses — see lib/coupons.ts isFirstOrder().
+ *
+ * Returns the customers.id for a known phone, or null when the phone is unknown,
+ * un-normalizable, or the lookup errors (degrades to "treat as new customer").
+ * Never throws.
+ */
+export async function getCustomerIdByPhone(phone: string): Promise<string | null> {
+  const e164 = toE164(phone)
+  if (!e164) return null
+
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('customers')
+      .select('id')
+      .eq('phone', e164)
+      .maybeSingle()
+
+    if (error || !data) return null
+    return (data as { id: string }).id
+  } catch (err) {
+    console.error('getCustomerIdByPhone: unexpected error', err)
+    return null
+  }
+}
+
+/**
  * Create a new order
  */
 export async function createOrder(orderData: {
@@ -300,6 +329,30 @@ export async function getOrderByOrderNumber(orderNumber: string): Promise<Order 
   }
 
   return data
+}
+
+/**
+ * Guest order lookup: find an order by order number AND email.
+ * This is the secure guest track-order path — both must match to prevent
+ * order number enumeration attacks.
+ */
+export async function getOrderByNumberAndEmail(
+  orderNumber: string,
+  email: string
+): Promise<Order | null> {
+  const { data, error } = await supabaseAdmin
+    .from('orders')
+    .select('*')
+    .eq('order_number', orderNumber.trim())
+    .ilike('customer_email', email.trim())
+    .maybeSingle()
+
+  if (error) {
+    console.error('Error fetching order by number+email:', error)
+    return null
+  }
+
+  return data ?? null
 }
 
 /**

@@ -7,6 +7,13 @@
 
 import productsData from '@/lib/products.json'
 
+// ── Shipping constants (FROZEN CONTRACT §2) ──────────────────────────────────
+/** Orders with subtotal ABOVE this threshold qualify for free shipping. */
+export const FREE_SHIPPING_THRESHOLD = 199 // was 999 — reference parity
+
+/** Flat shipping fee in rupees when subtotal does not qualify for free shipping. */
+export const SHIPPING_FEE = 99
+
 interface ProductRecord {
   id: string
   price: number
@@ -49,7 +56,7 @@ export interface RepriceError {
  * Looks up each item's price from products.json and recomputes order totals.
  *
  * Returns { ok: false, unknownId } if any product_id is not found.
- * Shipping rule: FREE when subtotal > 999, else ₹99 (matches checkout-form).
+ * Shipping rule: FREE when subtotal > FREE_SHIPPING_THRESHOLD, else SHIPPING_FEE.
  */
 export function repriceItems(
   items: Array<{
@@ -78,7 +85,7 @@ export function repriceItems(
   }
 
   const subtotal = pricedItems.reduce((sum, i) => sum + i.serverPrice * i.quantity, 0)
-  const shipping = subtotal > 999 ? 0 : 99
+  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
   const total = subtotal + shipping
 
   return { ok: true, items: pricedItems, subtotal, shipping, total, discount: 0, couponCode: null }

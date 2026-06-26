@@ -265,3 +265,27 @@ export function getAverageRating(productId: string): number {
   const sum = reviews.reduce((acc, r) => acc + r.rating, 0)
   return Math.round((sum / reviews.length) * 10) / 10
 }
+
+/**
+ * Returns a display-ready aggregate for a product.
+ *
+ * When detailed reviews exist use them; otherwise fall back to the
+ * product.rating / product.reviewCount fields so NO product ever shows
+ * a broken/empty reviews block.
+ *
+ * `productRating` and `productReviewCount` are the values stored in products.json
+ * and should always be passed as fallbacks.
+ */
+export function getReviewAggregate(
+  productId: string,
+  productRating: number,
+  productReviewCount: number,
+): { rating: number; count: number; hasDetailedReviews: boolean } {
+  const reviews = getReviewsForProduct(productId, Infinity)
+  if (reviews.length > 0) {
+    const sum = reviews.reduce((acc, r) => acc + r.rating, 0)
+    const avg = Math.round((sum / reviews.length) * 10) / 10
+    return { rating: avg, count: reviews.length, hasDetailedReviews: true }
+  }
+  return { rating: productRating, count: productReviewCount, hasDetailedReviews: false }
+}

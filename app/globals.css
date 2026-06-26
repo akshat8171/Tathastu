@@ -74,6 +74,11 @@
            px-2 py-0.5 rounded shadow-badge leading-none;
   }
 
+  .badge-customizable {
+    @apply inline-block bg-brand text-white text-xs font-display font-semibold
+           px-2 py-0.5 rounded shadow-badge leading-none;
+  }
+
   /* ── Product card ── */
   .card {
     @apply bg-white rounded-card2 border border-gray-100

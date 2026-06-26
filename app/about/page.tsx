@@ -1,6 +1,13 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { SectionHeading } from '@/components/ui'
 import { Button } from '@/components/ui'
+import { SITE } from '@/lib/site'
+
+export const metadata: Metadata = {
+  title: `About Us — ${SITE.name}`,
+  description: `${SITE.name} is India's multi-colour 3D printing store. Learn about our founder, mission, values, and services.`,
+}
 
 const values = [
   {
@@ -165,6 +172,53 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Services / Bulk Orders */}
+      <section className="py-20 px-4 bg-white border-t border-gray-100">
+        <div className="container-page">
+          <div className="max-w-4xl mx-auto">
+            <SectionHeading
+              title="Custom Designs. Bulk Orders. Business Solutions."
+              subtitle="From one-of-a-kind gifts to large corporate runs — we've got you covered."
+              centered
+            />
+            <div className="grid sm:grid-cols-3 gap-6 mt-10">
+              {[
+                {
+                  emoji: '🎨',
+                  title: 'Custom Prints',
+                  body: 'Upload your own design or share an idea — we bring it to life layer by layer. Personalised keyrings, nameplates, figurines, and more.',
+                  href: '/customize',
+                  cta: 'Start Customising',
+                },
+                {
+                  emoji: '📦',
+                  title: 'Bulk & Corporate Orders',
+                  body: 'Gifting season? Event giveaways? We handle quantities from 10 to 10,000 with consistent quality and competitive pricing.',
+                  href: '/bulk-order',
+                  cta: 'Get a Bulk Quote',
+                },
+                {
+                  emoji: '🌍',
+                  title: 'Shipped Across India',
+                  body: 'Pan-India delivery to every state and union territory. Free shipping on orders above ₹199. Sustainable packaging — less waste, same great unboxing.',
+                  href: '/shipping-policy',
+                  cta: 'Shipping Details',
+                },
+              ].map(item => (
+                <div key={item.title} className="card p-6 text-center group flex flex-col">
+                  <div className="text-3xl mb-3">{item.emoji}</div>
+                  <h3 className="font-display font-semibold text-ink text-lg mb-2">{item.title}</h3>
+                  <p className="font-sans text-muted text-sm leading-relaxed flex-1 mb-5">{item.body}</p>
+                  <Button variant="outline" href={item.href} size="sm" className="w-full">
+                    {item.cta}
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Values */}
       <section className="py-20 px-4 bg-surface">
         <div className="container-page">
@@ -203,7 +257,7 @@ export default function AboutPage() {
             </Button>
             <Button
               variant="outline"
-              href="https://wa.me/919154892790"
+              href={SITE.whatsapp}
               size="lg"
             >
               Chat on WhatsApp

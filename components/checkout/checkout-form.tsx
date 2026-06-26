@@ -8,9 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useRouter } from 'next/navigation'
 import { RazorpayResponse } from '@/lib/razorpay'
-
-// ── Free-delivery threshold (mirrors lib/pricing.ts) ─────────────────────────
-const FREE_SHIPPING_THRESHOLD = 999
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat('en-IN', {
@@ -96,7 +94,7 @@ export function CheckoutForm() {
   // appliedCoupon is shared with OrderSummary via CheckoutProvider so the
   // discount charged here (and via Razorpay) matches what the summary shows.
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : 99
+  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
   const discount = appliedCoupon?.discount ?? 0
   const total = Math.max(0, subtotal - discount + shipping)
   const couponCode = appliedCoupon?.code

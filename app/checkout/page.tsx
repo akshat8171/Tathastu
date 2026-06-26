@@ -1,6 +1,5 @@
 import { CheckoutForm } from '@/components/checkout/checkout-form'
 import { OrderSummary } from '@/components/checkout/order-summary'
-import { CheckoutProvider } from '@/components/checkout/checkout-context'
 
 export const metadata = {
   title: 'Checkout — Layerix',
@@ -18,21 +17,20 @@ export default function CheckoutPage() {
       </div>
 
       {/* Two-column layout: form (left) + summary (right).
-          CheckoutProvider shares the applied-coupon state between the two
-          sibling columns so the discount shown in the summary is the same one
-          the order is placed with (and charged via Razorpay). */}
-      <CheckoutProvider>
-        <div className="grid lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-3">
-            <CheckoutForm />
-          </div>
-          <div className="lg:col-span-2">
-            <div className="sticky top-24">
-              <OrderSummary />
-            </div>
+          The applied-coupon state is shared via CheckoutProvider (now hoisted
+          to the root layout) so a coupon entered on the cart page carries into
+          checkout, and the discount shown in the summary is the same one the
+          order is placed with (and charged via Razorpay). */}
+      <div className="grid lg:grid-cols-5 gap-8">
+        <div className="lg:col-span-3">
+          <CheckoutForm />
+        </div>
+        <div className="lg:col-span-2">
+          <div className="sticky top-24">
+            <OrderSummary />
           </div>
         </div>
-      </CheckoutProvider>
+      </div>
     </main>
   )
 }

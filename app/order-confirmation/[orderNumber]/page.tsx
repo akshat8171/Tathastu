@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getOrderByOrderNumber } from '@/lib/supabase/orders'
+import { getTrackingStatus } from '@/lib/tracking'
 
 interface Props {
   params: { orderNumber: string }
@@ -11,6 +12,109 @@ const fmt = new Intl.NumberFormat('en-IN', {
   currency: 'INR',
   maximumFractionDigits: 0,
 })
+
+// ── Order status steps ────────────────────────────────────────────────────────
+type OrderStatus = 'pending' | 'paid' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
+
+interface TimelineStep {
+  key: OrderStatus | 'placed'
+  label: string
+  description: string
+}
+
+const TIMELINE_STEPS: TimelineStep[] = [
+  { key: 'placed', label: 'Order Placed', description: 'We received your order' },
+  { key: 'paid', label: 'Payment Confirmed', description: 'Payment successfully processed' },
+  { key: 'processing', label: 'Being Printed', description: 'Your item is in the 3D print queue' },
+  { key: 'shipped', label: 'Shipped', description: 'Your order is on its way' },
+  { key: 'delivered', label: 'Delivered', description: 'Order delivered successfully' },
+]
+
+function getStepIndex(status: string): number {
+  const map: Record<string, number> = {
+    pending: 0,     // placed but not paid
+    paid: 1,
+    processing: 2,
+    shipped: 3,
+    delivered: 4,
+    cancelled: -1,  // cancelled steps handled separately
+  }
+  return map[status] ?? 0
+}
+
+function OrderTimeline({ status }: { status: string }) {
+  if (status === 'cancelled') {
+    return (
+      <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-5 py-4">
+        <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+          <svg className="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </div>
+        <div>
+          <p className="font-display font-semibold text-red-700 text-sm">Order Cancelled</p>
+          <p className="text-xs text-red-600 font-sans mt-0.5">This order has been cancelled.</p>
+        </div>
+      </div>
+    )
+  }
+
+  const currentIndex = getStepIndex(status)
+  // For COD / pending orders, show "placed" as the first completed step
+  const effectiveIndex = status === 'pending' ? 0 : currentIndex
+
+  return (
+    <div className="relative" aria-label="Order status timeline">
+      {TIMELINE_STEPS.map((step, idx) => {
+        const completed = idx <= effectiveIndex
+        const active = idx === effectiveIndex
+        const last = idx === TIMELINE_STEPS.length - 1
+
+        return (
+          <div key={step.key} className="flex items-start gap-4">
+            {/* Step indicator + connector */}
+            <div className="flex flex-col items-center flex-shrink-0">
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center border-2 transition-colors ${
+                  completed
+                    ? 'bg-brand border-brand'
+                    : active
+                    ? 'bg-white border-brand'
+                    : 'bg-white border-gray-200'
+                }`}
+                aria-current={active ? 'step' : undefined}
+              >
+                {completed ? (
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="m4.5 12.75 6 6 9-13.5" />
+                  </svg>
+                ) : (
+                  <span className="w-2 h-2 rounded-full bg-gray-300" aria-hidden="true" />
+                )}
+              </div>
+              {!last && (
+                <div
+                  className={`w-0.5 h-8 mt-0.5 ${completed ? 'bg-brand' : 'bg-gray-200'}`}
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+
+            {/* Step content */}
+            <div className={`pb-6 ${last ? 'pb-0' : ''}`}>
+              <p className={`font-display font-semibold text-sm ${completed ? 'text-ink' : 'text-muted'}`}>
+                {step.label}
+              </p>
+              <p className={`font-sans text-xs mt-0.5 ${completed ? 'text-muted' : 'text-muted/60'}`}>
+                {step.description}
+              </p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
 /**
  * Server component — fetches the real order from the DB.
@@ -24,6 +128,9 @@ export default async function OrderConfirmationPage({ params }: Props) {
     notFound()
   }
 
+  // Fetch tracking status (mock when TRACKING_PROVIDER unset)
+  const tracking = await getTrackingStatus(order)
+
   // COD detection: payment_method may be 'cod' from the DB even though the
   // TypeScript union doesn't list it yet — cast to string for the comparison.
   const isCod =
@@ -36,10 +143,16 @@ export default async function OrderConfirmationPage({ params }: Props) {
         <div className="flex justify-center mb-6">
           <div
             className={`w-20 h-20 rounded-full flex items-center justify-center ${
-              isCod ? 'bg-amber-100' : 'bg-brand/10'
+              order.status === 'cancelled'
+                ? 'bg-red-100'
+                : isCod ? 'bg-amber-100' : 'bg-brand/10'
             }`}
           >
-            {isCod ? (
+            {order.status === 'cancelled' ? (
+              <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            ) : isCod ? (
               /* Truck / delivery icon for COD */
               <svg
                 className="w-10 h-10 text-amber-600"
@@ -107,7 +220,7 @@ export default async function OrderConfirmationPage({ params }: Props) {
         </div>
 
         {/* COD notice banner */}
-        {isCod && (
+        {isCod && order.status !== 'cancelled' && (
           <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-4 font-sans text-sm text-amber-800">
             <p className="font-semibold mb-0.5">Pay on Delivery</p>
             <p>
@@ -117,6 +230,50 @@ export default async function OrderConfirmationPage({ params }: Props) {
             </p>
           </div>
         )}
+
+        {/* ── Order Status Timeline ────────────────────────────────────────── */}
+        <div className="card p-6 mb-4">
+          <h2 className="font-display font-semibold text-ink mb-5">Order Status</h2>
+          <OrderTimeline status={order.status} />
+
+          {/* Tracking info when available */}
+          {tracking.trackingNumber && (
+            <div className="mt-5 pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-between text-sm font-sans">
+                <span className="text-muted">Tracking number</span>
+                {tracking.trackingUrl ? (
+                  <a
+                    href={tracking.trackingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-brand hover:underline"
+                  >
+                    {tracking.trackingNumber}
+                  </a>
+                ) : (
+                  <span className="font-semibold text-ink">{tracking.trackingNumber}</span>
+                )}
+              </div>
+              {tracking.carrier && (
+                <div className="flex items-center justify-between text-sm font-sans mt-1.5">
+                  <span className="text-muted">Carrier</span>
+                  <span className="font-semibold text-ink">{tracking.carrier}</span>
+                </div>
+              )}
+              {tracking.estimatedDelivery && (
+                <div className="flex items-center justify-between text-sm font-sans mt-1.5">
+                  <span className="text-muted">Est. delivery</span>
+                  <span className="font-semibold text-ink">{tracking.estimatedDelivery}</span>
+                </div>
+              )}
+              {tracking.isMock && (
+                <p className="text-xs text-muted/60 font-sans mt-2">
+                  Live tracking available after shipment.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
 
         {/* Order details card */}
         <div className="card p-6 mb-4">

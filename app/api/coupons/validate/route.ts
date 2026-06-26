@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { repriceItems } from '@/lib/pricing'
 import { validateCoupon } from '@/lib/coupons'
+import { getCurrentUser } from '@/lib/auth/session'
+import { getCustomerIdByPhone } from '@/lib/supabase/orders'
 import { z } from 'zod'
 
 export const runtime = 'nodejs'
@@ -15,6 +17,12 @@ export const dynamic = 'force-dynamic'
  * the coupon against the trusted subtotal and returns the computed discount.
  * The checkout UI uses this to show the discount line BEFORE the order is
  * placed; /api/orders re-validates independently at write time.
+ *
+ * For first-order gating (FIRST20 etc.) we resolve the caller's REAL
+ * customers.id from their phone — the same id orders.customer_id is keyed by —
+ * so this advisory check matches the authoritative re-check in /api/orders.
+ * Unknown/guest callers resolve to null and are allowed through here; the money
+ * path re-checks with the correct id at order time.
  */
 
 const bodySchema = z.object({
@@ -50,7 +58,14 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const result = await validateCoupon(code, repriced.subtotal)
+    // Resolve the caller's customers.id for first-order gating (null for guests
+    // or email-only users without a phone). We map phone → customers.id so this
+    // matches the id orders.customer_id is keyed by; passing the raw auth id
+    // would never match and silently disable gating.
+    const user = await getCurrentUser().catch(() => null)
+    const customerId = user?.phone ? await getCustomerIdByPhone(user.phone) : null
+
+    const result = await validateCoupon(code, repriced.subtotal, undefined, customerId)
 
     return NextResponse.json({
       valid: result.valid,

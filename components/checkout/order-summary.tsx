@@ -5,9 +5,7 @@ import { useState } from 'react'
 import { useCart } from '@/components/cart/cart-context'
 import { useCheckout } from '@/components/checkout/checkout-context'
 import { Spinner } from '@/components/ui/spinner'
-
-// ── Free-delivery threshold (mirrors lib/pricing.ts) ─────────────────────────
-const FREE_SHIPPING_THRESHOLD = 999
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat('en-IN', {
@@ -29,7 +27,7 @@ interface CouponResult {
 export function OrderSummary() {
   const { items } = useCart()
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : 99
+  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
 
   // ── Applied coupon is shared with CheckoutForm via CheckoutProvider so the
   //    discount shown here is the one the order is actually placed with. ─────

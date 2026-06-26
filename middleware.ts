@@ -67,6 +67,15 @@ export async function middleware(request: NextRequest) {
   return supabaseResponse
 }
 
+// PERFORMANCE: the matcher is intentionally narrow. The body calls
+// supabase.auth.getUser(), which is a blocking network round-trip to the
+// Supabase auth server. Running that on EVERY route (the old
+// `/((?!_next/...).*)` matcher) added that latency to every homepage, product,
+// and category page — even for anonymous visitors who never need auth. Only
+// `/account/*` (gate) and `/login` (redirect-if-authed) consume the result, so
+// the middleware now runs ONLY there. Protected pages still re-validate
+// server-side via getCurrentUser(), so security is unchanged; public pages now
+// serve straight from the static/CDN path with no Edge function on the hot path.
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|images/).*)'],
+  matcher: ['/account/:path*', '/login'],
 }

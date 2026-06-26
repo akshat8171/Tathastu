@@ -1,6 +1,6 @@
 'use client'
 
-export type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating'
+export type SortOption = 'featured' | 'price-asc' | 'price-desc' | 'rating' | 'newest' | 'popular'
 
 interface SortSelectProps {
   value: SortOption
@@ -9,6 +9,8 @@ interface SortSelectProps {
 
 const OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'featured',   label: 'Featured' },
+  { value: 'popular',    label: 'Most Popular' },
+  { value: 'newest',     label: 'Newest First' },
   { value: 'price-asc',  label: 'Price: Low to High' },
   { value: 'price-desc', label: 'Price: High to Low' },
   { value: 'rating',     label: 'Top Rated' },

@@ -5,9 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from './cart-context'
 import { Button } from '@/components/ui/button'
-
-// ── Free-delivery threshold (mirrors lib/pricing.ts) ─────────────────────────
-const FREE_SHIPPING_THRESHOLD = 999
+import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat('en-IN', {
@@ -41,7 +39,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   }
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : 99
+  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
   const remaining = FREE_SHIPPING_THRESHOLD - subtotal
   const freeShippingPct = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100))
 

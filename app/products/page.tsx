@@ -1,7 +1,7 @@
 import './products.css'
 import Link from 'next/link'
 import { getProductCategories, getCategoryBySlug } from '@/lib/categories'
-import { CategoryFilter } from '@/components/products/category-filter'
+import { CategoryFilter, PRICE_BUCKETS } from '@/components/products/category-filter'
 import { CatalogClient } from './catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
 import productsJson from '@/lib/products.json'
@@ -14,23 +14,80 @@ const TRUST_CHIPS = [
   { icon: 'quality',  label: '100% Original' },
 ]
 
+// ── FullProductData extends card data with facet fields ──────────────────────
+interface FullProductData extends ProductCardData {
+  colors?: string[]
+  customizable?: boolean
+  options?: Array<{ name: string; values: string[] }>
+  createdAt?: string
+}
+
 interface CatalogPageProps {
-  searchParams: Promise<{ category?: string }>
+  searchParams: Promise<{
+    category?: string
+    price?: string
+    color?: string | string[]
+    onSale?: string
+    inStock?: string
+    customizable?: string
+    sort?: string
+  }>
 }
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
-  const { category: categorySlug } = await searchParams
-  const productCategories = getProductCategories()
+  const params = await searchParams
+  const categorySlug = params.category
+  const activePriceBucket = params.price ?? null
+  const activeColors: string[] = params.color
+    ? Array.isArray(params.color)
+      ? params.color.map((c) => c.toLowerCase())
+      : [params.color.toLowerCase()]
+    : []
+  const showOnSale = params.onSale === '1'
+  const showInStock = params.inStock === '1'
+  const showCustomizable = params.customizable === '1'
 
-  // Active category object
+  const productCategories = getProductCategories()
   const activeCategory = categorySlug ? getCategoryBySlug(categorySlug) : null
 
-  // Filter products from JSON (resolveJsonModule is enabled in tsconfig)
-  const allProducts = productsJson as ProductCardData[]
-  const filtered: ProductCardData[] =
-    categorySlug && categorySlug !== 'all'
-      ? allProducts.filter((p) => p.category === categorySlug)
-      : allProducts
+  const allProducts = productsJson as FullProductData[]
+
+  // ── Server-side filter ───────────────────────────────────────────────────────
+  let filtered: FullProductData[] = categorySlug && categorySlug !== 'all'
+    ? allProducts.filter((p) => p.category === categorySlug)
+    : allProducts
+
+  // Price bucket filter
+  if (activePriceBucket) {
+    const bucket = PRICE_BUCKETS.find((b) => b.value === activePriceBucket)
+    if (bucket) {
+      filtered = filtered.filter(
+        (p) => p.price >= bucket.min && p.price < (bucket.max === Infinity ? Infinity : bucket.max + 1),
+      )
+    }
+  }
+
+  // Color filter
+  if (activeColors.length > 0) {
+    filtered = filtered.filter((p) =>
+      (p.colors ?? []).some((c) => activeColors.includes(c.toLowerCase())),
+    )
+  }
+
+  // On sale filter
+  if (showOnSale) {
+    filtered = filtered.filter((p) => (p.originalPrice ?? 0) > p.price)
+  }
+
+  // In stock filter
+  if (showInStock) {
+    filtered = filtered.filter((p) => !p.isSoldOut)
+  }
+
+  // Customizable filter
+  if (showCustomizable) {
+    filtered = filtered.filter((p) => !!p.customizable)
+  }
 
   const categoryTitle = activeCategory ? activeCategory.displayName : 'All Products'
   const categoryDesc = activeCategory
@@ -112,21 +169,37 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
           <CategoryFilter
             categories={productCategories}
             activeSlug={categorySlug ?? null}
+            allProducts={allProducts}
+            activePriceBucket={activePriceBucket}
+            activeColors={activeColors}
+            showOnSale={showOnSale}
+            showInStock={showInStock}
+            showCustomizable={showCustomizable}
           />
         </div>
 
         <div className="flex gap-8">
           {/* Desktop sidebar */}
-          <aside className="hidden lg:block w-52 flex-shrink-0">
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Filters">
             <CategoryFilter
               categories={productCategories}
               activeSlug={categorySlug ?? null}
+              allProducts={allProducts}
+              activePriceBucket={activePriceBucket}
+              activeColors={activeColors}
+              showOnSale={showOnSale}
+              showInStock={showInStock}
+              showCustomizable={showCustomizable}
             />
           </aside>
 
           {/* Product grid + controls */}
           <div className="flex-1 min-w-0">
-            <CatalogClient products={filtered} categoryName={categoryTitle} />
+            <CatalogClient
+              products={filtered as ProductCardData[]}
+              categoryName={categoryTitle}
+              initialSort={(params.sort as string) ?? 'featured'}
+            />
           </div>
         </div>
       </div>

@@ -1,15 +1,16 @@
 import type { ReactNode } from 'react'
 
-type Variant = 'sale' | 'discount' | 'new'
+export type BadgeVariant = 'sale' | 'discount' | 'new' | 'customizable'
 
-const variantClass: Record<Variant, string> = {
-  sale:     'badge-sale',
-  discount: 'badge-discount',
-  new:      'badge-new',
+const variantClass: Record<BadgeVariant, string> = {
+  sale:         'badge-sale',
+  discount:     'badge-discount',
+  new:          'badge-new',
+  customizable: 'badge-customizable',
 }
 
 interface BadgeProps {
-  variant: Variant
+  variant: BadgeVariant
   children: ReactNode
   className?: string
 }
