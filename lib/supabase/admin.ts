@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { createClient } from '@supabase/supabase-js'
+import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 /**
  * Server-only Supabase client backed by the SERVICE-ROLE key.
@@ -33,30 +33,63 @@ import { createClient } from '@supabase/supabase-js'
  *    RLS-bypass will then behave as anon (documented in E2E_TESTING_GUIDE).
  */
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-
-// Prefer the service-role key; fall back to the anon/publishable key so the
-// app still boots in environments where the service key isn't set yet.
-const serviceKey =
-  process.env.SUPABASE_SERVICE_ROLE_KEY ||
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
-
-if (!supabaseUrl || !serviceKey) {
-  throw new Error(
-    'Missing Supabase env vars: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY)'
-  )
-}
-
 /** True when a real service-role key is configured (not the anon fallback). */
 export const hasServiceRoleKey = Boolean(process.env.SUPABASE_SERVICE_ROLE_KEY)
 
 /**
+ * LAZY initialization — the real client is built on first use, NOT at module
+ * import. This is load-bearing for the build: `vercel build` (and any
+ * `next build` without .env loaded) imports every route module during the
+ * "Collecting page data" phase. If we read env + threw at module scope, that
+ * import would crash the build for routes that only ever touch the DB at
+ * REQUEST time (they're all `force-dynamic`). Deferring construction makes the
+ * module import side-effect-free, so the build never needs the secrets — they
+ * are only required at runtime, which is correct.
+ */
+let _client: SupabaseClient | null = null
+
+function getClient(): SupabaseClient {
+  if (_client) return _client
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  // Prefer the service-role key; fall back to the anon/publishable key so the
+  // app still boots in environments where the service key isn't set yet.
+  const serviceKey =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+
+  if (!supabaseUrl || !serviceKey) {
+    // Thrown at REQUEST time (inside a route handler), never at build/import.
+    // Callers (lib/supabase/orders.ts, coupons.ts, etc.) already wrap DB access
+    // in try/catch and degrade gracefully, so this surfaces as a handled error
+    // rather than a crashed build.
+    throw new Error(
+      'Missing Supabase env vars: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY)'
+    )
+  }
+
+  _client = createClient(supabaseUrl, serviceKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  })
+  return _client
+}
+
+/**
  * Service-role client for server-side order/payment operations.
  * Never import this from a Client Component.
+ *
+ * Exposed as a Proxy so existing call sites — `supabaseAdmin.from(...)`,
+ * `.rpc(...)`, `.storage` — keep working unchanged, while the underlying client
+ * is constructed lazily on first property access (see getClient above).
  */
-export const supabaseAdmin = createClient(supabaseUrl, serviceKey, {
-  auth: {
-    autoRefreshToken: false,
-    persistSession: false,
+export const supabaseAdmin = new Proxy({} as SupabaseClient, {
+  get(_target, prop, receiver) {
+    const client = getClient()
+    const value = Reflect.get(client as object, prop, receiver)
+    // Bind methods to the real client so `this` is correct when invoked.
+    return typeof value === 'function' ? value.bind(client) : value
   },
 })
