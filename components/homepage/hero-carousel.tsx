@@ -58,7 +58,7 @@ const SLIDES: Slide[] = [
 
 const AUTO_ADVANCE_MS = 5500
 
-function MiniCard({ product }: { product: ProductCardData }) {
+function MiniCard({ product, priority = false }: { product: ProductCardData; priority?: boolean }) {
   const discountPct =
     product.originalPrice && product.originalPrice > product.price
       ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -77,6 +77,7 @@ function MiniCard({ product }: { product: ProductCardData }) {
           fill
           sizes="(max-width: 640px) 144px, (max-width: 1024px) 176px, 192px"
           className="object-cover group-hover:scale-105 transition-transform duration-500"
+          priority={priority}
           unoptimized
         />
         {/* Sale badge top-left */}
@@ -188,8 +189,8 @@ export function HeroCarousel() {
                 }}
               >
                 {/* Original set of products */}
-                {products.map((p) => (
-                  <MiniCard key={p.id} product={p} />
+                {products.map((p, i) => (
+                  <MiniCard key={p.id} product={p} priority={i === 0} />
                 ))}
                 {/* Duplicate set for seamless loop */}
                 {products.map((p) => (

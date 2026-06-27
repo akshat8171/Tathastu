@@ -21,18 +21,18 @@ interface Reel {
 }
 
 // Hardcoded list of Instagram reels from @layerix.in
-// Thumbnails point to placeholder images that can be replaced with actual screenshots
+// Thumbnails use placeholder SVGs — replace with actual reel screenshots when available
 const REELS: Reel[] = [
-  { id: '1', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-1.jpg' },
-  { id: '2', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-2.jpg' },
-  { id: '3', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-3.jpg' },
-  { id: '4', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-4.jpg' },
-  { id: '5', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-5.jpg' },
-  { id: '6', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-6.jpg' },
-  { id: '7', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-7.jpg' },
-  { id: '8', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-8.jpg' },
-  { id: '9', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-9.jpg' },
-  { id: '10', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-10.jpg' },
+  { id: '1', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-1.svg' },
+  { id: '2', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-2.svg' },
+  { id: '3', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-3.svg' },
+  { id: '4', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-4.svg' },
+  { id: '5', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-5.svg' },
+  { id: '6', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-6.svg' },
+  { id: '7', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-7.svg' },
+  { id: '8', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-8.svg' },
+  { id: '9', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-9.svg' },
+  { id: '10', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-10.svg' },
 ]
 
 export function InstagramReels() {
