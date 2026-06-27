@@ -1,10 +1,10 @@
-import { createServerClient } from '@supabase/ssr'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export function createSupabaseServer() {
-  const cookieStore = cookies()
+export async function createSupabaseServer() {
+  const cookieStore = await cookies()
 
-  return createServerClient(
+  const client = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
     {
@@ -33,4 +33,7 @@ export function createSupabaseServer() {
       },
     }
   )
+
+  // @supabase/ssr@0.10+ may return a Promise — unwrap if so
+  return (client instanceof Promise ? await client : client)
 }
