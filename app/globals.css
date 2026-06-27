@@ -164,3 +164,18 @@
     transform: translateX(-50%);
   }
 }
+
+/* ─── Admin Page Overrides ───────────────────────────────────────────────── */
+/* Hide store header/footer on admin pages */
+body.admin-page > div > nav,
+body.admin-page > div > header,
+body.admin-page > div > footer,
+body.admin-page > div > aside:not([class*="admin"]),
+body.admin-page .announcement-bar,
+body.admin-page .whatsapp-float {
+  display: none !important;
+}
+
+body.admin-page > div > main {
+  display: contents;
+}

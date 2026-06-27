@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import { screen } from '@testing-library/dom'
 import { ReactNode } from 'react'
 import { CartProvider } from '@/components/cart/cart-context'
 import { ProductCard } from '@/components/ui/product-card'
@@ -95,7 +96,7 @@ describe('ProductCard', () => {
     it('links to /products/[id]', () => {
       renderCard()
       const links = screen.getAllByRole('link')
-      const productLinks = links.filter((l) =>
+      const productLinks = links.filter((l: HTMLElement) =>
         l.getAttribute('href') === '/products/lamps-lamp1'
       )
       expect(productLinks.length).toBeGreaterThan(0)

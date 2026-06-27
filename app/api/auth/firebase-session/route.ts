@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     })
 
     // Set the httpOnly session cookie.
-    cookies().set(FIREBASE_SESSION_COOKIE, sessionCookie, {
+    ;(await cookies()).set(FIREBASE_SESSION_COOKIE, sessionCookie, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
 export async function DELETE(_request: NextRequest) {
   try {
     // Clear the Firebase session cookie by setting maxAge to 0.
-    cookies().set(FIREBASE_SESSION_COOKIE, '', {
+    ;(await cookies()).set(FIREBASE_SESSION_COOKIE, '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

@@ -46,7 +46,7 @@ export interface AppUser {
  */
 export async function getCurrentUser(): Promise<AppUser | null> {
   // 1) Firebase phone session
-  const fbCookie = cookies().get(FIREBASE_SESSION_COOKIE)?.value
+  const fbCookie = (await cookies()).get(FIREBASE_SESSION_COOKIE)?.value
   if (fbCookie) {
     const adminAuth = getAdminAuth()
     if (adminAuth) {
@@ -70,7 +70,7 @@ export async function getCurrentUser(): Promise<AppUser | null> {
 
   // 2) Supabase email+password session
   try {
-    const supabase = createSupabaseServer()
+    const supabase = await createSupabaseServer()
     const {
       data: { user },
     } = await supabase.auth.getUser()

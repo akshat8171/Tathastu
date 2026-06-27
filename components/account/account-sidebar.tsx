@@ -14,7 +14,7 @@ import { LogoutButton } from '@/components/auth/logout-button'
 interface NavItem {
   href: string
   label: string
-  icon: JSX.Element
+  icon: React.ReactElement
   /** Active when the pathname exactly equals href (use for the index route). */
   exact?: boolean
 }

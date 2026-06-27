@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import { screen, fireEvent, waitFor } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
 import { PhoneOtpForm } from '@/components/auth/phone-otp-form'
 

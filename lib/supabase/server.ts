@@ -35,5 +35,8 @@ export async function createSupabaseServer() {
   )
 
   // @supabase/ssr@0.10+ may return a Promise — unwrap if so
-  return (client instanceof Promise ? await client : client)
+  if (client instanceof Promise) {
+    return await client
+  }
+  return client
 }
