@@ -59,63 +59,44 @@ const SLIDES: Slide[] = [
 const AUTO_ADVANCE_MS = 5500
 
 function MiniCard({ product }: { product: ProductCardData }) {
-  const { addItem } = useCart()
   const discountPct =
     product.originalPrice && product.originalPrice > product.price
       ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
       : null
 
-  function add(e: React.MouseEvent) {
-    e.preventDefault()
-    e.stopPropagation()
-    addItem({
-      id: product.id,
-      name: product.name,
-      variant: 'Default',
-      price: product.price,
-      originalPrice: product.originalPrice ?? product.price,
-      quantity: 1,
-      image: product.images[0] ?? '',
-    })
-  }
-
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group relative block w-28 sm:w-32 flex-shrink-0 rounded-card2 bg-white shadow-card hover:shadow-card-hover transition-shadow duration-300 overflow-hidden"
+      className="group relative block w-36 sm:w-44 lg:w-48 flex-shrink-0 rounded-card2 bg-white shadow-card hover:shadow-card-hover transition-shadow duration-300 overflow-hidden"
       aria-label={`View ${product.name}`}
     >
-      <div className="relative aspect-square bg-panel overflow-hidden">
+      <div className="relative aspect-[4/5] bg-panel overflow-hidden">
         <Image
           src={product.images[0] ?? ''}
           alt={product.name}
           fill
-          sizes="128px"
+          sizes="(max-width: 640px) 144px, (max-width: 1024px) 176px, 192px"
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           unoptimized
         />
         {/* Sale badge top-left */}
-        <span className="absolute top-1.5 left-1.5 bg-sale text-white text-[9px] font-display font-semibold px-1.5 py-0.5 rounded leading-none shadow-badge">
+        <span className="absolute top-2 left-2 bg-sale text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded leading-none shadow-badge">
           Sale
         </span>
         {discountPct !== null && (
-          <span className="absolute top-1.5 right-1.5 bg-discount text-white text-[9px] font-display font-semibold px-1.5 py-0.5 rounded leading-none shadow-badge">
+          <span className="absolute top-2 right-2 bg-discount text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded leading-none shadow-badge">
             {discountPct}% OFF
           </span>
         )}
-      </div>
-      <div className="flex items-center justify-between gap-1 px-2 py-1.5">
-        <span className="font-display font-bold text-ink text-xs">₹{product.price}</span>
-        <button
-          onClick={add}
-          aria-label={`Add ${product.name} to cart`}
-          className="w-6 h-6 rounded-full bg-brand text-white flex items-center justify-center hover:bg-brand-600 transition-colors flex-shrink-0"
-        >
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
-          </svg>
-        </button>
+        {/* Price badge at bottom - like competitor site */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-2">
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-display font-bold text-sm sm:text-base">₹{product.price}</span>
+            {product.originalPrice && product.originalPrice > product.price && (
+              <span className="font-display text-xs line-through opacity-80">₹{product.originalPrice}</span>
+            )}
+          </div>
+        </div>
       </div>
     </Link>
   )
@@ -141,15 +122,11 @@ export function HeroCarousel() {
   return (
     <section
       className="relative overflow-hidden bg-gradient-to-br from-violet/10 via-surface to-brand-50"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={() => setPaused(false)}
       aria-roledescription="carousel"
       aria-label="Featured collections"
     >
-      <div className="container-page py-10 sm:py-14 lg:py-16">
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 min-h-[300px] lg:min-h-[340px]">
+      <div className="container-page py-10 sm:py-14 lg:py-20">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 min-h-[320px] lg:min-h-[400px]">
 
           {/* ── Left: themed copy (keyed so it re-animates per slide) ── */}
           <div key={active} className="flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0 animate-fade-in">
@@ -194,7 +171,14 @@ export function HeroCarousel() {
           </div>
 
           {/* ── Right: product mini-cards for this slide ── */}
-          <div key={`cards-${active}`} className="flex-1 w-full animate-fade-in overflow-hidden">
+          <div
+            key={`cards-${active}`}
+            className="flex-1 w-full animate-fade-in overflow-hidden"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onFocusCapture={() => setPaused(true)}
+            onBlurCapture={() => setPaused(false)}
+          >
             <div className="relative flex justify-center lg:justify-end">
               <div
                 className="flex gap-3 sm:gap-4"

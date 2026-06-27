@@ -32,7 +32,7 @@ export function ProductRail({
         ? 'grid-cols-2 sm:grid-cols-3'
         : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'
     return (
-      <section className="py-10 sm:py-14">
+      <section className="py-12 sm:py-16">
         <div className="container-page">
           <SectionHeading title={title} subtitle={subtitle} viewAllHref={viewAllHref} />
           <div className={`grid ${colClass} gap-4 sm:gap-5`}>
@@ -47,7 +47,7 @@ export function ProductRail({
 
   // Carousel: each card is a fixed-width, snap-aligned rail item.
   return (
-    <section className="py-10 sm:py-14">
+    <section className="py-12 sm:py-16">
       <div className="container-page">
         <SectionHeading title={title} subtitle={subtitle} viewAllHref={viewAllHref} />
         <ScrollRail className="gap-4 sm:gap-5 pb-2" ariaLabel={title}>

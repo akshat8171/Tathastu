@@ -18,7 +18,7 @@ for (const p of allProducts) {
 
 export function CategoryIcons() {
   return (
-    <section className="py-12 sm:py-16 bg-surface">
+    <section className="py-14 sm:py-20 bg-surface">
       <div className="container-page">
         <SectionHeading
           title="Shop by Category"

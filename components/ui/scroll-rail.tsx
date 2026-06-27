@@ -76,7 +76,7 @@ export function ScrollRail({ children, className = '', ariaLabel }: ScrollRailPr
         role="region"
         aria-label={ariaLabel}
         className={`flex overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar
-          -mx-4 px-4 sm:mx-0 sm:px-0 ${className}`}
+          -mx-5 px-5 sm:mx-0 sm:px-0 ${className}`}
       >
         {children}
       </div>
