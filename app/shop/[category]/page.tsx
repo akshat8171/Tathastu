@@ -5,6 +5,7 @@
  * Uses categories.ts route field and generateStaticParams for SSG.
  * Renders: breadcrumb, SEO H1 "<Category> — 3D Printed, Made in India", catalog grid.
  */
+import { Suspense } from 'react'
 import { notFound, redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -152,38 +153,44 @@ export default async function ShopCategoryPage({
       <div className="container-page py-8">
         {/* Mobile filter chips */}
         <div className="mb-6 lg:hidden">
-          <CategoryFilter
-            categories={productCategories}
-            activeSlug={slug}
-            allProducts={filtered}
-            activePriceBucket={activePriceBucket}
-            activeColors={activeColors}
-            showOnSale={showOnSale}
-            showInStock={showInStock}
-            showCustomizable={showCustomizable}
-          />
-        </div>
-
-        <div className="flex gap-8">
-          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Filters">
+          <Suspense fallback={<div className="flex gap-2 overflow-hidden"><div className="h-8 w-16 bg-gray-200 rounded-full animate-pulse" /><div className="h-8 w-20 bg-gray-200 rounded-full animate-pulse" /><div className="h-8 w-24 bg-gray-200 rounded-full animate-pulse" /></div>}>
             <CategoryFilter
               categories={productCategories}
               activeSlug={slug}
-              allProducts={allProducts.filter((p) => p.category === slug) as FullProductData[]}
+              allProducts={filtered}
               activePriceBucket={activePriceBucket}
               activeColors={activeColors}
               showOnSale={showOnSale}
               showInStock={showInStock}
               showCustomizable={showCustomizable}
             />
+          </Suspense>
+        </div>
+
+        <div className="flex gap-8">
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Filters">
+            <Suspense fallback={<div className="space-y-4"><div className="h-4 w-20 bg-gray-200 rounded animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /></div>}>
+              <CategoryFilter
+                categories={productCategories}
+                activeSlug={slug}
+                allProducts={allProducts.filter((p) => p.category === slug) as FullProductData[]}
+                activePriceBucket={activePriceBucket}
+                activeColors={activeColors}
+                showOnSale={showOnSale}
+                showInStock={showInStock}
+                showCustomizable={showCustomizable}
+              />
+            </Suspense>
           </aside>
 
           <div className="flex-1 min-w-0">
-            <CatalogClient
-              products={filtered as ProductCardData[]}
-              categoryName={cat.displayName}
-              initialSort={sp.sort ?? 'featured'}
-            />
+            <Suspense fallback={<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">{Array.from({length: 8}).map((_, i) => <div key={i} className="aspect-square bg-gray-200 rounded-card2 animate-pulse" />)}</div>}>
+              <CatalogClient
+                products={filtered as ProductCardData[]}
+                categoryName={cat.displayName}
+                initialSort={sp.sort ?? 'featured'}
+              />
+            </Suspense>
           </div>
         </div>
       </div>

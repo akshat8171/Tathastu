@@ -18,7 +18,7 @@ export const SITE = {
   whatsappNumber: '919154892790',
   instagram: 'https://instagram.com/layerix.in', // placeholder until owner confirms handle
   facebook: 'https://facebook.com/layerix.in', // placeholder until owner confirms handle
-  addressLines: ['Hyderabad, Telangana', 'India'],
+  addressLines: ['Agra, Uttar Pradesh', 'India'],
   supportHours: 'Mon–Sat, 10am–7pm IST',
   copyrightName: 'Layerix',
 } as const

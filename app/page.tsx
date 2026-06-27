@@ -15,6 +15,7 @@ import { CategoryRails }       from '@/components/homepage/category-rails'
 import { ReviewsSection }      from '@/components/homepage/reviews-section'
 import { IdeaCta }             from '@/components/homepage/idea-cta'
 import { PhotoUploadSection }  from '@/components/homepage/photo-upload-section'
+import { InstagramReels }      from '@/components/homepage/instagram-reels'
 import { NewsletterForm }      from '@/components/layout/newsletter-form'
 
 export default function HomePage() {
@@ -47,7 +48,10 @@ export default function HomePage() {
       {/* 9. Idea / Custom CTA */}
       <IdeaCta />
 
-      {/* 10. Newsletter signup (above footer, additive chrome) */}
+      {/* 10. Instagram Reels marquee */}
+      <InstagramReels />
+
+      {/* 11. Newsletter signup (above footer, additive chrome) */}
       <section className="py-14 sm:py-20 bg-white border-t border-gray-100" aria-label="Newsletter signup">
         <div className="container-page">
           <NewsletterForm />

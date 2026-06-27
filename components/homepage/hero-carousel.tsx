@@ -194,11 +194,24 @@ export function HeroCarousel() {
           </div>
 
           {/* ── Right: product mini-cards for this slide ── */}
-          <div key={`cards-${active}`} className="flex-1 w-full animate-fade-in">
-            <div className="flex gap-3 sm:gap-4 justify-center lg:justify-end overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-              {products.map((p) => (
-                <MiniCard key={p.id} product={p} />
-              ))}
+          <div key={`cards-${active}`} className="flex-1 w-full animate-fade-in overflow-hidden">
+            <div className="relative flex justify-center lg:justify-end">
+              <div
+                className="flex gap-3 sm:gap-4"
+                style={{
+                  animation: 'marquee-scroll 20s linear infinite',
+                  animationPlayState: paused ? 'paused' : 'running',
+                }}
+              >
+                {/* Original set of products */}
+                {products.map((p) => (
+                  <MiniCard key={p.id} product={p} />
+                ))}
+                {/* Duplicate set for seamless loop */}
+                {products.map((p) => (
+                  <MiniCard key={`${p.id}-duplicate`} product={p} />
+                ))}
+              </div>
             </div>
           </div>
         </div>

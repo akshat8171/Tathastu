@@ -1,4 +1,5 @@
 import './products.css'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { getProductCategories, getCategoryBySlug } from '@/lib/categories'
 import { CategoryFilter, PRICE_BUCKETS } from '@/components/products/category-filter'
@@ -166,21 +167,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
       <div className="container-page py-8">
         {/* Mobile filter chips */}
         <div className="mb-6 lg:hidden">
-          <CategoryFilter
-            categories={productCategories}
-            activeSlug={categorySlug ?? null}
-            allProducts={allProducts}
-            activePriceBucket={activePriceBucket}
-            activeColors={activeColors}
-            showOnSale={showOnSale}
-            showInStock={showInStock}
-            showCustomizable={showCustomizable}
-          />
-        </div>
-
-        <div className="flex gap-8">
-          {/* Desktop sidebar */}
-          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Filters">
+          <Suspense fallback={<div className="flex gap-2 overflow-hidden"><div className="h-8 w-16 bg-gray-200 rounded-full animate-pulse" /><div className="h-8 w-20 bg-gray-200 rounded-full animate-pulse" /><div className="h-8 w-24 bg-gray-200 rounded-full animate-pulse" /></div>}>
             <CategoryFilter
               categories={productCategories}
               activeSlug={categorySlug ?? null}
@@ -191,15 +178,35 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
               showInStock={showInStock}
               showCustomizable={showCustomizable}
             />
+          </Suspense>
+        </div>
+
+        <div className="flex gap-8">
+          {/* Desktop sidebar */}
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Filters">
+            <Suspense fallback={<div className="space-y-4"><div className="h-4 w-20 bg-gray-200 rounded animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /></div>}>
+              <CategoryFilter
+                categories={productCategories}
+                activeSlug={categorySlug ?? null}
+                allProducts={allProducts}
+                activePriceBucket={activePriceBucket}
+                activeColors={activeColors}
+                showOnSale={showOnSale}
+                showInStock={showInStock}
+                showCustomizable={showCustomizable}
+              />
+            </Suspense>
           </aside>
 
           {/* Product grid + controls */}
           <div className="flex-1 min-w-0">
-            <CatalogClient
-              products={filtered as ProductCardData[]}
-              categoryName={categoryTitle}
-              initialSort={(params.sort as string) ?? 'featured'}
-            />
+            <Suspense fallback={<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">{Array.from({length: 8}).map((_, i) => <div key={i} className="aspect-square bg-gray-200 rounded-card2 animate-pulse" />)}</div>}>
+              <CatalogClient
+                products={filtered as ProductCardData[]}
+                categoryName={categoryTitle}
+                initialSort={(params.sort as string) ?? 'featured'}
+              />
+            </Suspense>
           </div>
         </div>
       </div>

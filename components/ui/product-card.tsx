@@ -151,7 +151,7 @@ export function ProductCard({
     : 'Add to cart'
 
   return (
-    <div className={`card group flex flex-col overflow-hidden ${className}`}>
+    <div className={`card group flex flex-col overflow-hidden h-full ${className}`}>
       {/* ── Image panel ───────────────────────────────────────────────────── */}
       <Link
         href={`/products/${id}`}
