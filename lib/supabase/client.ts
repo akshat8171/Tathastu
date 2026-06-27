@@ -1,18 +1,37 @@
 import { createBrowserClient } from '@supabase/ssr'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
-// Supabase client configuration
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+// Lazy-init: defer client construction so module import is side-effect-free.
+// During `next build` (and `vercel build`), env vars may not be loaded —
+// throwing at module scope kills the build even though the client is only
+// needed at request time in the browser. The Proxy defers creation to first
+// property access, which only happens at runtime when env IS available.
+let _client: SupabaseClient | null = null
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables')
+function getClient(): SupabaseClient {
+  if (!_client) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error('Missing Supabase environment variables')
+    }
+    _client = createBrowserClient(supabaseUrl, supabaseKey)
+  }
+  return _client
 }
 
 // Browser client backed by cookies (not localStorage) via @supabase/ssr.
 // This is what lets the server (createServerClient) read the same auth
 // session: access + refresh tokens are stored in httpOnly cookies and
 // rotated automatically by the middleware's getUser() call.
-export const supabase = createBrowserClient(supabaseUrl, supabaseKey)
+// Wrapped in a Proxy so call-sites can use `supabase.from(...)` etc. unchanged.
+export const supabase = new Proxy({} as SupabaseClient, {
+  get(_target, prop, receiver) {
+    const client = getClient()
+    const value = Reflect.get(client, prop, receiver)
+    return typeof value === 'function' ? value.bind(client) : value
+  },
+})
 
 // Database Types
 export interface Customer {
