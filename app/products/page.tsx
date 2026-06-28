@@ -80,9 +80,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const allProducts = productsJson as FullProductData[]
 
   // ── Server-side filter ───────────────────────────────────────────────────────
-  let filtered: FullProductData[] = categorySlug && categorySlug !== 'all'
+  // Step 1: filter by category (this becomes the "universe" for facet counts)
+  const categoryFiltered: FullProductData[] = categorySlug && categorySlug !== 'all'
     ? allProducts.filter((p) => p.category === categorySlug)
     : allProducts
+
+  let filtered: FullProductData[] = categoryFiltered
 
   // Price bucket filter
   if (activePriceBucket) {
@@ -197,7 +200,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
             <CategoryFilter
               categories={productCategories}
               activeSlug={categorySlug ?? null}
-              allProducts={allProducts}
+              allProducts={categoryFiltered}
               activePriceBucket={activePriceBucket}
               activeColors={activeColors}
               showOnSale={showOnSale}
@@ -214,7 +217,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
               <CategoryFilter
                 categories={productCategories}
                 activeSlug={categorySlug ?? null}
-                allProducts={allProducts}
+                allProducts={categoryFiltered}
                 activePriceBucket={activePriceBucket}
                 activeColors={activeColors}
                 showOnSale={showOnSale}

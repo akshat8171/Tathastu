@@ -193,21 +193,29 @@ export function CategoryFilter({
                 All Products
               </Link>
             </li>
-            {categories.map((cat) => (
-              <li key={cat.slug}>
-                <Link
-                  href={`/products?category=${cat.slug}`}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    activeSlug === cat.slug
-                      ? 'bg-brand text-white font-semibold'
-                      : 'text-ink hover:bg-panel hover:text-brand'
-                  }`}
-                >
-                  <CategoryIcon slug={cat.slug} />
-                  {cat.displayName}
-                </Link>
-              </li>
-            ))}
+            {categories.map((cat) => {
+              // Preserve sort when switching category, but clear facet filters
+              // (counts change per-category so old filters may yield 0 results)
+              const catParams = new URLSearchParams()
+              catParams.set('category', cat.slug)
+              const currentSort = searchParams.get('sort')
+              if (currentSort) catParams.set('sort', currentSort)
+              return (
+                <li key={cat.slug}>
+                  <Link
+                    href={`/products?${catParams.toString()}`}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                      activeSlug === cat.slug
+                        ? 'bg-brand text-white font-semibold'
+                        : 'text-ink hover:bg-panel hover:text-brand'
+                    }`}
+                  >
+                    <CategoryIcon slug={cat.slug} />
+                    {cat.displayName}
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </section>
 
@@ -220,12 +228,18 @@ export function CategoryFilter({
             {PRICE_BUCKETS.map((bucket) => {
               const count = priceCounts[bucket.value] ?? 0
               const active = activePriceBucket === bucket.value
+              const isEmpty = count === 0
               return (
                 <li key={bucket.value}>
                   <button
-                    onClick={() => togglePriceBucket(bucket.value)}
+                    onClick={() => !isEmpty && togglePriceBucket(bucket.value)}
+                    disabled={isEmpty}
                     className={`w-full flex items-center justify-between px-3 py-1.5 rounded-lg text-sm transition-colors text-left ${
-                      active ? 'bg-brand/10 text-brand font-semibold' : 'text-ink hover:bg-panel hover:text-brand'
+                      active
+                        ? 'bg-brand/10 text-brand font-semibold'
+                        : isEmpty
+                        ? 'text-muted/50 cursor-not-allowed'
+                        : 'text-ink hover:bg-panel hover:text-brand'
                     }`}
                     aria-pressed={active}
                   >
@@ -273,22 +287,26 @@ export function CategoryFilter({
             Availability
           </p>
           <ul className="space-y-1" role="list">
-            <li>
-              <FilterToggle
-                label="On sale"
-                count={onSaleCount}
-                active={!!showOnSale}
-                onToggle={toggleOnSale}
-              />
-            </li>
-            <li>
-              <FilterToggle
-                label="In stock"
-                count={inStockCount}
-                active={!!showInStock}
-                onToggle={toggleInStock}
-              />
-            </li>
+            {onSaleCount > 0 && (
+              <li>
+                <FilterToggle
+                  label="On sale"
+                  count={onSaleCount}
+                  active={!!showOnSale}
+                  onToggle={toggleOnSale}
+                />
+              </li>
+            )}
+            {inStockCount > 0 && (
+              <li>
+                <FilterToggle
+                  label="In stock"
+                  count={inStockCount}
+                  active={!!showInStock}
+                  onToggle={toggleInStock}
+                />
+              </li>
+            )}
             {customizableCount > 0 && (
               <li>
                 <FilterToggle
