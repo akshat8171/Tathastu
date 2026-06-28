@@ -105,14 +105,21 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
 export function HeroCarousel() {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const go = useCallback((i: number) => setActive(((i % SLIDES.length) + SLIDES.length) % SLIDES.length), [])
+  const go = useCallback((i: number) => {
+    setHasInteracted(true)
+    setActive(((i % SLIDES.length) + SLIDES.length) % SLIDES.length)
+  }, [])
 
   // Auto-advance (pauses on hover/focus).
   useEffect(() => {
     if (paused) return
-    timer.current = setTimeout(() => setActive((a) => (a + 1) % SLIDES.length), AUTO_ADVANCE_MS)
+    timer.current = setTimeout(() => {
+      setHasInteracted(true)
+      setActive((a) => (a + 1) % SLIDES.length)
+    }, AUTO_ADVANCE_MS)
     return () => { if (timer.current) clearTimeout(timer.current) }
   }, [active, paused])
 
@@ -129,7 +136,7 @@ export function HeroCarousel() {
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 min-h-[320px] lg:min-h-[400px]">
 
           {/* ── Left: themed copy (keyed so it re-animates per slide) ── */}
-          <div key={active} className="flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0 animate-fade-in">
+          <div key={active} className={`flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0${hasInteracted ? ' animate-fade-in' : ''}`}>
             <p className="inline-flex items-center gap-2 text-xs font-display font-semibold uppercase tracking-widest text-violet mb-4 bg-violet/10 px-3 py-1.5 rounded-full">
               {slide.eyebrow}
             </p>
@@ -173,7 +180,7 @@ export function HeroCarousel() {
           {/* ── Right: product mini-cards for this slide ── */}
           <div
             key={`cards-${active}`}
-            className="flex-1 w-full animate-fade-in overflow-hidden"
+            className={`flex-1 w-full overflow-hidden${hasInteracted ? ' animate-fade-in' : ''}`}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocusCapture={() => setPaused(true)}
@@ -200,18 +207,20 @@ export function HeroCarousel() {
           </div>
         </div>
 
-        {/* ── Dots ── */}
-        <div className="flex items-center justify-center gap-2 mt-8">
+        {/* ── Dots (min 44px touch target via padding) ── */}
+        <div className="flex items-center justify-center gap-1 mt-8">
           {SLIDES.map((s, i) => (
             <button
               key={s.eyebrow}
               onClick={() => go(i)}
               aria-label={`Go to slide ${i + 1}: ${s.eyebrow}`}
               aria-current={i === active}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === active ? 'w-7 bg-brand' : 'w-2 bg-brand/30 hover:bg-brand/50'
-              }`}
-            />
+              className="relative flex items-center justify-center w-11 h-11"
+            >
+              <span className={`block rounded-full transition-all duration-300 ${
+                i === active ? 'w-7 h-2.5 bg-brand' : 'w-2.5 h-2.5 bg-brand/30 hover:bg-brand/50'
+              }`} />
+            </button>
           ))}
         </div>
       </div>

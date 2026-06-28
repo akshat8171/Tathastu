@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Poppins, Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
@@ -8,6 +9,20 @@ import { CartProvider } from '@/components/cart/cart-context'
 import { WishlistProvider } from '@/components/wishlist/wishlist-context'
 import { CheckoutProvider } from '@/components/checkout/checkout-context'
 import { getOrganizationSchema } from '@/lib/schema'
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+  variable: '--font-poppins',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.tathastukeepsakes.in'),
@@ -94,14 +109,12 @@ export default function RootLayout({
   const organizationSchema = getOrganizationSchema()
 
   return (
-    <html lang="en" data-scroll-behavior="smooth">
+    <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
       <head>
         {/* Viewport for responsive design */}
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
-        {/* Preconnect hints for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect for payment gateway */}
         <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
         <link rel="preconnect" href="https://checkout.razorpay.com" />
 
@@ -127,7 +140,7 @@ export default function RootLayout({
             <CheckoutProvider>
               <AnnouncementBar />
               <Header />
-              <main className="flex-1 animate-fade-in">
+              <main className="flex-1">
                 {children}
               </main>
               <Footer />

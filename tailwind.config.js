@@ -38,7 +38,7 @@ module.exports = {
           DEFAULT: '#16182B', // headings / near-black
           soft:    '#2D2F45',
         },
-        muted: '#6B7280',     // body text / slate-gray (Tailwind gray-500)
+        muted: '#4B5563',     // body text / slate-gray (Tailwind gray-600 — passes WCAG AA at all sizes)
 
         // ── Backgrounds & surfaces ─────────────────────────────────────────
         panel: '#EDF1F6',     // product image background
@@ -50,10 +50,10 @@ module.exports = {
       },
 
       fontFamily: {
-        display: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        sans:    ['Inter',   'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-poppins)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        sans:    ['var(--font-inter)',   'ui-sans-serif', 'system-ui', 'sans-serif'],
         // keep serif alias in case old pages still reference it transitionally
-        serif:   ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif:   ['var(--font-poppins)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
 
       borderRadius: {

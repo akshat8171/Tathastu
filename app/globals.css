@@ -1,5 +1,4 @@
-/* ─── Google Fonts ────────────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+/* ─── Fonts loaded via next/font in layout.tsx (no render-blocking @import) ─── */
 
 @tailwind base;
 @tailwind components;
@@ -88,7 +87,7 @@
 
   /* ── Announcement bar ── */
   .announcement-bar {
-    @apply w-full bg-violet text-white text-xs font-sans font-medium
+    @apply w-full bg-violet text-white text-sm font-sans font-semibold
            text-center py-2 px-4;
   }
 
