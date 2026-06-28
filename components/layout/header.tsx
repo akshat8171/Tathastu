@@ -64,31 +64,31 @@ export function Header() {
             {/* ── Logo ──────────────────────────────────────── */}
             <Link
               href="/"
-              className="flex items-center gap-2 font-display font-bold text-xl text-ink tracking-tight"
+              className="flex items-center gap-2 font-display font-bold text-lg text-ink tracking-tight flex-shrink-0"
               aria-label="Tathastu Keepsakes — home"
             >
               <Image
                 src="/images/logo/tk-mark.png"
                 alt=""
-                width={36}
-                height={36}
-                className="w-9 h-9"
+                width={34}
+                height={34}
+                className="w-[34px] h-[34px]"
                 priority
               />
-              <span className="hidden sm:inline">Tathastu<span className="text-brand"> Keepsakes</span></span>
+              <span className="hidden lg:inline">Tathastu<span className="text-brand"> Keepsakes</span></span>
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────────── */}
-            <nav className="hidden md:flex items-center gap-1" aria-label="Main navigation">
+            <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
               {navItems.map((item) => (
                 <Link
                   key={`${item.href}-${item.label}`}
                   href={item.href}
-                  className="relative flex items-center gap-1.5 px-3 py-2 text-sm font-display font-medium text-ink hover:text-brand transition-colors rounded-md hover:bg-surface group"
+                  className="relative flex items-center gap-1 px-2.5 py-2 text-[13px] font-display font-medium text-ink hover:text-brand transition-colors rounded-md hover:bg-surface group whitespace-nowrap"
                 >
                   {item.label}
                   {item.badge && (
-                    <Badge variant={item.badge} className="text-[10px] px-1.5 py-0">
+                    <Badge variant={item.badge} className="text-[9px] px-1 py-0">
                       NEW
                     </Badge>
                   )}
@@ -164,11 +164,11 @@ export function Header() {
                 )}
               </Link>
 
-              {/* Hamburger — mobile only */}
+              {/* Hamburger — below lg */}
               <button
                 id="hamburger-btn"
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden p-2 text-ink hover:text-brand transition-colors rounded-md hover:bg-surface"
+                className="lg:hidden p-2 text-ink hover:text-brand transition-colors rounded-md hover:bg-surface"
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-menu"
@@ -190,7 +190,7 @@ export function Header() {
         {mobileOpen && (
           <nav
             id="mobile-menu"
-            className="md:hidden border-t border-gray-100 bg-white"
+            className="lg:hidden border-t border-gray-100 bg-white"
             aria-label="Mobile navigation"
             data-testid="mobile-menu"
           >
