@@ -10,7 +10,8 @@ import { notFound, redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getCategoryBySlug, getProductCategories } from '@/lib/categories'
-import { CategoryFilter, PRICE_BUCKETS } from '@/components/products/category-filter'
+import { CategoryFilter } from '@/components/products/category-filter'
+import { PRICE_BUCKETS } from '@/lib/price-buckets'
 import { CatalogClient } from '../../products/catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
 import productsJson from '@/lib/products.json'
@@ -180,7 +181,7 @@ export default async function ShopCategoryPage({
             <CategoryFilter
               categories={productCategories}
               activeSlug={slug}
-              allProducts={filtered}
+              allProducts={allProducts.filter((p) => p.category === slug) as FullProductData[]}
               activePriceBucket={activePriceBucket}
               activeColors={activeColors}
               showOnSale={showOnSale}
