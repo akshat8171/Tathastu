@@ -355,7 +355,7 @@ function CustomizePageInner() {
           <div className="text-center mb-10">
             <h2 className="font-display font-bold text-ink text-2xl sm:text-3xl mb-3">Why print with us?</h2>
             <p className="font-sans text-muted text-sm max-w-md mx-auto">
-              {SITE.name} is a dedicated multi-colour 3D print studio based in Hyderabad — not a generic marketplace.
+              {SITE.name} is a dedicated multi-colour 3D print studio based in Agra — not a generic marketplace.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">

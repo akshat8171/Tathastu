@@ -132,9 +132,9 @@ export default function ShippingPolicyPage() {
                 </thead>
                 <tbody>
                   {[
-                    ['Hyderabad (local)', '1–2 business days'],
-                    ['Telangana / Andhra Pradesh', '2–3 business days'],
-                    ['Metro cities (Delhi, Mumbai, Bangalore, Chennai, Kolkata, Pune)', '3–5 business days'],
+                    ['Agra (local)', '1–2 business days'],
+                    ['Uttar Pradesh / NCR (Delhi, Noida, Gurgaon)', '2–3 business days'],
+                    ['Metro cities (Mumbai, Bangalore, Chennai, Kolkata, Pune, Hyderabad)', '3–5 business days'],
                     ['Tier-2 cities', '4–6 business days'],
                     ['Remote / rural / North-east India', '5–8 business days'],
                   ].map(([region, eta], i) => (

@@ -290,7 +290,7 @@ export default function TermsPage() {
             <p>
               If an amicable resolution is not reached within 30 days, both parties agree to
               submit to the exclusive jurisdiction of the courts located in{' '}
-              <strong>Hyderabad, Telangana, India</strong>.
+              <strong>Agra, Uttar Pradesh, India</strong>.
             </p>
           </section>
 
