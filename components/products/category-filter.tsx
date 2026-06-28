@@ -4,6 +4,10 @@ import Link from 'next/link'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 import type { Category } from '@/lib/categories'
+import { PRICE_BUCKETS } from '@/lib/price-buckets'
+
+// Re-export for backwards compatibility (any other files importing from here)
+export { PRICE_BUCKETS } from '@/lib/price-buckets'
 
 // ── Color swatch hex map ───────────────────────────────────────────────────────
 const COLOR_HEX: Record<string, string> = {
@@ -29,13 +33,7 @@ function swatchHex(name: string): string {
   return COLOR_HEX[name.toLowerCase()] ?? '#9ca3af'
 }
 
-// ── Price buckets ─────────────────────────────────────────────────────────────
-export const PRICE_BUCKETS = [
-  { label: 'Under ₹250',       value: '0-250',     min: 0,    max: 250  },
-  { label: '₹250 – ₹500',      value: '250-500',   min: 250,  max: 500  },
-  { label: '₹500 – ₹1,000',    value: '500-1000',  min: 500,  max: 1000 },
-  { label: 'Over ₹1,000',      value: '1000+',     min: 1000, max: Infinity },
-]
+// Price buckets imported from @/lib/price-buckets (shared with server components)
 
 export interface FacetProduct {
   price: number
