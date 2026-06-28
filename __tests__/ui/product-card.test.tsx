@@ -89,7 +89,7 @@ describe('ProductCard', () => {
 
     it('renders an image with alt text matching the product name', () => {
       renderCard()
-      const img = screen.getByRole('img', { name: 'Rustic Charm Lamp' })
+      const img = screen.getByRole('img', { name: 'Buy Rustic Charm Lamp - 3D printed lamps online India' })
       expect(img).toBeInTheDocument()
     })
 
@@ -155,7 +155,7 @@ describe('ProductCard', () => {
   describe('image rendering', () => {
     it('uses the first image as primary', () => {
       renderCard()
-      const img = screen.getByRole('img', { name: 'Rustic Charm Lamp' })
+      const img = screen.getByRole('img', { name: 'Buy Rustic Charm Lamp - 3D printed lamps online India' })
       expect(img.getAttribute('src')).toBe(
         '/images/products/lamps/lamp1/img1.jpg'
       )
