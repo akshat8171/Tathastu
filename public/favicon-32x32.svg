@@ -1,4 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <!-- Favicon 32x32 - TK on brand teal -->
   <rect width="32" height="32" rx="6" fill="#0E7A66"/>
-  <text x="16" y="22" font-family="system-ui, sans-serif" font-weight="bold" font-size="16" fill="white" text-anchor="middle">T</text>
+
+  <!-- TK monogram white, scaled to fit -->
+  <g transform="translate(3, 3) scale(0.26)">
+    <rect x="8" y="8" width="76" height="18" rx="3" fill="#FFFFFF"/>
+    <rect x="8" y="8" width="18" height="84" rx="3" fill="#FFFFFF"/>
+    <polygon points="26,38 26,28 84,8 84,26 38,42" fill="#FFFFFF"/>
+    <polygon points="26,62 38,58 84,74 84,92 26,72" fill="#FFFFFF"/>
+    <rect x="30" y="44" width="14" height="14" rx="4" fill="#c0e4dd"/>
+  </g>
 </svg>

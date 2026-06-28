@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { SITE } from '@/lib/site'
 
 const shopLinks = [
@@ -52,8 +53,15 @@ export function Footer() {
 
           {/* Column 1 — Brand (spans 2 on lg) */}
           <div className="lg:col-span-2">
-            <Link href="/" className="font-display font-bold text-2xl text-white tracking-tight" aria-label="Tathastu Keepsakes home">
-              Tathastu<span className="text-brand"> Keepsakes</span>
+            <Link href="/" className="flex items-center gap-2.5 font-display font-bold text-2xl text-white tracking-tight" aria-label="Tathastu Keepsakes home">
+              <Image
+                src="/images/logo/tk-mark-white.svg"
+                alt=""
+                width={40}
+                height={40}
+                className="w-10 h-10"
+              />
+              <span>Tathastu<span className="text-brand"> Keepsakes</span></span>
             </Link>
             <p className="mt-4 text-sm font-sans text-white/60 leading-relaxed">
               {SITE.description}

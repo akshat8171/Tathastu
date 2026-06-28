@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useCart } from '@/components/cart/cart-context'
 import { useWishlist } from '@/components/wishlist/wishlist-context'
@@ -63,10 +64,18 @@ export function Header() {
             {/* ── Logo ──────────────────────────────────────── */}
             <Link
               href="/"
-              className="flex items-center font-display font-bold text-xl text-ink tracking-tight"
+              className="flex items-center gap-2 font-display font-bold text-xl text-ink tracking-tight"
               aria-label="Tathastu Keepsakes — home"
             >
-              Tathastu<span className="text-brand"> Keepsakes</span>
+              <Image
+                src="/images/logo/tk-mark.svg"
+                alt=""
+                width={36}
+                height={36}
+                className="w-9 h-9"
+                priority
+              />
+              <span className="hidden sm:inline">Tathastu<span className="text-brand"> Keepsakes</span></span>
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────────── */}
