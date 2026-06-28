@@ -17,7 +17,7 @@
  * httpOnly session cookie set after a Firebase ID token is verified
  * server-side (createSessionCookie). Holds a Firebase session cookie JWT.
  */
-export const FIREBASE_SESSION_COOKIE = '__layerix_fb_session'
+export const FIREBASE_SESSION_COOKIE = '__tathastu_fb_session'
 
 /**
  * How long a Firebase session cookie stays valid. Firebase allows 5 min – 14

@@ -21,6 +21,7 @@ const navItems: NavItem[] = [
   { href: '/products?category=organizers', label: 'Workspace' },
   { href: '/products?category=gaming', label: 'Gaming' },
   { href: '/customize', label: 'Customise Now' },
+  { href: '/blog', label: 'Blog' },
 ]
 
 export function Header() {
@@ -63,9 +64,9 @@ export function Header() {
             <Link
               href="/"
               className="flex items-center font-display font-bold text-xl text-ink tracking-tight"
-              aria-label="Layerix — home"
+              aria-label="Tathastu Keepsakes — home"
             >
-              Layeri<span className="text-brand">x</span>
+              Tathastu<span className="text-brand"> Keepsakes</span>
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────────── */}

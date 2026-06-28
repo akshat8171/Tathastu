@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="grad10" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fb7185;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f43f5e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#grad10)"/>
+
+  <!-- Decorative -->
+  <circle cx="150" cy="120" r="100" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1050" cy="510" r="130" fill="rgba(255,255,255,0.15)"/>
+
+  <!-- Heart icon -->
+  <g transform="translate(600, 240)">
+    <!-- Large heart -->
+    <path d="M 0,20 C 0,20 -80,-40 -50,-80 C -30,-100 0,-90 0,-60 C 0,-90 30,-100 50,-80 C 80,-40 0,20 0,20 Z"
+          fill="rgba(255,255,255,0.95)" stroke="#881337" stroke-width="4"/>
+    <!-- Small heart inside -->
+    <path d="M 0,0 C 0,0 -35,-20 -22,-35 C -12,-43 0,-38 0,-28 C 0,-38 12,-43 22,-35 C 35,-20 0,0 0,0 Z"
+          fill="#fda4af"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="450" font-family="Arial, sans-serif" font-size="46" font-weight="bold" fill="#881337" text-anchor="middle">3D Printed Couple Gifts</text>
+  <text x="600" y="510" font-family="Arial, sans-serif" font-size="36" fill="#9f1239" text-anchor="middle">For Birthdays &amp; Anniversaries</text>
+
+  <!-- Brand -->
+  <text x="600" y="580" font-family="Arial, sans-serif" font-size="24" fill="#881337" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

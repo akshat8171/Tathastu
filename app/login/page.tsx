@@ -15,7 +15,7 @@ export default function LoginPage() {
               </svg>
             </div>
             <h1 className="font-display font-bold text-ink text-2xl sm:text-3xl mb-2">
-              Welcome to Layerix
+              Welcome to Tathastu Keepsakes
             </h1>
             <p className="font-sans text-muted text-sm">
               Sign in to access your account

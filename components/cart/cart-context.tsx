@@ -32,7 +32,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    const saved = localStorage.getItem('layerix-cart')
+    const saved = localStorage.getItem('tathastu-cart')
     if (saved) {
       try { setItems(JSON.parse(saved)) } catch {}
     }
@@ -41,7 +41,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (loaded) {
-      localStorage.setItem('layerix-cart', JSON.stringify(items))
+      localStorage.setItem('tathastu-cart', JSON.stringify(items))
     }
   }, [items, loaded])
 

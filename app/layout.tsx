@@ -7,10 +7,75 @@ import { WhatsAppFloat } from '@/components/layout/whatsapp-float'
 import { CartProvider } from '@/components/cart/cart-context'
 import { WishlistProvider } from '@/components/wishlist/wishlist-context'
 import { CheckoutProvider } from '@/components/checkout/checkout-context'
+import { getOrganizationSchema } from '@/lib/schema'
 
 export const metadata: Metadata = {
-  title: 'Layerix | If it exists, we can print it.',
-  description: 'Premium 3D printed home décor, lamps, planters, workspace organisers, and custom creations. Precision printing from India. If it exists, we can print it.',
+  metadataBase: new URL('https://www.tathastukeepsakes.in'),
+  title: {
+    default: '3D Printing India | Custom 3D Printed Gifts & Keepsakes | Tathastu Keepsakes',
+    template: '%s | Tathastu Keepsakes',
+  },
+  description: 'Leading 3D printing service in India. Buy custom 3D printed gifts, personalised keepsakes, home decor & lamps. Custom 3D printing service from Agra. PAN India delivery. Order 3D printed gifts online.',
+  keywords: [
+    '3D printing India',
+    'custom 3D printed gifts India',
+    '3D printing service',
+    'personalised gifts India',
+    '3D printed home decor',
+    'custom keepsakes online India',
+    '3D printing Agra',
+    '3D printing Uttar Pradesh',
+    '3D printed gifts online',
+    'buy 3D printed items India',
+    '3D printing service Agra',
+    'custom 3D prints',
+    '3D printed keychains',
+    '3D printed lamps India',
+  ],
+  authors: [{ name: 'Tathastu Keepsakes' }],
+  creator: 'Tathastu Keepsakes',
+  publisher: 'Tathastu Keepsakes',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  openGraph: {
+    title: '3D Printing India | Custom 3D Printed Gifts | Tathastu Keepsakes',
+    description: 'Buy custom 3D printed gifts, keepsakes & home decor. Leading 3D printing service in India with PAN India delivery from Agra.',
+    type: 'website',
+    locale: 'en_IN',
+    siteName: 'Tathastu Keepsakes',
+    url: 'https://www.tathastukeepsakes.in',
+    images: [
+      {
+        url: '/images/logo/logo-og.png',
+        width: 1200,
+        height: 630,
+        alt: 'Tathastu Keepsakes - 3D Printing India',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: '3D Printing India | Custom 3D Printed Gifts | Tathastu Keepsakes',
+    description: 'Leading 3D printing service in India. Custom 3D printed gifts, keepsakes & home decor with PAN India delivery.',
+    images: ['/images/logo/logo-og.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://www.tathastukeepsakes.in',
+  },
 }
 
 export default function RootLayout({
@@ -18,12 +83,33 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const organizationSchema = getOrganizationSchema()
+
   return (
     <html lang="en" data-scroll-behavior="smooth">
       <head>
-        {/* Google Fonts preconnect for performance */}
+        {/* Viewport for responsive design */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+
+        {/* Preconnect hints for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
+        <link rel="preconnect" href="https://checkout.razorpay.com" />
+
+        {/* Favicons */}
+        <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg" />
+        <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.svg" />
+
+        {/* Theme color for mobile browsers */}
+        <meta name="theme-color" content="#0E7A66" />
+
+        {/* Organization Schema JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
       </head>
       <body className="min-h-screen flex flex-col">
         <CartProvider>

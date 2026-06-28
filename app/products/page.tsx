@@ -1,11 +1,37 @@
 import './products.css'
 import { Suspense } from 'react'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { getProductCategories, getCategoryBySlug } from '@/lib/categories'
 import { CategoryFilter, PRICE_BUCKETS } from '@/components/products/category-filter'
 import { CatalogClient } from './catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
 import productsJson from '@/lib/products.json'
+import { SITE } from '@/lib/site'
+
+export const metadata: Metadata = {
+  title: `Buy 3D Printed Gifts Online India | Shop Custom 3D Prints | ${SITE.name}`,
+  description: `Shop 3D printed gifts online India - custom keychains, lamps, home decor, desk organisers & personalised gifts. Buy 3D printed items with PAN India delivery. Premium 3D printing products from Agra. COD available.`,
+  keywords: [
+    'buy 3D printed gifts online India',
+    'shop 3D prints India',
+    '3D printed items online',
+    'custom 3D printed keychains',
+    '3D printed lamps India',
+    '3D printed home decor buy',
+    'personalised 3D gifts shop',
+    '3D printed desk accessories',
+    'buy custom 3D prints',
+    '3D printing products India',
+    'order 3D printed gifts',
+  ],
+  openGraph: {
+    title: `Buy 3D Printed Gifts Online | Shop Custom 3D Prints India | ${SITE.name}`,
+    description: 'Shop premium 3D printed gifts - keychains, lamps, home decor & more. PAN India delivery from Agra.',
+    type: 'website',
+    locale: 'en_IN',
+  },
+}
 
 // ── Trust chips shown in the hero band ──────────────────────────────────────
 const TRUST_CHIPS = [
@@ -140,7 +166,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         <div className="container-page py-8 md:py-10">
           <div className="max-w-2xl">
             <p className="text-xs font-display font-semibold uppercase tracking-widest text-brand mb-2">
-              Layerix Collection
+              Tathastu Keepsakes Collection
             </p>
             <h1 className="font-display font-bold text-2xl md:text-3xl text-ink leading-tight mb-3">
               {categoryTitle}

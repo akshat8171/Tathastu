@@ -50,7 +50,7 @@ export default function AdminLoginPage() {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full shadow-lg mb-4">
             <Lock className="w-8 h-8 text-brand" />
           </div>
-          <h1 className="text-3xl font-display font-bold text-white">Layerix Admin</h1>
+          <h1 className="text-3xl font-display font-bold text-white">Tathastu Admin</h1>
           <p className="text-brand-100 mt-2">Sign in to access the admin dashboard</p>
         </div>
 

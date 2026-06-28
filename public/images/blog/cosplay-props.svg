@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="grad11" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#818cf8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#grad11)"/>
+
+  <!-- Decorative -->
+  <circle cx="170" cy="135" r="105" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="1030" cy="495" r="115" fill="rgba(255,255,255,0.12)"/>
+
+  <!-- Mask and shield icon -->
+  <g transform="translate(600, 230)">
+    <!-- Shield -->
+    <path d="M -80,-40 L -80,20 Q -80,70 -40,90 Q 0,100 0,100 L 0,-40 Z"
+          fill="rgba(255,255,255,0.8)" stroke="#312e81" stroke-width="3"/>
+    <path d="M 0,-40 L 0,100 Q 0,100 40,90 Q 80,70 80,20 L 80,-40 Z"
+          fill="rgba(255,255,255,0.95)" stroke="#312e81" stroke-width="3"/>
+    <!-- Mask -->
+    <ellipse cx="-20" cy="-10" rx="50" ry="45" fill="rgba(255,255,255,0.95)" stroke="#312e81" stroke-width="3"/>
+    <!-- Eye holes -->
+    <ellipse cx="-35" cy="-15" rx="12" ry="18" fill="#312e81"/>
+    <ellipse cx="-5" cy="-15" rx="12" ry="18" fill="#312e81"/>
+    <!-- Nose area -->
+    <path d="M -20,5 L -30,15 L -20,20 L -10,15 Z" fill="#312e81"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="460" font-family="Arial, sans-serif" font-size="46" font-weight="bold" fill="#312e81" text-anchor="middle">3D Printed Cosplay Props</text>
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="36" fill="#3730a3" text-anchor="middle">&amp; Collectibles</text>
+
+  <!-- Brand -->
+  <text x="600" y="590" font-family="Arial, sans-serif" font-size="24" fill="#312e81" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

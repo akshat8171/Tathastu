@@ -140,7 +140,7 @@ export function ProductInfo({
   const displayBenefits = benefits && benefits.length > 0 ? benefits : DEFAULT_BENEFITS
 
   // Build WA link with product context
-  const waHref = waLink(`Hi, I have a question about "${name}" (layerix.in/products/${productId})`)
+  const waHref = waLink(`Hi, I have a question about "${name}" (tathastukeepsakes.in/products/${productId})`)
 
   return (
     <div className="flex flex-col gap-5">
@@ -407,7 +407,7 @@ export function ProductInfo({
           )}
           {whyBuy && (
             <div className="bg-surface rounded-xl p-4">
-              <h3 className="font-display font-semibold text-sm text-ink mb-1.5">Why buy from Layerix?</h3>
+              <h3 className="font-display font-semibold text-sm text-ink mb-1.5">Why buy from Tathastu Keepsakes?</h3>
               <p className="text-sm text-muted font-sans leading-relaxed">{whyBuy}</p>
             </div>
           )}

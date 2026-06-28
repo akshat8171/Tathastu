@@ -1,5 +1,5 @@
 /**
- * Layerix — Homepage
+ * Tathastu Keepsakes — Homepage
  *
  * Server component that composes all homepage sections.
  * Sections that rely on useCart (ProductCard) are wrapped in
@@ -17,10 +17,19 @@ import { IdeaCta }             from '@/components/homepage/idea-cta'
 import { PhotoUploadSection }  from '@/components/homepage/photo-upload-section'
 import { InstagramReels }      from '@/components/homepage/instagram-reels'
 import { NewsletterForm }      from '@/components/layout/newsletter-form'
+import { getWebSiteSchema } from '@/lib/schema'
 
 export default function HomePage() {
+  const webSiteSchema = getWebSiteSchema()
+
   return (
     <>
+      {/* WebSite Schema JSON-LD for sitelinks search box */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+      />
+
       {/* 1. Hero carousel (with WhatsApp secondary CTA) */}
       <HeroCarousel />
 

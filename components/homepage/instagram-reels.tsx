@@ -20,19 +20,19 @@ interface Reel {
   thumbnail: string
 }
 
-// Hardcoded list of Instagram reels from @layerix.in
+// Hardcoded list of Instagram reels from @tathastukeepsakes.in
 // Thumbnails use placeholder SVGs — replace with actual reel screenshots when available
 const REELS: Reel[] = [
-  { id: '1', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-1.svg' },
-  { id: '2', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-2.svg' },
-  { id: '3', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-3.svg' },
-  { id: '4', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-4.svg' },
-  { id: '5', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-5.svg' },
-  { id: '6', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-6.svg' },
-  { id: '7', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-7.svg' },
-  { id: '8', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-8.svg' },
-  { id: '9', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-9.svg' },
-  { id: '10', url: 'https://www.instagram.com/layerix.in/', thumbnail: '/images/reels/reel-10.svg' },
+  { id: '1', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-1.svg' },
+  { id: '2', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-2.svg' },
+  { id: '3', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-3.svg' },
+  { id: '4', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-4.svg' },
+  { id: '5', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-5.svg' },
+  { id: '6', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-6.svg' },
+  { id: '7', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-7.svg' },
+  { id: '8', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-8.svg' },
+  { id: '9', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-9.svg' },
+  { id: '10', url: 'https://www.instagram.com/tathastukeepsakes.in/', thumbnail: '/images/reels/reel-10.svg' },
 ]
 
 export function InstagramReels() {
@@ -48,12 +48,12 @@ export function InstagramReels() {
             Follow us on Instagram
           </h2>
           <Link
-            href="https://www.instagram.com/layerix.in/"
+            href="https://www.instagram.com/tathastukeepsakes.in/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary-600 hover:text-primary-700 font-medium inline-flex items-center gap-1 transition-colors"
           >
-            @layerix.in
+            @tathastukeepsakes.in
             <svg
               className="w-4 h-4"
               fill="currentColor"

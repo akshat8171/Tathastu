@@ -1,10 +1,10 @@
-# Layerix
+# Tathastu Keepsakes
 
 > **"If it exists, we can print it."**
 
-A full-featured e-commerce platform for 3D-printed miniatures, lamps, home decor, and custom prints. Built with Next.js 14, TypeScript, Tailwind CSS, Supabase, Firebase, and Razorpay.
+A full-featured e-commerce platform for 3D-printed miniatures, lamps, home decor, and custom prints. Built with Next.js 16, TypeScript, Tailwind CSS, Supabase, Firebase, and Razorpay.
 
-**Live:** https://layerixx-layerixs-projects.vercel.app
+**Live:** https://www.tathastukeepsakes.in
 
 ---
 

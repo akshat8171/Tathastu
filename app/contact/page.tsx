@@ -1,17 +1,43 @@
 import type { Metadata } from 'next'
 import { SITE } from '@/lib/site'
+import { getLocalBusinessSchema } from '@/lib/schema'
 import { ContactForm } from './contact-form'
 
 export const metadata: Metadata = {
-  title: `Contact Us — ${SITE.name}`,
-  description: `Get in touch with ${SITE.name}. We are available via WhatsApp, phone, email, and our contact form — ${SITE.supportHours}.`,
+  title: `Contact Tathastu Keepsakes | 3D Printing Agra Phone Number | Custom 3D Prints Enquiry`,
+  description: `Contact Tathastu Keepsakes for 3D printing services. Call ${SITE.phone} - 3D printing Agra contact number. WhatsApp enquiry for custom 3D prints, bulk orders, personalised gifts. Email: ${SITE.email}. Get quote for 3D printed items India.`,
+  keywords: [
+    '3D printing Agra contact',
+    'Tathastu Keepsakes phone number',
+    '3D printing service contact India',
+    'custom 3D printing enquiry',
+    '3D printing Agra phone',
+    'bulk 3D printing order contact',
+    'personalised gifts enquiry India',
+    '3D prints quote India',
+  ],
+  openGraph: {
+    title: `Contact ${SITE.name} | 3D Printing Service Agra India`,
+    description: 'Get in touch for custom 3D printing services. WhatsApp, phone & email support available.',
+    type: 'website',
+    locale: 'en_IN',
+  },
 }
 
 export default function ContactPage() {
+  const localBusinessSchema = getLocalBusinessSchema()
+
   return (
-    <main className="bg-white py-16 px-4">
-      <div className="container-page max-w-5xl">
-        {/* Page header */}
+    <>
+      {/* LocalBusiness Schema JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
+
+      <main className="bg-white py-16 px-4">
+        <div className="container-page max-w-5xl">
+          {/* Page header */}
         <div className="mb-12 text-center">
           <span className="inline-block bg-brand/10 text-brand text-xs font-display font-semibold uppercase tracking-widest px-4 py-1.5 rounded-pill mb-4">
             Get in Touch
@@ -92,7 +118,7 @@ export default function ContactPage() {
                   href={SITE.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Layerix on Instagram"
+                  aria-label="Tathastu Keepsakes on Instagram"
                   className="w-10 h-10 rounded-xl bg-surface border border-gray-100 flex items-center justify-center text-muted hover:text-brand hover:border-brand/30 transition-colors duration-150"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -103,7 +129,7 @@ export default function ContactPage() {
                   href={SITE.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Layerix on Facebook"
+                  aria-label="Tathastu Keepsakes on Facebook"
                   className="w-10 h-10 rounded-xl bg-surface border border-gray-100 flex items-center justify-center text-muted hover:text-brand hover:border-brand/30 transition-colors duration-150"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -114,7 +140,7 @@ export default function ContactPage() {
                   href={SITE.whatsapp}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Chat with Layerix on WhatsApp"
+                  aria-label="Chat with Tathastu Keepsakes on WhatsApp"
                   className="w-10 h-10 rounded-xl bg-surface border border-gray-100 flex items-center justify-center text-muted hover:text-green-600 hover:border-green-200 transition-colors duration-150"
                 >
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -141,5 +167,6 @@ export default function ContactPage() {
         </div>
       </div>
     </main>
+    </>
   )
 }

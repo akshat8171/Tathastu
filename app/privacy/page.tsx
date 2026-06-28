@@ -30,7 +30,7 @@ export default function PrivacyPage() {
             At <strong className="text-ink">{SITE.name}</strong> (&quot;we&quot;, &quot;us&quot;,
             or &quot;our&quot;), we are committed to protecting your privacy. This Privacy Policy
             explains how we collect, use, disclose, and safeguard your information when you visit{' '}
-            <span className="text-brand font-medium">layerix.in</span> and place orders with us.
+            <span className="text-brand font-medium">tathastukeepsakes.in</span> and place orders with us.
             Please read this policy carefully. If you disagree with its terms, please discontinue
             use of the site.
           </p>

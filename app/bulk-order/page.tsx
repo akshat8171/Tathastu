@@ -37,7 +37,7 @@ const contactMethods = [
     ),
     title: 'WhatsApp',
     value: SITE.phone,
-    href: waLink('Hi! I am interested in a bulk order from Layerix.'),
+    href: waLink('Hi! I am interested in a bulk order from Tathastu Keepsakes.'),
     label: 'Chat on WhatsApp',
     external: true,
   },

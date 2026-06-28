@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import type { Metadata } from 'next'
 import { ProductGallery } from '@/components/products/product-gallery'
 import { ProductInfo } from '@/components/products/product-info'
 import { ProductCard } from '@/components/ui/product-card'
@@ -8,6 +9,7 @@ import { getCategoryBySlug } from '@/lib/categories'
 import { getReviewsForProduct, getAverageRating } from '@/lib/reviews'
 import productsJson from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui/product-card'
+import { SITE } from '@/lib/site'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -45,6 +47,51 @@ interface FullProduct extends ProductCardData {
 
 export function generateStaticParams() {
   return (productsJson as FullProduct[]).map((p) => ({ id: p.id }))
+}
+
+// ── Dynamic Metadata ──────────────────────────────────────────────────────────
+
+export async function generateMetadata({ params }: ProductPageParams): Promise<Metadata> {
+  const { id } = await params
+  const products = productsJson as FullProduct[]
+  const product = products.find((p) => p.id === id)
+
+  if (!product) return {}
+
+  const category = getCategoryBySlug(product.category)
+  const categoryName = category?.displayName ?? 'Product'
+  const discount = product.originalPrice
+    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+    : 0
+
+  const priceTag = product.originalPrice
+    ? `₹${product.price} (${discount}% Off)`
+    : `₹${product.price}`
+
+  return {
+    title: `Buy ${product.name} | 3D Printed ${categoryName} Online India | ${priceTag}`,
+    description: `${product.description} Buy ${product.name} online - 3D printed ${categoryName} at ${priceTag}. ${product.rating}★ rated. Custom 3D printing. PAN India delivery from ${SITE.name}, Agra. COD available.`,
+    keywords: [
+      `buy ${product.name}`,
+      `${product.name} online India`,
+      `3D printed ${categoryName}`,
+      `custom ${categoryName}`,
+      `${product.name} price`,
+      '3D printed gifts India',
+      'buy 3D prints online',
+      'personalised gifts India',
+    ],
+    openGraph: {
+      title: `${product.name} | ${priceTag} | ${SITE.name}`,
+      description: `${product.description} Buy now with PAN India delivery.`,
+      type: 'website',
+      locale: 'en_IN',
+      images: product.images.map((img) => ({
+        url: img,
+        alt: product.name,
+      })),
+    },
+  }
 }
 
 // ── Page ──────────────────────────────────────────────────────────────────────

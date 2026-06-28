@@ -1,5 +1,5 @@
 /**
- * lib/site.ts — Single source of truth for Layerix business identity.
+ * lib/site.ts — Single source of truth for Tathastu Keepsakes business identity.
  *
  * FROZEN CONTRACT: imported by footer, announcement-bar, whatsapp-float,
  * content pages, and all other consumers. Never hardcode contact details
@@ -7,20 +7,20 @@
  */
 
 export const SITE = {
-  name: 'Layerix',
-  tagline: "India's multi-colour 3D printing store",
+  name: 'Tathastu Keepsakes',
+  tagline: "India's Premium 3D Printing & Custom Keepsakes Store",
   description:
-    'Premium 3D-printed home décor, workspace accessories, keyrings, and custom prints — crafted layer by layer and shipped across India.',
+    'Premium 3D-printed keepsakes, home decor, custom gifts, and personalised prints — crafted layer by layer in Agra and shipped across India.',
   phone: '+91 91548 92790',
   phoneTel: 'tel:+919154892790',
-  email: 'layerix.in@gmail.com',
+  email: 'tathastukeepsakes@gmail.com',
   whatsapp: 'https://wa.me/919154892790',
   whatsappNumber: '919154892790',
-  instagram: 'https://instagram.com/layerix.in', // placeholder until owner confirms handle
-  facebook: 'https://facebook.com/layerix.in', // placeholder until owner confirms handle
+  instagram: 'https://instagram.com/tathastukeepsakes', // placeholder until owner confirms handle
+  facebook: 'https://facebook.com/tathastukeepsakes', // placeholder until owner confirms handle
   addressLines: ['Agra, Uttar Pradesh', 'India'],
   supportHours: 'Mon–Sat, 10am–7pm IST',
-  copyrightName: 'Layerix',
+  copyrightName: 'Tathastu Keepsakes',
 } as const
 
 /**

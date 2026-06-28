@@ -21,6 +21,7 @@ const serviceLinks = [
 
 const policyLinks = [
   { href: '/about', label: 'About Us' },
+  { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact Us' },
   { href: '/faqs', label: 'FAQs' },
   { href: '/shipping-policy', label: 'Shipping Policy' },
@@ -41,7 +42,7 @@ export function Footer() {
           className="font-display font-extrabold uppercase tracking-widest text-white/[0.04] select-none"
           style={{ fontSize: 'clamp(3rem, 12vw, 10rem)', lineHeight: '0.85' }}
         >
-          LAYERIX
+          TATHASTU
         </span>
       </div>
 
@@ -51,8 +52,8 @@ export function Footer() {
 
           {/* Column 1 — Brand (spans 2 on lg) */}
           <div className="lg:col-span-2">
-            <Link href="/" className="font-display font-bold text-2xl text-white tracking-tight" aria-label="Layerix home">
-              Layeri<span className="text-brand">x</span>
+            <Link href="/" className="font-display font-bold text-2xl text-white tracking-tight" aria-label="Tathastu Keepsakes home">
+              Tathastu<span className="text-brand"> Keepsakes</span>
             </Link>
             <p className="mt-4 text-sm font-sans text-white/60 leading-relaxed">
               {SITE.description}
@@ -64,7 +65,7 @@ export function Footer() {
                 href={SITE.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow Layerix on Instagram"
+                aria-label="Follow Tathastu Keepsakes on Instagram"
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-brand hover:text-white transition-colors"
               >
                 {/* Instagram */}
@@ -76,7 +77,7 @@ export function Footer() {
                 href={SITE.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Follow Layerix on Facebook"
+                aria-label="Follow Tathastu Keepsakes on Facebook"
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-brand hover:text-white transition-colors"
               >
                 {/* Facebook */}
@@ -88,7 +89,7 @@ export function Footer() {
                 href={SITE.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Chat with Layerix on WhatsApp"
+                aria-label="Chat with Tathastu Keepsakes on WhatsApp"
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-[#25D366] hover:text-white transition-colors"
               >
                 {/* WhatsApp */}

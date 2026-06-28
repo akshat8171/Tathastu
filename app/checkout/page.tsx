@@ -2,7 +2,7 @@ import { CheckoutForm } from '@/components/checkout/checkout-form'
 import { OrderSummary } from '@/components/checkout/order-summary'
 
 export const metadata = {
-  title: 'Checkout — Layerix',
+  title: 'Checkout — Tathastu Keepsakes',
 }
 
 export default function CheckoutPage() {

@@ -1,5 +1,5 @@
 /**
- * Layerix — sample customer reviews.
+ * Tathastu Keepsakes — sample customer reviews.
  *
  * Self-contained; no database dependency.
  * Use getReviewsForProduct(productId) on PDPs and featuredReviews on the homepage.
@@ -48,7 +48,7 @@ const allReviews: Review[] = [
     location: 'Bengaluru',
     rating: 5,
     title: 'Gifted this and my friend loved it',
-    body: 'Bought as a housewarming gift. My friend was absolutely thrilled — said it tied the whole living room together. The Layerix gift packaging is also a nice touch.',
+    body: 'Bought as a housewarming gift. My friend was absolutely thrilled — said it tied the whole living room together. The Tathastu Keepsakes gift packaging is also a nice touch.',
     date: '28 May 2026',
     verified: true,
   },
@@ -96,7 +96,7 @@ const allReviews: Review[] = [
     location: 'Bengaluru',
     rating: 5,
     title: 'Bought three, one for each room!',
-    body: 'I liked it so much after the first order that I bought two more. The quality is consistent across all three. Layerix ships really well — zero damage. Highly recommend.',
+    body: 'I liked it so much after the first order that I bought two more. The quality is consistent across all three. Tathastu Keepsakes ships really well — zero damage. Highly recommend.',
     date: '1 Jun 2026',
     verified: true,
   },
@@ -157,7 +157,7 @@ const allReviews: Review[] = [
     location: 'Kolkata',
     rating: 5,
     title: 'The magnets are genius!',
-    body: 'Who puts magnets in a tissue box holder? Layerix does. I stuck it to my fridge and it has been there for two months, perfectly stable. Such a smart design.',
+    body: 'Who puts magnets in a tissue box holder? Tathastu Keepsakes does. I stuck it to my fridge and it has been there for two months, perfectly stable. Such a smart design.',
     date: '7 Jun 2026',
     verified: true,
   },

@@ -1,0 +1,12 @@
+# robots.txt for Tathastu Keepsakes
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes from crawling
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://www.tathastukeepsakes.in/sitemap.xml

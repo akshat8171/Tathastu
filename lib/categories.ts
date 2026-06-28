@@ -1,5 +1,5 @@
 /**
- * Layerix — canonical category taxonomy.
+ * Tathastu Keepsakes — canonical category taxonomy.
  *
  * Slugs must match the `category` field in lib/products.json.
  * Images must be real files in public/images/.

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="grad8" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#grad8)"/>
+
+  <!-- Decorative -->
+  <circle cx="180" cy="140" r="110" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="1020" cy="490" r="120" fill="rgba(255,255,255,0.12)"/>
+
+  <!-- Camera/Photo frame icon -->
+  <g transform="translate(600, 240)">
+    <!-- Frame -->
+    <rect x="-80" y="-60" width="160" height="120" rx="8" fill="rgba(255,255,255,0.95)" stroke="#1f2937" stroke-width="4"/>
+    <!-- Inner photo area -->
+    <rect x="-65" y="-45" width="130" height="90" fill="#fed7aa"/>
+    <!-- Camera lens -->
+    <circle cx="0" cy="0" r="35" fill="#1f2937" opacity="0.3"/>
+    <circle cx="0" cy="0" r="22" fill="#374151" opacity="0.5"/>
+    <!-- Corner mounts -->
+    <circle cx="-70" cy="-50" r="6" fill="#9ca3af"/>
+    <circle cx="70" cy="-50" r="6" fill="#9ca3af"/>
+    <circle cx="-70" cy="50" r="6" fill="#9ca3af"/>
+    <circle cx="70" cy="50" r="6" fill="#9ca3af"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="450" font-family="Arial, sans-serif" font-size="46" font-weight="bold" fill="#ffffff" text-anchor="middle">3D Printed Photo Portraits</text>
+  <text x="600" y="510" font-family="Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.9)" text-anchor="middle">&amp; Lithophanes</text>
+
+  <!-- Brand -->
+  <text x="600" y="580" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

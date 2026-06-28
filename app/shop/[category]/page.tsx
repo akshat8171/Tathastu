@@ -46,9 +46,32 @@ export async function generateMetadata({
   const { category: slug } = await params
   const cat = getCategoryBySlug(slug)
   if (!cat) return {}
+
+  // SEO-optimized keywords per category
+  const categoryKeywords: Record<string, string[]> = {
+    keyrings: ['3D printed keychains India', 'custom keychain online', 'personalised keyring buy', '3D keychain gifts'],
+    lamps: ['3D printed lamps India', 'custom lamp buy', 'designer lamps online', '3D lighting decor'],
+    organisers: ['3D printed desk organiser', 'custom organiser India', 'desk accessories buy', '3D office decor'],
+    planters: ['3D printed planters India', 'custom planters buy', 'designer plant pots', '3D garden decor'],
+  }
+
   return {
-    title: `${cat.displayName} — 3D Printed, Made in India | Layerix`,
-    description: cat.description,
+    title: `Buy ${cat.displayName} | 3D Printed ${cat.displayName} Online India | Tathastu Keepsakes`,
+    description: `Shop premium 3D printed ${cat.displayName} online. ${cat.description} Buy custom ${cat.displayName} with PAN India delivery from Agra. COD available.`,
+    keywords: [
+      `buy ${cat.displayName} online India`,
+      `3D printed ${cat.displayName}`,
+      `custom ${cat.displayName} India`,
+      ...(categoryKeywords[slug] || []),
+      '3D printing India',
+      'personalised gifts',
+    ],
+    openGraph: {
+      title: `Buy ${cat.displayName} | 3D Printed Online India | Tathastu Keepsakes`,
+      description: `Shop ${cat.displayName} - ${cat.description}`,
+      type: 'website',
+      locale: 'en_IN',
+    },
   }
 }
 
@@ -134,7 +157,7 @@ export default async function ShopCategoryPage({
         <div className="container-page py-8 md:py-10">
           <div className="max-w-2xl">
             <p className="text-xs font-display font-semibold uppercase tracking-widest text-brand mb-2">
-              Layerix Collection
+              Tathastu Keepsakes Collection
             </p>
             <h1 className="font-display font-bold text-2xl md:text-3xl text-ink leading-tight mb-3">
               {cat.displayName}

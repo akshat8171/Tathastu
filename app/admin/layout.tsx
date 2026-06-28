@@ -46,7 +46,7 @@ export default function AdminLayout({
         {/* Logo */}
         <div className="p-6 border-b border-ink-soft">
           <Link href="/admin" className="text-2xl font-display font-bold text-white hover:text-brand-200 transition-colors">
-            Layerix Admin
+            Tathastu Admin
           </Link>
         </div>
 

@@ -773,7 +773,7 @@ function CustomizePageInner() {
                 <a
                   href={`mailto:${SITE.email}`}
                   className="flex items-center gap-3 p-4 rounded-2xl border border-gray-100 hover:border-brand/30 hover:bg-brand/5 transition-colors group"
-                  aria-label="Email Layerix"
+                  aria-label="Email Tathastu Keepsakes"
                 >
                   <div className="w-10 h-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center flex-shrink-0">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24">

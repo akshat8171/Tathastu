@@ -1,13 +1,28 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE } from '@/lib/site'
+import { getFAQSchema } from '@/lib/schema'
 import { FaqAccordion } from '@/components/faq/faq-accordion'
 import type { FaqGroup } from '@/components/faq/faq-accordion'
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
 
 export const metadata: Metadata = {
-  title: `FAQs — ${SITE.name}`,
-  description: `Frequently asked questions about ordering, customisation, shipping, returns, and payments at ${SITE.name}.`,
+  title: `FAQs - 3D Printing India | Custom 3D Printing Questions`,
+  description: `Frequently asked questions about 3D printing service, custom 3D prints, ordering, shipping, returns & payments. Learn about our 3D printing process, bulk orders & pan-India delivery from ${SITE.name}.`,
+  keywords: [
+    '3D printing FAQs India',
+    'custom 3D printing questions',
+    '3D printing service FAQ',
+    'how does 3D printing work',
+    'bulk 3D printing orders India',
+    'Tathastu Keepsakes help',
+    '3D printing shipping India',
+  ],
+  openGraph: {
+    title: `FAQs - 3D Printing India | ${SITE.name}`,
+    description: 'All your questions about 3D printing service, custom prints, ordering & shipping answered.',
+    type: 'website',
+  },
 }
 
 const faqGroups: FaqGroup[] = [
@@ -336,10 +351,27 @@ const faqGroups: FaqGroup[] = [
 ]
 
 export default function FaqsPage() {
+  // Flatten all FAQs for schema markup (convert React nodes to text)
+  const allFaqs = faqGroups.flatMap(group =>
+    group.items.map(item => ({
+      question: item.question,
+      answer: typeof item.answer === 'string' ? item.answer : 'Visit the page for full details.',
+    }))
+  )
+
+  const faqSchema = getFAQSchema(allFaqs)
+
   return (
-    <main className="bg-white py-16 px-4">
-      <div className="container-page max-w-3xl">
-        {/* Page header */}
+    <>
+      {/* FAQ Schema JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
+      <main className="bg-white py-16 px-4">
+        <div className="container-page max-w-3xl">
+          {/* Page header */}
         <div className="mb-12 text-center">
           <span className="inline-block bg-brand/10 text-brand text-xs font-display font-semibold uppercase tracking-widest px-4 py-1.5 rounded-pill mb-4">
             Help Centre
@@ -392,5 +424,6 @@ export default function FaqsPage() {
         </div>
       </div>
     </main>
+    </>
   )
 }

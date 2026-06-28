@@ -28,7 +28,7 @@ export default function TermsPage() {
           {/* Intro */}
           <p className="text-lg">
             These Terms &amp; Conditions (&quot;Terms&quot;) govern your access to and use of the
-            website <span className="text-brand font-medium">layerix.in</span> and all services
+            website <span className="text-brand font-medium">tathastukeepsakes.in</span> and all services
             provided by <strong className="text-ink">{SITE.name}</strong> (&quot;we&quot;,
             &quot;us&quot;, or &quot;our&quot;). By placing an order or using our website, you
             agree to be bound by these Terms. Please read them carefully before purchasing.
@@ -199,7 +199,7 @@ export default function TermsPage() {
               7. Intellectual Property &amp; Custom Uploads
             </h2>
             <p className="mb-3">
-              All content on <span className="text-brand">layerix.in</span> — including logos,
+              All content on <span className="text-brand">tathastukeepsakes.in</span> — including logos,
               product photos, designs, text, and software — is the property of {SITE.name} or its
               licensors and is protected under applicable Indian and international IP laws.
             </p>

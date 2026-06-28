@@ -12,7 +12,7 @@ import { createContext, useContext, useState, useEffect, useCallback, ReactNode 
  *
  * GUEST SUPPORT (P2):
  * When the API returns 401, we fall back to a localStorage-backed guest wishlist
- * (key: "layerix-wishlist-guest"). On the next sign-in the caller can merge by
+ * (key: "tathastu-wishlist-guest"). On the next sign-in the caller can merge by
  * reading the guest ids and re-toggling them — the merge itself is future work but
  * the storage layer is ready.
  *
@@ -20,7 +20,7 @@ import { createContext, useContext, useState, useEffect, useCallback, ReactNode 
  * mounted alongside it in app/layout.tsx.
  */
 
-const GUEST_WISHLIST_KEY = 'layerix-wishlist-guest'
+const GUEST_WISHLIST_KEY = 'tathastu-wishlist-guest'
 
 function loadGuestWishlist(): Set<string> {
   if (typeof window === 'undefined') return new Set()
