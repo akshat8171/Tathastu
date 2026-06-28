@@ -68,12 +68,13 @@ export function Header() {
               aria-label="Tathastu Keepsakes — home"
             >
               <Image
-                src="/images/logo/tk-mark.svg"
+                src="/images/logo/tk-mark.png"
                 alt=""
                 width={36}
                 height={36}
                 className="w-9 h-9"
                 priority
+                unoptimized
               />
               <span className="hidden sm:inline">Tathastu<span className="text-brand"> Keepsakes</span></span>
             </Link>

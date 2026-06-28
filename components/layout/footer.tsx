@@ -55,11 +55,12 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 font-display font-bold text-2xl text-white tracking-tight" aria-label="Tathastu Keepsakes home">
               <Image
-                src="/images/logo/tk-mark-white.svg"
+                src="/images/logo/tk-mark-white.png"
                 alt=""
                 width={40}
                 height={40}
                 className="w-10 h-10"
+                unoptimized
               />
               <span>Tathastu<span className="text-brand"> Keepsakes</span></span>
             </Link>
