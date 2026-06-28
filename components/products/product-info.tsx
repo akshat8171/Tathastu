@@ -284,6 +284,7 @@ export function ProductInfo({
               originalPrice: originalPrice ?? price,
               image,
             }}
+            quantity={quantity}
             label={ctaLabel}
             disabled={ctaDisabled}
             customText={customTextValue || undefined}

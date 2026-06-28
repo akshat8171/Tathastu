@@ -98,7 +98,7 @@ export function LoginForm() {
   }
 
   return (
-    <form className="w-full max-w-sm mx-auto space-y-4">
+    <form onSubmit={handlePasswordLogin} className="w-full max-w-sm mx-auto space-y-4">
       {/* Single identifier field */}
       <div>
         <label htmlFor="identifier" className="block text-sm font-medium text-ink mb-2 font-sans">

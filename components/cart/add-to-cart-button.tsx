@@ -42,6 +42,8 @@ export interface AddToCartButtonProps {
   customText?: string
   /** Optional selected options map to carry into the cart item */
   selectedOptions?: Record<string, string>
+  /** Quantity to add (defaults to 1) */
+  quantity?: number
 }
 
 export function AddToCartButton({
@@ -54,6 +56,7 @@ export function AddToCartButton({
   disabled = false,
   customText,
   selectedOptions,
+  quantity = 1,
 }: AddToCartButtonProps) {
   const { addItem } = useCart()
   const [added, setAdded] = useState(false)
@@ -69,7 +72,7 @@ export function AddToCartButton({
       variant: product.variant || 'Default',
       price: product.price,
       originalPrice: product.originalPrice,
-      quantity: 1,
+      quantity,
       image: product.image,
       ...(customText ? { customText } : {}),
       ...(selectedOptions ? { selectedOptions } : {}),
