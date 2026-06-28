@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <!-- TK Monogram (White version for dark backgrounds) -->
+  <!-- TK Monogram White (for dark backgrounds) -->
 
-  <!-- T: wide crossbar -->
-  <rect x="5" y="0" width="90" height="18" rx="2" fill="#FFFFFF"/>
+  <!-- T: crossbar -->
+  <rect x="8" y="6" width="84" height="16" rx="2.5" fill="#FFFFFF"/>
 
   <!-- T: vertical stem -->
-  <rect x="33" y="0" width="16" height="78" rx="1" fill="#FFFFFF"/>
+  <rect x="33" y="6" width="15" height="72" rx="2" fill="#FFFFFF"/>
 
   <!-- K: upper arm -->
-  <polygon points="49,35 49,50 82,18 95,0 85,0" fill="#FFFFFF"/>
+  <polygon points="48,40 48,46 92,22 92,6 78,6" fill="#FFFFFF"/>
 
   <!-- K: lower arm -->
-  <polygon points="49,52 49,62 85,98 98,98 98,88" fill="#FFFFFF"/>
+  <polygon points="48,50 48,56 78,94 92,94 92,80" fill="#FFFFFF"/>
 
   <!-- Accent dot -->
-  <rect x="35" y="80" width="12" height="12" rx="3" fill="#a6b706"/>
+  <rect x="35" y="82" width="11" height="11" rx="3" fill="#0E7A66"/>
 </svg>
