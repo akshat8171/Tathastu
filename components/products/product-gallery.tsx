@@ -30,7 +30,6 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
           priority
           sizes="(max-width: 768px) 100vw, 50vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
-          unoptimized
         />
 
         {/* Prev / Next arrows — only if multiple images */}
@@ -91,7 +90,6 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 fill
                 sizes="72px"
                 className="object-cover"
-                unoptimized
               />
             </button>
           ))}

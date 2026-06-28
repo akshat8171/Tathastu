@@ -71,18 +71,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.6,
     },
     {
-      url: `${BASE_URL}/cart`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.5,
-    },
-    {
-      url: `${BASE_URL}/wishlist`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.5,
-    },
-    {
       url: `${BASE_URL}/privacy`,
       lastModified: currentDate,
       changeFrequency: 'yearly',

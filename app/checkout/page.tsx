@@ -1,8 +1,13 @@
 import { CheckoutForm } from '@/components/checkout/checkout-form'
 import { OrderSummary } from '@/components/checkout/order-summary'
+import type { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Checkout — Tathastu Keepsakes',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 export default function CheckoutPage() {

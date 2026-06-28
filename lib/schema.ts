@@ -142,3 +142,56 @@ export function getFAQSchema(faqs: Array<{ question: string; answer: string }>) 
     })),
   }
 }
+
+/**
+ * Product schema — for product detail pages.
+ *
+ * @param product Product data including name, description, price, images, etc.
+ */
+export function getProductSchema(product: {
+  id: string
+  name: string
+  description: string
+  price: number
+  images: string[]
+  category: string
+  rating: number
+  reviewCount: number
+}) {
+  const productUrl = `${BASE_URL}/products/${product.id}`
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    image: product.images.map(img => `${BASE_URL}${img}`),
+    brand: {
+      '@type': 'Brand',
+      name: SITE.name,
+    },
+    sku: product.id,
+    category: product.category,
+    offers: {
+      '@type': 'Offer',
+      url: productUrl,
+      priceCurrency: 'INR',
+      price: product.price,
+      availability: 'https://schema.org/InStock',
+      priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+        .toISOString()
+        .split('T')[0],
+      seller: {
+        '@type': 'Organization',
+        name: SITE.name,
+      },
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+      bestRating: 5,
+      worstRating: 1,
+    },
+  }
+}

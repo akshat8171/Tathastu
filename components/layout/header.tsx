@@ -74,7 +74,6 @@ export function Header() {
                 height={36}
                 className="w-9 h-9"
                 priority
-                unoptimized
               />
               <span className="hidden sm:inline">Tathastu<span className="text-brand"> Keepsakes</span></span>
             </Link>

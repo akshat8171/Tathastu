@@ -78,7 +78,6 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
           sizes="(max-width: 640px) 144px, (max-width: 1024px) 176px, 192px"
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           priority={priority}
-          unoptimized
         />
         {/* Sale badge top-left */}
         <span className="absolute top-2 left-2 bg-sale text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded leading-none shadow-badge">

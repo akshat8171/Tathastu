@@ -111,7 +111,6 @@ export function OrderSummary() {
                   fill
                   sizes="48px"
                   className="object-cover"
-                  unoptimized
                 />
               )}
             </div>

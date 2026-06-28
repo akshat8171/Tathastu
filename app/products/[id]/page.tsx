@@ -10,6 +10,7 @@ import { getReviewsForProduct, getAverageRating } from '@/lib/reviews'
 import productsJson from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui/product-card'
 import { SITE } from '@/lib/site'
+import { getProductSchema, getBreadcrumbSchema } from '@/lib/schema'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -131,8 +132,37 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
   const categoryDisplayName = category?.displayName ?? 'Shop'
   const categoryHref = category?.route ?? `/products?category=${product.category}`
 
+  // JSON-LD schemas
+  const productSchema = getProductSchema({
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    images: product.images,
+    category: product.category,
+    rating: aggregateRating,
+    reviewCount: aggregateCount,
+  })
+
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Shop', url: '/products' },
+    { name: categoryDisplayName, url: categoryHref },
+    { name: product.name, url: `/products/${product.id}` },
+  ])
+
   return (
     <main className="bg-white min-h-screen">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* ── Breadcrumb ─────────────────────────────────────────────────────────── */}
       <nav aria-label="Breadcrumb" className="bg-surface border-b border-gray-100">
         <div className="container-page py-3">

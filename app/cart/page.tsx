@@ -105,7 +105,6 @@ function CartLineItem({
             fill
             sizes="80px"
             className="object-cover"
-            unoptimized
           />
         ) : (
           <div className="w-full h-full bg-panel" />

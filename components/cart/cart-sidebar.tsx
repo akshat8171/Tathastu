@@ -138,7 +138,6 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                         fill
                         sizes="64px"
                         className="object-cover"
-                        unoptimized
                       />
                     ) : (
                       <div className="w-full h-full bg-panel" />

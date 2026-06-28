@@ -47,7 +47,6 @@ export function CategoryIcons() {
                       fill
                       sizes="(max-width: 640px) 33vw, 160px"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      unoptimized
                     />
 
                     {/* "Starting at ₹X" pill (top-left) */}
