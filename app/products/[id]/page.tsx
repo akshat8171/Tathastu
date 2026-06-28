@@ -4,9 +4,8 @@ import { ProductGallery } from '@/components/products/product-gallery'
 import { ProductInfo } from '@/components/products/product-info'
 import { ProductCard } from '@/components/ui/product-card'
 import { SectionHeading } from '@/components/ui/section-heading'
-import { Rating } from '@/components/ui/rating'
 import { getCategoryBySlug } from '@/lib/categories'
-import { getReviewsForProduct } from '@/lib/reviews'
+import { getReviewsForProduct, getAverageRating } from '@/lib/reviews'
 import productsJson from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui/product-card'
 
@@ -21,6 +20,25 @@ interface FullProduct extends ProductCardData {
   description: string
   careGuide?: string
   shippingInfo?: string
+  // Optional enriched fields (all guarded)
+  options?: Array<{ name: string; values: string[] }>
+  colors?: string[]
+  customText?: { label: string; maxLength: number; placeholder?: string } | null
+  customizable?: boolean
+  specs?: {
+    material?: string
+    dimensions?: string
+    printTech?: string
+    finish?: string
+    weight?: string
+    origin?: string
+  } | null
+  benefits?: string[]
+  about?: string
+  keyFeatures?: string[]
+  perfectFor?: string[]
+  whyBuy?: string
+  createdAt?: string
 }
 
 // ── Static params ─────────────────────────────────────────────────────────────
@@ -39,13 +57,32 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
   if (!product) notFound()
 
   const category = getCategoryBySlug(product.category)
-  const reviews = getReviewsForProduct(product.id)
-  const related = products
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4)
+
+  // reviews-coverage (P1): use aggregate display from product.rating/reviewCount
+  // instead of an empty grid when no detailed reviews exist.
+  const detailedReviews = getReviewsForProduct(product.id)
+  const aggregateRating = detailedReviews.length > 0
+    ? getAverageRating(product.id)
+    : product.rating
+  const aggregateCount = detailedReviews.length > 0
+    ? detailedReviews.length
+    : product.reviewCount
+
+  // Related: top up from full catalog when category has fewer than target
+  const TARGET_RELATED = 8
+  const sameCategory = products.filter(
+    (p) => p.category === product.category && p.id !== product.id
+  )
+  const otherCategory = products.filter(
+    (p) => p.category !== product.category && p.id !== product.id
+  )
+  const related = [
+    ...sameCategory.slice(0, TARGET_RELATED),
+    ...otherCategory.slice(0, Math.max(0, TARGET_RELATED - sameCategory.length)),
+  ]
 
   const categoryDisplayName = category?.displayName ?? 'Shop'
-  const categoryHref = `/products?category=${product.category}`
+  const categoryHref = category?.route ?? `/products?category=${product.category}`
 
   return (
     <main className="bg-white min-h-screen">
@@ -102,11 +139,21 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
             shippingInfo={product.shippingInfo}
             productId={product.id}
             image={product.images[0] ?? ''}
+            options={product.options}
+            colors={product.colors}
+            customText={product.customText}
+            customizable={product.customizable}
+            specs={product.specs}
+            benefits={product.benefits}
+            about={product.about}
+            keyFeatures={product.keyFeatures}
+            perfectFor={product.perfectFor}
+            whyBuy={product.whyBuy}
           />
         </div>
       </section>
 
-      {/* ── Reasons to buy ────────────────────────────────────────────────────── */}
+      {/* ── Benefits / Reasons to buy (P1) — data-driven per product ─────────── */}
       <section className="bg-surface py-12" aria-label="Reasons to buy">
         <div className="container-page">
           <SectionHeading title="Reasons to make it yours" centered />
@@ -124,24 +171,48 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
         </div>
       </section>
 
-      {/* ── Customer reviews ─────────────────────────────────────────────────── */}
-      {reviews.length > 0 && (
-        <section className="py-12" aria-label="Customer reviews">
-          <div className="container-page">
-            <SectionHeading
-              title={`Customer Reviews (${reviews.length})`}
-              subtitle="Real opinions from real customers"
-            />
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {reviews.map((rev) => (
-                <ReviewCard key={rev.id} review={rev} />
-              ))}
+      {/* ── Aggregate rating + reviews (P1 reviews-coverage) ────────────────── */}
+      <section className="py-10" aria-label="Customer reviews">
+        <div className="container-page">
+          {/* Always show aggregate — never an empty block */}
+          <div className="flex items-center gap-4 mb-6">
+            <div className="text-4xl font-display font-bold text-ink">{aggregateRating.toFixed(1)}</div>
+            <div>
+              <div className="flex gap-1 mb-1" aria-label={`Rating: ${aggregateRating} out of 5`}>
+                {[1, 2, 3, 4, 5].map((s) => (
+                  <svg
+                    key={s}
+                    className={`w-5 h-5 ${s <= Math.round(aggregateRating) ? 'text-amber-400' : 'text-gray-200'}`}
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    aria-hidden="true"
+                  >
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                ))}
+              </div>
+              <p className="text-sm text-muted font-sans">{aggregateCount.toLocaleString('en-IN')}+ verified reviews</p>
             </div>
           </div>
-        </section>
-      )}
 
-      {/* ── You may also like ────────────────────────────────────────────────── */}
+          {/* Detailed review grid when available */}
+          {detailedReviews.length > 0 && (
+            <>
+              <SectionHeading
+                title={`Customer Reviews (${detailedReviews.length})`}
+                subtitle="Real opinions from real customers"
+              />
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                {detailedReviews.map((rev) => (
+                  <ReviewCard key={rev.id} review={rev} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* ── You may also like — up to 8 products (P2 related-carousel) ──────── */}
       {related.length > 0 && (
         <section className="bg-surface py-12" aria-label="Related products">
           <div className="container-page">
@@ -196,7 +267,13 @@ function ReviewCard({ review }: { review: Review }) {
           </span>
         )}
       </div>
-      <Rating value={review.rating} />
+      <div className="flex gap-0.5" aria-label={`Rating: ${review.rating} out of 5`}>
+        {[1,2,3,4,5].map(s => (
+          <svg key={s} className={`w-3.5 h-3.5 ${s <= review.rating ? 'text-amber-400' : 'text-gray-200'}`} fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        ))}
+      </div>
       <p className="font-display font-semibold text-sm text-ink">{review.title}</p>
       <p className="text-sm text-muted font-sans leading-relaxed flex-1">{review.body}</p>
       <p className="text-xs text-muted font-sans">{review.date}</p>

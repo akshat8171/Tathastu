@@ -33,7 +33,7 @@ export function IdeaCta() {
             Customise Now
           </Button>
           <a
-            href="https://wa.me/918882065253"
+            href="https://wa.me/919154892790"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline text-base px-8 py-4 inline-flex items-center justify-center gap-2 border-white/40 text-white hover:bg-white/10"

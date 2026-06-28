@@ -1,7 +1,8 @@
 import './products.css'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { getProductCategories, getCategoryBySlug } from '@/lib/categories'
-import { CategoryFilter } from '@/components/products/category-filter'
+import { CategoryFilter, PRICE_BUCKETS } from '@/components/products/category-filter'
 import { CatalogClient } from './catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
 import productsJson from '@/lib/products.json'
@@ -14,23 +15,80 @@ const TRUST_CHIPS = [
   { icon: 'quality',  label: '100% Original' },
 ]
 
+// ── FullProductData extends card data with facet fields ──────────────────────
+interface FullProductData extends ProductCardData {
+  colors?: string[]
+  customizable?: boolean
+  options?: Array<{ name: string; values: string[] }>
+  createdAt?: string
+}
+
 interface CatalogPageProps {
-  searchParams: Promise<{ category?: string }>
+  searchParams: Promise<{
+    category?: string
+    price?: string
+    color?: string | string[]
+    onSale?: string
+    inStock?: string
+    customizable?: string
+    sort?: string
+  }>
 }
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
-  const { category: categorySlug } = await searchParams
-  const productCategories = getProductCategories()
+  const params = await searchParams
+  const categorySlug = params.category
+  const activePriceBucket = params.price ?? null
+  const activeColors: string[] = params.color
+    ? Array.isArray(params.color)
+      ? params.color.map((c) => c.toLowerCase())
+      : [params.color.toLowerCase()]
+    : []
+  const showOnSale = params.onSale === '1'
+  const showInStock = params.inStock === '1'
+  const showCustomizable = params.customizable === '1'
 
-  // Active category object
+  const productCategories = getProductCategories()
   const activeCategory = categorySlug ? getCategoryBySlug(categorySlug) : null
 
-  // Filter products from JSON (resolveJsonModule is enabled in tsconfig)
-  const allProducts = productsJson as ProductCardData[]
-  const filtered: ProductCardData[] =
-    categorySlug && categorySlug !== 'all'
-      ? allProducts.filter((p) => p.category === categorySlug)
-      : allProducts
+  const allProducts = productsJson as FullProductData[]
+
+  // ── Server-side filter ───────────────────────────────────────────────────────
+  let filtered: FullProductData[] = categorySlug && categorySlug !== 'all'
+    ? allProducts.filter((p) => p.category === categorySlug)
+    : allProducts
+
+  // Price bucket filter
+  if (activePriceBucket) {
+    const bucket = PRICE_BUCKETS.find((b) => b.value === activePriceBucket)
+    if (bucket) {
+      filtered = filtered.filter(
+        (p) => p.price >= bucket.min && p.price < (bucket.max === Infinity ? Infinity : bucket.max + 1),
+      )
+    }
+  }
+
+  // Color filter
+  if (activeColors.length > 0) {
+    filtered = filtered.filter((p) =>
+      (p.colors ?? []).some((c) => activeColors.includes(c.toLowerCase())),
+    )
+  }
+
+  // On sale filter
+  if (showOnSale) {
+    filtered = filtered.filter((p) => (p.originalPrice ?? 0) > p.price)
+  }
+
+  // In stock filter
+  if (showInStock) {
+    filtered = filtered.filter((p) => !p.isSoldOut)
+  }
+
+  // Customizable filter
+  if (showCustomizable) {
+    filtered = filtered.filter((p) => !!p.customizable)
+  }
 
   const categoryTitle = activeCategory ? activeCategory.displayName : 'All Products'
   const categoryDesc = activeCategory
@@ -82,7 +140,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         <div className="container-page py-8 md:py-10">
           <div className="max-w-2xl">
             <p className="text-xs font-display font-semibold uppercase tracking-widest text-brand mb-2">
-              Tathastu Collection
+              Layerix Collection
             </p>
             <h1 className="font-display font-bold text-2xl md:text-3xl text-ink leading-tight mb-3">
               {categoryTitle}
@@ -109,24 +167,46 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
       <div className="container-page py-8">
         {/* Mobile filter chips */}
         <div className="mb-6 lg:hidden">
-          <CategoryFilter
-            categories={productCategories}
-            activeSlug={categorySlug ?? null}
-          />
+          <Suspense fallback={<div className="flex gap-2 overflow-hidden"><div className="h-8 w-16 bg-gray-200 rounded-full animate-pulse" /><div className="h-8 w-20 bg-gray-200 rounded-full animate-pulse" /><div className="h-8 w-24 bg-gray-200 rounded-full animate-pulse" /></div>}>
+            <CategoryFilter
+              categories={productCategories}
+              activeSlug={categorySlug ?? null}
+              allProducts={allProducts}
+              activePriceBucket={activePriceBucket}
+              activeColors={activeColors}
+              showOnSale={showOnSale}
+              showInStock={showInStock}
+              showCustomizable={showCustomizable}
+            />
+          </Suspense>
         </div>
 
         <div className="flex gap-8">
           {/* Desktop sidebar */}
-          <aside className="hidden lg:block w-52 flex-shrink-0">
-            <CategoryFilter
-              categories={productCategories}
-              activeSlug={categorySlug ?? null}
-            />
+          <aside className="hidden lg:block w-56 flex-shrink-0" aria-label="Filters">
+            <Suspense fallback={<div className="space-y-4"><div className="h-4 w-20 bg-gray-200 rounded animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /><div className="h-8 w-full bg-gray-200 rounded-lg animate-pulse" /></div>}>
+              <CategoryFilter
+                categories={productCategories}
+                activeSlug={categorySlug ?? null}
+                allProducts={allProducts}
+                activePriceBucket={activePriceBucket}
+                activeColors={activeColors}
+                showOnSale={showOnSale}
+                showInStock={showInStock}
+                showCustomizable={showCustomizable}
+              />
+            </Suspense>
           </aside>
 
           {/* Product grid + controls */}
           <div className="flex-1 min-w-0">
-            <CatalogClient products={filtered} categoryName={categoryTitle} />
+            <Suspense fallback={<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">{Array.from({length: 8}).map((_, i) => <div key={i} className="aspect-square bg-gray-200 rounded-card2 animate-pulse" />)}</div>}>
+              <CatalogClient
+                products={filtered as ProductCardData[]}
+                categoryName={categoryTitle}
+                initialSort={(params.sort as string) ?? 'featured'}
+              />
+            </Suspense>
           </div>
         </div>
       </div>

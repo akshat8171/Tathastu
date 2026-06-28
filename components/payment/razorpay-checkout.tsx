@@ -1,7 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { loadRazorpayScript, openRazorpayCheckout, RazorpayResponse } from '@/lib/razorpay'
+import {
+  loadRazorpayScript,
+  openRazorpayCheckout,
+  isMockPaymentEnabled,
+  createMockRazorpayResponse,
+  RazorpayResponse,
+} from '@/lib/razorpay'
 
 interface Props {
   amount: number
@@ -26,6 +32,19 @@ export function RazorpayCheckout({
 
   async function handlePay() {
     setLoading(true)
+
+    // ── Mock-payment mode (local E2E testing only) ──────────────────────────
+    // Skips the Razorpay script, /api/payment/create-order, the modal, and
+    // /api/payment/verify entirely. We hand a synthetic success payload
+    // straight to onPaymentSuccess, so the order still POSTs to /api/orders
+    // and writes a REAL row to Supabase. Guarded so it cannot run in prod.
+    if (isMockPaymentEnabled) {
+      // Small delay so the "Processing..." state is visible, mimicking a real gateway.
+      await new Promise((r) => setTimeout(r, 600))
+      onPaymentSuccess(createMockRazorpayResponse())
+      setLoading(false)
+      return
+    }
 
     const loaded = await loadRazorpayScript()
     if (!loaded) {
@@ -75,12 +94,19 @@ export function RazorpayCheckout({
   }
 
   return (
-    <button
-      onClick={handlePay}
-      disabled={disabled || loading}
-      className="btn-primary w-full text-lg disabled:opacity-50"
-    >
-      {loading ? 'Processing...' : `Pay ₹${amount.toLocaleString('en-IN')}`}
-    </button>
+    <div>
+      <button
+        onClick={handlePay}
+        disabled={disabled || loading}
+        className="btn-primary w-full text-lg disabled:opacity-50"
+      >
+        {loading ? 'Processing...' : `Pay ₹${amount.toLocaleString('en-IN')}`}
+      </button>
+      {isMockPaymentEnabled && (
+        <p className="mt-2 text-center text-xs font-sans text-amber-600">
+          ⚠️ Mock payment mode — no real charge. A real order is still saved to the DB.
+        </p>
+      )}
+    </div>
   )
 }

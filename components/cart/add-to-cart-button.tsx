@@ -36,6 +36,12 @@ export interface AddToCartButtonProps {
   fullWidth?: boolean
   size?: 'sm' | 'md' | 'lg'
   label?: string
+  /** When true, button is disabled and shows the label as-is (for "Select options" state) */
+  disabled?: boolean
+  /** Optional custom text to carry into the cart item */
+  customText?: string
+  /** Optional selected options map to carry into the cart item */
+  selectedOptions?: Record<string, string>
 }
 
 export function AddToCartButton({
@@ -45,13 +51,16 @@ export function AddToCartButton({
   fullWidth = false,
   size = 'md',
   label = 'Add to cart',
+  disabled = false,
+  customText,
+  selectedOptions,
 }: AddToCartButtonProps) {
   const { addItem } = useCart()
   const [added, setAdded] = useState(false)
   const [isAdding, setIsAdding] = useState(false)
 
   const handleAddToCart = () => {
-    if (isAdding) return
+    if (isAdding || disabled) return
     setIsAdding(true)
 
     addItem({
@@ -62,6 +71,8 @@ export function AddToCartButton({
       originalPrice: product.originalPrice,
       quantity: 1,
       image: product.image,
+      ...(customText ? { customText } : {}),
+      ...(selectedOptions ? { selectedOptions } : {}),
     })
 
     setAdded(true)
@@ -78,7 +89,7 @@ export function AddToCartButton({
       variant="primary"
       size={size}
       fullWidth={fullWidth}
-      disabled={isAdding}
+      disabled={isAdding || disabled}
       onClick={handleAddToCart}
       className={className}
       aria-label={added ? `${product.name} added to cart` : label}

@@ -68,6 +68,16 @@ module.exports = {
         badge:      '0 1px 4px rgba(0,0,0,.15)',
       },
 
+      keyframes: {
+        'fade-in': {
+          '0%':   { opacity: '0', transform: 'translateY(8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in 0.5s ease-out both',
+      },
+
       // ── Legacy compat ── builders may encounter these; map to new values ──
       // (kept so existing components don't throw "unknown utility" in dev mode)
       // Builders should migrate these away during component rewrites.

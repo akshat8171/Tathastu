@@ -10,6 +10,10 @@ export interface CartItem {
   originalPrice: number
   quantity: number
   image: string
+  /** Optional: user-entered custom text (for personalised products) */
+  customText?: string
+  /** Optional: structured option selections, e.g. { Color: 'Red', Size: 'M' } */
+  selectedOptions?: Record<string, string>
 }
 
 export interface CartContextType {
@@ -43,11 +47,25 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const addItem = (item: CartItem) => {
     setItems(currentItems => {
-      const existingItem = currentItems.find(i => i.id === item.id)
-      if (existingItem) {
-        return currentItems.map(i =>
-          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+      // Two items are "the same line" only if id + variant + customText + selectedOptions all match
+      function optKey(opts?: Record<string, string>): string {
+        if (!opts || Object.keys(opts).length === 0) return ''
+        return JSON.stringify(Object.keys(opts).sort().reduce<Record<string, string>>((acc, k) => {
+          acc[k] = opts[k]
+          return acc
+        }, {}))
+      }
+      function isSameLine(i: CartItem): boolean {
+        return (
+          i.id === item.id &&
+          i.variant === item.variant &&
+          (i.customText ?? '') === (item.customText ?? '') &&
+          optKey(i.selectedOptions) === optKey(item.selectedOptions)
         )
+      }
+      const existingItem = currentItems.find(isSameLine)
+      if (existingItem) {
+        return currentItems.map(i => isSameLine(i) ? { ...i, quantity: i.quantity + 1 } : i)
       }
       return [...currentItems, item]
     })

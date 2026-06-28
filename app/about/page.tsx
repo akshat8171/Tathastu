@@ -1,5 +1,13 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
 import { SectionHeading } from '@/components/ui'
 import { Button } from '@/components/ui'
+import { SITE } from '@/lib/site'
+
+export const metadata: Metadata = {
+  title: `About Us — ${SITE.name}`,
+  description: `${SITE.name} is India's multi-colour 3D printing store. Learn about our founder, mission, values, and services.`,
+}
 
 const values = [
   {
@@ -58,7 +66,7 @@ export default function AboutPage() {
           </span>
           <h1 className="font-display font-bold text-ink text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6">
             About{' '}
-            <span className="text-brand">Tathastu</span>
+            <span className="text-brand">Layerix</span>
           </h1>
           <p className="font-sans text-muted text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed mb-10">
             We believe 3D printing is more than just technology — it&apos;s an art form. Every lamp,
@@ -102,7 +110,7 @@ export default function AboutPage() {
             <p className="font-sans text-muted text-lg leading-relaxed mt-6">
               Layer by layer, we bring imagination to life using cutting-edge 3D printing technology
               combined with hand-finishing by skilled artisans. From beautifully crafted lamps and
-              desk organisers to custom planters shipped across India — Tathastu is where ideas
+              desk organisers to custom planters shipped across India — Layerix is where ideas
               become objects.
             </p>
             <p className="font-sans text-muted text-lg leading-relaxed mt-4">
@@ -110,6 +118,103 @@ export default function AboutPage() {
               in between. Whether it&apos;s a single piece or a bulk order, we treat every print with
               the same care and precision.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Meet Our Founder */}
+      <section className="py-20 px-4 bg-white" id="founder">
+        <div className="container-page">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Image */}
+            <div className="relative aspect-[4/5] w-full max-w-md mx-auto lg:mx-0 overflow-hidden rounded-card2 shadow-card">
+              <Image
+                src="/images/founder/Founder-Image.jpg"
+                alt="Akshat Garg, Founder of Layerix"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            </div>
+
+            {/* Text */}
+            <div>
+              <span className="inline-block bg-brand/10 text-brand text-xs font-display font-semibold uppercase tracking-widest px-4 py-1.5 rounded-pill mb-5">
+                Meet Our Founder
+              </span>
+              <h2 className="font-display font-bold text-ink text-3xl sm:text-4xl mb-6">
+                The story behind{' '}
+                <span className="text-brand">Layerix</span>
+              </h2>
+              <div className="space-y-4 font-sans text-muted text-lg leading-relaxed">
+                <p>
+                  Hello! I&apos;m <strong className="text-ink font-semibold">Akshat Garg</strong>, the
+                  Founder of Layerix. After spending seven years in investment banking and private
+                  equity in Dubai, I returned to India — drawn back by the warmth of home and the
+                  beauty of our artisanal heritage.
+                </p>
+                <p>
+                  My childhood memories of exploring local markets filled with unique handcrafted
+                  items inspired me to start this brand. Layerix is where modern 3D-printing
+                  technology meets that same spirit of craftsmanship — every piece made to order,
+                  layer by layer.
+                </p>
+              </div>
+
+              {/* Signature */}
+              <div className="mt-8 pt-6 border-t border-gray-100">
+                <p className="font-display font-bold text-ink text-xl">Akshat Garg</p>
+                <p className="font-sans text-muted text-sm">Founder, Layerix</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services / Bulk Orders */}
+      <section className="py-20 px-4 bg-white border-t border-gray-100">
+        <div className="container-page">
+          <div className="max-w-4xl mx-auto">
+            <SectionHeading
+              title="Custom Designs. Bulk Orders. Business Solutions."
+              subtitle="From one-of-a-kind gifts to large corporate runs — we've got you covered."
+              centered
+            />
+            <div className="grid sm:grid-cols-3 gap-6 mt-10">
+              {[
+                {
+                  emoji: '🎨',
+                  title: 'Custom Prints',
+                  body: 'Upload your own design or share an idea — we bring it to life layer by layer. Personalised keyrings, nameplates, figurines, and more.',
+                  href: '/customize',
+                  cta: 'Start Customising',
+                },
+                {
+                  emoji: '📦',
+                  title: 'Bulk & Corporate Orders',
+                  body: 'Gifting season? Event giveaways? We handle quantities from 10 to 10,000 with consistent quality and competitive pricing.',
+                  href: '/bulk-order',
+                  cta: 'Get a Bulk Quote',
+                },
+                {
+                  emoji: '🌍',
+                  title: 'Shipped Across India',
+                  body: 'Pan-India delivery to every state and union territory. Free shipping on orders above ₹199. Sustainable packaging — less waste, same great unboxing.',
+                  href: '/shipping-policy',
+                  cta: 'Shipping Details',
+                },
+              ].map(item => (
+                <div key={item.title} className="card p-6 text-center group flex flex-col">
+                  <div className="text-3xl mb-3">{item.emoji}</div>
+                  <h3 className="font-display font-semibold text-ink text-lg mb-2">{item.title}</h3>
+                  <p className="font-sans text-muted text-sm leading-relaxed flex-1 mb-5">{item.body}</p>
+                  <Button variant="outline" href={item.href} size="sm" className="w-full">
+                    {item.cta}
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -152,7 +257,7 @@ export default function AboutPage() {
             </Button>
             <Button
               variant="outline"
-              href="https://wa.me/918882065253"
+              href={SITE.whatsapp}
               size="lg"
             >
               Chat on WhatsApp

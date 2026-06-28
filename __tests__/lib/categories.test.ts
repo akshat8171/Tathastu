@@ -18,8 +18,8 @@ describe('categories taxonomy', () => {
       expect(categories.length).toBeGreaterThan(0)
     })
 
-    it('contains exactly 4 entries (3 product categories + 1 CTA)', () => {
-      expect(categories).toHaveLength(4)
+    it('contains exactly 7 entries (6 product categories + 1 CTA)', () => {
+      expect(categories).toHaveLength(7)
     })
 
     it('every category has required fields', () => {
@@ -119,9 +119,9 @@ describe('categories taxonomy', () => {
   })
 
   describe('getProductCategories()', () => {
-    it('returns only the 3 product-backed categories (no CTA)', () => {
+    it('returns only the 6 product-backed categories (no CTA)', () => {
       const productCats = getProductCategories()
-      expect(productCats).toHaveLength(3)
+      expect(productCats).toHaveLength(6)
     })
 
     it('does NOT include the customise CTA category', () => {

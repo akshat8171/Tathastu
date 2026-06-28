@@ -208,23 +208,27 @@ CREATE TABLE IF NOT EXISTS coupons (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     code VARCHAR(50) UNIQUE NOT NULL,
     description TEXT,
-    
+
     -- Discount details
     discount_type VARCHAR(20) NOT NULL, -- 'percentage', 'fixed'
     discount_value DECIMAL(10, 2) NOT NULL,
-    
+
     -- Conditions
     min_order_amount DECIMAL(10, 2) DEFAULT 0.00,
     max_discount_amount DECIMAL(10, 2),
-    
+
     -- Usage limits
     usage_limit INTEGER, -- NULL = unlimited
     usage_count INTEGER DEFAULT 0,
-    
+
     -- Validity
     valid_from TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     valid_until TIMESTAMP WITH TIME ZONE,
-    
+
+    -- First-order gating: when TRUE, the coupon is only usable by customers
+    -- with no prior orders (enforced server-side in lib/coupons.ts validateCoupon).
+    is_first_order_only BOOLEAN DEFAULT FALSE,
+
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -233,6 +237,42 @@ CREATE TABLE IF NOT EXISTS coupons (
 -- Indexes
 CREATE INDEX idx_coupons_code ON coupons(code);
 CREATE INDEX idx_coupons_is_active ON coupons(is_active);
+
+-- =====================================================
+-- SEED: FIRST20 first-order coupon
+-- Run ONCE after schema is applied. Uses ON CONFLICT DO NOTHING so re-running
+-- this script is safe.
+-- Thresholds aligned to FREE_SHIPPING_THRESHOLD (₹199) from lib/pricing.ts.
+-- =====================================================
+INSERT INTO coupons (
+    code,
+    description,
+    discount_type,
+    discount_value,
+    min_order_amount,
+    max_discount_amount,
+    usage_limit,
+    usage_count,
+    valid_from,
+    valid_until,
+    is_first_order_only,
+    is_active
+)
+VALUES (
+    'FIRST20',
+    '20% off on your first order — valid for all customers placing their first Layerix order.',
+    'percentage',
+    20.00,
+    199.00,       -- min order = FREE_SHIPPING_THRESHOLD so the coupon only applies to meaningful orders
+    500.00,       -- cap discount at ₹500 (20% of ₹2500 max benefit)
+    NULL,         -- no overall usage cap; first-order gating is enforced in code
+    0,
+    NOW(),
+    NULL,         -- never expires
+    TRUE,         -- FIRST20 is first-order only
+    TRUE
+)
+ON CONFLICT (code) DO NOTHING;
 
 -- =====================================================
 -- FUNCTIONS & TRIGGERS

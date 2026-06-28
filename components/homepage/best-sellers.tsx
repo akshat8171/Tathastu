@@ -4,14 +4,18 @@ import productsData from '@/lib/products.json'
 import { ProductRail } from '@/components/homepage/product-rail'
 import type { ProductCardData } from '@/components/ui'
 
-// IDs chosen to showcase variety across all three categories
+// A cross-category mix of our most-loved custom prints (highest-rated picks).
 const BEST_SELLER_IDS = [
-  'lamps-lunar-night',       // 4.9★ 67 reviews — Best Seller badge
-  'planters-terrace-trio',   // 4.9★ 72 reviews — Best Seller badge
-  'lamps-lamp5',             // 4.8★ 48 reviews — Trending
-  'planters-planter2',       // 4.8★ 51 reviews — Editors' Choice
-  'lamps-lamp3',             // 4.7★ 42 reviews — Editors' Choice
-  'planters-planter1',       // 4.7★ 44 reviews — Trending
+  'keyrings-name',          // Custom Name Keychain — 4.9★
+  'pooja-decor-ganesha',    // Golden Ganesha Idol — 4.9★
+  'gaming-shield',          // Captain America Shield — 4.9★
+  'keyrings-puppy',         // Knitted Puppy Keychain — 4.9★
+  'pooja-decor-shiva',      // Meditating Mahadev Idol — 4.9★
+  'pooja-decor-temple',     // Kedarnath Temple Miniature — 4.9★
+  'keyrings-shiva',         // Mahadev Face Keychain — 4.8★
+  'gaming-toad',            // Toad Character Keychain — 4.8★
+  'lamps-lunar-night',      // Lunar Night Lamp — 4.9★
+  'planters-terrace-trio',  // Terrace Trio Planter — 4.9★
 ]
 
 const allProducts = productsData as ProductCardData[]

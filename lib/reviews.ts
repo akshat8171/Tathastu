@@ -1,5 +1,5 @@
 /**
- * Tathastu — sample customer reviews.
+ * Layerix — sample customer reviews.
  *
  * Self-contained; no database dependency.
  * Use getReviewsForProduct(productId) on PDPs and featuredReviews on the homepage.
@@ -48,7 +48,7 @@ const allReviews: Review[] = [
     location: 'Bengaluru',
     rating: 5,
     title: 'Gifted this and my friend loved it',
-    body: 'Bought as a housewarming gift. My friend was absolutely thrilled — said it tied the whole living room together. The Tathastu gift packaging is also a nice touch.',
+    body: 'Bought as a housewarming gift. My friend was absolutely thrilled — said it tied the whole living room together. The Layerix gift packaging is also a nice touch.',
     date: '28 May 2026',
     verified: true,
   },
@@ -96,7 +96,7 @@ const allReviews: Review[] = [
     location: 'Bengaluru',
     rating: 5,
     title: 'Bought three, one for each room!',
-    body: 'I liked it so much after the first order that I bought two more. The quality is consistent across all three. Tathastu ships really well — zero damage. Highly recommend.',
+    body: 'I liked it so much after the first order that I bought two more. The quality is consistent across all three. Layerix ships really well — zero damage. Highly recommend.',
     date: '1 Jun 2026',
     verified: true,
   },
@@ -157,7 +157,7 @@ const allReviews: Review[] = [
     location: 'Kolkata',
     rating: 5,
     title: 'The magnets are genius!',
-    body: 'Who puts magnets in a tissue box holder? Tathastu does. I stuck it to my fridge and it has been there for two months, perfectly stable. Such a smart design.',
+    body: 'Who puts magnets in a tissue box holder? Layerix does. I stuck it to my fridge and it has been there for two months, perfectly stable. Such a smart design.',
     date: '7 Jun 2026',
     verified: true,
   },
@@ -264,4 +264,28 @@ export function getAverageRating(productId: string): number {
   if (reviews.length === 0) return 0
   const sum = reviews.reduce((acc, r) => acc + r.rating, 0)
   return Math.round((sum / reviews.length) * 10) / 10
+}
+
+/**
+ * Returns a display-ready aggregate for a product.
+ *
+ * When detailed reviews exist use them; otherwise fall back to the
+ * product.rating / product.reviewCount fields so NO product ever shows
+ * a broken/empty reviews block.
+ *
+ * `productRating` and `productReviewCount` are the values stored in products.json
+ * and should always be passed as fallbacks.
+ */
+export function getReviewAggregate(
+  productId: string,
+  productRating: number,
+  productReviewCount: number,
+): { rating: number; count: number; hasDetailedReviews: boolean } {
+  const reviews = getReviewsForProduct(productId, Infinity)
+  if (reviews.length > 0) {
+    const sum = reviews.reduce((acc, r) => acc + r.rating, 0)
+    const avg = Math.round((sum / reviews.length) * 10) / 10
+    return { rating: avg, count: reviews.length, hasDetailedReviews: true }
+  }
+  return { rating: productRating, count: productReviewCount, hasDetailedReviews: false }
 }

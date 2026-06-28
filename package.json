@@ -1,5 +1,5 @@
 {
-  "name": "tathastu-website",
+  "name": "layerix-website",
   "version": "0.2.0",
   "private": true,
   "scripts": {
@@ -16,25 +16,32 @@
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.39.0",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.38.0",
     "clsx": "^2.1.0",
-    "next": "^14.2.0",
+    "firebase": "^12.15.0",
+    "firebase-admin": "^14.1.0",
+    "lucide-react": "^1.21.0",
+    "next": "16.2.9",
     "razorpay": "^2.9.6",
-    "react": "^18.3.0",
-    "react-dom": "^18.3.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "server-only": "^0.0.1",
     "tailwind-merge": "^2.2.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
     "@types/node": "^20.19.30",
-    "@types/react": "^18.2.0",
-    "@types/react-dom": "^18.2.0",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
     "autoprefixer": "^10.4.0",
     "eslint": "^8.56.0",
-    "eslint-config-next": "^14.2.0",
+    "eslint-config-next": "16.2.9",
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "postcss": "^8.4.0",
@@ -42,5 +49,9 @@
     "tailwindcss": "^3.4.0",
     "ts-jest": "^29.4.11",
     "typescript": "^5.3.0"
+  },
+  "overrides": {
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3"
   }
 }

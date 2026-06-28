@@ -1,3 +1,5 @@
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
+
 const trustItems = [
   {
     icon: (
@@ -77,7 +79,7 @@ const trustItems = [
         <circle cx="18.5" cy="18.5" r="2.5" />
       </svg>
     ),
-    label: 'Free over ₹999',
+    label: `Free over ₹${FREE_SHIPPING_THRESHOLD}`,
     sub: 'No hidden charges',
   },
 ]

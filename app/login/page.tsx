@@ -1,4 +1,5 @@
-import { PhoneOtpForm } from '@/components/auth/phone-otp-form'
+import { Suspense } from 'react'
+import { LoginForm } from '@/components/auth/login-form'
 
 export default function LoginPage() {
   return (
@@ -14,14 +15,17 @@ export default function LoginPage() {
               </svg>
             </div>
             <h1 className="font-display font-bold text-ink text-2xl sm:text-3xl mb-2">
-              Welcome to Tathastu
+              Welcome to Layerix
             </h1>
             <p className="font-sans text-muted text-sm">
-              Sign in with your phone number to access your account
+              Sign in to access your account
             </p>
           </div>
 
-          <PhoneOtpForm />
+          {/* Unified login form — wrapped in Suspense because it reads useSearchParams() */}
+          <Suspense fallback={null}>
+            <LoginForm />
+          </Suspense>
 
           <p className="mt-6 text-center font-sans text-xs text-muted">
             By signing in, you agree to our{' '}
