@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: false,
+  // Inline small CSS files (<25KB) to eliminate render-blocking stylesheet requests
+  experimental: {
+    optimizeCss: true,
+  },
   turbopack: {
     root: __dirname,
   },

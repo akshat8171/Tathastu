@@ -40,6 +40,7 @@
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3",
     "autoprefixer": "^10.4.0",
+    "critters": "^0.0.23",
     "eslint": "^8.56.0",
     "eslint-config-next": "16.2.9",
     "jest": "^30.4.2",
@@ -53,5 +54,13 @@
   "overrides": {
     "@types/react": "19.2.17",
     "@types/react-dom": "19.2.3"
-  }
+  },
+  "browserslist": [
+    "Chrome >= 87",
+    "Firefox >= 78",
+    "Safari >= 14",
+    "Edge >= 88",
+    "iOS >= 14",
+    "not dead"
+  ]
 }
