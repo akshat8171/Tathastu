@@ -8,7 +8,7 @@
 
 ## SECTION 1: JANMASHTAMI (Sep 4, Fri) — Light Campaign
 
-### Aug 31 (Sun) — Tie-in Post: Bal Krishna Idol
+### Aug 31 (Mon) — Tie-in Post: Bal Krishna Idol
 
 **Pillar:** Festival Tie-in  
 **Format:** Static  
@@ -71,7 +71,7 @@ May your pooja be blessed, your home filled with devotion, and your celebrations
 
 ## SECTION 2: GANESH CHATURTHI (Sep 14, Mon) — Standard 5-Beat Campaign
 
-### Sep 7 (Sun) — T−7 Teaser: Pooja Decor Collection
+### Sep 7 (Mon) — T−7 Teaser: Pooja Decor Collection
 
 **Pillar:** Product Spotlight  
 **Format:** Static  
@@ -113,7 +113,7 @@ If it exists, we can print it.
 
 ---
 
-### Sep 9 (Tue) — T−5 Hero Reel: Golden Ganesha Idol
+### Sep 9 (Wed) — T−5 Hero Reel: Golden Ganesha Idol
 
 **Pillar:** Behind-the-Build  
 **Format:** Reel  
@@ -153,7 +153,7 @@ If it exists, we can print it.
 
 ---
 
-### Sep 11 (Thu) — T−3 Offer Post + WhatsApp Broadcast #1
+### Sep 11 (Fri) — T−3 Offer Post + WhatsApp Broadcast #1
 
 **Pillar:** Festival Tie-in  
 **Format:** Static  
@@ -198,7 +198,7 @@ If it exists, we can print it.
 
 ---
 
-### Sep 13 (Sat) — T−1 Last-Chance / COD Reassurance
+### Sep 13 (Sun) — T−1 Last-Chance / COD Reassurance
 
 **Pillar:** Festival Tie-in  
 **Format:** Static  
@@ -269,7 +269,7 @@ Ganpati Bappa Morya! 🕉️
 
 ## WhatsApp Broadcasts (Manual Send)
 
-### WhatsApp Broadcast #1 — Sep 11 (Thu) — Offer Announcement
+### WhatsApp Broadcast #1 — Sep 11 (Fri) — Offer Announcement
 
 **Audience:** Opt-in customer list (previous buyers + engaged leads)  
 **Tone:** Personal, gift-focused, warm  

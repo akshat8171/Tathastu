@@ -71,7 +71,7 @@ May your bond be unbreakable, your prayers answered, and your love eternal.
 
 ## SECTION 2: DIWALI EXPANDED RUN (Dhanteras Nov 6 → Diwali Nov 8 → Bhai Dooj Nov 11)
 
-### Oct 30 (Thu) — "Diwali Gifting Store is Open" Gift-Guide Carousel
+### Oct 30 (Fri) — "Diwali Gifting Store is Open" Gift-Guide Carousel
 
 **Pillar:** Product Spotlight  
 **Format:** Carousel (5 slides)  
@@ -119,7 +119,7 @@ If it exists, we can print it.
 
 ---
 
-### Nov 1 (Sat) — T−7 Dhanteras Teaser + Ship Cut-off Emphasis
+### Nov 1 (Sun) — T−7 Dhanteras Teaser + Ship Cut-off Emphasis
 
 **Pillar:** Festival Tie-in  
 **Format:** Static  
@@ -162,7 +162,7 @@ If it exists, we can print it.
 
 ---
 
-### Nov 3 (Mon) — T−5 Hero Reel: Mahalakshmi Idol + Lamp Glow
+### Nov 3 (Tue) — T−5 Hero Reel: Mahalakshmi Idol + Lamp Glow
 
 **Pillar:** Behind-the-Build  
 **Format:** Reel  
@@ -206,7 +206,7 @@ If it exists, we can print it.
 
 ---
 
-### Nov 4 (Tue) — T−4 Corporate/Bulk Diwali Gifting + WhatsApp Broadcast #1
+### Nov 4 (Wed) — T−4 Corporate/Bulk Diwali Gifting + WhatsApp Broadcast #1
 
 **Pillar:** Product Spotlight  
 **Format:** Static  
@@ -244,7 +244,7 @@ If it exists, we can print it.
 
 ---
 
-### Nov 5 (Wed) — T−3 Offer Post
+### Nov 5 (Thu) — T−3 Offer Post
 
 **Pillar:** Festival Tie-in  
 **Format:** Static  
@@ -436,19 +436,19 @@ If it exists, we can print it.
 
 Post one story per day during the Diwali countdown to maintain daily visibility. Keep each story quick (15-second video or static + text), festive but not pushy, and anchor to the countdown theme.
 
-1. **Nov 1 (Sat) — 7 Days to Diwali:** "7 days to Diwali 🪔 The countdown begins. Is your pooja space ready? [Image: Lakshmi idol on lotus with marigolds] Shop: tathastukeepsakes.in"
+1. **Nov 1 (Sun) — 7 Days to Diwali:** "7 days to Diwali 🪔 The countdown begins. Is your pooja space ready? [Image: Lakshmi idol on lotus with marigolds] Shop: tathastukeepsakes.in"
 
-2. **Nov 2 (Sun) — 6 Days to Diwali:** "6 days to go ✨ Have you ordered your Lakshmi idol yet? Made fresh to order, ships PAN-India. [Image: Workshop shot — hands finishing an idol] Order now: tathastukeepsakes.in"
+2. **Nov 2 (Mon) — 6 Days to Diwali:** "6 days to go ✨ Have you ordered your Lakshmi idol yet? Made fresh to order, ships PAN-India. [Image: Workshop shot — hands finishing an idol] Order now: tathastukeepsakes.in"
 
-3. **Nov 3 (Mon) — 5 Days to Diwali (Ship Cut-off Day):** "5 days to Diwali ⏰ TODAY is the last day to order for guaranteed Diwali delivery! Don't wait. [Image: Delivery box on doorstep] Shop now: tathastukeepsakes.in"
+3. **Nov 3 (Tue) — 5 Days to Diwali (Ship Cut-off Day):** "5 days to Diwali ⏰ TODAY is the last day to order for guaranteed Diwali delivery! Don't wait. [Image: Delivery box on doorstep] Shop now: tathastukeepsakes.in"
 
-4. **Nov 4 (Tue) — 4 Days to Diwali:** "4 days to Diwali 💼 Corporate gifting sorted? We do bulk orders — custom keychains, idols, lamps. [Image: Gift hamper flatlay] Get a quote: tathastukeepsakes.in/bulk-order"
+4. **Nov 4 (Wed) — 4 Days to Diwali:** "4 days to Diwali 💼 Corporate gifting sorted? We do bulk orders — custom keychains, idols, lamps. [Image: Gift hamper flatlay] Get a quote: tathastukeepsakes.in/bulk-order"
 
-5. **Nov 5 (Wed) — 3 Days to Diwali:** "3 days to Diwali 🎁 Diwali Special offer is LIVE! [Offer details from Nov 5 post] Shop: tathastukeepsakes.in"
+5. **Nov 5 (Thu) — 3 Days to Diwali:** "3 days to Diwali 🎁 Diwali Special offer is LIVE! [Offer details from Nov 5 post] Shop: tathastukeepsakes.in"
 
-6. **Nov 6 (Thu) — 2 Days to Diwali (Dhanteras Day):** "Happy Dhanteras! 🌺 2 days to Diwali. Today is the most auspicious day to bring Lakshmi home. [Image: Lakshmi idol with gold coins + diyas] Order: tathastukeepsakes.in"
+6. **Nov 6 (Fri) — 2 Days to Diwali (Dhanteras Day):** "Happy Dhanteras! 🌺 2 days to Diwali. Today is the most auspicious day to bring Lakshmi home. [Image: Lakshmi idol with gold coins + diyas] Order: tathastukeepsakes.in"
 
-7. **Nov 7 (Fri) — 1 Day to Diwali:** "1 day to Diwali! 🪔 Last-minute COD orders still available for metros. Don't wait. [Image: Last-chance product grid] Shop: tathastukeepsakes.in"
+7. **Nov 7 (Sat) — 1 Day to Diwali:** "1 day to Diwali! 🪔 Last-minute COD orders still available for metros. Don't wait. [Image: Last-chance product grid] Shop: tathastukeepsakes.in"
 
 8. **Nov 8 (Sun) — Diwali Day:** "Happy Diwali! 🪔✨ May your home be filled with light, your heart with joy, and your year with blessings. [Image: Diwali greeting — diya-lit pooja corner] From all of us at Tathastu Keepsakes 💛"
 
@@ -459,7 +459,7 @@ Post one story per day during the Diwali countdown to maintain daily visibility.
 
 ---
 
-## WhatsApp Broadcast #1 — Nov 4 (Tue) — Corporate/Bulk Gifting
+## WhatsApp Broadcast #1 — Nov 4 (Wed) — Corporate/Bulk Gifting
 
 **Audience:** Opt-in customer list (B2B leads + previous bulk buyers)  
 **Tone:** Professional, solution-focused, warm  

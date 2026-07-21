@@ -81,7 +81,7 @@ If it exists, we can print it.
 
 ### GANESH CHATURTHI (Sep 14)
 
-#### Ganesh Broadcast #1 — Sep 11 (Thu) — Offer Announcement
+#### Ganesh Broadcast #1 — Sep 11 (Fri) — Offer Announcement
 
 **Audience:** Opt-in customer list (previous buyers + engaged leads)  
 **Send Time:** 10:00 AM IST  
@@ -150,7 +150,7 @@ If it exists, we can print it.
 
 ### NAVRATRI + DUSSEHRA (Oct 11–20)
 
-#### Navratri Broadcast #1 — Oct 9 (Thu) — Offer Announcement
+#### Navratri Broadcast #1 — Oct 9 (Fri) — Offer Announcement
 
 **Audience:** Opt-in customer list (previous buyers + engaged leads)  
 **Send Time:** 10:00 AM IST  
@@ -217,7 +217,7 @@ If it exists, we can print it.
 
 ### DIWALI SEASON (Nov 6–8)
 
-#### Diwali Broadcast #1 — Nov 4 (Tue) — Corporate/Bulk Gifting
+#### Diwali Broadcast #1 — Nov 4 (Wed) — Corporate/Bulk Gifting
 
 **Audience:** Opt-in customer list (B2B leads + previous bulk buyers)  
 **Send Time:** 10:00 AM IST  

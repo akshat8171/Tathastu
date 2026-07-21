@@ -8,7 +8,7 @@
 
 ## SECTION 1: NAVRATRI (Oct 11–19) — Standard Campaign
 
-### Oct 4 (Sat) — T−7 Teaser: Pooja Decor for Navratri
+### Oct 4 (Sun) — T−7 Teaser: Pooja Decor for Navratri
 
 **Pillar:** Product Spotlight  
 **Format:** Static  
@@ -50,7 +50,7 @@ If it exists, we can print it.
 
 ---
 
-### Oct 6 (Mon) — T−5 Ship Cut-off Push
+### Oct 6 (Tue) — T−5 Ship Cut-off Push
 
 **Pillar:** Festival Tie-in  
 **Format:** Static  
@@ -91,7 +91,7 @@ Shop now: https://www.tathastukeepsakes.in/products?category=pooja-decor
 
 ---
 
-### Oct 8 (Wed) — T−3 Hero Reel: Maa Saraswati Idol
+### Oct 8 (Thu) — T−3 Hero Reel: Maa Saraswati Idol
 
 **Pillar:** Behind-the-Build  
 **Format:** Reel  
@@ -131,7 +131,7 @@ If it exists, we can print it.
 
 ---
 
-### Oct 9 (Thu) — T−2 Offer Post + WhatsApp Broadcast #1
+### Oct 9 (Fri) — T−2 Offer Post + WhatsApp Broadcast #1
 
 **Pillar:** Festival Tie-in  
 **Format:** Static  
@@ -205,7 +205,7 @@ Post one story per night during Navratri to maintain daily visibility. Keep each
 
 ---
 
-## WhatsApp Broadcast #1 — Oct 9 (Thu) — Offer Announcement
+## WhatsApp Broadcast #1 — Oct 9 (Fri) — Offer Announcement
 
 **Audience:** Opt-in customer list (previous buyers + engaged leads)  
 **Tone:** Personal, gift-focused, warm  
