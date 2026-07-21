@@ -39,8 +39,8 @@ reviews, then posts and sends from the real accounts.
 ## 2. Brand Facts (source of truth, from the repo)
 
 - **Brand:** Tathastu Keepsakes — *"If it exists, we can print it."*
-- **Product:** Custom 3D-printed keepsakes — lamps, pooja decor, couple gifts,
-  keyrings, home decor, gaming, photo lithophanes.
+- **Product:** Custom 3D-printed keepsakes — pooja idols/decor, lamps, personalized
+  keychains, planters, desk organizers, gaming keychains.
 - **Made in:** Agra, India. PAN-India delivery. "Printed fresh to order."
 - **Site:** https://www.tathastukeepsakes.in
 - **Catalog:** 54 products, price band ~₹149 (keychains) to ~₹2,499 (lamps).

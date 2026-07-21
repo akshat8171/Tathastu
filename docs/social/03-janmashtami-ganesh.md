@@ -39,7 +39,7 @@ If it exists, we can print it.
 **Offer Slot:** Optional — `{{JANMASHTAMI_OFFER: e.g. flat ₹100 off on pooja decor above ₹999}}`  
 *(Founder can add this to the caption if an offer is live; otherwise delete this slot line before posting.)*
 
-**Ship Cut-off Note:** ~Aug 30 (Sep 4 − 5 business days). This is **TIGHT** — Aug 31 post should push COD + express metro delivery hard to reassure last-minute buyers.
+**Ship Cut-off Note:** ~Aug 30 (Sep 4 − 5 days). This is **TIGHT** — Aug 31 post should push COD + express metro delivery hard to reassure last-minute buyers.
 
 ---
 
@@ -194,7 +194,7 @@ If it exists, we can print it.
 **WhatsApp:** Yes — Broadcast #1 (see below)  
 **Offer Slot:** `{{GANESH_OFFER: e.g. 15% off + free incense holder on pooja decor orders above ₹999}}`
 
-**Ship Cut-off Note:** ~Sep 9 (Sep 14 − 5 business days). Shown as guidance in caption.
+**Ship Cut-off Note:** ~Sep 9 (Sep 14 − 5 days). Shown as guidance in caption.
 
 ---
 

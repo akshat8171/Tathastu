@@ -115,7 +115,7 @@ If it exists, we can print it.
 **WhatsApp:** No  
 **Offer Slot:** N/A
 
-**Ship Cut-off Note:** ~Nov 3 (Nov 8 − 5 business days). Emphasized in caption.
+**Ship Cut-off Note:** ~Nov 3 (Nov 8 − 5 days). Emphasized in caption.
 
 ---
 
