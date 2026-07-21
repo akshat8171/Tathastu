@@ -47,4 +47,5 @@ next-env.d.ts
 !docs/archive/*.md
 !docs/social/*.md
 !docs/superpowers/specs/*.md
+!docs/superpowers/plans/*.md
 
