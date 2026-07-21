@@ -1,0 +1,96 @@
+name: Pinterest Daily Autopilot
+
+# Publishes one SEO-optimized Pinterest Pin per day, fully autonomously.
+# See scripts/pinterest/SETUP.md for the one-time setup (dev app + 4 secrets).
+
+on:
+  schedule:
+    # 03:30 UTC = 09:00 IST, every day.
+    - cron: '30 3 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (select + generate SEO, but do NOT publish)'
+        type: boolean
+        default: false
+
+# Least-privilege: only what we need to commit the updated posted-log back.
+permissions:
+  contents: write
+
+# Never run two publishes at once (e.g. cron + a manual dispatch overlapping).
+concurrency:
+  group: pinterest-daily
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Select · Generate SEO · Publish Pin
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Publish daily Pin
+        # Untrusted/workflow inputs are passed via env and read in-shell — never
+        # interpolated into the command line — to avoid workflow injection.
+        run: |
+          ARGS=""
+          if [[ "$DRY_RUN" == "true" ]]; then
+            ARGS="--dry-run"
+          fi
+          npx tsx scripts/pinterest/run.ts $ARGS
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PINTEREST_APP_ID: ${{ secrets.PINTEREST_APP_ID }}
+          PINTEREST_APP_SECRET: ${{ secrets.PINTEREST_APP_SECRET }}
+          # Auth mode defaults to client_credentials (app-only, no refresh token).
+          # To use the Authorization-Code fallback instead, set repo/environment
+          # variable PINTEREST_AUTH_MODE=refresh_token AND add the
+          # PINTEREST_REFRESH_TOKEN secret (see scripts/pinterest/SETUP.md).
+          PINTEREST_AUTH_MODE: ${{ vars.PINTEREST_AUTH_MODE || 'client_credentials' }}
+          PINTEREST_REFRESH_TOKEN: ${{ secrets.PINTEREST_REFRESH_TOKEN }}
+          SITE_ORIGIN: ${{ vars.SITE_ORIGIN || 'https://www.tathastukeepsakes.in' }}
+
+      - name: Commit updated posted-log
+        # Only commits if the log actually changed (a real publish happened).
+        # Uses the built-in GITHUB_TOKEN via the default git credentials.
+        run: |
+          if [[ -z "$(git status --porcelain scripts/pinterest/state/posted-log.json)" ]]; then
+            echo "No new post recorded — nothing to commit."
+            exit 0
+          fi
+          git config user.name "tathastu-pinterest-bot"
+          git config user.email "tathastukeepsakes@gmail.com"
+          git add scripts/pinterest/state/posted-log.json
+          git commit -m "chore(pinterest): record daily pin [skip ci]"
+          # CRITICAL for idempotency: the Pin is ALREADY published by this point,
+          # so losing this state write would make tomorrow's run re-post the same
+          # product (a duplicate Pin). A transient push failure or an unrelated
+          # commit landing during the run must NOT drop it — so rebase and retry.
+          # The concurrency guard means no other instance touches posted-log.json,
+          # so the rebase is always conflict-free.
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "Pushed posted-log on attempt $attempt."
+              exit 0
+            fi
+            echo "Push attempt $attempt failed; rebasing onto origin/$BRANCH and retrying..."
+            git pull --rebase --autostash origin "$BRANCH" || true
+            sleep 5
+          done
+          echo "::error::Failed to push updated posted-log after 5 attempts (Pin was published; log must be reconciled to avoid a duplicate)."
+          exit 1
+        env:
+          BRANCH: ${{ github.ref_name }}
