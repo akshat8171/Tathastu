@@ -45,4 +45,6 @@ next-env.d.ts
 !QUICK-START.md
 !.env.example
 !docs/archive/*.md
+!docs/social/*.md
+!docs/superpowers/specs/*.md
 
