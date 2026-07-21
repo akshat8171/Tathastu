@@ -112,6 +112,12 @@ backward from the date. **Standard 5-beat template:**
 Tier 1 festivals (Rakhi, Diwali) get extra beats (early "gift guide" carousel,
 countdown stories). Tier 3 collapse to a single tie-in + greeting.
 
+**Layer interaction (collision rule):** during a festival's active burst window,
+the burst beats *replace* the base-layer slots for those days rather than posting on
+top of them — so weekly volume stays at 4–5, not doubled. Outside burst windows, the
+base rhythm runs alone. The master calendar (`00-season-calendar.md`) resolves every
+day to a single source of truth so there is never a "which post today?" ambiguity.
+
 ---
 
 ## 5. Offers
