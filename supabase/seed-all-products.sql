@@ -224,7 +224,7 @@ INSERT INTO products (
   3799,
   NULL,
   16,
-  '["/images/products/lamps/lamp4/2025-06-19_055478830772c8.webp","/images/products/lamps/lamp4/2025-06-19_17e91217ec664.webp","/images/products/lamps/lamp4/2025-06-19_1f854ddc599c88.webp","/images/products/lamps/lamp4/2025-06-19_5e9df64ab4803.webp","/images/products/lamps/lamp4/dfd.png","/images/products/lamps/lamp4/IMG_8965.png","/images/products/lamps/lamp4/IMG_8987.png"]'::jsonb,
+  '["/images/products/lamps/Lamp4/2025-06-19_055478830772c8.webp","/images/products/lamps/Lamp4/2025-06-19_17e91217ec664.webp","/images/products/lamps/Lamp4/2025-06-19_1f854ddc599c88.webp","/images/products/lamps/Lamp4/2025-06-19_5e9df64ab4803.webp","/images/products/lamps/Lamp4/dfd.png","/images/products/lamps/Lamp4/IMG_8965.png","/images/products/lamps/Lamp4/IMG_8987.png"]'::jsonb,
   NULL,
   NULL,
   false,
