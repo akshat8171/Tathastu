@@ -14,7 +14,7 @@
     "test:coverage": "jest --coverage"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.112.4",
+    "@google/genai": "^2.13.0",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.39.0",
     "@upstash/ratelimit": "^2.0.8",

@@ -1,20 +1,22 @@
 /**
- * seo.ts — Generates SEO-optimized Pinterest metadata with Claude.
+ * seo.ts — Generates SEO-optimized Pinterest metadata with Google Gemini.
  *
  * Contract (from Akshat's original brief):
  *   - title:            catchy, <100 chars, hook + primary keyword
  *   - description:      engaging, <500 chars, 3–4 natural related search terms, NO hashtags
  *   - board_suggestion: a broad category
  *
- * The Zod schema enforces shape + length at DECODE time via zodOutputFormat, so
- * the model literally cannot return an off-contract object. A post-parse
- * sanitizer strips any stray hashtags (fail-open: we'd rather clean one "#" than
- * fail the whole day's Pin).
+ * Gemini's structured-output mode (responseMimeType 'application/json' +
+ * responseSchema) constrains the reply to the shape below, so the model returns
+ * a parseable JSON object. A post-parse sanitizer then strips any stray hashtags
+ * and clamps lengths (fail-open: we'd rather clean/trim one field than fail the
+ * whole day's Pin) — which is why the post-parse validation here is intentionally
+ * lenient on length: sanitizeSeo is the hard length backstop.
  *
- * IMPORTANT (verified against the installed SDK): the Anthropic zod helper is
- * typed against `zod/v4`. Installed zod is 3.25.x, which ships the v4 API under
- * the `zod/v4` subpath — so we import from there, NOT the default `zod` (still
- * v3 in 3.25.x). Mixing them causes a type/runtime mismatch.
+ * NOTE on the zod import: SeoSchema is defined with the zod v4 API. Installed zod
+ * is 3.25.x, which ships the v4 API under the `zod/v4` subpath — so we import from
+ * there, NOT the default `zod` (still the v3 API in 3.25.x). SeoSchema doubles as
+ * the documented output contract exercised by seo.test.ts.
  *
  * The SDK is ESM-only; it is imported dynamically INSIDE generateSeo so this
  * module's pure exports (schema, sanitizeSeo, limits) stay importable from Jest
@@ -50,6 +52,53 @@ export const SeoSchema = z.object({
     .max(BOARD_MAX)
     .describe('A broad Pinterest board category, 2–4 words, e.g. "3D Printed Pooja Decor".'),
 })
+
+/**
+ * Lenient runtime shape-check for the model's JSON reply. Unlike SeoSchema it does
+ * NOT cap length: Gemini's responseSchema `maxLength` is a soft nudge, so we enforce
+ * length (fail-open) via sanitizeSeo's clamp rather than rejecting a slightly-long
+ * reply and losing the day's Pin. This guarantees three present, non-empty strings.
+ */
+const SeoResponseSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+  board_suggestion: z.string().min(1),
+})
+
+/**
+ * Gemini structured-output schema (Google's OpenAPI-subset dialect, NOT JSON
+ * Schema). `type` uses the SDK's string enum values and `maxLength` is a STRING
+ * per the SDK types. Fed to `config.responseSchema` so the model returns exactly
+ * these three fields as parseable JSON. `propertyOrdering` pins field order for
+ * stable, cache-friendly output.
+ */
+const SEO_RESPONSE_SCHEMA = {
+  type: 'OBJECT',
+  properties: {
+    title: {
+      type: 'STRING',
+      maxLength: String(TITLE_MAX),
+      description: 'Catchy Pinterest pin title: a hook plus the primary keyword. Under 100 characters.',
+    },
+    description: {
+      type: 'STRING',
+      maxLength: String(DESCRIPTION_MAX),
+      description:
+        'Engaging description under 500 characters. Weave in 3–4 natural related search terms. ' +
+        'Absolutely NO hashtags.',
+    },
+    board_suggestion: {
+      type: 'STRING',
+      maxLength: String(BOARD_MAX),
+      description: 'A broad Pinterest board category, 2–4 words, e.g. "3D Printed Pooja Decor".',
+    },
+  },
+  required: ['title', 'description', 'board_suggestion'],
+  propertyOrdering: ['title', 'description', 'board_suggestion'],
+}
+
+/** The Gemini model used for SEO copy — cheap, fast, structured-output capable. */
+const SEO_MODEL = 'gemini-2.5-flash'
 
 /**
  * ★ LEARNING-MODE HOOK #2 — the SEO persona/voice (see design spec §6).
@@ -119,35 +168,59 @@ export function sanitizeSeo(seo: SeoContent): SeoContent {
 }
 
 /**
- * Generates + validates SEO metadata for a product via Claude.
+ * Generates + validates SEO metadata for a product via Google Gemini.
  *
- * Uses claude-opus-4-8 with structured output (zodOutputFormat). Adaptive
- * thinking is intentionally NOT enabled: constrained decoding is the hard
- * requirement, the task is bounded copywriting, and this keeps the request
- * correct-by-construction. Non-streaming is correct — the output is small.
+ * Uses gemini-2.5-flash with structured output (responseMimeType
+ * 'application/json' + responseSchema). Thinking is explicitly DISABLED
+ * (thinkingBudget: 0): 2.5-flash thinks by default and those tokens draw from
+ * maxOutputTokens, which could starve the JSON and yield an empty reply — the
+ * task is bounded copywriting where reasoning buys nothing. Non-streaming is
+ * correct: the output is a few hundred tokens.
  *
  * @param product the catalog product to describe
- * @param apiKey  the Anthropic API key (from config)
+ * @param apiKey  the Gemini (Google AI Studio) API key (from config)
  */
 export async function generateSeo(product: Product, apiKey: string): Promise<SeoContent> {
   // Dynamic import keeps the ESM-only SDK out of Jest's CommonJS graph.
-  const { default: Anthropic } = await import('@anthropic-ai/sdk')
-  const { zodOutputFormat } = await import('@anthropic-ai/sdk/helpers/zod')
+  const { GoogleGenAI } = await import('@google/genai')
 
-  const client = new Anthropic({ apiKey })
+  const ai = new GoogleGenAI({ apiKey })
 
-  const message = await client.messages.parse({
-    model: 'claude-opus-4-8',
-    max_tokens: 1024,
-    system: SEO_SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: buildSeoUserPrompt(product) }],
-    output_config: { format: zodOutputFormat(SeoSchema) },
+  const response = await ai.models.generateContent({
+    model: SEO_MODEL,
+    contents: buildSeoUserPrompt(product),
+    config: {
+      systemInstruction: SEO_SYSTEM_PROMPT,
+      responseMimeType: 'application/json',
+      responseSchema: SEO_RESPONSE_SCHEMA,
+      maxOutputTokens: 1024,
+      temperature: 0.7,
+      // 2.5-flash thinks by default; disable so thinking can't consume the
+      // output budget and return empty text (0 = DISABLED per the SDK).
+      thinkingConfig: { thinkingBudget: 0 },
+    },
   })
 
-  const parsed = message.parsed_output
-  if (!parsed) {
-    throw new Error(`SEO generation returned no parsed output for product ${product.id}.`)
+  const text = response.text
+  if (!text || text.trim() === '') {
+    throw new Error(`SEO generation returned no text for product ${product.id}.`)
   }
 
-  return sanitizeSeo(parsed)
+  let raw: unknown
+  try {
+    raw = JSON.parse(text)
+  } catch {
+    throw new Error(`SEO generation returned non-JSON output for product ${product.id}: ${text}`)
+  }
+
+  const result = SeoResponseSchema.safeParse(raw)
+  if (!result.success) {
+    throw new Error(
+      `SEO generation returned off-contract output for product ${product.id}: ${result.error.message}`,
+    )
+  }
+
+  // sanitizeSeo strips hashtags AND clamps to the max lengths — the hard length
+  // backstop now that decoding no longer guarantees it.
+  return sanitizeSeo(result.data)
 }

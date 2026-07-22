@@ -23,8 +23,8 @@
 export type AuthMode = 'client_credentials' | 'refresh_token'
 
 export interface Config {
-  /** Anthropic API key — powers the SEO metadata generation. */
-  anthropicApiKey: string
+  /** Gemini (Google AI Studio) API key — powers the SEO metadata generation. */
+  geminiApiKey: string
   /** Pinterest app credentials (from the developer portal). Both modes need these. */
   pinterestAppId: string
   pinterestAppSecret: string
@@ -79,7 +79,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   }
 
   const config: Config = {
-    anthropicApiKey: require_('ANTHROPIC_API_KEY'),
+    geminiApiKey: require_('GEMINI_API_KEY'),
     pinterestAppId: require_('PINTEREST_APP_ID'),
     pinterestAppSecret: require_('PINTEREST_APP_SECRET'),
     authMode,

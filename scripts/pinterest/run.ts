@@ -9,8 +9,8 @@
  *   5. walk candidates in rank order until one publishes:
  *        a. build the public image URL
  *        b. precheck the image is reachable  (cheap, auth-free → do this BEFORE
- *           the paid Claude call so a dead-image product is skipped for free)
- *        c. generate SEO metadata (Claude)
+ *           the paid Gemini call so a dead-image product is skipped for free)
+ *        c. generate SEO metadata (Gemini)
  *        d. resolve (get-or-create) the target board
  *        e. publish the Pin
  *      A candidate that throws at any step is logged and SKIPPED — the next
@@ -123,12 +123,12 @@ export async function main(
       const imageUrl = deps.buildPublicImageUrl(product.images[0]!, config.siteOrigin)
       const link = `${config.siteOrigin}/products/${product.id}`
 
-      // (b) Auth-free reachability precheck BEFORE the paid Claude call.
+      // (b) Auth-free reachability precheck BEFORE the paid Gemini call.
       await deps.assertImageReachable(imageUrl)
       log('image', `reachable: ${imageUrl}`)
 
       // (c) SEO
-      const seo = await deps.generateSeo(product, config.anthropicApiKey)
+      const seo = await deps.generateSeo(product, config.geminiApiKey)
       log('seo', `title="${seo.title}" | board="${seo.board_suggestion}"`)
 
       if (dryRun) {

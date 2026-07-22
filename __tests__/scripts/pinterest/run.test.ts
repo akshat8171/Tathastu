@@ -5,7 +5,7 @@
  * Focus: the autonomy-critical behaviors —
  *   - record ONLY after a confirmed publish
  *   - skip a failing ("poison") product and try the next candidate
- *   - cheap image precheck runs BEFORE the paid Claude SEO call
+ *   - cheap image precheck runs BEFORE the paid Gemini SEO call
  *   - dry-run mints no token, publishes nothing, records nothing
  *   - all-candidates-fail throws loudly (red X)
  */
@@ -14,7 +14,7 @@ import { main, DEFAULT_DEPS, MAX_CANDIDATE_ATTEMPTS, type RunDeps } from '@/scri
 import type { Product, PostedLog, SeoContent, CreatedPin } from '@/scripts/pinterest/types'
 
 const CONFIG = {
-  anthropicApiKey: 'sk',
+  geminiApiKey: 'sk',
   pinterestAppId: 'A',
   pinterestAppSecret: 'S',
   authMode: 'client_credentials' as const,
@@ -100,7 +100,7 @@ describe('main — happy path', () => {
     expect((records[0] as { productId: string }).productId).toBe('p2') // did loop past p1
   })
 
-  it('prechecks image reachability BEFORE the paid Claude SEO call', async () => {
+  it('prechecks image reachability BEFORE the paid Gemini SEO call', async () => {
     const { deps, calls } = makeDeps()
     await main([], deps)
     expect(calls.indexOf('image:https://site.test/img/p1.jpg')).toBeLessThan(calls.indexOf('seo:p1'))

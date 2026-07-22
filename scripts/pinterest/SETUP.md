@@ -3,8 +3,8 @@
 This directory holds a fully autonomous agent that publishes **one SEO-optimized
 Pinterest Pin per day** for Tathastu Keepsakes. It runs on a GitHub Actions cron
 (09:00 IST daily), picks the least-recently-posted product from
-`lib/products.json`, writes Pinterest-tuned copy with Claude, and publishes via
-the official **Pinterest API v5**.
+`lib/products.json`, writes Pinterest-tuned copy with Google Gemini, and
+publishes via the official **Pinterest API v5**.
 
 You only have to do this setup **once**. After that it runs hands-off.
 
@@ -14,7 +14,7 @@ You only have to do this setup **once**. After that it runs hands-off.
 
 1. A Pinterest **business** account (the store account you want to post to).
 2. Access to this GitHub repository's **Settings** (to add secrets).
-3. An **Anthropic API key** (for generating the Pin copy).
+3. A **Google Gemini API key** (from Google AI Studio — for generating the Pin copy).
 
 Total time: ~15 minutes.
 
@@ -49,13 +49,14 @@ needed for the default setup. See "How authentication works" below for why.
 
 ---
 
-## Step 2 — Get an Anthropic API key
+## Step 2 — Get a Google Gemini API key
 
-1. Go to **<https://console.anthropic.com/settings/keys>**.
-2. Create a key and copy it → this is `ANTHROPIC_API_KEY`.
+1. Go to **<https://aistudio.google.com/app/apikey>** and sign in with a Google account.
+2. Click **Create API key**, then copy it → this is `GEMINI_API_KEY`.
 
-The agent uses model `claude-opus-4-8` to generate each Pin's title, description,
-and board suggestion. Cost is a fraction of a cent per day (one short request).
+The agent uses model `gemini-2.5-flash` to generate each Pin's title, description,
+and board suggestion. Cost is a fraction of a cent per day (one short request) —
+and Google's free tier typically covers this volume outright.
 
 ---
 
@@ -66,13 +67,13 @@ Secrets tab → New repository secret**, and add these **three** secrets:
 
 | Secret name             | Value                                    |
 | ----------------------- | ---------------------------------------- |
-| `ANTHROPIC_API_KEY`     | your Anthropic key from Step 2           |
+| `GEMINI_API_KEY`        | your Google Gemini key from Step 2       |
 | `PINTEREST_APP_ID`      | the App ID from Step 1                   |
 | `PINTEREST_APP_SECRET`  | the App secret token from Step 1         |
 
 > **Security:** these are encrypted by GitHub and are never printed in logs or
 > committed to the repo. Do **not** put them in `.env`, code, or this file.
-> GitHub also participates in Pinterest/Anthropic secret-scanning and will
+> GitHub also participates in Pinterest/Google secret-scanning and will
 > auto-revoke a token if it's ever committed by accident — so keep them here.
 
 You do **not** need `PINTEREST_REFRESH_TOKEN` for the default setup.
@@ -106,7 +107,7 @@ You can test the whole pipeline **without publishing anything**:
 
 A dry run does everything *except* minting a token, the live publish, and the
 log append: it loads config, picks the top-ranked product, verifies its image is
-reachable, generates the SEO copy with Claude, and prints the assembled payload
+reachable, generates the SEO copy with Gemini, and prints the assembled payload
 (title, description, board, link, image URL). If that step is green, the daily
 schedule will publish for real.
 
@@ -185,7 +186,7 @@ Only use this if your app genuinely cannot post app-only. To switch:
 
 | Variable                  | Required?                          | Default                              | Purpose                                              |
 | ------------------------- | ---------------------------------- | ------------------------------------ | ---------------------------------------------------- |
-| `ANTHROPIC_API_KEY`       | ✅ always                          | —                                    | Generates the Pin's SEO copy (`claude-opus-4-8`)     |
+| `GEMINI_API_KEY`          | ✅ always                          | —                                    | Generates the Pin's SEO copy (`gemini-2.5-flash`)    |
 | `PINTEREST_APP_ID`        | ✅ always                          | —                                    | Pinterest app identifier (Basic-auth user)           |
 | `PINTEREST_APP_SECRET`    | ✅ always                          | —                                    | Pinterest app secret (Basic-auth password)           |
 | `PINTEREST_AUTH_MODE`     | ❌ optional                        | `client_credentials`                 | `client_credentials` or `refresh_token`              |
@@ -208,7 +209,7 @@ Secrets go in the **Secrets** tab; the optional overrides (`PINTEREST_AUTH_MODE`
 | `authMode is "refresh_token" but PINTEREST_REFRESH_TOKEN...` | You set the mode to `refresh_token` but didn't add the token secret.               |
 | `refresh_token token request failed` after ~60 days         | The continuous refresh token rotated/expired. Re-mint it, or switch back to `client_credentials`. |
 | `image not reachable: ...`                                  | The product image URL (from `SITE_ORIGIN`) is 404/private. Fix the URL or the site. |
-| Anthropic `401`                                             | `ANTHROPIC_API_KEY` is wrong or revoked. Create a new key (Step 2).                |
+| Gemini `401`/`403` or `API key not valid`                   | `GEMINI_API_KEY` is wrong or revoked. Create a new key (Step 2).                   |
 
 To debug without posting, re-run with **Dry run = true** and read the printed
 payload — it shows exactly what would be published.

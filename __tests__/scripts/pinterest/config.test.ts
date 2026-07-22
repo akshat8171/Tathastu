@@ -10,7 +10,7 @@ import { loadConfig, DEFAULT_SCOPES, DEFAULT_AUTH_MODE } from '@/scripts/pintere
 // Cast via `unknown`: Next.js augments NodeJS.ProcessEnv with a required
 // NODE_ENV, which a partial test literal deliberately omits.
 const BASE = {
-  ANTHROPIC_API_KEY: 'sk-ant-test',
+  GEMINI_API_KEY: 'gemini-test-key',
   PINTEREST_APP_ID: 'app-123',
   PINTEREST_APP_SECRET: 'secret-abc',
 } as unknown as NodeJS.ProcessEnv
@@ -43,7 +43,7 @@ describe('loadConfig — defaults', () => {
 describe('loadConfig — required vars', () => {
   it('throws listing every missing required var', () => {
     expect(() => loadConfig({} as unknown as NodeJS.ProcessEnv)).toThrow(
-      /ANTHROPIC_API_KEY.*PINTEREST_APP_ID.*PINTEREST_APP_SECRET/s,
+      /GEMINI_API_KEY.*PINTEREST_APP_ID.*PINTEREST_APP_SECRET/s,
     )
   })
 

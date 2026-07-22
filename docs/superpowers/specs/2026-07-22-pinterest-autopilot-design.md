@@ -6,6 +6,15 @@
 **Mode:** Built autonomously per founder instruction ("take all decisions on your own, always
 choose the recommended approach"). Recommended options are locked throughout.
 
+> **Addendum (2026-07-22, post-approval):** After this design was approved, the SEO copy
+> generator was switched from Anthropic Claude to **Google Gemini** (`gemini-2.5-flash`, via
+> the `@google/genai` SDK and a Google AI Studio API key), and the secret was renamed
+> `ANTHROPIC_API_KEY` → `GEMINI_API_KEY`. References to "Claude", `claude-opus-4-8`,
+> `zodOutputFormat`, and `ANTHROPIC_API_KEY` in the sections below (notably §4b and §5)
+> describe the **original approved design** and are retained as the historical record. For the
+> current provider, model, and the exact set of required GitHub secrets,
+> **`scripts/pinterest/SETUP.md` is the live source of truth.**
+
 ---
 
 ## 1. Purpose & Scope

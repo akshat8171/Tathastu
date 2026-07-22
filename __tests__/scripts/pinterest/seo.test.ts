@@ -3,7 +3,7 @@
  *
  * Pure-logic tests for seo.ts: the Zod output contract, the fail-open hashtag
  * sanitizer, prompt assembly, and the exported limits. No network, no SDK — the
- * ESM-only Anthropic client is dynamically imported inside generateSeo(), which
+ * ESM-only Gemini client is dynamically imported inside generateSeo(), which
  * these tests never call, so importing this module stays Jest-safe.
  */
 

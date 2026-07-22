@@ -52,7 +52,7 @@ jobs:
           npx tsx scripts/pinterest/run.ts $ARGS
         env:
           DRY_RUN: ${{ inputs.dry_run }}
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PINTEREST_APP_ID: ${{ secrets.PINTEREST_APP_ID }}
           PINTEREST_APP_SECRET: ${{ secrets.PINTEREST_APP_SECRET }}
           # Auth mode defaults to client_credentials (app-only, no refresh token).
