@@ -48,7 +48,7 @@ export const SeoSchema = z.object({
     .string()
     .min(1)
     .max(BOARD_MAX)
-    .describe('A broad Pinterest board category, 2–4 words, e.g. "3D Printed Home Decor".'),
+    .describe('A broad Pinterest board category, 2–4 words, e.g. "3D Printed Pooja Decor".'),
 })
 
 /**

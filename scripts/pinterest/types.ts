@@ -27,7 +27,7 @@ export interface SeoContent {
   title: string
   /** Engaging copy with 3–4 natural related search terms. ≤500 chars, no hashtags. */
   description: string
-  /** Broad board category, e.g. "3D Printed Home Decor". */
+  /** Broad board category, e.g. "3D Printed Pooja Decor". */
   board_suggestion: string
 }
 

@@ -29,9 +29,9 @@ describe('SEO limits', () => {
 // ── SeoSchema (decode-time contract) ────────────────────────────────────────────
 describe('SeoSchema', () => {
   const valid = {
-    title: 'Custom 3D Printed Moon Lamp — Personalised Gift',
+    title: 'Custom 3D Printed Lunar Night Lamp — Personalised Gift',
     description: 'A warm, made-to-order keepsake for weddings and anniversaries.',
-    board_suggestion: '3D Printed Home Decor',
+    board_suggestion: '3D Printed Pooja Decor',
   }
 
   it('accepts a well-formed object', () => {
@@ -73,14 +73,14 @@ describe('SeoSchema', () => {
 describe('sanitizeSeo', () => {
   it('strips "#word" hashtags from all fields', () => {
     const out = sanitizeSeo({
-      title: 'Moon Lamp #3DPrinting #gift',
+      title: 'Lunar Night Lamp #3DPrinting #gift',
       description: 'Great for #Diwali and #Rakhi celebrations.',
-      board_suggestion: 'Home Decor #ideas',
+      board_suggestion: 'Pooja Decor #ideas',
     })
     expect(out.title).not.toMatch(/#/)
     expect(out.description).not.toMatch(/#/)
     expect(out.board_suggestion).not.toMatch(/#/)
-    expect(out.title).toBe('Moon Lamp')
+    expect(out.title).toBe('Lunar Night Lamp')
   })
 
   it('strips lone "#" characters', () => {
@@ -116,9 +116,9 @@ describe('sanitizeSeo', () => {
 
   it('leaves clean copy untouched', () => {
     const clean = {
-      title: 'Custom Moon Lamp Gift',
+      title: 'Custom Lunar Night Lamp Gift',
       description: 'A made-to-order keepsake for weddings.',
-      board_suggestion: '3D Printed Home Decor',
+      board_suggestion: '3D Printed Pooja Decor',
     }
     expect(sanitizeSeo(clean)).toEqual(clean)
   })
@@ -128,7 +128,7 @@ describe('sanitizeSeo', () => {
 describe('buildSeoUserPrompt', () => {
   const base: Product = {
     id: 'p1',
-    name: 'Moon Lamp',
+    name: 'Lunar Night Lamp',
     description: 'A glowing lunar keepsake.',
     images: ['/a.jpg'],
     category: 'lamps',
@@ -137,7 +137,7 @@ describe('buildSeoUserPrompt', () => {
 
   it('includes the product name and category', () => {
     const prompt = buildSeoUserPrompt(base)
-    expect(prompt).toContain('Moon Lamp')
+    expect(prompt).toContain('Lunar Night Lamp')
     expect(prompt).toContain('lamps')
   })
 
