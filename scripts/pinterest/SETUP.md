@@ -35,17 +35,28 @@ Total time: ~15 minutes.
    `boards:read`, `boards:write`, `pins:read`, `pins:write`.
 6. **Enable two-factor authentication (2FA)** on the Pinterest account. Pinterest
    **requires 2FA to be on** to use the `client_credentials` grant — without it,
-   the very first token mint fails. Account → Settings → Security → enable 2FA.
+   the very first token mint fails with `401 code 1201`. Account → Settings →
+   Security → enable 2FA.
+7. **Apply for Standard access** from the app's page. Trial access **cannot
+   create Pins in production** — Pinterest returns `403 code 29` at publish time —
+   so Standard access is **required** before the daily run can post. See the note
+   below.
 
-That's it — **no OAuth redirect, no refresh token, no manual token copying** is
-needed for the default setup. See "How authentication works" below for why.
+**No OAuth redirect, no refresh token, no manual token copying** is needed for the
+default setup (see "How authentication works" below). The one remaining gate is
+Pinterest's **Standard access** approval (Step 7): until it clears, the token
+mints and boards resolve, but the final publish returns `403 code 29`.
 
-> **Trial vs. Standard access.** A brand-new app starts with *Trial access*,
-> which is enough to publish to **your own** account (exactly what this agent
-> does). If Pinterest ever rejects the calls with a scope/access error, apply
-> for **Standard access** from the app page — approval is typically quick for a
-> single-account posting use case. This is the only step that could require
-> waiting on Pinterest, and it does not block finishing setup.
+> **Trial vs. Standard access — you need Standard.** A brand-new app starts with
+> *Trial access*. Trial can mint tokens and create boards, but **cannot create
+> Pins in production** — the publish step fails with
+> `403 {"code":29,"message":"Apps with Trial access may not create Pins in
+> production ... use API Sandbox instead."}`. So you **must apply for Standard
+> access** from the app page before the daily run can post (Step 1, point 7).
+> Approval is typically quick for a single-account posting use case but is decided
+> by Pinterest, so it can take anywhere from minutes to a few business days — this
+> is the one step gated on Pinterest's side. No code change is needed once it
+> clears; just re-run the workflow.
 
 ---
 
@@ -205,7 +216,8 @@ Secrets go in the **Secrets** tab; the optional overrides (`PINTEREST_AUTH_MODE`
 | ------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
 | `missing required environment variables: ...`               | A secret wasn't added, or has a typo in its name. Re-check Step 3.                  |
 | `client_credentials token request failed (401 ...)`         | Wrong `PINTEREST_APP_ID`/`PINTEREST_APP_SECRET`, or the app lacks the scopes.       |
-| `token request failed (403 ...)` / scope error             | App is still on Trial access without the needed scopes → apply for Standard access. |
+| `Failed to create pin (403 ...)` `code 29` "Trial access"   | The app is still on **Trial access**. Apply for **Standard access** (Step 1, point 7), then re-run. No code change needed. |
+| `token request failed (403 ...)` / scope error             | App lacks the needed scopes → re-check Step 1 point 5, or apply for Standard access. |
 | `authMode is "refresh_token" but PINTEREST_REFRESH_TOKEN...` | You set the mode to `refresh_token` but didn't add the token secret.               |
 | `refresh_token token request failed` after ~60 days         | The continuous refresh token rotated/expired. Re-mint it, or switch back to `client_credentials`. |
 | `image not reachable: ...`                                  | The product image URL (from `SITE_ORIGIN`) is 404/private. Fix the URL or the site. |
