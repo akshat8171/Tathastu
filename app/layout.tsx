@@ -99,6 +99,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.tathastukeepsakes.in',
   },
+  verification: {
+    other: {
+      // Pinterest website claim / domain verification
+      'p:domain_verify': '65224e05871639c1c24f11bb217f0de2',
+    },
+  },
 }
 
 export default function RootLayout({
