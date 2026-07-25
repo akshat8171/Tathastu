@@ -11,6 +11,7 @@ import productsJson from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui/product-card'
 import { SITE } from '@/lib/site'
 import { getProductSchema, getBreadcrumbSchema } from '@/lib/schema'
+import { ProductViewTracker } from '@/components/analytics/product-view-tracker'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -153,6 +154,7 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
 
   return (
     <main className="bg-white min-h-screen">
+      <ProductViewTracker productId={product.id} productName={product.name} category={product.category} price={product.price} />
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"

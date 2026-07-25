@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Package, Users, LayoutDashboard, LogOut } from 'lucide-react'
+import { Package, Users, LayoutDashboard, LogOut, BarChart3 } from 'lucide-react'
 import { useEffect, ReactNode } from 'react'
 
 export default function AdminLayout({
@@ -30,6 +30,7 @@ export default function AdminLayout({
     { href: '/admin', icon: LayoutDashboard, label: 'Dashboard', exact: true },
     { href: '/admin/orders', icon: Package, label: 'Orders' },
     { href: '/admin/customers', icon: Users, label: 'Customers' },
+    { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
   ]
 
   const isActive = (href: string, exact?: boolean) => {

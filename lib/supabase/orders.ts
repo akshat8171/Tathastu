@@ -160,32 +160,74 @@ export async function createOrder(orderData: {
   total: number
   payment_method?: string
   notes?: string
+  // Structured shipping geography (migration-008). Optional so older callers
+  // and DBs without the columns degrade gracefully — see the insert note below.
+  shipping_state?: string
+  shipping_city?: string
+  shipping_pincode?: string
 }): Promise<{ order: Order | null; error: any }> {
   try {
     // Generate order number
     const orderNumber = `ORDER_${Date.now()}_${Math.floor(Math.random() * 10000)}`
 
-    // Create order
-    const { data: order, error: orderError } = await supabaseAdmin
+    // Base row — always present columns.
+    const baseRow: Record<string, unknown> = {
+      order_number: orderNumber,
+      customer_id: orderData.customer_id ?? null,
+      customer_name: orderData.customer_name,
+      customer_email: orderData.customer_email,
+      customer_phone: orderData.customer_phone,
+      subtotal: orderData.subtotal,
+      discount: orderData.discount || 0,
+      tax: orderData.tax || 0,
+      shipping: orderData.shipping || 0,
+      total: orderData.total,
+      payment_method: orderData.payment_method || 'upi',
+      payment_status: 'pending',
+      status: 'pending',
+      notes: orderData.notes,
+    }
+
+    // Structured shipping geography (migration-008). Kept separate so that a DB
+    // where migration-008 hasn't run yet doesn't break checkout: if the insert
+    // fails because these columns don't exist, we retry with baseRow only. The
+    // free-text `notes` field still carries the address either way, and the
+    // migration's backfill reconstructs state/pincode from notes retroactively.
+    const geographyRow: Record<string, unknown> = {}
+    if (orderData.shipping_state) geographyRow.shipping_state = orderData.shipping_state
+    if (orderData.shipping_city) geographyRow.shipping_city = orderData.shipping_city
+    if (orderData.shipping_pincode) geographyRow.shipping_pincode = orderData.shipping_pincode
+
+    let { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
-      .insert({
-        order_number: orderNumber,
-        customer_id: orderData.customer_id ?? null,
-        customer_name: orderData.customer_name,
-        customer_email: orderData.customer_email,
-        customer_phone: orderData.customer_phone,
-        subtotal: orderData.subtotal,
-        discount: orderData.discount || 0,
-        tax: orderData.tax || 0,
-        shipping: orderData.shipping || 0,
-        total: orderData.total,
-        payment_method: orderData.payment_method || 'upi',
-        payment_status: 'pending',
-        status: 'pending',
-        notes: orderData.notes,
-      })
+      .insert({ ...baseRow, ...geographyRow })
       .select()
       .single()
+
+    // Retry without geography columns if they're the reason the insert failed
+    // (Postgres 42703 undefined_column / PostgREST PGRST204 schema-cache miss).
+    if (orderError && Object.keys(geographyRow).length > 0) {
+      // Fire ONLY on the exact codes Postgres / PostgREST raise for an unknown
+      // column: 42703 (undefined_column) or PGRST204 (schema-cache miss). We
+      // deliberately do NOT also pattern-match the message text — a different
+      // failure (constraint, trigger, RLS) whose message merely mentions a
+      // shipping_* column would otherwise be misclassified and silently retried
+      // WITHOUT the geography, losing data on a DB that actually has the columns.
+      const code = (orderError as { code?: string }).code
+      const msg = (orderError as { message?: string }).message ?? ''
+      const missingColumn = code === '42703' || code === 'PGRST204'
+      if (missingColumn) {
+        console.error(
+          'createOrder: shipping geography columns missing (run migration-008); retrying without them',
+          { code, msg }
+        )
+        ;({ data: order, error: orderError } = await supabaseAdmin
+          .from('orders')
+          .insert(baseRow)
+          .select()
+          .single())
+      }
+    }
 
     if (orderError || !order) {
       return { order: null, error: orderError }

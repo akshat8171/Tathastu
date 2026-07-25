@@ -35,6 +35,18 @@ yarn-error.log*
 # vercel
 .vercel
 
+# large media / video — never commit heavy binaries to the repo (host on a CDN
+# or object storage instead). Keeps the git history lean and PRs reviewable.
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

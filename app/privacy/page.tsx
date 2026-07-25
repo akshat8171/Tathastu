@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: `How ${SITE.name} collects, uses, and protects your personal information when you shop with us.`,
 }
 
-const LAST_UPDATED = 'June 2025'
+const LAST_UPDATED = 'July 2026'
 
 export default function PrivacyPage() {
   return (
@@ -72,6 +72,15 @@ export default function PrivacyPage() {
                 security and site improvement.
               </li>
               <li>
+                <strong>Usage &amp; Performance Analytics:</strong> we use{' '}
+                <strong>Vercel Web Analytics</strong> and <strong>Vercel Speed Insights</strong> to
+                understand aggregate traffic (page views, referrers, country, device type) and to
+                measure page-load performance. These are privacy-friendly and{' '}
+                <em>cookieless</em> — they do not use cookies, do not store any identifier in your
+                browser, and do not track you across other websites. Data is aggregated and cannot
+                be used to personally identify you.
+              </li>
+              <li>
                 <strong>Cookies:</strong> small text files stored in your browser (see Section 5
                 below).
               </li>
@@ -125,9 +134,19 @@ export default function PrivacyPage() {
                 Bluedart) to facilitate delivery.
               </li>
               <li>
-                <strong>Cloud Infrastructure:</strong> we use Supabase (database) and Vercel
-                (hosting) for data storage and website delivery. Both providers maintain
-                industry-standard security measures.
+                <strong>Cloud Infrastructure &amp; Analytics:</strong> we use Supabase (database)
+                and Vercel (hosting, plus cookieless Web Analytics and Speed Insights) for data
+                storage, website delivery, and aggregate traffic/performance measurement. Vercel
+                processes analytics data under{' '}
+                <a
+                  href="https://vercel.com/legal/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand hover:underline"
+                >
+                  Vercel&apos;s Privacy Policy
+                </a>
+                . Both providers maintain industry-standard security measures.
               </li>
               <li>
                 <strong>Legal Obligations:</strong> we may disclose information where required by
@@ -160,13 +179,16 @@ export default function PrivacyPage() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>Maintain your shopping cart across sessions (stored in <code className="bg-gray-100 px-1 rounded text-sm">localStorage</code>).</li>
-              <li>Keep you logged in securely after OTP verification.</li>
-              <li>Analyse website traffic via privacy-respecting analytics.</li>
+              <li>Keep you logged in securely after OTP verification (a strictly-necessary session cookie).</li>
             </ul>
             <p className="mt-3">
-              You can instruct your browser to refuse all cookies or to indicate when a cookie is
-              being sent. Note that some features of the site may not function properly without
-              cookies.
+              We use only <strong>strictly-necessary</strong> cookies and local storage — those
+              required to keep you signed in and to remember your cart. We do <em>not</em> use
+              advertising or cross-site tracking cookies. Our traffic and performance analytics
+              (Vercel Web Analytics and Speed Insights) are <strong>cookieless</strong> and store
+              nothing in your browser, so no analytics-consent banner is required. You can instruct
+              your browser to refuse cookies, but note that sign-in and cart features may not
+              function properly without the strictly-necessary ones.
             </p>
           </section>
 

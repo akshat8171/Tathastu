@@ -9,6 +9,7 @@ import { Spinner } from '@/components/ui/spinner'
 import { useRouter } from 'next/navigation'
 import { RazorpayResponse } from '@/lib/razorpay'
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
+import { trackBeginCheckout, trackPurchase } from '@/lib/analytics'
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat('en-IN', {
@@ -143,6 +144,18 @@ export function CheckoutForm() {
     return () => { cancelled = true }
   }, [])
 
+  // ── Track begin_checkout on mount (once) ──────────────────────────────────
+  useEffect(() => {
+    if (items.length > 0) {
+      trackBeginCheckout({
+        value: total,
+        itemCount: items.reduce((n, i) => n + i.quantity, 0),
+        coupon: couponCode || null,
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   // ── Helpers ───────────────────────────────────────────────────────────────
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -213,6 +226,14 @@ export function CheckoutForm() {
 
     const data = await res.json()
     if (data.success) {
+      trackPurchase({
+        orderNumber: data.orderNumber ?? '',
+        value: total,
+        itemCount: items.reduce((n, i) => n + i.quantity, 0),
+        paymentMethod: 'razorpay',
+        coupon: couponCode || null,
+        discount,
+      })
       clearCart()
       router.push(`/order-confirmation/${data.orderNumber}`)
     } else {
@@ -245,6 +266,14 @@ export function CheckoutForm() {
       })
       const data = await res.json()
       if (data.success) {
+        trackPurchase({
+          orderNumber: data.orderNumber ?? '',
+          value: total,
+          itemCount: items.reduce((n, i) => n + i.quantity, 0),
+          paymentMethod: 'cod',
+          coupon: couponCode || null,
+          discount,
+        })
         clearCart()
         router.push(`/order-confirmation/${data.orderNumber}`)
       } else {

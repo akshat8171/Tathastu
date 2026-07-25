@@ -91,6 +91,12 @@ export interface Order {
   updated_at: string
   notes?: string
   tracking_number?: string
+  // Structured shipping geography (migration-008). Optional because a DB where
+  // that migration hasn't run yet simply won't return these columns; the admin
+  // analytics route reads shipping_state for the geography breakdown.
+  shipping_state?: string
+  shipping_city?: string
+  shipping_pincode?: string
 }
 
 export interface OrderItem {

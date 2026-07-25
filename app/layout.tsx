@@ -9,6 +9,8 @@ import { CartProvider } from '@/components/cart/cart-context'
 import { WishlistProvider } from '@/components/wishlist/wishlist-context'
 import { CheckoutProvider } from '@/components/checkout/checkout-context'
 import { getOrganizationSchema } from '@/lib/schema'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -154,6 +156,8 @@ export default function RootLayout({
             </CheckoutProvider>
           </WishlistProvider>
         </CartProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

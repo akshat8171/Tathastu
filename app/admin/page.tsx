@@ -31,22 +31,21 @@ export default function AdminDashboardPage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // Simple admin check - in production, verify against backend session
-    const adminPhone = '+919154892790'
-    const isAdmin = localStorage.getItem('admin_phone') === adminPhone
-
-    if (!isAdmin) {
-      // Redirect to login page (we'll create this later)
-      window.location.href = '/admin/login'
-      return
-    }
-
+    // Authorization is enforced SERVER-SIDE: every /api/admin/* route verifies
+    // the Firebase session cookie against the admin allowlist (lib/auth/admin.ts).
+    // We just attempt to load the data; a 401 means "not signed in as an admin"
+    // and we send the visitor to the real phone-OTP login. The old, forgeable
+    // localStorage('admin_phone') gate has been removed.
     fetchStats()
   }, [])
 
   const fetchStats = async () => {
     try {
       const response = await fetch('/api/admin/stats')
+      if (response.status === 401) {
+        window.location.href = '/login?next=/admin'
+        return
+      }
       if (!response.ok) throw new Error('Failed to fetch stats')
       const data = await response.json()
       setStats(data)

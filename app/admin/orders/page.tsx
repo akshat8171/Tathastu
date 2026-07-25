@@ -54,6 +54,10 @@ export default function AdminOrdersPage() {
       if (debouncedSearch) params.append('search', debouncedSearch)
 
       const response = await fetch(`/api/admin/orders?${params.toString()}`)
+      if (response.status === 401) {
+        window.location.href = '/login?next=/admin/orders'
+        return
+      }
       if (!response.ok) throw new Error('Failed to fetch orders')
 
       const data = await response.json()

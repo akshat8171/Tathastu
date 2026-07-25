@@ -1,8 +1,44 @@
+import crypto from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, updateOrderPaymentStatus, logPayment, upsertCustomerByPhone } from '@/lib/supabase/orders'
 import { createOrderSchema } from '@/lib/validation/order'
 import { repriceItems, applyDiscount } from '@/lib/pricing'
 import { validateCoupon, incrementCouponUsage } from '@/lib/coupons'
+
+/**
+ * Verify a Razorpay payment signature on the order-create path.
+ *
+ * Razorpay returns `razorpay_signature = HMAC_SHA256(order_id | payment_id)`
+ * keyed with RAZORPAY_KEY_SECRET. This is the SAME scheme /api/payment/verify
+ * uses. Without this check, a forged POST containing any razorpay_payment_id
+ * would mark an order 'paid' for free — the core go-live money-path bug.
+ *
+ * Fail-closed: returns false if the secret or any field is missing, malformed,
+ * or the digests do not match. Uses timingSafeEqual so a mismatch does not leak
+ * the expected signature via response timing.
+ */
+function verifyRazorpaySignature(payment: {
+  razorpay_order_id?: string
+  razorpay_payment_id?: string
+  razorpay_signature?: string
+}): boolean {
+  const secret = process.env.RAZORPAY_KEY_SECRET
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = payment
+  if (!secret || !razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+    return false
+  }
+  try {
+    const expected = crypto
+      .createHmac('sha256', secret)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+      .digest('hex')
+    const a = Buffer.from(expected, 'utf8')
+    const b = Buffer.from(razorpay_signature, 'utf8')
+    return a.length === b.length && crypto.timingSafeEqual(a, b)
+  } catch {
+    return false
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -81,6 +117,11 @@ export async function POST(request: NextRequest) {
       total,
       payment_method,
       notes: `Address: ${customer.address}, ${customer.city}, ${customer.state} - ${customer.pincode}`,
+      // Structured geography for analytics (migration-008). `notes` above stays
+      // as the human-readable address and the migration's backfill source.
+      shipping_state: customer.state,
+      shipping_city: customer.city,
+      shipping_pincode: customer.pincode,
     })
 
     if (error || !order) {
@@ -88,24 +129,52 @@ export async function POST(request: NextRequest) {
     }
 
     // Cash on Delivery: no payment proof, order stays pending until delivery.
-    // Online (razorpay): mark paid + log the payment when proof is present.
+    // Online (razorpay): mark paid + log the payment ONLY when the signature is
+    // cryptographically valid.
+    //
+    // SECURITY (money path): we must NEVER mark an order 'paid' on the strength
+    // of a client-supplied payment id alone — that would let anyone forge a
+    // "paid" order for free. Razorpay signs every real payment; we recompute the
+    // HMAC and require an exact match before trusting it. If verification fails
+    // (forged/missing/tampered), the order is left 'pending' and the failed
+    // attempt is logged for audit. A genuinely-captured payment is still
+    // reconciled to 'paid' out-of-band by the HMAC-verified, idempotent webhook
+    // at /api/payment/webhook — so failing closed here never drops a real sale.
     if (payment_method === 'razorpay' && payment?.razorpay_payment_id) {
-      await updateOrderPaymentStatus(
-        order.id,
-        'paid',
-        payment.razorpay_payment_id,
-        payment.razorpay_order_id
-      )
-      await logPayment({
-        order_id: order.id,
-        razorpay_order_id: payment.razorpay_order_id,
-        razorpay_payment_id: payment.razorpay_payment_id,
-        razorpay_signature: payment.razorpay_signature,
-        amount: total,
-        payment_method: 'razorpay',
-        payment_status: 'paid',
-        response_data: payment,
-      })
+      if (verifyRazorpaySignature(payment)) {
+        await updateOrderPaymentStatus(
+          order.id,
+          'paid',
+          payment.razorpay_payment_id,
+          payment.razorpay_order_id
+        )
+        await logPayment({
+          order_id: order.id,
+          razorpay_order_id: payment.razorpay_order_id,
+          razorpay_payment_id: payment.razorpay_payment_id,
+          razorpay_signature: payment.razorpay_signature,
+          amount: total,
+          payment_method: 'razorpay',
+          payment_status: 'paid',
+          response_data: payment,
+        })
+      } else {
+        console.error(
+          'Razorpay signature verification FAILED on order-create; leaving order pending',
+          { order_id: order.id, razorpay_order_id: payment.razorpay_order_id }
+        )
+        await logPayment({
+          order_id: order.id,
+          razorpay_order_id: payment.razorpay_order_id,
+          razorpay_payment_id: payment.razorpay_payment_id,
+          razorpay_signature: payment.razorpay_signature,
+          amount: total,
+          payment_method: 'razorpay',
+          payment_status: 'failed',
+          response_data: payment,
+          error_message: 'Signature verification failed on order-create path',
+        })
+      }
     }
 
     // Record coupon redemption so usage_limit is actually enforceable.
