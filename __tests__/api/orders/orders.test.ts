@@ -1,6 +1,7 @@
 /**
  * @jest-environment node
  */
+import crypto from 'crypto'
 import { POST } from '@/app/api/orders/route'
 import { NextRequest } from 'next/server'
 
@@ -40,6 +41,19 @@ const VALID_CUSTOMER = {
   pincode: '400001',
 }
 
+// The order-create route verifies the Razorpay signature with HMAC-SHA256 keyed
+// on RAZORPAY_KEY_SECRET before it will mark an order 'paid'. Tests must sign
+// with the SAME secret to exercise the genuine (secure) success path.
+const TEST_RAZORPAY_SECRET = 'test_razorpay_key_secret'
+
+/** Produce a valid Razorpay signature = HMAC_SHA256(order_id|payment_id). */
+function signRazorpay(orderId: string, paymentId: string): string {
+  return crypto
+    .createHmac('sha256', TEST_RAZORPAY_SECRET)
+    .update(`${orderId}|${paymentId}`)
+    .digest('hex')
+}
+
 function makeRequest(body: object) {
   return new NextRequest('http://localhost:3000/api/orders', {
     method: 'POST',
@@ -54,6 +68,9 @@ function makeRequest(body: object) {
 describe('POST /api/orders', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    // The route reads RAZORPAY_KEY_SECRET at request time to verify the payment
+    // signature; set it so signRazorpay() produces a signature the route accepts.
+    process.env.RAZORPAY_KEY_SECRET = TEST_RAZORPAY_SECRET
     mockCreateOrder.mockResolvedValue({
       order: { id: 'order-uuid-123', order_number: 'ORDER_123_456', total: 2299 },
       error: null,
@@ -223,16 +240,18 @@ describe('POST /api/orders', () => {
     )
   })
 
-  it('logs payment when razorpay_payment_id is provided', async () => {
+  it('marks paid and logs payment when the Razorpay signature is VALID', async () => {
+    const signature = signRazorpay('order_rzp_test', 'pay_rzp_test')
     const req = makeRequest({
       customer: VALID_CUSTOMER,
       items: [
         { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
       ],
+      payment_method: 'razorpay',
       payment: {
         razorpay_order_id: 'order_rzp_test',
         razorpay_payment_id: 'pay_rzp_test',
-        razorpay_signature: 'sig_test',
+        razorpay_signature: signature,
       },
     })
 
@@ -249,7 +268,37 @@ describe('POST /api/orders', () => {
         order_id: 'order-uuid-123',
         razorpay_payment_id: 'pay_rzp_test',
         razorpay_order_id: 'order_rzp_test',
-        razorpay_signature: 'sig_test',
+        razorpay_signature: signature,
+        payment_status: 'paid',
+      })
+    )
+  })
+
+  it('SECURITY: leaves the order pending on a FORGED signature and logs it as failed', async () => {
+    // A client-supplied signature that is NOT a valid HMAC of order|payment must
+    // never mark an order paid — otherwise anyone could forge a free "paid" order.
+    const req = makeRequest({
+      customer: VALID_CUSTOMER,
+      items: [
+        { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
+      ],
+      payment_method: 'razorpay',
+      payment: {
+        razorpay_order_id: 'order_rzp_test',
+        razorpay_payment_id: 'pay_rzp_test',
+        razorpay_signature: 'forged_signature_not_a_real_hmac',
+      },
+    })
+
+    const res = await POST(req)
+    // The order is still created (200) — it just stays 'pending' until the
+    // HMAC-verified webhook reconciles a genuinely-captured payment.
+    expect(res.status).toBe(200)
+    expect(mockUpdateOrderPaymentStatus).not.toHaveBeenCalled()
+    expect(mockLogPayment).toHaveBeenCalledWith(
+      expect.objectContaining({
+        order_id: 'order-uuid-123',
+        payment_status: 'failed',
       })
     )
   })

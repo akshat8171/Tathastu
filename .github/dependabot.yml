@@ -1,0 +1,39 @@
+# Dependabot configuration for automated dependency updates
+version: 2
+updates:
+  # npm dependencies (production + dev)
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Kolkata
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+      - npm
+    # Group minor and patch updates to reduce PR noise
+    groups:
+      minor-and-patch:
+        update-types:
+          - minor
+          - patch
+    # Keep major version bumps separate for careful review
+    ignore:
+      # Pin Next.js 16.x until 17.x is stable
+      - dependency-name: "next"
+        versions: ["17.x"]
+
+  # GitHub Actions workflow dependencies
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Kolkata
+    open-pull-requests-limit: 3
+    labels:
+      - dependencies
+      - github-actions

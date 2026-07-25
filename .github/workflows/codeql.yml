@@ -1,0 +1,46 @@
+name: CodeQL Security Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    # Weekly scan every Monday at 3:00 UTC (8:30 AM IST)
+    - cron: '0 3 * * 1'
+
+jobs:
+  analyze:
+    name: CodeQL JavaScript/TypeScript
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    permissions:
+      # Required for CodeQL to upload results to GitHub Security tab
+      security-events: write
+      # Required to checkout the repository
+      contents: read
+      # Required to fetch workflow status
+      actions: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+          # Automatically detects queries based on language
+          # Default query suites: security-extended (medium + high severity)
+
+      # CodeQL autobuild for JavaScript/TypeScript is implicit; no explicit
+      # build step required. For compiled languages (Java, C++, Go) you'd add
+      # a build command here, but JS/TS analysis works directly on source.
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript-typescript"

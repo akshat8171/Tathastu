@@ -1,0 +1,19 @@
+# CODEOWNERS — Automatic PR review assignment
+# Lines follow the pattern: <path-pattern> <owner(s)>
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything (catch-all)
+* @akshat8171
+
+# API routes and server-side mutations (Razorpay, Supabase RPC)
+/app/api/ @akshat8171
+
+# Database schema and migrations (MANUAL apply; high-risk)
+/supabase/ @akshat8171
+
+# CI/CD workflows and branch protection
+/.github/ @akshat8171
+
+# Deployment config (Vercel, environment variables)
+/vercel.json @akshat8171
+/.env.example @akshat8171
