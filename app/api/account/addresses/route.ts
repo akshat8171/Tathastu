@@ -1,17 +1,51 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth/session'
-import { getAddresses, upsertAddress, deleteAddress } from '@/lib/supabase/account'
-import type { AddressType } from '@/lib/supabase/account'
+import {
+  getAddresses,
+  createAddress,
+  updateAddressById,
+  deleteAddressById,
+  setDefaultAddress,
+} from '@/lib/supabase/account'
+import type { AddressInput } from '@/lib/supabase/account'
 
 export const runtime = 'nodejs'
 
-const VALID_TYPES: AddressType[] = ['billing', 'shipping']
+const REQUIRED_FIELDS = ['name', 'phone', 'address_line', 'city', 'state', 'pincode'] as const
 
-function isValidAddressType(v: unknown): v is AddressType {
-  return typeof v === 'string' && (VALID_TYPES as string[]).includes(v)
+/**
+ * Validate + normalize the six address fields from a request body.
+ * Returns the trimmed input, or an error message describing the first problem.
+ */
+function parseAddressInput(
+  body: Record<string, unknown>
+): { input: AddressInput } | { error: string } {
+  for (const field of REQUIRED_FIELDS) {
+    if (typeof body[field] !== 'string' || !(body[field] as string).trim()) {
+      return { error: `${field} is required` }
+    }
+  }
+  return {
+    input: {
+      name: (body.name as string).trim(),
+      phone: (body.phone as string).trim(),
+      address_line: (body.address_line as string).trim(),
+      city: (body.city as string).trim(),
+      state: (body.state as string).trim(),
+      pincode: (body.pincode as string).trim(),
+    },
+  }
 }
 
-// ── GET /api/account/addresses ───────────────────────────────────────────────
+async function readJson(req: NextRequest): Promise<Record<string, unknown> | null> {
+  try {
+    return (await req.json()) as Record<string, unknown>
+  } catch {
+    return null
+  }
+}
+
+// ── GET /api/account/addresses — list all saved addresses ────────────────────
 
 export async function GET() {
   try {
@@ -19,7 +53,6 @@ export async function GET() {
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-
     const addresses = await getAddresses(user.id)
     return NextResponse.json({ addresses })
   } catch (err) {
@@ -28,7 +61,7 @@ export async function GET() {
   }
 }
 
-// ── POST /api/account/addresses ──────────────────────────────────────────────
+// ── POST /api/account/addresses — create (no id) or update (with id) ──────────
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,40 +70,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    let body: Record<string, unknown>
-    try {
-      body = await req.json()
-    } catch {
+    const body = await readJson(req)
+    if (!body) {
       return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
     }
 
-    // Validate address_type
-    if (!isValidAddressType(body.address_type)) {
-      return NextResponse.json(
-        { error: 'address_type must be "billing" or "shipping"' },
-        { status: 400 }
-      )
+    const parsed = parseAddressInput(body)
+    if ('error' in parsed) {
+      return NextResponse.json({ error: parsed.error }, { status: 400 })
     }
 
-    // Validate required string fields
-    const requiredFields = ['name', 'phone', 'address_line', 'city', 'state', 'pincode'] as const
-    for (const field of requiredFields) {
-      if (typeof body[field] !== 'string' || !(body[field] as string).trim()) {
-        return NextResponse.json(
-          { error: `${field} is required` },
-          { status: 400 }
-        )
-      }
-    }
-
-    const address = await upsertAddress(user.id, body.address_type, {
-      name: (body.name as string).trim(),
-      phone: (body.phone as string).trim(),
-      address_line: (body.address_line as string).trim(),
-      city: (body.city as string).trim(),
-      state: (body.state as string).trim(),
-      pincode: (body.pincode as string).trim(),
-    })
+    // Presence of `id` distinguishes an edit from a new address.
+    const addressId = typeof body.id === 'string' ? body.id : null
+    const address = addressId
+      ? await updateAddressById(user.id, addressId, parsed.input)
+      : await createAddress(user.id, parsed.input)
 
     if (!address) {
       return NextResponse.json(
@@ -86,7 +100,35 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// ── DELETE /api/account/addresses ────────────────────────────────────────────
+// ── PATCH /api/account/addresses — set an address as default ──────────────────
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const user = await getCurrentUser()
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const body = await readJson(req)
+    if (!body || typeof body.id !== 'string' || !body.id.trim()) {
+      return NextResponse.json({ error: 'id is required' }, { status: 400 })
+    }
+
+    const ok = await setDefaultAddress(user.id, body.id)
+    if (!ok) {
+      return NextResponse.json(
+        { error: 'Failed to set default. Please try again.' },
+        { status: 500 }
+      )
+    }
+    return NextResponse.json({ ok: true })
+  } catch (err) {
+    console.error('PATCH /api/account/addresses error:', err)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
+// ── DELETE /api/account/addresses — remove an address by id ───────────────────
 
 export async function DELETE(req: NextRequest) {
   try {
@@ -95,28 +137,18 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    let body: Record<string, unknown>
-    try {
-      body = await req.json()
-    } catch {
-      return NextResponse.json({ error: 'Invalid JSON body' }, { status: 400 })
+    const body = await readJson(req)
+    if (!body || typeof body.id !== 'string' || !body.id.trim()) {
+      return NextResponse.json({ error: 'id is required' }, { status: 400 })
     }
 
-    if (!isValidAddressType(body.address_type)) {
-      return NextResponse.json(
-        { error: 'address_type must be "billing" or "shipping"' },
-        { status: 400 }
-      )
-    }
-
-    const ok = await deleteAddress(user.id, body.address_type)
+    const ok = await deleteAddressById(user.id, body.id)
     if (!ok) {
       return NextResponse.json(
         { error: 'Failed to delete address. Please try again.' },
         { status: 500 }
       )
     }
-
     return NextResponse.json({ ok: true })
   } catch (err) {
     console.error('DELETE /api/account/addresses error:', err)

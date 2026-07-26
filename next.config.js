@@ -42,7 +42,7 @@ const nextConfig = {
           { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
           // Security: XSS protection (legacy browsers)
           { key: 'X-XSS-Protection', value: '1; mode=block' },
-          // COOP: same-origin-allow-popups for Razorpay checkout window
+          // COOP: same-origin-allow-popups for Cashfree checkout window
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
           // DNS prefetch control: enable for Google Fonts & CDN resources
           { key: 'X-DNS-Prefetch-Control', value: 'on' },

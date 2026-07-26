@@ -2,9 +2,11 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getOrderByOrderNumber } from '@/lib/supabase/orders'
 import { getTrackingStatus } from '@/lib/tracking'
+import { getCurrentUser } from '@/lib/auth/session'
+import { hasOrderAccess } from '@/lib/auth/order-access'
 
 interface Props {
-  params: { orderNumber: string }
+  params: Promise<{ orderNumber: string }>
 }
 
 const fmt = new Intl.NumberFormat('en-IN', {
@@ -118,13 +120,37 @@ function OrderTimeline({ status }: { status: string }) {
 
 /**
  * Server component — fetches the real order from the DB.
- * If no order with the given number exists, renders 404 (no auth required;
- * guest checkout must keep working).
+ *
+ * ACCESS CONTROL: the page exposes order financials, and order numbers are
+ * guessable, so we must not render for anyone holding just the number. Access is
+ * allowed for:
+ *   - the logged-in owner (verified-email match, or phone match), OR
+ *   - a guest carrying a signed grant cookie set when they created the order or
+ *     passed the email-gated lookup (see lib/auth/order-access.ts).
+ * Everyone else gets a 404 (same response as a non-existent order, so the gate
+ * itself leaks nothing).
  */
 export default async function OrderConfirmationPage({ params }: Props) {
-  const order = await getOrderByOrderNumber(params.orderNumber)
+  const { orderNumber } = await params
+  const order = await getOrderByOrderNumber(orderNumber)
 
   if (!order) {
+    notFound()
+  }
+
+  const user = await getCurrentUser()
+  const ownsByEmail = Boolean(
+    user?.emailVerified &&
+      user.email &&
+      order.customer_email &&
+      user.email.toLowerCase() === order.customer_email.toLowerCase()
+  )
+  const ownsByPhone = Boolean(
+    user?.phone && order.customer_phone && user.phone === order.customer_phone
+  )
+  const granted = await hasOrderAccess(orderNumber)
+
+  if (!ownsByEmail && !ownsByPhone && !granted) {
     notFound()
   }
 

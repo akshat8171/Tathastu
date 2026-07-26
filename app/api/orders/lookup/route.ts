@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getOrderByNumberAndEmail } from '@/lib/supabase/orders'
+import { grantOrderAccess } from '@/lib/auth/order-access'
 import { z } from 'zod'
 
 export const runtime = 'nodejs'
@@ -41,6 +42,15 @@ export async function POST(request: NextRequest) {
         },
         { status: 404 }
       )
+    }
+
+    // The email gate passed — grant access so the confirmation page renders for
+    // this guest without re-prompting. Best-effort; don't fail the lookup on a
+    // cookie write error.
+    try {
+      await grantOrderAccess(order.order_number)
+    } catch {
+      /* ignore */
     }
 
     return NextResponse.json({ found: true, orderNumber: order.order_number })

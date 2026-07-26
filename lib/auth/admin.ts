@@ -15,11 +15,26 @@ import { getCurrentUser, type AppUser } from '@/lib/auth/session'
  *
  * This module is the real boundary. It authorizes off the SAME
  * cryptographically-verified session the rest of the app uses:
- * `getCurrentUser()` validates the Firebase httpOnly session cookie via
- * firebase-admin (`verifySessionCookie(cookie, true)` — revocation-checked) and
- * returns the E.164 `phone`. An admin is simply a verified user whose phone is
- * on the allowlist. No new credential, no new login flow — the admin signs in
- * through the normal `/login` phone-OTP path and is recognized here.
+ * `getCurrentUser()` resolves the Supabase email/password (or Google OAuth)
+ * session and reports whether the address is verified. An admin is simply a
+ * user whose VERIFIED email is on the allowlist. No new credential, no new login
+ * flow — the admin signs in through the normal `/login` email path and is
+ * recognized here.
+ *
+ * WHY VERIFIED EMAIL (not just a string match)
+ * --------------------------------------------
+ * Email is now the primary identity, so authorization keys on it. But a raw
+ * string match is not enough: anyone could register an email/password account
+ * claiming the admin address. We therefore require `emailVerified` — Google
+ * OAuth is verified instantly, and email/password only after the user clicks the
+ * link sent to the real inbox. Proven ownership, not a typed string, is the gate.
+ *
+ * DEPLOYMENT PRECONDITION (load-bearing): Supabase "Confirm email" MUST be ON.
+ * With it OFF, Supabase sets email_confirmed_at at sign-up AND lets
+ * auth.updateUser({ email }) take effect without re-verification — so a customer
+ * could repoint their account to the admin address and inherit admin. With it
+ * ON, both a fresh sign-up and an email change require clicking a link sent to
+ * that inbox. See DEPLOYMENT.md → Auth configuration.
  *
  * Runs SERVER-SIDE ONLY (imports session.ts, which is `server-only` and uses
  * firebase-admin, a Node module). MUST NOT be imported by Edge middleware or any
@@ -27,27 +42,35 @@ import { getCurrentUser, type AppUser } from '@/lib/auth/session'
  */
 
 /**
- * Fallback allowlist used only when ADMIN_PHONES is not configured, so a
+ * Fallback allowlist used only when ADMIN_EMAILS is not configured, so a
  * misconfigured deploy does not lock the store owner out of their own admin.
- * Prefer setting ADMIN_PHONES (comma-separated E.164) in the environment.
+ * Prefer setting ADMIN_EMAILS (comma-separated) in the environment.
  */
-const FALLBACK_ADMIN_PHONES = ['+919154892790']
+const FALLBACK_ADMIN_EMAILS = ['tathastukeepsakes@gmail.com']
 
-/** Parse ADMIN_PHONES (comma-separated E.164, e.g. "+9198...,+9199...") */
-function getAdminPhones(): string[] {
-  const raw = process.env.ADMIN_PHONES
-  if (!raw) return FALLBACK_ADMIN_PHONES
-  const parsed = raw
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-  return parsed.length > 0 ? parsed : FALLBACK_ADMIN_PHONES
+/** Normalize an email for case-insensitive comparison. */
+function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase()
 }
 
-/** True when the user is present, phone-verified, and on the admin allowlist. */
+/** Parse ADMIN_EMAILS (comma-separated, e.g. "a@x.com,b@y.com"), normalized. */
+function getAdminEmails(): string[] {
+  const raw = process.env.ADMIN_EMAILS
+  const source = raw
+    ? raw.split(',').map((s) => s.trim()).filter(Boolean)
+    : []
+  const list = source.length > 0 ? source : FALLBACK_ADMIN_EMAILS
+  return list.map(normalizeEmail)
+}
+
+/**
+ * True when the user is present, their email is VERIFIED, and that email is on
+ * the admin allowlist. The `emailVerified` requirement is load-bearing security —
+ * see the module header. Phone-only sessions (no verified email) are never admin.
+ */
 export function isAdminUser(user: AppUser | null): boolean {
-  if (!user?.phone) return false
-  return getAdminPhones().includes(user.phone)
+  if (!user?.email || !user.emailVerified) return false
+  return getAdminEmails().includes(normalizeEmail(user.email))
 }
 
 /**

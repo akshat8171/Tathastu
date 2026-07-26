@@ -55,12 +55,12 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Order History:</strong> items ordered, quantities, prices, order status,
-                and payment method (Prepaid via Razorpay or Cash on Delivery).
+                and payment method (Prepaid via Cashfree or Cash on Delivery).
               </li>
               <li>
                 <strong>Payment Information:</strong> we do <em>not</em> store your card details or
                 banking credentials. Payments are processed securely through{' '}
-                <strong>Razorpay</strong>; we only retain the Razorpay order ID and payment status.
+                <strong>Cashfree</strong>; we only retain the Cashfree order ID and payment status.
               </li>
               <li>
                 <strong>Custom-print uploads:</strong> images or text you submit when ordering a
@@ -115,16 +115,16 @@ export default function PrivacyPage() {
             </p>
             <ul className="list-disc pl-6 space-y-2">
               <li>
-                <strong>Payment Processor — Razorpay:</strong> your order amount and contact
-                details are shared with Razorpay to process prepaid payments. Razorpay is PCI-DSS
+                <strong>Payment Processor — Cashfree:</strong> your order amount and contact
+                details are shared with Cashfree to process prepaid payments. Cashfree is PCI-DSS
                 compliant and governs your payment data under{' '}
                 <a
-                  href="https://razorpay.com/privacy/"
+                  href="https://www.cashfree.com/privacy-policy/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-brand hover:underline"
                 >
-                  Razorpay&apos;s Privacy Policy
+                  Cashfree&apos;s Privacy Policy
                 </a>
                 .
               </li>
@@ -199,7 +199,7 @@ export default function PrivacyPage() {
             </h2>
             <p>
               Our website may contain links to third-party sites (e.g., courier tracking pages,
-              Razorpay payment gateway, Instagram). We are not responsible for the privacy
+              Cashfree payment gateway, Instagram). We are not responsible for the privacy
               practices of those sites and encourage you to review their respective privacy
               policies.
             </p>

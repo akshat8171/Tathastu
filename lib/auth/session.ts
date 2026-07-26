@@ -30,6 +30,14 @@ export interface AppUser {
   phone?: string
   /** Email for Supabase users; may be undefined for phone users. */
   email?: string
+  /**
+   * Whether the email address has been verified by the provider. Google OAuth
+   * and confirmed email/password accounts are verified; an unconfirmed sign-up
+   * is not. Callers that map data by email (e.g. order history) MUST require
+   * this so an attacker can't claim a victim's orders by registering their
+   * address without proving ownership.
+   */
+  emailVerified: boolean
   /** ISO timestamp of account creation, when the provider exposes it. */
   createdAt?: string
 }
@@ -56,6 +64,8 @@ export async function getCurrentUser(): Promise<AppUser | null> {
           id: decoded.uid,
           provider: 'firebase',
           phone: decoded.phone_number ?? undefined,
+          // Phone users authenticate by SMS OTP, not email — no verified email.
+          emailVerified: false,
           // Firebase exposes auth_time/iat (seconds); not the account creation
           // date. We surface the token issue time as a best-effort "since".
           createdAt: decoded.auth_time
@@ -79,6 +89,10 @@ export async function getCurrentUser(): Promise<AppUser | null> {
         id: user.id,
         provider: 'supabase',
         email: user.email ?? undefined,
+        // Supabase sets email_confirmed_at once the address is verified (Google
+        // OAuth is verified immediately; email/password only after the user
+        // clicks the confirmation link — provided "Confirm email" is ON).
+        emailVerified: Boolean(user.email_confirmed_at),
         phone: user.phone || undefined,
         createdAt: user.created_at,
       }

@@ -102,7 +102,7 @@ No analytics scripts (GA/Meta pixel) or cookie-consent banner are currently wire
 - **Money integrity:** `app/api/orders/route.ts:21` re-prices server-side (client prices ignored); coupons re-validated server-side with first-order gating (`:47-58`).
 - **Order lookup anti-enumeration:** `app/api/orders/lookup/route.ts` requires order number **AND** email.
 - **Account APIs:** `app/api/account/*` all call `getCurrentUser()` and scope by `user.id` (no IDOR); addresses/wishlist RLS-backed by `auth.uid()`.
-- **Sessions:** Supabase SSR cookies set `httpOnly`, `secure` (prod), `sameSite=lax` (`lib/supabase/server.ts:14-19`); Firebase session cookie verified with `verifySessionCookie(cookie, true)` (revocation-checked).
+- **Sessions:** Supabase SSR cookies set `secure` (prod) + `sameSite=lax` (`lib/supabase/server.ts`), matched across the browser client, middleware, callback, and signout route. They are intentionally **not** `httpOnly` — `@supabase/ssr`'s browser client must read the session via `document.cookie`, so httpOnly silently breaks OAuth session detection and password reset; token safety relies on short-lived JWTs + refresh rotation. Sign-out clears cookies both client-side and via the server route `app/auth/signout/route.ts`. Firebase session cookie verified with `verifySessionCookie(cookie, true)` (revocation-checked) and is httpOnly (no browser code reads it).
 - **Mock payment:** `lib/razorpay.ts:32-34` gated on `NODE_ENV !== 'production'` → hard-disabled in every Vercel build.
 - **Input validation:** Zod schemas on `/api/orders`, `/api/payment/create-order`, `/api/coupons/validate`, `/api/orders/lookup`, `/api/contact`; manual validation on account routes and `custom-quote` (extension AND MIME allowlist, 25 MB cap).
 

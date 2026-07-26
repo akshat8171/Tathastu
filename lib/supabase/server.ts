@@ -8,11 +8,17 @@ export async function createSupabaseServer() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
     {
-      // Make the security-relevant cookie attributes explicit rather than
-      // relying on library defaults: tokens are httpOnly (no JS access),
-      // secure in production (HTTPS only), and sameSite=lax (CSRF mitigation).
+      // Cookie attributes are made explicit and MUST match every other Supabase
+      // cookie writer (browser client, middleware, callback, signout) so a
+      // cookie set by one can be read/rotated/deleted by another.
+      //
+      // NOTE: these are intentionally NOT httpOnly. @supabase/ssr's browser
+      // client reads the session through document.cookie, which cannot see
+      // httpOnly cookies — making them httpOnly silently breaks OAuth session
+      // detection and the password-reset flow. secure (prod) + sameSite=lax
+      // remain as the CSRF/transport protections; token safety relies on the
+      // short-lived JWT + refresh rotation (Supabase's standard model).
       cookieOptions: {
-        httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         path: '/',

@@ -1,7 +1,6 @@
 /**
  * @jest-environment node
  */
-import crypto from 'crypto'
 import { POST } from '@/app/api/orders/route'
 import { NextRequest } from 'next/server'
 
@@ -29,6 +28,20 @@ jest.mock('@/lib/supabase/orders', () => ({
 }))
 
 // ---------------------------------------------------------------------------
+// Mock the Cashfree server client. The money path re-fetches the order status
+// from Cashfree before marking paid, so we control that here.
+// ---------------------------------------------------------------------------
+const mockFetchCashfreeOrder = jest.fn()
+const mockFetchCashfreeOrderPayments = jest.fn()
+
+jest.mock('@/lib/cashfree-server', () => ({
+  fetchCashfreeOrder: (...args: any[]) => mockFetchCashfreeOrder(...args),
+  fetchCashfreeOrderPayments: (...args: any[]) => mockFetchCashfreeOrderPayments(...args),
+  isCashfreeOrderPaid: (status: string) => status === 'PAID',
+  isCashfreePaymentSuccess: (status: string) => status === 'SUCCESS',
+}))
+
+// ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 const VALID_CUSTOMER = {
@@ -39,19 +52,6 @@ const VALID_CUSTOMER = {
   city: 'Mumbai',
   state: 'Maharashtra',
   pincode: '400001',
-}
-
-// The order-create route verifies the Razorpay signature with HMAC-SHA256 keyed
-// on RAZORPAY_KEY_SECRET before it will mark an order 'paid'. Tests must sign
-// with the SAME secret to exercise the genuine (secure) success path.
-const TEST_RAZORPAY_SECRET = 'test_razorpay_key_secret'
-
-/** Produce a valid Razorpay signature = HMAC_SHA256(order_id|payment_id). */
-function signRazorpay(orderId: string, paymentId: string): string {
-  return crypto
-    .createHmac('sha256', TEST_RAZORPAY_SECRET)
-    .update(`${orderId}|${paymentId}`)
-    .digest('hex')
 }
 
 function makeRequest(body: object) {
@@ -68,13 +68,15 @@ function makeRequest(body: object) {
 describe('POST /api/orders', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    // The route reads RAZORPAY_KEY_SECRET at request time to verify the payment
-    // signature; set it so signRazorpay() produces a signature the route accepts.
-    process.env.RAZORPAY_KEY_SECRET = TEST_RAZORPAY_SECRET
     mockCreateOrder.mockResolvedValue({
       order: { id: 'order-uuid-123', order_number: 'ORDER_123_456', total: 2299 },
       error: null,
     })
+    // Default: a fully-paid Cashfree order for the correct amount.
+    mockFetchCashfreeOrder.mockResolvedValue({ order_id: 'cf_order_test', order_status: 'PAID', order_amount: 2299 })
+    mockFetchCashfreeOrderPayments.mockResolvedValue([
+      { cf_payment_id: 55501, payment_status: 'SUCCESS', payment_amount: 2299, payment_group: 'upi' },
+    ])
   })
 
   it('creates an order and overrides tampered client price with server price', async () => {
@@ -240,19 +242,14 @@ describe('POST /api/orders', () => {
     )
   })
 
-  it('marks paid and logs payment when the Razorpay signature is VALID', async () => {
-    const signature = signRazorpay('order_rzp_test', 'pay_rzp_test')
+  it('marks paid and logs payment when Cashfree confirms the order is PAID', async () => {
     const req = makeRequest({
       customer: VALID_CUSTOMER,
       items: [
         { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
       ],
-      payment_method: 'razorpay',
-      payment: {
-        razorpay_order_id: 'order_rzp_test',
-        razorpay_payment_id: 'pay_rzp_test',
-        razorpay_signature: signature,
-      },
+      payment_method: 'cashfree',
+      payment: { cashfree_order_id: 'cf_order_test' },
     })
 
     const res = await POST(req)
@@ -260,34 +257,31 @@ describe('POST /api/orders', () => {
     expect(mockUpdateOrderPaymentStatus).toHaveBeenCalledWith(
       'order-uuid-123',
       'paid',
-      'pay_rzp_test',
-      'order_rzp_test'
+      '55501',
+      'cf_order_test'
     )
     expect(mockLogPayment).toHaveBeenCalledWith(
       expect.objectContaining({
         order_id: 'order-uuid-123',
-        razorpay_payment_id: 'pay_rzp_test',
-        razorpay_order_id: 'order_rzp_test',
-        razorpay_signature: signature,
+        cashfree_order_id: 'cf_order_test',
+        cashfree_payment_id: '55501',
         payment_status: 'paid',
       })
     )
   })
 
-  it('SECURITY: leaves the order pending on a FORGED signature and logs it as failed', async () => {
-    // A client-supplied signature that is NOT a valid HMAC of order|payment must
-    // never mark an order paid — otherwise anyone could forge a free "paid" order.
+  it('SECURITY: leaves the order pending when Cashfree says the order is NOT paid', async () => {
+    // A client can POST any cashfree_order_id; unless Cashfree itself reports the
+    // order PAID, we must never mark it paid — otherwise anyone forges a free sale.
+    mockFetchCashfreeOrder.mockResolvedValueOnce({ order_id: 'cf_order_test', order_status: 'ACTIVE', order_amount: 2299 })
+
     const req = makeRequest({
       customer: VALID_CUSTOMER,
       items: [
         { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
       ],
-      payment_method: 'razorpay',
-      payment: {
-        razorpay_order_id: 'order_rzp_test',
-        razorpay_payment_id: 'pay_rzp_test',
-        razorpay_signature: 'forged_signature_not_a_real_hmac',
-      },
+      payment_method: 'cashfree',
+      payment: { cashfree_order_id: 'cf_order_test' },
     })
 
     const res = await POST(req)
@@ -300,6 +294,28 @@ describe('POST /api/orders', () => {
         order_id: 'order-uuid-123',
         payment_status: 'failed',
       })
+    )
+  })
+
+  it('SECURITY: leaves the order pending when the Cashfree amount does not match the server total', async () => {
+    // Cashfree reports PAID but for a smaller amount than our server total — an
+    // under-payment must never be accepted as a full "paid" order.
+    mockFetchCashfreeOrder.mockResolvedValueOnce({ order_id: 'cf_order_test', order_status: 'PAID', order_amount: 1 })
+
+    const req = makeRequest({
+      customer: VALID_CUSTOMER,
+      items: [
+        { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
+      ],
+      payment_method: 'cashfree',
+      payment: { cashfree_order_id: 'cf_order_test' },
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    expect(mockUpdateOrderPaymentStatus).not.toHaveBeenCalled()
+    expect(mockLogPayment).toHaveBeenCalledWith(
+      expect.objectContaining({ order_id: 'order-uuid-123', payment_status: 'failed' })
     )
   })
 })

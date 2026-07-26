@@ -23,18 +23,20 @@ Before clicking Deploy, expand **Environment Variables** and add each of the fol
 |------|-----------------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase dashboard → Project Settings → API → Project URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase dashboard → Project Settings → API → anon/public key |
-| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay dashboard → Settings → API Keys → Key ID |
+| `NEXT_PUBLIC_CASHFREE_MODE` | `sandbox` or `production` (must match server `CASHFREE_MODE`) |
 | `NEXT_PUBLIC_APP_URL` | Your production URL, e.g. `https://tathastu.vercel.app` |
 
 **Secret variables** (server-side only — never exposed to browsers):
 
 | Name | Where to get it |
 |------|-----------------|
-| `RAZORPAY_KEY_ID` | Razorpay dashboard → Settings → API Keys → Key ID |
-| `RAZORPAY_KEY_SECRET` | Razorpay dashboard → Settings → API Keys → Key Secret |
-| `RAZORPAY_WEBHOOK_SECRET` | Razorpay dashboard → Webhooks → your webhook → Secret |
+| `CASHFREE_MODE` | `sandbox` or `production` — selects the Cashfree API host |
+| `CASHFREE_APP_ID` | Cashfree dashboard → Developers → API Keys → App ID (x-client-id) |
+| `CASHFREE_SECRET_KEY` | Cashfree dashboard → Developers → API Keys → Secret Key (x-client-secret) |
+| `CASHFREE_WEBHOOK_SECRET` | Optional — only if your dashboard uses a distinct webhook secret; otherwise falls back to `CASHFREE_SECRET_KEY` |
+| `ADMIN_EMAILS` | Comma-separated allowlist of admin email addresses. If unset, falls back to `tathastukeepsakes@gmail.com` (see Admin access below) |
 
-Set all variables for **Production**, **Preview**, and **Development** unless you want separate test keys for preview deploys (recommended: use Razorpay test-mode keys for Preview).
+Set all variables for **Production**, **Preview**, and **Development** unless you want separate test keys for preview deploys (recommended: use Cashfree `sandbox` keys for Preview).
 
 ### Step 3 — Deploy
 
@@ -88,7 +90,7 @@ The table in Step 2 above is a **quick-start subset**. Below is the **complete**
 |----------|-------------|-----------------|-----------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Supabase dashboard → Project Settings → API → Project URL | **Required** |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key | Supabase dashboard → Project Settings → API → anon/public key | **Required** |
-| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay public key | Razorpay dashboard → Settings → API Keys → Key ID | **Required** |
+| `NEXT_PUBLIC_CASHFREE_MODE` | Cashfree JS SDK mode | `sandbox` or `production` (match server `CASHFREE_MODE`) | **Required** |
 | `NEXT_PUBLIC_APP_URL` | Your production/preview URL | `https://tathastu.vercel.app` or custom domain | **Required** |
 | `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase client API key | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
 | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
@@ -103,14 +105,23 @@ The table in Step 2 above is a **quick-start subset**. Below is the **complete**
 | Variable | Description | Where to get it | Required? |
 |----------|-------------|-----------------|-----------|
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (bypasses RLS for order writes) | Supabase dashboard → Project Settings → API → service_role (secret) | **Required** |
-| `RAZORPAY_KEY_ID` | Razorpay server key ID | Razorpay dashboard → Settings → API Keys → Key ID | **Required** |
-| `RAZORPAY_KEY_SECRET` | Razorpay server key secret | Razorpay dashboard → Settings → API Keys → Key Secret | **Required** |
-| `RAZORPAY_WEBHOOK_SECRET` | Razorpay webhook secret | Razorpay dashboard → Webhooks → your webhook → Secret | **Required** |
+| `CASHFREE_MODE` | Cashfree API host selector | `sandbox` or `production` | **Required** |
+| `CASHFREE_APP_ID` | Cashfree App ID (x-client-id) | Cashfree dashboard → Developers → API Keys | **Required** |
+| `CASHFREE_SECRET_KEY` | Cashfree Secret Key (x-client-secret) | Cashfree dashboard → Developers → API Keys | **Required** |
+| `CASHFREE_WEBHOOK_SECRET` | Cashfree webhook secret (optional) | Cashfree dashboard → Developers → Webhooks (falls back to `CASHFREE_SECRET_KEY`) | Optional |
 | `FIREBASE_PROJECT_ID` | Firebase admin project ID | Firebase console → Project settings → Service accounts → Generate new private key (JSON) | **Required** |
 | `FIREBASE_CLIENT_EMAIL` | Firebase admin service account email | Firebase console → Project settings → Service accounts → Generate new private key (JSON) | **Required** |
 | `FIREBASE_PRIVATE_KEY` | Firebase admin private key | Firebase console → Project settings → Service accounts → Generate new private key (JSON) | **Required** |
 | `UPSTASH_REDIS_REST_URL` | Upstash Redis REST URL for OTP rate limiting | Upstash console → your Redis DB → REST API | Optional (prod rec.) |
 | `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis REST token | Upstash console → your Redis DB → REST API | Optional (prod rec.) |
+| `ADMIN_EMAILS` | Comma-separated admin email allowlist (case-insensitive) | Any addresses you control; must be able to sign in + verify them | Optional (falls back to `tathastukeepsakes@gmail.com`) |
+
+### Admin access — REQUIRED auth configuration
+
+Admin access to `/admin` and `/api/admin/*` is granted to any user whose **verified** email is on the `ADMIN_EMAILS` allowlist (`lib/auth/admin.ts`). Sign in through the normal `/login` flow (Google or email/password) with an allowlisted address.
+
+> **⚠️ Security prerequisite — Supabase "Confirm email" MUST be ON.**
+> Supabase dashboard → Authentication → Providers → Email → enable **Confirm email** (and, recommended, **Secure email change**). With confirmation OFF, Supabase marks emails verified at sign-up and lets `updateUser({ email })` succeed without re-verification — meaning a customer could repoint their account to an admin address and inherit admin. With it ON, both sign-up and email changes require clicking a link sent to that inbox, which is what makes the `emailVerified` gate real.
 
 **⚠️ CRITICAL SECURITY WARNINGS:**
 - **NEVER** prefix service-role keys or private keys with `NEXT_PUBLIC_` — that would leak server secrets to the browser and compromise your database and auth.

@@ -4,7 +4,13 @@ import { FIREBASE_SESSION_COOKIE } from '@/lib/auth/cookies'
 
 // Routes that require an authenticated user. A logged-out visitor is
 // redirected to /login?next=<path> so they return here after signing in.
-const PROTECTED_PREFIXES = ['/account']
+//
+// /admin is included so (a) an unauthenticated deep-link (e.g. /admin/orders/x)
+// redirects to /login with the correct `next`, and (b) Supabase access tokens
+// rotate on admin traffic (Server Components can't write the refreshed cookie).
+// This is only the AUTHENTICATION check — the ADMIN allowlist (verified-email
+// membership) is enforced in app/admin/layout.tsx, which 404s non-admins.
+const PROTECTED_PREFIXES = ['/account', '/admin']
 
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
@@ -13,6 +19,15 @@ export async function middleware(request: NextRequest) {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
     {
+      // Match the attributes used by every other Supabase cookie writer
+      // (lib/supabase/server.ts, client, callback, signout). Without this, the
+      // token rotation below would rewrite the auth cookies with library
+      // defaults — dropping `secure` in production.
+      cookieOptions: {
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/',
+      },
       cookies: {
         getAll() {
           return request.cookies.getAll()
@@ -56,8 +71,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // A signed-in user has no reason to see /login — send them to their account
-  if (pathname === '/login' && isAuthenticated) {
+  // A signed-in user has no reason to see /login or /signup — send them to
+  // their account.
+  if ((pathname === '/login' || pathname === '/signup') && isAuthenticated) {
     const url = request.nextUrl.clone()
     url.pathname = '/account'
     url.search = ''
@@ -72,10 +88,11 @@ export async function middleware(request: NextRequest) {
 // Supabase auth server. Running that on EVERY route (the old
 // `/((?!_next/...).*)` matcher) added that latency to every homepage, product,
 // and category page — even for anonymous visitors who never need auth. Only
-// `/account/*` (gate) and `/login` (redirect-if-authed) consume the result, so
-// the middleware now runs ONLY there. Protected pages still re-validate
-// server-side via getCurrentUser(), so security is unchanged; public pages now
-// serve straight from the static/CDN path with no Edge function on the hot path.
+// `/account/*` + `/admin/*` (gate + token rotation) and `/login` `/signup`
+// (redirect-if-authed) consume the result, so the middleware runs ONLY there.
+// Protected pages still re-validate server-side via getCurrentUser(), so
+// security is unchanged; public pages serve straight from the static/CDN path
+// with no Edge function on the hot path.
 export const config = {
-  matcher: ['/account/:path*', '/login'],
+  matcher: ['/account/:path*', '/admin/:path*', '/login', '/signup'],
 }

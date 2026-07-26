@@ -140,7 +140,13 @@ function EmptyOrders() {
 
 export default async function MyOrdersPage() {
   const user = await requireAuth()
-  const orders = await getOrdersForUser({ phone: user.phone, email: user.email })
+  // Only map orders by email when the address is verified. Otherwise a user who
+  // signs up with someone else's email (and hasn't confirmed it) could inherit
+  // that person's guest order history. Phone-matched orders are unaffected.
+  const orders = await getOrdersForUser({
+    phone: user.phone,
+    email: user.emailVerified ? user.email : undefined,
+  })
 
   // Fetch items for all orders in parallel.
   const itemsLists: OrderItem[][] = await Promise.all(

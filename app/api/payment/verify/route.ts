@@ -1,64 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server'
-import crypto from 'crypto'
+import { fetchCashfreeOrder, isCashfreeOrderPaid } from '@/lib/cashfree-server'
+
+export const dynamic = 'force-dynamic'
 
 /**
- * Constant-time verification of a Razorpay payment signature.
+ * Confirm a Cashfree payment by asking Cashfree for the authoritative order
+ * status.
  *
- * Razorpay signs `order_id|payment_id` with HMAC-SHA256 keyed on
- * RAZORPAY_KEY_SECRET. We recompute the digest and compare it with
- * crypto.timingSafeEqual rather than `===`. A plain string `===` on the hex
- * digest short-circuits on the first differing byte, so an attacker able to
- * measure response timing could recover the expected signature one character
- * at a time and forge a "verified" payment without knowing the secret.
- * timingSafeEqual always compares the full buffer in constant time.
- *
- * Fail-closed: a missing secret, missing field, or length mismatch returns
- * false (never throws). Mirrors verifyRazorpaySignature() in app/api/orders.
+ * Unlike Razorpay, the browser never receives a signature to forward — trust
+ * comes ONLY from a server→Cashfree status lookup. This endpoint gives the
+ * checkout UI a fast yes/no after the modal closes; the real money path
+ * (/api/orders) independently re-fetches the same status before marking paid,
+ * so a spoofed call here can never create a paid order.
  */
-function isValidRazorpaySignature(
-  orderId: string,
-  paymentId: string,
-  signature: string
-): boolean {
-  const secret = process.env.RAZORPAY_KEY_SECRET
-  if (!secret) {
-    console.error('Razorpay verify: RAZORPAY_KEY_SECRET is not set; failing closed')
-    return false
-  }
-  try {
-    const expected = crypto
-      .createHmac('sha256', secret)
-      .update(`${orderId}|${paymentId}`)
-      .digest('hex')
-    const a = Buffer.from(expected, 'utf8')
-    const b = Buffer.from(signature, 'utf8')
-    // Length check first: timingSafeEqual throws if the buffers differ in length.
-    return a.length === b.length && crypto.timingSafeEqual(a, b)
-  } catch {
-    return false
-  }
-}
-
 export async function POST(request: NextRequest) {
   try {
-    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = await request.json()
+    const { cashfree_order_id } = await request.json()
 
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
-      return NextResponse.json({ error: 'Missing payment details' }, { status: 400 })
+    if (!cashfree_order_id || typeof cashfree_order_id !== 'string') {
+      return NextResponse.json({ error: 'Missing cashfree_order_id' }, { status: 400 })
     }
 
-    if (!isValidRazorpaySignature(razorpay_order_id, razorpay_payment_id, razorpay_signature)) {
-      return NextResponse.json({ error: 'Invalid payment signature' }, { status: 400 })
-    }
+    const order = await fetchCashfreeOrder(cashfree_order_id)
+    const paid = isCashfreeOrderPaid(order.order_status)
 
     return NextResponse.json({
-      success: true,
-      verified: true,
-      orderId: razorpay_order_id,
-      paymentId: razorpay_payment_id,
+      success: paid,
+      verified: paid,
+      orderId: order.order_id,
+      orderStatus: order.order_status,
     })
   } catch (error: any) {
-    console.error('Razorpay verify error:', error)
+    console.error('Cashfree verify error:', error)
     return NextResponse.json(
       { error: error.message || 'Verification failed' },
       { status: 500 }

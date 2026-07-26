@@ -32,9 +32,9 @@ export default function AdminDashboardPage() {
 
   useEffect(() => {
     // Authorization is enforced SERVER-SIDE: every /api/admin/* route verifies
-    // the Firebase session cookie against the admin allowlist (lib/auth/admin.ts).
+    // the session's VERIFIED email against the admin allowlist (lib/auth/admin.ts).
     // We just attempt to load the data; a 401 means "not signed in as an admin"
-    // and we send the visitor to the real phone-OTP login. The old, forgeable
+    // and we send the visitor to the real email login. The old, forgeable
     // localStorage('admin_phone') gate has been removed.
     fetchStats()
   }, [])

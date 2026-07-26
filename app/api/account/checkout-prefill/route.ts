@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getCurrentUser } from '@/lib/auth/session'
-import { getProfile, getAddresses } from '@/lib/supabase/account'
+import { getProfile, getAddresses, backfillAddressesFromOrders } from '@/lib/supabase/account'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -22,6 +22,11 @@ export async function GET() {
     if (!user) {
       return NextResponse.json({ authenticated: false, contact: null, addresses: [] })
     }
+
+    // First checkout after signing in: pull the address from the user's most
+    // recent order into their (empty) address book, so a guest who checked out
+    // then created an account sees it pre-filled here. Idempotent — see helper.
+    await backfillAddressesFromOrders({ id: user.id, phone: user.phone, email: user.email })
 
     const [profile, addresses] = await Promise.all([
       getProfile(user.id),
