@@ -42,6 +42,17 @@ jest.mock('@/lib/cashfree-server', () => ({
 }))
 
 // ---------------------------------------------------------------------------
+// Mock the session layer. The route only calls getCurrentUser() for a
+// best-effort address-save (guests return null and skip it), so a null user
+// preserves the guest-checkout behaviour these tests exercise. Mocking here
+// also keeps Jest from loading the real firebase-admin → jose (ESM) chain,
+// which it can't transform out of node_modules.
+// ---------------------------------------------------------------------------
+jest.mock('@/lib/auth/session', () => ({
+  getCurrentUser: jest.fn().mockResolvedValue(null),
+}))
+
+// ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 const VALID_CUSTOMER = {
