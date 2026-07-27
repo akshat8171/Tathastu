@@ -61,6 +61,10 @@ export default function AdminOrderDetailPage() {
     try {
       setLoading(true)
       const response = await fetch(`/api/admin/orders/${orderId}`)
+      if (response.status === 401) {
+        window.location.href = '/login?next=/admin/orders'
+        return
+      }
       if (!response.ok) throw new Error('Failed to fetch order')
 
       const data = await response.json()

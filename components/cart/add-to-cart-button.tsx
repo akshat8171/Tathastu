@@ -3,6 +3,7 @@
 import { useCart } from './cart-context'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
+import { trackAddToCart } from '@/lib/analytics'
 
 /**
  * AddToCartButton — teal primary button.
@@ -76,6 +77,14 @@ export function AddToCartButton({
       image: product.image,
       ...(customText ? { customText } : {}),
       ...(selectedOptions ? { selectedOptions } : {}),
+    })
+
+    trackAddToCart({
+      productId: product.id,
+      productName: product.name,
+      price: product.price,
+      quantity,
+      variant: product.variant,
     })
 
     setAdded(true)

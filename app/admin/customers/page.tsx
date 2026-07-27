@@ -44,6 +44,10 @@ export default function AdminCustomersPage() {
       params.append('sortOrder', sortOrder)
 
       const response = await fetch(`/api/admin/customers?${params.toString()}`)
+      if (response.status === 401) {
+        window.location.href = '/login?next=/admin/customers'
+        return
+      }
       if (!response.ok) throw new Error('Failed to fetch customers')
 
       const data = await response.json()

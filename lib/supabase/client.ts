@@ -79,7 +79,7 @@ export interface Order {
   shipping: number
   total: number
   status: 'pending' | 'paid' | 'processing' | 'shipped' | 'delivered' | 'cancelled'
-  payment_method: 'upi' | 'card' | 'netbanking' | 'wallet' | 'razorpay' | 'cod'
+  payment_method: 'upi' | 'card' | 'netbanking' | 'wallet' | 'cashfree' | 'cod'
   payment_status: 'pending' | 'paid' | 'failed' | 'refunded'
   payment_id?: string
   payment_order_id?: string
@@ -91,6 +91,23 @@ export interface Order {
   updated_at: string
   notes?: string
   tracking_number?: string
+  // Structured shipping geography (migration-008). Optional because a DB where
+  // that migration hasn't run yet simply won't return these columns; the admin
+  // analytics route reads shipping_state for the geography breakdown.
+  shipping_state?: string
+  shipping_city?: string
+  shipping_pincode?: string
+  // Full structured delivery address (migration-001 JSONB column). Populated at
+  // checkout so the account address-book backfill can read it back without
+  // parsing the free-text `notes` field.
+  shipping_address?: {
+    name?: string
+    phone?: string
+    address_line?: string
+    city?: string
+    state?: string
+    pincode?: string
+  } | null
 }
 
 export interface OrderItem {

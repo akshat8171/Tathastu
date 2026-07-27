@@ -1,6 +1,7 @@
 import { supabaseAdmin } from './admin'
 import type { Order, OrderItem } from './client'
 import { toE164 } from '@/lib/auth/identifier'
+import { escapeLike } from './account'
 
 /**
  * Resolve catalog slugs (e.g. "lamps-lamp1") to the products-table UUID primary
@@ -160,32 +161,85 @@ export async function createOrder(orderData: {
   total: number
   payment_method?: string
   notes?: string
+  // Structured shipping geography (migration-008). Optional so older callers
+  // and DBs without the columns degrade gracefully — see the insert note below.
+  shipping_state?: string
+  shipping_city?: string
+  shipping_pincode?: string
+  // Full structured delivery address (migration-001 JSONB column). Stored so the
+  // account address-book backfill can read it back without parsing `notes`.
+  shipping_address?: {
+    name: string
+    phone: string
+    address_line: string
+    city: string
+    state: string
+    pincode: string
+  }
 }): Promise<{ order: Order | null; error: any }> {
   try {
     // Generate order number
     const orderNumber = `ORDER_${Date.now()}_${Math.floor(Math.random() * 10000)}`
 
-    // Create order
-    const { data: order, error: orderError } = await supabaseAdmin
+    // Base row — always present columns.
+    const baseRow: Record<string, unknown> = {
+      order_number: orderNumber,
+      customer_id: orderData.customer_id ?? null,
+      customer_name: orderData.customer_name,
+      customer_email: orderData.customer_email,
+      customer_phone: orderData.customer_phone,
+      subtotal: orderData.subtotal,
+      discount: orderData.discount || 0,
+      tax: orderData.tax || 0,
+      shipping: orderData.shipping || 0,
+      total: orderData.total,
+      payment_method: orderData.payment_method || 'upi',
+      payment_status: 'pending',
+      status: 'pending',
+      notes: orderData.notes,
+    }
+
+    // Structured shipping geography (migration-008). Kept separate so that a DB
+    // where migration-008 hasn't run yet doesn't break checkout: if the insert
+    // fails because these columns don't exist, we retry with baseRow only. The
+    // free-text `notes` field still carries the address either way, and the
+    // migration's backfill reconstructs state/pincode from notes retroactively.
+    const geographyRow: Record<string, unknown> = {}
+    if (orderData.shipping_state) geographyRow.shipping_state = orderData.shipping_state
+    if (orderData.shipping_city) geographyRow.shipping_city = orderData.shipping_city
+    if (orderData.shipping_pincode) geographyRow.shipping_pincode = orderData.shipping_pincode
+    if (orderData.shipping_address) geographyRow.shipping_address = orderData.shipping_address
+
+    let { data: order, error: orderError } = await supabaseAdmin
       .from('orders')
-      .insert({
-        order_number: orderNumber,
-        customer_id: orderData.customer_id ?? null,
-        customer_name: orderData.customer_name,
-        customer_email: orderData.customer_email,
-        customer_phone: orderData.customer_phone,
-        subtotal: orderData.subtotal,
-        discount: orderData.discount || 0,
-        tax: orderData.tax || 0,
-        shipping: orderData.shipping || 0,
-        total: orderData.total,
-        payment_method: orderData.payment_method || 'upi',
-        payment_status: 'pending',
-        status: 'pending',
-        notes: orderData.notes,
-      })
+      .insert({ ...baseRow, ...geographyRow })
       .select()
       .single()
+
+    // Retry without geography columns if they're the reason the insert failed
+    // (Postgres 42703 undefined_column / PostgREST PGRST204 schema-cache miss).
+    if (orderError && Object.keys(geographyRow).length > 0) {
+      // Fire ONLY on the exact codes Postgres / PostgREST raise for an unknown
+      // column: 42703 (undefined_column) or PGRST204 (schema-cache miss). We
+      // deliberately do NOT also pattern-match the message text — a different
+      // failure (constraint, trigger, RLS) whose message merely mentions a
+      // shipping_* column would otherwise be misclassified and silently retried
+      // WITHOUT the geography, losing data on a DB that actually has the columns.
+      const code = (orderError as { code?: string }).code
+      const msg = (orderError as { message?: string }).message ?? ''
+      const missingColumn = code === '42703' || code === 'PGRST204'
+      if (missingColumn) {
+        console.error(
+          'createOrder: shipping geography columns missing (run migration-008); retrying without them',
+          { code, msg }
+        )
+        ;({ data: order, error: orderError } = await supabaseAdmin
+          .from('orders')
+          .insert(baseRow)
+          .select()
+          .single())
+      }
+    }
 
     if (orderError || !order) {
       return { order: null, error: orderError }
@@ -340,11 +394,13 @@ export async function getOrderByNumberAndEmail(
   orderNumber: string,
   email: string
 ): Promise<Order | null> {
+  // Escape LIKE metacharacters so `_`/`%` in the supplied email are matched
+  // literally (exact, case-insensitive) rather than as wildcards.
   const { data, error } = await supabaseAdmin
     .from('orders')
     .select('*')
     .eq('order_number', orderNumber.trim())
-    .ilike('customer_email', email.trim())
+    .ilike('customer_email', escapeLike(email.trim().toLowerCase()))
     .maybeSingle()
 
   if (error) {
@@ -356,25 +412,26 @@ export async function getOrderByNumberAndEmail(
 }
 
 /**
- * Get order by Razorpay order id.
- * migration-001 added the `razorpay_order_id` column to the orders table.
- * We also fall back to querying `payment_order_id` for older rows.
+ * Get order by Cashfree order id.
+ * New orders store the Cashfree order id in the generic `payment_order_id`
+ * column (set by updateOrderPaymentStatus). We fall back to the legacy
+ * `razorpay_order_id` column so historical rows still reconcile.
  */
-export async function getOrderByPaymentOrderId(razorpayOrderId: string): Promise<Order | null> {
-  // Try the new razorpay_order_id column first (added in migration-001)
-  const { data: byRazorpay, error: err1 } = await supabaseAdmin
+export async function getOrderByPaymentOrderId(cashfreeOrderId: string): Promise<Order | null> {
+  // Primary: the generic payment_order_id column used by the Cashfree flow.
+  const { data: byPaymentOrderId, error: err1 } = await supabaseAdmin
     .from('orders')
     .select('*')
-    .eq('razorpay_order_id', razorpayOrderId)
+    .eq('payment_order_id', cashfreeOrderId)
     .maybeSingle()
 
-  if (!err1 && byRazorpay) return byRazorpay
+  if (!err1 && byPaymentOrderId) return byPaymentOrderId
 
-  // Fall back to the original payment_order_id column
-  const { data: byPaymentOrderId, error: err2 } = await supabaseAdmin
+  // Fall back to the legacy razorpay_order_id column (older rows).
+  const { data: byRazorpay, error: err2 } = await supabaseAdmin
     .from('orders')
     .select('*')
-    .eq('payment_order_id', razorpayOrderId)
+    .eq('razorpay_order_id', cashfreeOrderId)
     .maybeSingle()
 
   if (err2) {
@@ -382,18 +439,18 @@ export async function getOrderByPaymentOrderId(razorpayOrderId: string): Promise
     return null
   }
 
-  return byPaymentOrderId ?? null
+  return byRazorpay ?? null
 }
 
 /**
- * Check whether a Razorpay payment has already been logged (idempotency guard).
- * Returns true if a row with this razorpay_payment_id already exists in payment_logs.
+ * Check whether a Cashfree payment has already been logged (idempotency guard).
+ * Returns true if a row with this cashfree_payment_id already exists in payment_logs.
  */
-export async function hasPaymentBeenLogged(razorpayPaymentId: string): Promise<boolean> {
+export async function hasPaymentBeenLogged(cashfreePaymentId: string): Promise<boolean> {
   const { data, error } = await supabaseAdmin
     .from('payment_logs')
     .select('id')
-    .eq('razorpay_payment_id', razorpayPaymentId)
+    .eq('cashfree_payment_id', cashfreePaymentId)
     .maybeSingle()
 
   if (error) {
@@ -443,17 +500,16 @@ export async function getCustomerOrders(customerEmail: string): Promise<Order[]>
 /**
  * Log payment transaction.
  *
- * Uses the Razorpay columns added in migration-001:
- *   payment_logs.razorpay_order_id, razorpay_payment_id, razorpay_signature
+ * Uses the original schema.sql Cashfree columns:
+ *   payment_logs.cashfree_order_id, cashfree_payment_id
  *
- * The original schema.sql columns (cashfree_order_id, cashfree_payment_id) still
- * exist in the table but are no longer populated here.
+ * The Razorpay columns added in migration-001 still exist in the table but are
+ * no longer populated here.
  */
 export async function logPayment(paymentData: {
   order_id: string
-  razorpay_order_id?: string
-  razorpay_payment_id?: string
-  razorpay_signature?: string
+  cashfree_order_id?: string
+  cashfree_payment_id?: string
   amount: number
   payment_method?: string
   payment_status?: string
@@ -464,9 +520,8 @@ export async function logPayment(paymentData: {
     .from('payment_logs')
     .insert({
       order_id: paymentData.order_id,
-      razorpay_order_id: paymentData.razorpay_order_id,
-      razorpay_payment_id: paymentData.razorpay_payment_id,
-      razorpay_signature: paymentData.razorpay_signature,
+      cashfree_order_id: paymentData.cashfree_order_id,
+      cashfree_payment_id: paymentData.cashfree_payment_id,
       amount: paymentData.amount,
       currency: 'INR',
       payment_method: paymentData.payment_method,

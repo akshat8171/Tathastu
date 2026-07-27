@@ -28,6 +28,31 @@ jest.mock('@/lib/supabase/orders', () => ({
 }))
 
 // ---------------------------------------------------------------------------
+// Mock the Cashfree server client. The money path re-fetches the order status
+// from Cashfree before marking paid, so we control that here.
+// ---------------------------------------------------------------------------
+const mockFetchCashfreeOrder = jest.fn()
+const mockFetchCashfreeOrderPayments = jest.fn()
+
+jest.mock('@/lib/cashfree-server', () => ({
+  fetchCashfreeOrder: (...args: any[]) => mockFetchCashfreeOrder(...args),
+  fetchCashfreeOrderPayments: (...args: any[]) => mockFetchCashfreeOrderPayments(...args),
+  isCashfreeOrderPaid: (status: string) => status === 'PAID',
+  isCashfreePaymentSuccess: (status: string) => status === 'SUCCESS',
+}))
+
+// ---------------------------------------------------------------------------
+// Mock the session layer. The route only calls getCurrentUser() for a
+// best-effort address-save (guests return null and skip it), so a null user
+// preserves the guest-checkout behaviour these tests exercise. Mocking here
+// also keeps Jest from loading the real firebase-admin → jose (ESM) chain,
+// which it can't transform out of node_modules.
+// ---------------------------------------------------------------------------
+jest.mock('@/lib/auth/session', () => ({
+  getCurrentUser: jest.fn().mockResolvedValue(null),
+}))
+
+// ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 const VALID_CUSTOMER = {
@@ -58,6 +83,11 @@ describe('POST /api/orders', () => {
       order: { id: 'order-uuid-123', order_number: 'ORDER_123_456', total: 2299 },
       error: null,
     })
+    // Default: a fully-paid Cashfree order for the correct amount.
+    mockFetchCashfreeOrder.mockResolvedValue({ order_id: 'cf_order_test', order_status: 'PAID', order_amount: 2299 })
+    mockFetchCashfreeOrderPayments.mockResolvedValue([
+      { cf_payment_id: 55501, payment_status: 'SUCCESS', payment_amount: 2299, payment_group: 'upi' },
+    ])
   })
 
   it('creates an order and overrides tampered client price with server price', async () => {
@@ -223,17 +253,14 @@ describe('POST /api/orders', () => {
     )
   })
 
-  it('logs payment when razorpay_payment_id is provided', async () => {
+  it('marks paid and logs payment when Cashfree confirms the order is PAID', async () => {
     const req = makeRequest({
       customer: VALID_CUSTOMER,
       items: [
         { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
       ],
-      payment: {
-        razorpay_order_id: 'order_rzp_test',
-        razorpay_payment_id: 'pay_rzp_test',
-        razorpay_signature: 'sig_test',
-      },
+      payment_method: 'cashfree',
+      payment: { cashfree_order_id: 'cf_order_test' },
     })
 
     const res = await POST(req)
@@ -241,16 +268,65 @@ describe('POST /api/orders', () => {
     expect(mockUpdateOrderPaymentStatus).toHaveBeenCalledWith(
       'order-uuid-123',
       'paid',
-      'pay_rzp_test',
-      'order_rzp_test'
+      '55501',
+      'cf_order_test'
     )
     expect(mockLogPayment).toHaveBeenCalledWith(
       expect.objectContaining({
         order_id: 'order-uuid-123',
-        razorpay_payment_id: 'pay_rzp_test',
-        razorpay_order_id: 'order_rzp_test',
-        razorpay_signature: 'sig_test',
+        cashfree_order_id: 'cf_order_test',
+        cashfree_payment_id: '55501',
+        payment_status: 'paid',
       })
+    )
+  })
+
+  it('SECURITY: leaves the order pending when Cashfree says the order is NOT paid', async () => {
+    // A client can POST any cashfree_order_id; unless Cashfree itself reports the
+    // order PAID, we must never mark it paid — otherwise anyone forges a free sale.
+    mockFetchCashfreeOrder.mockResolvedValueOnce({ order_id: 'cf_order_test', order_status: 'ACTIVE', order_amount: 2299 })
+
+    const req = makeRequest({
+      customer: VALID_CUSTOMER,
+      items: [
+        { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
+      ],
+      payment_method: 'cashfree',
+      payment: { cashfree_order_id: 'cf_order_test' },
+    })
+
+    const res = await POST(req)
+    // The order is still created (200) — it just stays 'pending' until the
+    // HMAC-verified webhook reconciles a genuinely-captured payment.
+    expect(res.status).toBe(200)
+    expect(mockUpdateOrderPaymentStatus).not.toHaveBeenCalled()
+    expect(mockLogPayment).toHaveBeenCalledWith(
+      expect.objectContaining({
+        order_id: 'order-uuid-123',
+        payment_status: 'failed',
+      })
+    )
+  })
+
+  it('SECURITY: leaves the order pending when the Cashfree amount does not match the server total', async () => {
+    // Cashfree reports PAID but for a smaller amount than our server total — an
+    // under-payment must never be accepted as a full "paid" order.
+    mockFetchCashfreeOrder.mockResolvedValueOnce({ order_id: 'cf_order_test', order_status: 'PAID', order_amount: 1 })
+
+    const req = makeRequest({
+      customer: VALID_CUSTOMER,
+      items: [
+        { product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 },
+      ],
+      payment_method: 'cashfree',
+      payment: { cashfree_order_id: 'cf_order_test' },
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(200)
+    expect(mockUpdateOrderPaymentStatus).not.toHaveBeenCalled()
+    expect(mockLogPayment).toHaveBeenCalledWith(
+      expect.objectContaining({ order_id: 'order-uuid-123', payment_status: 'failed' })
     )
   })
 })

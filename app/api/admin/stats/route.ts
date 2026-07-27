@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/admin'
+import { requireAdmin } from '@/lib/auth/admin'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
+  // AUTHZ: service-role data — verify an admin session before anything else.
+  const auth = await requireAdmin()
+  if (!auth.ok) return auth.response
+
   try {
     // Get date boundaries
     const now = new Date()

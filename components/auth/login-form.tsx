@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import Link from 'next/link'
 import { supabase } from '@/lib/supabase/client'
-import { detectIdentifier } from '@/lib/auth/identifier'
-import { PhoneOtpForm } from '@/components/auth/phone-otp-form'
+import { GoogleSignInButton } from '@/components/auth/google-button'
 import { Spinner } from '@/components/ui/spinner'
 
 function sanitizeNext(raw: string | null): string {
@@ -15,33 +15,40 @@ function sanitizeNext(raw: string | null): string {
 }
 
 /**
- * Unified login form:
- * - Email + password  → Supabase signInWithPassword
- * - Phone number      → renders PhoneOtpForm (Firebase OTP flow)
+ * Login form — two paths only:
+ *   - Continue with Google  → Supabase OAuth
+ *   - Email + password      → Supabase signInWithPassword
  *
- * Live identifier detection routes the user to the correct path.
+ * Phone-OTP sign-in has been retired from the UI (the Firebase code still
+ * exists behind the scenes but is no longer surfaced here).
  */
 export function LoginForm() {
-  const [identifier, setIdentifier] = useState('')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [showOtp, setShowOtp] = useState(false)
 
   const router = useRouter()
   const searchParams = useSearchParams()
   const next = sanitizeNext(searchParams.get('next'))
 
-  const kind = detectIdentifier(identifier)
-  // Show password field when the identifier looks like an email
-  const showPassword = identifier.includes('@') || kind === 'email'
+  // Preserve the post-login destination when the user hops to the sign-up page.
+  const nextQuery = next && next !== '/account' ? `?next=${encodeURIComponent(next)}` : ''
 
-  async function handlePasswordLogin(e: React.FormEvent) {
+  // Surfaced when /auth/callback fails to exchange the OAuth code (e.g. the
+  // redirect URL isn't allow-listed in Supabase, or the link expired).
+  const oauthError =
+    searchParams.get('error') === 'oauth'
+      ? 'Google sign-in could not be completed. Please try again.'
+      : ''
+
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setError('')
 
-    if (kind !== 'email') {
-      setError("Use 'Login with OTP' for phone numbers.")
+    const trimmed = email.trim().toLowerCase()
+    if (!trimmed) {
+      setError('Please enter your email.')
       return
     }
     if (!password) {
@@ -51,7 +58,7 @@ export function LoginForm() {
 
     setLoading(true)
     const { error: authError } = await supabase.auth.signInWithPassword({
-      email: identifier.trim(),
+      email: trimmed,
       password,
     })
     setLoading(false)
@@ -64,82 +71,65 @@ export function LoginForm() {
     }
   }
 
-  function handleOtpLogin(e: React.FormEvent) {
-    e.preventDefault()
-    setError('')
-
-    if (kind === 'email') {
-      setError("Use 'Login with Password' for email addresses.")
-      return
-    }
-    if (kind === 'unknown') {
-      setError('Enter a valid email or 10-digit mobile number.')
-      return
-    }
-    // kind === 'phone' — switch to PhoneOtpForm
-    setShowOtp(true)
-  }
-
-  // Once the user chose "Login with OTP" and has a valid phone, hand off to
-  // the dedicated PhoneOtpForm (which manages its own Firebase flow).
-  if (showOtp) {
-    return (
-      <div className="w-full max-w-sm mx-auto space-y-4">
-        <button
-          type="button"
-          onClick={() => { setShowOtp(false); setError('') }}
-          className="text-sm text-muted hover:text-brand transition-colors font-sans"
-        >
-          ← Back
-        </button>
-        <PhoneOtpForm initialPhone={identifier.replace(/\D/g, '')} />
-      </div>
-    )
-  }
-
   return (
-    <form onSubmit={handlePasswordLogin} className="w-full max-w-sm mx-auto space-y-4">
-      {/* Single identifier field */}
-      <div>
-        <label htmlFor="identifier" className="block text-sm font-medium text-ink mb-2 font-sans">
-          Email or Mobile Number
-        </label>
-        <input
-          id="identifier"
-          type="text"
-          value={identifier}
-          onChange={e => { setIdentifier(e.target.value); setError('') }}
-          placeholder="you@email.com or 9876543210"
-          autoComplete="username"
-          className="w-full px-4 py-3 rounded-xl bg-surface border border-gray-200 text-ink placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand font-sans"
-        />
+    <div className="w-full max-w-sm mx-auto space-y-5">
+      {oauthError && (
+        <p className="text-red-600 text-sm font-sans bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+          {oauthError}
+        </p>
+      )}
+
+      {/* Google */}
+      <GoogleSignInButton next={next} label="Continue with Google" />
+
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="h-px flex-1 bg-gray-200" />
+        <span className="text-xs text-muted font-sans">or sign in with email</span>
+        <div className="h-px flex-1 bg-gray-200" />
       </div>
 
-      {/* Password field — shown for email path */}
-      {showPassword && (
+      {/* Email + password */}
+      <form onSubmit={handleLogin} className="space-y-4">
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-ink mb-2 font-sans">
-            Password
+          <label htmlFor="email" className="block text-sm font-medium text-ink mb-2 font-sans">
+            Email
           </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={e => { setEmail(e.target.value); setError('') }}
+            placeholder="you@email.com"
+            autoComplete="email"
+            className="w-full px-4 py-3 rounded-xl bg-surface border border-gray-200 text-ink placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand font-sans"
+          />
+        </div>
+
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-ink font-sans">
+              Password
+            </label>
+            <Link href="/forgot-password" className="text-xs text-brand hover:underline font-sans">
+              Forgot password?
+            </Link>
+          </div>
           <input
             id="password"
             type="password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={e => { setPassword(e.target.value); setError('') }}
             placeholder="Your password"
             autoComplete="current-password"
             className="w-full px-4 py-3 rounded-xl bg-surface border border-gray-200 text-ink placeholder-muted/60 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand font-sans"
           />
         </div>
-      )}
 
-      {error && <p className="text-red-500 text-sm font-sans">{error}</p>}
+        {error && <p className="text-red-500 text-sm font-sans">{error}</p>}
 
-      {/* Primary action row */}
-      <div className="flex flex-col gap-3">
         <button
           type="submit"
-          onClick={handlePasswordLogin}
           disabled={loading}
           className="btn-primary w-full disabled:opacity-50 inline-flex items-center justify-center gap-2"
         >
@@ -149,19 +139,17 @@ export function LoginForm() {
               <span>Signing in…</span>
             </>
           ) : (
-            'Login with Password'
+            'Sign in'
           )}
         </button>
+      </form>
 
-        <button
-          type="button"
-          onClick={handleOtpLogin}
-          disabled={loading}
-          className="w-full py-3 px-4 rounded-xl border border-brand text-brand bg-transparent hover:bg-brand/5 transition-colors font-sans font-medium text-sm disabled:opacity-50"
-        >
-          Login with OTP
-        </button>
-      </div>
-    </form>
+      <p className="text-center text-sm text-muted font-sans">
+        New to Tathastu?{' '}
+        <Link href={`/signup${nextQuery}`} className="text-brand font-medium hover:underline">
+          Create an account
+        </Link>
+      </p>
+    </div>
   )
 }

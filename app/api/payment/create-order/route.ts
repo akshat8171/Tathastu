@@ -1,45 +1,62 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createRazorpayOrderSchema } from '@/lib/validation/order'
+import { createCashfreeOrderSchema } from '@/lib/validation/order'
+import { createCashfreeOrder } from '@/lib/cashfree-server'
 
 export const dynamic = 'force-dynamic'
 
-async function getRazorpay() {
-  const Razorpay = (await import('razorpay')).default
-  return new Razorpay({
-    key_id: process.env.RAZORPAY_KEY_ID!,
-    key_secret: process.env.RAZORPAY_KEY_SECRET!,
-  })
+/**
+ * Generate a unique, Cashfree-safe order id.
+ * Cashfree order ids must be alphanumeric (plus _ and -) and <= 50 chars.
+ */
+function makeOrderId(): string {
+  const rand = Math.random().toString(36).slice(2, 10)
+  return `cf_${Date.now()}_${rand}`
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    // Validate request shape with Zod
-    const parsed = createRazorpayOrderSchema.safeParse(body)
+    const parsed = createCashfreeOrderSchema.safeParse(body)
     if (!parsed.success) {
       const message = parsed.error.errors.map(e => e.message).join('; ')
       return NextResponse.json({ error: message }, { status: 400 })
     }
 
-    const { amount, currency, receipt, notes } = parsed.data
+    const { amount, currency, customer } = parsed.data
+    const orderId = makeOrderId()
 
-    const razorpay = await getRazorpay()
-    const order = await razorpay.orders.create({
-      amount: Math.round(amount * 100), // convert rupees → paise
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || ''
+
+    const order = await createCashfreeOrder({
+      orderId,
+      amount,
       currency,
-      receipt: receipt || `order_${Date.now()}`,
-      notes: notes || {},
+      customer: {
+        // Cashfree needs a stable customer id; derive it from the phone so the
+        // same shopper reuses one Cashfree customer profile across orders.
+        id: `cust_${customer.phone}`,
+        name: customer.name,
+        email: customer.email,
+        phone: customer.phone,
+      },
+      notifyUrl: appUrl ? `${appUrl}/api/payment/webhook` : undefined,
+      returnUrl: appUrl ? `${appUrl}/checkout?cf_order_id=${orderId}` : undefined,
     })
+
+    if (!order.payment_session_id) {
+      return NextResponse.json({ error: 'Cashfree did not return a payment session' }, { status: 502 })
+    }
 
     return NextResponse.json({
       success: true,
-      orderId: order.id,
-      amount: order.amount,
-      currency: order.currency,
+      orderId: order.order_id,
+      paymentSessionId: order.payment_session_id,
+      amount: order.order_amount,
+      currency: order.order_currency,
     })
   } catch (error: any) {
-    console.error('Razorpay create order error:', error)
+    console.error('Cashfree create order error:', error)
     return NextResponse.json(
       { error: error.message || 'Failed to create order' },
       { status: 500 }

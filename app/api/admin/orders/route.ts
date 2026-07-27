@@ -1,13 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/admin'
+import { requireAdmin } from '@/lib/auth/admin'
+import { sanitizeSearchTerm } from '@/lib/validation/search'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
+  // AUTHZ: returns all orders with customer PII — admin only.
+  const auth = await requireAdmin()
+  if (!auth.ok) return auth.response
+
   try {
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
-    const search = searchParams.get('search')
+    // Sanitize before embedding in a PostgREST .or() filter (injection guard).
+    const search = sanitizeSearchTerm(searchParams.get('search'))
 
     let query = supabaseAdmin
       .from('orders')
@@ -42,6 +49,10 @@ export async function GET(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
+  // AUTHZ: mutates order status / tracking — admin only.
+  const auth = await requireAdmin()
+  if (!auth.ok) return auth.response
+
   try {
     const body = await request.json()
     const { orderId, status, trackingNumber } = body

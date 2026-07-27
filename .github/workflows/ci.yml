@@ -1,5 +1,14 @@
 name: CI
 
+# Least-privilege: CI only reads repo content; no writes, PRs, issues, etc.
+permissions:
+  contents: read
+
+# Cancel stale runs on new PR push to save CI quota.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   pull_request:
     branches:
@@ -8,6 +17,7 @@ on:
     branches:
       - main
       - 'feat/**'
+  workflow_dispatch:
 
 jobs:
   quality:
@@ -18,10 +28,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Node 22
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: .nvmrc
           cache: 'npm'
 
       - name: Install dependencies
@@ -34,19 +44,37 @@ jobs:
         run: npm run lint
 
       - name: Test
-        run: npm test
+        run: npm test -- --ci
 
       - name: Build
-        # Build-safe placeholders: CI verifies the app COMPILES, not live DB access.
-        # The Supabase client throws on empty env at module load, so we supply
-        # well-formed dummy values. Real secrets live in Vercel (see DEPLOYMENT.md).
+        # Build-safe placeholders: CI verifies the app COMPILES, not live service access.
+        # Well-formed dummy values satisfy module-scope env reads so `next build`
+        # (which imports route modules during page collection) never crashes on
+        # missing env. Real secrets live in Vercel (see DEPLOYMENT.md).
         # If a repo secret is set it takes precedence; otherwise the placeholder is used.
         run: npm run build
         env:
+          # Supabase: lazy Proxy init, so placeholders are enough for the build.
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co' }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY || 'placeholder-anon-key' }}
+          # Optional service-role key (lazy init, fallback to anon key is safe for build).
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY || '' }}
+
+          # Razorpay: no module-scope reads, but routes import lazily.
           NEXT_PUBLIC_RAZORPAY_KEY_ID: ${{ secrets.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_test_placeholder' }}
           RAZORPAY_KEY_ID: ${{ secrets.RAZORPAY_KEY_ID || 'rzp_test_placeholder' }}
           RAZORPAY_KEY_SECRET: ${{ secrets.RAZORPAY_KEY_SECRET || 'placeholder_secret' }}
           RAZORPAY_WEBHOOK_SECRET: ${{ secrets.RAZORPAY_WEBHOOK_SECRET || 'placeholder_webhook_secret' }}
+
+          # Firebase Admin: lazy Proxy init, optional for build.
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID || '' }}
+          FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL || '' }}
+          FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY || '' }}
+
+          # Upstash rate-limit: module-scope read (lib/rate-limit.ts:20-21), but
+          # safe when empty (falls back to in-memory limiter). No placeholder needed.
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL || '' }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN || '' }}
+
+          # App URL: used in metadata generation.
           NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL || 'http://localhost:3000' }}

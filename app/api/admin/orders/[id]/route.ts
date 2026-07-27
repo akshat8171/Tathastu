@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { getOrderItems } from '@/lib/supabase/orders'
+import { requireAdmin } from '@/lib/auth/admin'
 
 export const dynamic = 'force-dynamic'
 
@@ -8,6 +9,10 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  // AUTHZ: exposes full order PII — verify an admin session first.
+  const auth = await requireAdmin()
+  if (!auth.ok) return auth.response
+
   try {
     const { id: orderId } = await params
 

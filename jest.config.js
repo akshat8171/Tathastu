@@ -6,6 +6,7 @@ const createJestConfig = nextJest({ dir: './' })
 const config = {
   testEnvironment: 'jsdom',
   moduleNameMapper: {
+    '^server-only$': '<rootDir>/__mocks__/empty.js',
     '^@/(.*)$': '<rootDir>/$1',
   },
 }

@@ -9,6 +9,8 @@ import { CartProvider } from '@/components/cart/cart-context'
 import { WishlistProvider } from '@/components/wishlist/wishlist-context'
 import { CheckoutProvider } from '@/components/checkout/checkout-context'
 import { getOrganizationSchema } from '@/lib/schema'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -121,8 +123,8 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
         {/* Preconnect for payment gateway */}
-        <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
-        <link rel="preconnect" href="https://checkout.razorpay.com" />
+        <link rel="dns-prefetch" href="https://sdk.cashfree.com" />
+        <link rel="preconnect" href="https://sdk.cashfree.com" />
 
         {/* Favicons */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -154,6 +156,8 @@ export default function RootLayout({
             </CheckoutProvider>
           </WishlistProvider>
         </CartProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

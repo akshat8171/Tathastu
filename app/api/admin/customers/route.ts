@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/admin'
+import { requireAdmin } from '@/lib/auth/admin'
+import { sanitizeSearchTerm } from '@/lib/validation/search'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
+  // AUTHZ: returns full customer PII + lifetime value — admin only.
+  const auth = await requireAdmin()
+  if (!auth.ok) return auth.response
+
   try {
     const { searchParams } = new URL(request.url)
-    const search = searchParams.get('search')
+    // Sanitize before embedding in a PostgREST .or() filter (injection guard).
+    const search = sanitizeSearchTerm(searchParams.get('search'))
     const sortBy = searchParams.get('sortBy') || 'total_spent'
     const sortOrder = searchParams.get('sortOrder') || 'desc'
 

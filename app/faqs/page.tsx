@@ -44,7 +44,7 @@ const faqGroups: FaqGroup[] = [
         question: 'What payment methods do you accept?',
         answer: (
           <p>
-            We accept all major payment methods via <strong>Razorpay</strong>: credit cards,
+            We accept all major payment methods via <strong>Cashfree</strong>: credit cards,
             debit cards, UPI (GPay, PhonePe, Paytm), net banking, and popular digital wallets. We
             also offer <strong>Cash on Delivery (COD)</strong> for eligible orders. COD
             availability depends on your PIN code and order value.
@@ -56,7 +56,7 @@ const faqGroups: FaqGroup[] = [
         answer: (
           <p>
             Yes. All online payments are processed by{' '}
-            <strong>Razorpay</strong>, a PCI-DSS compliant payment gateway. We never store your
+            <strong>Cashfree</strong>, a PCI-DSS compliant payment gateway. We never store your
             card or banking details on our servers. Transactions are encrypted using SSL/TLS
             technology.
           </p>
@@ -294,7 +294,7 @@ const faqGroups: FaqGroup[] = [
         question: 'How long does a refund take?',
         answer: (
           <p>
-            Approved refunds are processed back to your original payment method via Razorpay
+            Approved refunds are processed back to your original payment method via Cashfree
             within <strong>5–10 business days</strong> for cards/UPI and 3–7 business days for
             other methods. COD refunds are processed via bank transfer. See the full timeline in
             our{' '}
