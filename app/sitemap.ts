@@ -8,6 +8,7 @@
 import { MetadataRoute } from 'next'
 import { blogPosts } from '@/lib/blog-data'
 import { getProductCategories } from '@/lib/categories'
+import productsJson from '@/lib/products.json'
 
 const BASE_URL = 'https://www.tathastukeepsakes.in'
 
@@ -38,6 +39,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE_URL}/custom-3d-printing`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${BASE_URL}/rakhi`,
+      lastModified: currentDate,
+      changeFrequency: 'daily',
       priority: 0.9,
     },
     {
@@ -113,5 +120,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...blogPages, ...categoryPages]
+  // Individual product detail pages (/products/[id]) — the highest-converting
+  // SEO surface (each carries Product + AggregateRating + Offer JSON-LD for
+  // rich results). Previously absent from the sitemap, so product pages were
+  // left to organic discovery only. Rakhi SKUs get a small priority bump so
+  // they are crawled first during the pre-festival window.
+  const productPages: MetadataRoute.Sitemap = (
+    productsJson as Array<{ id: string; category: string }>
+  ).map((product) => ({
+    url: `${BASE_URL}/products/${product.id}`,
+    lastModified: currentDate,
+    changeFrequency: 'weekly' as const,
+    priority: product.category === 'rakhi' ? 0.9 : 0.7,
+  }))
+
+  return [...staticPages, ...blogPages, ...categoryPages, ...productPages]
 }

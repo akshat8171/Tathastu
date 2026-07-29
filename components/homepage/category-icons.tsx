@@ -29,7 +29,10 @@ export function CategoryIcons() {
         <div className="mt-8">
           <ScrollRail className="gap-3 sm:gap-4 pb-2" ariaLabel="Product categories">
             {categories.map((cat) => {
-              const href = cat.isCta ? '/customize' : `/products?category=${cat.slug}`
+              // Honour a category's explicit `route` when set (e.g. the Rakhi hub
+              // at /rakhi). Existing categories' routes already equal the default
+              // /products?category=<slug> target, so this is behaviour-preserving.
+              const href = cat.route ?? (cat.isCta ? '/customize' : `/products?category=${cat.slug}`)
               const from = minPriceByCategory[cat.slug]
 
               return (

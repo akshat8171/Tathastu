@@ -11,7 +11,9 @@ import productsJson from '@/lib/products.json'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `Buy 3D Printed Gifts Online India | Shop Custom 3D Prints | ${SITE.name}`,
+  // The root layout applies the `%s | Tathastu Keepsakes` title template, so the
+  // brand is intentionally omitted here — appending it would double it in the SERP.
+  title: `Buy 3D Printed Gifts Online India | Shop Custom 3D Prints`,
   description: `Shop 3D printed gifts online India - custom keychains, lamps, home decor, desk organisers & personalised gifts. Buy 3D printed items with PAN India delivery. Premium 3D printing products from Agra. COD available.`,
   keywords: [
     'buy 3D printed gifts online India',

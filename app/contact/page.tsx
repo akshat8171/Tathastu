@@ -4,7 +4,11 @@ import { getLocalBusinessSchema } from '@/lib/schema'
 import { ContactForm } from './contact-form'
 
 export const metadata: Metadata = {
-  title: `Contact Tathastu Keepsakes | 3D Printing Agra Phone Number | Custom 3D Prints Enquiry`,
+  // This title already opens with the brand, so we opt out of the root layout's
+  // `%s | Tathastu Keepsakes` template via `absolute` to avoid a doubled brand.
+  title: {
+    absolute: `Contact Tathastu Keepsakes | 3D Printing Agra Phone Number | Custom 3D Prints Enquiry`,
+  },
   description: `Contact Tathastu Keepsakes for 3D printing services. Call ${SITE.phone} - 3D printing Agra contact number. WhatsApp enquiry for custom 3D prints, bulk orders, personalised gifts. Email: ${SITE.email}. Get quote for 3D printed items India.`,
   keywords: [
     '3D printing Agra contact',

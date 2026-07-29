@@ -78,6 +78,17 @@ export const categories: Category[] = [
     route: '/products?category=planters',
   },
   {
+    slug: 'rakhi',
+    name: 'rakhi',
+    displayName: 'Rakhi (Raksha Bandhan)',
+    description:
+      'Customised 3D-printed rakhi for Raksha Bandhan 2026 — gaming console, cricket bat-ball, superhero, cartoon, name, photo and secret-message rakhi. Each one becomes a keychain keepsake you keep forever.',
+    image: '/images/rakhi/categories/rakhi.png',
+    // Clean, keyword-rich landing page (SEO hub). The homepage rail honours this
+    // route; the /products?category=rakhi filter view continues to work too.
+    route: '/rakhi',
+  },
+  {
     slug: 'customise',
     name: 'customise',
     displayName: 'Customise Now',

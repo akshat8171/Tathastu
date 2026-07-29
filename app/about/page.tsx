@@ -5,7 +5,11 @@ import { Button } from '@/components/ui'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `About Tathastu Keepsakes | 3D Printing Company India Agra | Custom 3D Printing Service`,
+  // This title already opens with the brand, so we opt out of the root layout's
+  // `%s | Tathastu Keepsakes` template via `absolute` to avoid a doubled brand.
+  title: {
+    absolute: `About Tathastu Keepsakes | 3D Printing Company India Agra | Custom 3D Printing Service`,
+  },
   description: `Leading 3D printing company in India based in Agra. ${SITE.name} offers custom 3D printing service, personalised gifts & 3D printed home decor. Multi-colour 3D printing store serving PAN India. Learn about India's premium 3D printing service provider.`,
   keywords: [
     '3D printing company India',
