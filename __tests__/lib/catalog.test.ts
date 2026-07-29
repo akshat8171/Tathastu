@@ -31,8 +31,8 @@ describe('lib/products.json — data integrity', () => {
     expect(catalog.length).toBeGreaterThan(0)
   })
 
-  it('contains exactly 54 products', () => {
-    expect(catalog).toHaveLength(54)
+  it('contains exactly 66 products', () => {
+    expect(catalog).toHaveLength(66)
   })
 
   describe('every product has required fields', () => {
@@ -137,6 +137,10 @@ describe('lib/products.json — data integrity', () => {
 
     it('has 7 gaming', () => {
       expect(catalog.filter((p) => p.category === 'gaming')).toHaveLength(7)
+    })
+
+    it('has 12 rakhi', () => {
+      expect(catalog.filter((p) => p.category === 'rakhi')).toHaveLength(12)
     })
   })
 
