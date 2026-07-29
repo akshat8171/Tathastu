@@ -25,9 +25,12 @@ import productsJson from '@/lib/products.json'
 
 // ── SEO metadata ──────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: `Customised Rakhi Online 2026 | Personalised & Gaming Rakhi That Becomes a Keychain | ${SITE.name}`,
+  // NOTE: the root layout applies the `%s | Tathastu Keepsakes` title template,
+  // so we pass the bare title here (appending the brand would double it). Kept
+  // lean so the primary keyword phrase survives Google's ~60-char SERP cut.
+  title: 'Personalised Rakhi Online — 3D-Printed Rakhi to Keychain',
   description:
-    'Buy customised rakhi online for Raksha Bandhan 2026 (28 Aug). Personalised name rakhi, photo rakhi, secret message rakhi, gaming console rakhi, cricket & superhero rakhi for brother and kids. Each 3D-printed rakhi becomes a keychain keepsake you keep forever. From ₹259, COD & PAN India delivery from Agra.',
+    'Personalised rakhi that becomes a keychain keepsake. Name, photo, gaming, cricket & superhero rakhi, 3D-printed to order. From ₹259, COD & PAN-India delivery.',
   keywords: [
     'customised rakhi online',
     'customized rakhi',
@@ -36,18 +39,24 @@ export const metadata: Metadata = {
     'photo rakhi online',
     'secret message rakhi',
     'gaming rakhi',
+    'gaming console rakhi',
     'rakhi for gamer brother',
     'cartoon rakhi for kids',
+    'kids rakhi',
     'superhero rakhi',
     'cricket rakhi',
+    'rakhi that turns into a keychain',
     'rakhi that becomes keychain',
+    'rakhi to keychain keepsake',
     'keepsake rakhi',
+    'reusable rakhi',
     '3D printed rakhi',
     'rakhi for brother',
     'bhaiya bhabhi rakhi',
     'lumba rakhi online',
     'family rakhi set',
     'Raksha Bandhan 2026',
+    'raksha bandhan 2026 date',
     'buy rakhi online India',
     'unique rakhi ideas 2026',
     'custom rakhi with name',
@@ -67,9 +76,14 @@ export const metadata: Metadata = {
 // ── FAQ content (also emitted as FAQPage schema) ───────────────────────────────
 const FAQS: Array<{ question: string; answer: string }> = [
   {
-    question: 'When is Raksha Bandhan in 2026?',
+    question: 'When is Raksha Bandhan in 2026 and what is the shubh muhurat?',
     answer:
-      'Raksha Bandhan 2026 falls on Friday, 28 August 2026. We recommend ordering your customised rakhi before 24 August 2026 so your personalised, made-to-order rakhi is delivered comfortably in time across India.',
+      'Raksha Bandhan 2026 falls on Friday, 28 August 2026 (Shravana Purnima). The good news: there is no Bhadra Kaal on the day, so you can tie the rakhi any time in the morning — the shubh muhurat runs roughly from 6:09 AM to 9:48 AM. Order your customised rakhi before 24 August 2026 so your made-to-order, personalised rakhi is delivered comfortably in time across India.',
+  },
+  {
+    question: 'What should I do with my rakhi after Raksha Bandhan?',
+    answer:
+      'Instead of tucking it away in a drawer or throwing it out, keep it forever. Every Tathastu rakhi ships with a free keychain converter — once the festival is over, clip the rakhi onto your keys, bag or backpack and it becomes a keepsake keychain. It is the most meaningful (and most eco-friendly) thing you can do with a rakhi after Raksha Bandhan.',
   },
   {
     question: 'What is a rakhi that becomes a keychain?',
@@ -233,6 +247,19 @@ export default function RakhiLandingPage() {
             inside joke? <Link href="/customize?type=custom" className="text-brand font-semibold hover:underline">Suggest your own rakhi idea</Link>{' '}
             and we’ll bring it to life.
           </p>
+
+          {/* Muhurat fact block — targets the "raksha bandhan 2026 date/muhurat"
+              featured-snippet query with a concise, factually-accurate answer. */}
+          <div className="mt-6 rounded-card2 border border-[#fed7aa] bg-[#fff7ed] p-4 md:p-5">
+            <p className="font-display font-semibold text-ink text-sm md:text-base">
+              📅 Raksha Bandhan 2026: Friday, 28 August
+            </p>
+            <p className="text-sm text-muted font-sans leading-relaxed mt-1">
+              This year there is <strong>no Bhadra Kaal</strong> on the day, so you can tie the rakhi
+              any time in the morning — the <strong>shubh muhurat runs about 6:09 AM to 9:48 AM</strong>.
+              Order your customised rakhi <strong>before 24 August 2026</strong> for guaranteed delivery in time.
+            </p>
+          </div>
         </div>
       </section>
 

@@ -35,10 +35,16 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   if (!post) return {}
 
   return {
-    title: `${post.title} | ${SITE.name}`,
+    // The root layout applies the `%s | Tathastu Keepsakes` title template, so
+    // we pass the bare post title here (appending the brand ourselves would
+    // double it to "… | Tathastu Keepsakes | Tathastu Keepsakes").
+    title: post.title,
     description: post.description,
     keywords: post.keywords.split(', '),
     authors: [{ name: 'Tathastu Keepsakes Team' }],
+    // Self-referential canonical — otherwise every post inherits the root
+    // layout's homepage canonical and Google treats posts as homepage dupes.
+    alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
       title: post.title,
       description: post.description,

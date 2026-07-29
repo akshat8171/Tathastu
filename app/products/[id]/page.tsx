@@ -72,7 +72,13 @@ export async function generateMetadata({ params }: ProductPageParams): Promise<M
 
   return {
     title: `Buy ${product.name} | 3D Printed ${categoryName} Online India | ${priceTag}`,
-    description: `${product.description} Buy ${product.name} online - 3D printed ${categoryName} at ${priceTag}. ${product.rating}★ rated. Custom 3D printing. PAN India delivery from ${SITE.name}, Agra. COD available.`,
+    // Keep the SERP description within ~160 chars so Google doesn't truncate it.
+    // The full product description still renders on-page and in JSON-LD.
+    description: `Buy ${product.name} online — 3D-printed ${categoryName} at ${priceTag}, ${product.rating}★ rated. Custom-made with PAN-India delivery & COD from ${SITE.name}, Agra.`,
+    // Self-referential canonical. Without this, every product page inherits the
+    // root layout's absolute canonical (the homepage), telling Google each PDP
+    // is a duplicate of "/" — which suppresses indexing of all product pages.
+    alternates: { canonical: `/products/${product.id}` },
     keywords: [
       `buy ${product.name}`,
       `${product.name} online India`,
