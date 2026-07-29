@@ -11,7 +11,8 @@ import { SITE } from '@/lib/site'
 import CustomizePageClient from './client'
 
 export const metadata: Metadata = {
-  title: `Custom 3D Printing India | 3D Print My Design Online | ${SITE.name}`,
+  // Root layout appends `| Tathastu Keepsakes` via the title template.
+  title: `Custom 3D Printing India | 3D Print My Design Online`,
   description:
     `Custom 3D printing service in India. Upload design for 3D printing or send your photo/STL file. ` +
     `3D print my design India - keychains, portraits, nameplates, corporate gifts & more. Free quote 24hrs. Order custom 3D prints online with PAN India delivery from Agra.`,

@@ -57,7 +57,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Buy ${cat.displayName} | 3D Printed ${cat.displayName} Online India | Tathastu Keepsakes`,
+    // Root layout appends `| Tathastu Keepsakes` via the title template.
+    title: `Buy ${cat.displayName} | 3D Printed ${cat.displayName} Online India`,
     description: `Shop premium 3D printed ${cat.displayName} online. ${cat.description} Buy custom ${cat.displayName} with PAN India delivery from Agra. COD available.`,
     keywords: [
       `buy ${cat.displayName} online India`,

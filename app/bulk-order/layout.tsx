@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `Bulk & Corporate 3D Printing Orders India | Wholesale Custom Gifts | ${SITE.name}`,
+  // Root layout appends `| Tathastu Keepsakes` via the title template.
+  title: `Bulk & Corporate 3D Printing Orders India | Wholesale Custom Gifts`,
   description: 'Bulk 3D printing orders for corporate gifts, events, and wholesale. Minimum 10 pieces, custom branding available. Get a tailored quote for branded 3D printed items with PAN India delivery from Agra.',
   keywords: [
     'bulk 3D printing orders India',
