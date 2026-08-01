@@ -12,10 +12,13 @@ import Razorpay from 'razorpay'
 const MIN_AMOUNT_PAISE = 100
 
 export function getRazorpayClient(): Razorpay {
-  const keyId = process.env.RAZORPAY_KEY_ID
-  const keySecret = process.env.RAZORPAY_KEY_SECRET
+  const keyId = (process.env.RAZORPAY_KEY_ID || '').trim()
+  const keySecret = (process.env.RAZORPAY_KEY_SECRET || '').trim()
   if (!keyId || !keySecret) {
     throw new Error('Razorpay credentials are not configured (RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET)')
+  }
+  if (!keyId.startsWith('rzp_')) {
+    throw new Error('RAZORPAY_KEY_ID looks invalid (expected rzp_test_… or rzp_live_…)')
   }
   return new Razorpay({ key_id: keyId, key_secret: keySecret })
 }

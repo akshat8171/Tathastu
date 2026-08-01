@@ -31,10 +31,23 @@ export async function POST(request: NextRequest) {
       currency: order.currency,
     })
   } catch (error: unknown) {
-    const err = error as { statusCode?: number; error?: { description?: string }; message?: string }
-    console.error('Razorpay create order error:', error)
-    if (err.statusCode === 401) {
-      return NextResponse.json({ error: 'Razorpay authentication failed' }, { status: 401 })
+    const err = error as { statusCode?: number; error?: { description?: string; code?: string }; message?: string }
+    const keyIdPrefix = (process.env.RAZORPAY_KEY_ID || '').trim().slice(0, 12)
+    console.error('Razorpay create order error:', {
+      statusCode: err.statusCode,
+      code: err.error?.code,
+      description: err.error?.description || err.message,
+      keyIdPrefix: keyIdPrefix || '(missing)',
+      hasSecret: Boolean((process.env.RAZORPAY_KEY_SECRET || '').trim()),
+    })
+    if (err.statusCode === 401 || /authentication failed/i.test(err.error?.description || '')) {
+      return NextResponse.json(
+        {
+          error:
+            'Razorpay authentication failed. Check RAZORPAY_KEY_ID + RAZORPAY_KEY_SECRET are a matching pair, then restart npm run dev (or set the same vars on Vercel).',
+        },
+        { status: 401 }
+      )
     }
     return NextResponse.json(
       { error: err.error?.description || err.message || 'Failed to create order' },
