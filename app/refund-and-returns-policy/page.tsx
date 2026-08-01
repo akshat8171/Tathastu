@@ -207,8 +207,8 @@ export default function RefundReturnsPage() {
                 </thead>
                 <tbody>
                   {[
-                    ['Credit / Debit Card', 'Original card (via Cashfree)', '5–10 business days'],
-                    ['UPI / Net Banking / Wallet', 'Original source (via Cashfree)', '3–7 business days'],
+                    ['Credit / Debit Card', 'Original card (via Razorpay)', '5–10 business days'],
+                    ['UPI / Net Banking / Wallet', 'Original source (via Razorpay)', '3–7 business days'],
                     ['Cash on Delivery (COD)', 'Bank transfer (NEFT/IMPS — you provide account details)', '5–10 business days'],
                   ].map(([method, how, eta], i) => (
                     <tr key={method} className={i % 2 === 0 ? '' : 'bg-brand/5'}>
@@ -222,7 +222,7 @@ export default function RefundReturnsPage() {
             </div>
             <p className="mt-3 text-sm text-muted">
               Timelines are from the date we confirm the return/refund, not the date you raise the
-              request. Actual bank processing times may vary. Cashfree governs all prepaid refund
+              request. Actual bank processing times may vary. Razorpay governs all prepaid refund
               timelines.
             </p>
           </section>

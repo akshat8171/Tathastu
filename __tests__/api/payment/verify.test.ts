@@ -3,25 +3,29 @@
  */
 import { POST } from '@/app/api/payment/verify/route'
 import { NextRequest } from 'next/server'
+import crypto from 'crypto'
 
-const mockFetchCashfreeOrder = jest.fn()
-
-jest.mock('@/lib/cashfree-server', () => ({
-  fetchCashfreeOrder: (...args: any[]) => mockFetchCashfreeOrder(...args),
-  // Keep the real business rule for what counts as paid.
-  isCashfreeOrderPaid: (status: string) => status === 'PAID',
-}))
+const SECRET = 'test_secret_456'
 
 describe('POST /api/payment/verify', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    process.env.RAZORPAY_KEY_SECRET = SECRET
   })
 
-  it('confirms a PAID order', async () => {
-    mockFetchCashfreeOrder.mockResolvedValue({ order_id: 'cf_1', order_status: 'PAID' })
+  function sign(orderId: string, paymentId: string): string {
+    return crypto.createHmac('sha256', SECRET).update(`${orderId}|${paymentId}`).digest('hex')
+  }
+
+  it('accepts a valid signature', async () => {
+    const orderId = 'order_abc'
+    const paymentId = 'pay_xyz'
     const request = new NextRequest('http://localhost:3000/api/payment/verify', {
       method: 'POST',
-      body: JSON.stringify({ cashfree_order_id: 'cf_1' }),
+      body: JSON.stringify({
+        razorpay_order_id: orderId,
+        razorpay_payment_id: paymentId,
+        razorpay_signature: sign(orderId, paymentId),
+      }),
     })
     const response = await POST(request)
     const data = await response.json()
@@ -31,24 +35,23 @@ describe('POST /api/payment/verify', () => {
     expect(data.verified).toBe(true)
   })
 
-  it('reports an unpaid (ACTIVE) order as not verified', async () => {
-    mockFetchCashfreeOrder.mockResolvedValue({ order_id: 'cf_1', order_status: 'ACTIVE' })
+  it('rejects an invalid signature with 400', async () => {
     const request = new NextRequest('http://localhost:3000/api/payment/verify', {
       method: 'POST',
-      body: JSON.stringify({ cashfree_order_id: 'cf_1' }),
+      body: JSON.stringify({
+        razorpay_order_id: 'order_abc',
+        razorpay_payment_id: 'pay_xyz',
+        razorpay_signature: 'not_a_real_signature',
+      }),
     })
     const response = await POST(request)
-    const data = await response.json()
-
-    expect(response.status).toBe(200)
-    expect(data.success).toBe(false)
-    expect(data.verified).toBe(false)
+    expect(response.status).toBe(400)
   })
 
-  it('rejects a missing cashfree_order_id', async () => {
+  it('rejects missing fields with 400', async () => {
     const request = new NextRequest('http://localhost:3000/api/payment/verify', {
       method: 'POST',
-      body: JSON.stringify({}),
+      body: JSON.stringify({ razorpay_order_id: 'order_abc' }),
     })
     const response = await POST(request)
     expect(response.status).toBe(400)

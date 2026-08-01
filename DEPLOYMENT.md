@@ -23,20 +23,19 @@ Before clicking Deploy, expand **Environment Variables** and add each of the fol
 |------|-----------------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase dashboard → Project Settings → API → Project URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase dashboard → Project Settings → API → anon/public key |
-| `NEXT_PUBLIC_CASHFREE_MODE` | `sandbox` or `production` (must match server `CASHFREE_MODE`) |
+| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay Dashboard → Settings → API Keys → Key ID |
 | `NEXT_PUBLIC_APP_URL` | Your production URL, e.g. `https://tathastu.vercel.app` |
 
 **Secret variables** (server-side only — never exposed to browsers):
 
 | Name | Where to get it |
 |------|-----------------|
-| `CASHFREE_MODE` | `sandbox` or `production` — selects the Cashfree API host |
-| `CASHFREE_APP_ID` | Cashfree dashboard → Developers → API Keys → App ID (x-client-id) |
-| `CASHFREE_SECRET_KEY` | Cashfree dashboard → Developers → API Keys → Secret Key (x-client-secret) |
-| `CASHFREE_WEBHOOK_SECRET` | Optional — only if your dashboard uses a distinct webhook secret; otherwise falls back to `CASHFREE_SECRET_KEY` |
+| `RAZORPAY_KEY_ID` | Same Key ID as above (server copy) |
+| `RAZORPAY_KEY_SECRET` | Razorpay Dashboard → Settings → API Keys → Key Secret |
+| `RAZORPAY_WEBHOOK_SECRET` | Razorpay Dashboard → Settings → Webhooks → Secret |
 | `ADMIN_EMAILS` | Comma-separated allowlist of admin email addresses. If unset, falls back to `tathastukeepsakes@gmail.com` (see Admin access below) |
 
-Set all variables for **Production**, **Preview**, and **Development** unless you want separate test keys for preview deploys (recommended: use Cashfree `sandbox` keys for Preview).
+Set all variables for **Production**, **Preview**, and **Development** unless you want separate test keys for preview deploys (recommended: use Razorpay `test` keys for Preview).
 
 ### Step 3 — Deploy
 
@@ -90,7 +89,7 @@ The table in Step 2 above is a **quick-start subset**. Below is the **complete**
 |----------|-------------|-----------------|-----------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Supabase dashboard → Project Settings → API → Project URL | **Required** |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key | Supabase dashboard → Project Settings → API → anon/public key | **Required** |
-| `NEXT_PUBLIC_CASHFREE_MODE` | Cashfree JS SDK mode | `sandbox` or `production` (match server `CASHFREE_MODE`) | **Required** |
+| `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay Key ID (browser) | Razorpay Dashboard → Settings → API Keys | **Required** |
 | `NEXT_PUBLIC_APP_URL` | Your production/preview URL | `https://tathastu.vercel.app` or custom domain | **Required** |
 | `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase client API key | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
 | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
@@ -105,10 +104,9 @@ The table in Step 2 above is a **quick-start subset**. Below is the **complete**
 | Variable | Description | Where to get it | Required? |
 |----------|-------------|-----------------|-----------|
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (bypasses RLS for order writes) | Supabase dashboard → Project Settings → API → service_role (secret) | **Required** |
-| `CASHFREE_MODE` | Cashfree API host selector | `sandbox` or `production` | **Required** |
-| `CASHFREE_APP_ID` | Cashfree App ID (x-client-id) | Cashfree dashboard → Developers → API Keys | **Required** |
-| `CASHFREE_SECRET_KEY` | Cashfree Secret Key (x-client-secret) | Cashfree dashboard → Developers → API Keys | **Required** |
-| `CASHFREE_WEBHOOK_SECRET` | Cashfree webhook secret (optional) | Cashfree dashboard → Developers → Webhooks (falls back to `CASHFREE_SECRET_KEY`) | Optional |
+| `RAZORPAY_KEY_ID` | Razorpay Key ID (server) | Razorpay Dashboard → Settings → API Keys | **Required** |
+| `RAZORPAY_KEY_SECRET` | Razorpay Key Secret | Razorpay Dashboard → Settings → API Keys | **Required** |
+| `RAZORPAY_WEBHOOK_SECRET` | Razorpay webhook HMAC secret | Razorpay Dashboard → Settings → Webhooks | Optional (required for webhook) |
 | `FIREBASE_PROJECT_ID` | Firebase admin project ID | Firebase console → Project settings → Service accounts → Generate new private key (JSON) | **Required** |
 | `FIREBASE_CLIENT_EMAIL` | Firebase admin service account email | Firebase console → Project settings → Service accounts → Generate new private key (JSON) | **Required** |
 | `FIREBASE_PRIVATE_KEY` | Firebase admin private key | Firebase console → Project settings → Service accounts → Generate new private key (JSON) | **Required** |

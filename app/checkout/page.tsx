@@ -17,7 +17,7 @@ export default function CheckoutPage() {
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold text-ink">Checkout</h1>
         <p className="text-muted font-sans mt-1 text-sm">
-          Secure checkout powered by Cashfree
+          Secure checkout powered by Razorpay
         </p>
       </div>
 
@@ -25,7 +25,7 @@ export default function CheckoutPage() {
           The applied-coupon state is shared via CheckoutProvider (now hoisted
           to the root layout) so a coupon entered on the cart page carries into
           checkout, and the discount shown in the summary is the same one the
-          order is placed with (and charged via Cashfree). */}
+          order is placed with (and charged via Razorpay). */}
       <div className="grid lg:grid-cols-5 gap-8">
         <div className="lg:col-span-3">
           <CheckoutForm />

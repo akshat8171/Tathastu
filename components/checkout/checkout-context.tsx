@@ -7,7 +7,7 @@ import { createContext, useContext, useState, ReactNode } from 'react'
  * (CheckoutForm on the left, OrderSummary on the right).
  *
  * The coupon UI lives in OrderSummary, but the order is *placed* from
- * CheckoutForm (and the Cashfree charge amount is computed there too). Without
+ * CheckoutForm (and the Razorpay charge amount is computed there too). Without
  * a shared store, a coupon applied in the summary would never reach the order
  * POST nor the payment amount — the user would see a discount but be charged
  * full price. This provider is the single source of truth for the applied

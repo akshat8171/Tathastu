@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { verifyCashfreeWebhookSignature } from '@/lib/cashfree-server'
+import { verifyRazorpayWebhookSignature } from '@/lib/razorpay-server'
 import {
   updateOrderPaymentStatus,
   logPayment,
@@ -10,58 +10,51 @@ import {
 export const dynamic = 'force-dynamic'
 
 /**
- * Cashfree webhook — the authoritative, out-of-band reconciliation path.
+ * Razorpay webhook — out-of-band reconciliation for payment.captured.
  *
- * Cashfree signs `x-webhook-timestamp + rawBody` with HMAC-SHA256 (base64) in
- * `x-webhook-signature`. We verify against the RAW body (never the parsed JSON)
- * before trusting anything, then process PAYMENT_SUCCESS_WEBHOOK events
- * idempotently so a redelivered webhook never double-marks an order.
+ * Signature: HMAC-SHA256(rawBody, RAZORPAY_WEBHOOK_SECRET) in x-razorpay-signature.
+ * Idempotent via hasPaymentBeenLogged so redeliveries never double-mark.
  */
 export async function POST(request: NextRequest) {
   try {
     const rawBody = await request.text()
-    const signature = request.headers.get('x-webhook-signature')
-    const timestamp = request.headers.get('x-webhook-timestamp')
+    const signature = request.headers.get('x-razorpay-signature')
 
-    if (!signature || !timestamp) {
-      return NextResponse.json({ error: 'Missing signature headers' }, { status: 400 })
+    if (!signature) {
+      return NextResponse.json({ error: 'Missing signature' }, { status: 400 })
     }
 
-    if (!verifyCashfreeWebhookSignature(rawBody, timestamp, signature)) {
+    if (!verifyRazorpayWebhookSignature(rawBody, signature)) {
       return NextResponse.json({ error: 'Invalid signature' }, { status: 400 })
     }
 
     const event = JSON.parse(rawBody)
 
-    if (event.type === 'PAYMENT_SUCCESS_WEBHOOK') {
-      const cashfreeOrderId: string | undefined = event.data?.order?.order_id
-      const paymentEntity = event.data?.payment
-      const cfPaymentId = paymentEntity?.cf_payment_id
-        ? String(paymentEntity.cf_payment_id)
-        : undefined
-      const paidAmount = Number(paymentEntity?.payment_amount ?? event.data?.order?.order_amount)
+    if (event.event === 'payment.captured') {
+      const payment = event.payload?.payment?.entity
+      const razorpayOrderId: string | undefined = payment?.order_id
+      const razorpayPaymentId: string | undefined = payment?.id
+      const paidAmountPaise = Number(payment?.amount ?? 0)
 
-      // Idempotency: skip if this payment was already processed.
-      if (cfPaymentId) {
-        const alreadyLogged = await hasPaymentBeenLogged(cfPaymentId)
+      if (razorpayPaymentId) {
+        const alreadyLogged = await hasPaymentBeenLogged(razorpayPaymentId)
         if (alreadyLogged) {
           return NextResponse.json({ received: true })
         }
       }
 
-      // Resolve the DB order by the Cashfree order id we stored at create time.
-      if (cashfreeOrderId) {
-        const order = await getOrderByPaymentOrderId(cashfreeOrderId)
+      if (razorpayOrderId) {
+        const order = await getOrderByPaymentOrderId(razorpayOrderId)
         if (order) {
-          await updateOrderPaymentStatus(order.id, 'paid', cfPaymentId, cashfreeOrderId)
+          await updateOrderPaymentStatus(order.id, 'paid', razorpayPaymentId, razorpayOrderId)
           await logPayment({
             order_id: order.id,
-            cashfree_order_id: cashfreeOrderId,
-            cashfree_payment_id: cfPaymentId,
-            amount: paidAmount,
-            payment_method: paymentEntity?.payment_group || 'cashfree',
+            razorpay_order_id: razorpayOrderId,
+            razorpay_payment_id: razorpayPaymentId,
+            amount: paidAmountPaise / 100,
+            payment_method: payment?.method || 'razorpay',
             payment_status: 'paid',
-            response_data: paymentEntity ?? event.data,
+            response_data: payment,
           })
         }
       }

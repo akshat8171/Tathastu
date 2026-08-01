@@ -288,12 +288,18 @@ export async function updateOrderPaymentStatus(
   paymentId?: string,
   paymentOrderId?: string
 ): Promise<boolean> {
-  const updateData: any = {
+  const updateData: Record<string, unknown> = {
     payment_status: paymentStatus,
   }
 
-  if (paymentId) updateData.payment_id = paymentId
-  if (paymentOrderId) updateData.payment_order_id = paymentOrderId
+  if (paymentId) {
+    updateData.payment_id = paymentId
+    updateData.razorpay_payment_id = paymentId
+  }
+  if (paymentOrderId) {
+    updateData.payment_order_id = paymentOrderId
+    updateData.razorpay_order_id = paymentOrderId
+  }
 
   if (paymentStatus === 'paid') {
     updateData.paid_at = new Date().toISOString()
@@ -412,26 +418,22 @@ export async function getOrderByNumberAndEmail(
 }
 
 /**
- * Get order by Cashfree order id.
- * New orders store the Cashfree order id in the generic `payment_order_id`
- * column (set by updateOrderPaymentStatus). We fall back to the legacy
- * `razorpay_order_id` column so historical rows still reconcile.
+ * Get order by gateway order id (Razorpay order_id).
+ * Looks up `payment_order_id` first, then `razorpay_order_id` (migration-001).
  */
-export async function getOrderByPaymentOrderId(cashfreeOrderId: string): Promise<Order | null> {
-  // Primary: the generic payment_order_id column used by the Cashfree flow.
+export async function getOrderByPaymentOrderId(gatewayOrderId: string): Promise<Order | null> {
   const { data: byPaymentOrderId, error: err1 } = await supabaseAdmin
     .from('orders')
     .select('*')
-    .eq('payment_order_id', cashfreeOrderId)
+    .eq('payment_order_id', gatewayOrderId)
     .maybeSingle()
 
   if (!err1 && byPaymentOrderId) return byPaymentOrderId
 
-  // Fall back to the legacy razorpay_order_id column (older rows).
   const { data: byRazorpay, error: err2 } = await supabaseAdmin
     .from('orders')
     .select('*')
-    .eq('razorpay_order_id', cashfreeOrderId)
+    .eq('razorpay_order_id', gatewayOrderId)
     .maybeSingle()
 
   if (err2) {
@@ -443,23 +445,30 @@ export async function getOrderByPaymentOrderId(cashfreeOrderId: string): Promise
 }
 
 /**
- * Check whether a Cashfree payment has already been logged (idempotency guard).
- * Returns true if a row with this cashfree_payment_id already exists in payment_logs.
+ * Idempotency guard — true if this gateway payment id was already logged.
+ * Checks razorpay_payment_id first, then legacy cashfree_payment_id.
  */
-export async function hasPaymentBeenLogged(cashfreePaymentId: string): Promise<boolean> {
-  const { data, error } = await supabaseAdmin
+export async function hasPaymentBeenLogged(gatewayPaymentId: string): Promise<boolean> {
+  const { data: byRazorpay, error: err1 } = await supabaseAdmin
     .from('payment_logs')
     .select('id')
-    .eq('cashfree_payment_id', cashfreePaymentId)
+    .eq('razorpay_payment_id', gatewayPaymentId)
     .maybeSingle()
 
-  if (error) {
-    console.error('Error checking payment idempotency:', error)
-    // On error, allow processing to continue to avoid silently dropping payments
+  if (!err1 && byRazorpay) return true
+
+  const { data: byCashfree, error: err2 } = await supabaseAdmin
+    .from('payment_logs')
+    .select('id')
+    .eq('cashfree_payment_id', gatewayPaymentId)
+    .maybeSingle()
+
+  if (err2) {
+    console.error('Error checking payment idempotency:', err2)
     return false
   }
 
-  return !!data
+  return !!byCashfree
 }
 
 /**
@@ -500,35 +509,38 @@ export async function getCustomerOrders(customerEmail: string): Promise<Order[]>
 /**
  * Log payment transaction.
  *
- * Uses the original schema.sql Cashfree columns:
- *   payment_logs.cashfree_order_id, cashfree_payment_id
- *
- * The Razorpay columns added in migration-001 still exist in the table but are
- * no longer populated here.
+ * Prefers Razorpay columns (migration-001). Also mirrors ids into legacy
+ * cashfree_* columns so older admin queries still find the row.
  */
 export async function logPayment(paymentData: {
   order_id: string
+  razorpay_order_id?: string
+  razorpay_payment_id?: string
+  razorpay_signature?: string
   cashfree_order_id?: string
   cashfree_payment_id?: string
   amount: number
   payment_method?: string
   payment_status?: string
-  response_data?: any
+  response_data?: unknown
   error_message?: string
 }): Promise<boolean> {
-  const { error } = await supabaseAdmin
-    .from('payment_logs')
-    .insert({
-      order_id: paymentData.order_id,
-      cashfree_order_id: paymentData.cashfree_order_id,
-      cashfree_payment_id: paymentData.cashfree_payment_id,
-      amount: paymentData.amount,
-      currency: 'INR',
-      payment_method: paymentData.payment_method,
-      payment_status: paymentData.payment_status,
-      response_data: paymentData.response_data,
-      error_message: paymentData.error_message,
-    })
+  const razorpayOrderId = paymentData.razorpay_order_id || paymentData.cashfree_order_id
+  const razorpayPaymentId = paymentData.razorpay_payment_id || paymentData.cashfree_payment_id
+  const { error } = await supabaseAdmin.from('payment_logs').insert({
+    order_id: paymentData.order_id,
+    razorpay_order_id: razorpayOrderId,
+    razorpay_payment_id: razorpayPaymentId,
+    razorpay_signature: paymentData.razorpay_signature,
+    cashfree_order_id: razorpayOrderId,
+    cashfree_payment_id: razorpayPaymentId,
+    amount: paymentData.amount,
+    currency: 'INR',
+    payment_method: paymentData.payment_method,
+    payment_status: paymentData.payment_status,
+    response_data: paymentData.response_data,
+    error_message: paymentData.error_message,
+  })
 
   if (error) {
     console.error('Error logging payment:', error)

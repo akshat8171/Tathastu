@@ -160,7 +160,7 @@ export default function TermsPage() {
               </li>
               <li>
                 <strong>Prepaid payments</strong> are processed securely via{' '}
-                <strong>Cashfree</strong> (credit/debit cards, UPI, net banking, wallets).
+                <strong>Razorpay</strong> (credit/debit cards, UPI, net banking, wallets).
                 {SITE.name} does not store your card details.
               </li>
               <li>
