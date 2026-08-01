@@ -72,7 +72,13 @@ export async function generateMetadata({ params }: ProductPageParams): Promise<M
 
   return {
     title: `Buy ${product.name} | 3D Printed ${categoryName} Online India | ${priceTag}`,
-    description: `${product.description} Buy ${product.name} online - 3D printed ${categoryName} at ${priceTag}. ${product.rating}★ rated. Custom 3D printing. PAN India delivery from ${SITE.name}, Agra. COD available.`,
+    // Keep the SERP description within ~160 chars so Google doesn't truncate it.
+    // The full product description still renders on-page and in JSON-LD.
+    description: `Buy ${product.name} online — 3D-printed ${categoryName} at ${priceTag}, ${product.rating}★ rated. Custom-made with PAN-India delivery & COD from ${SITE.name}, Agra.`,
+    // Self-referential canonical. Without this, every product page inherits the
+    // root layout's absolute canonical (the homepage), telling Google each PDP
+    // is a duplicate of "/" — which suppresses indexing of all product pages.
+    alternates: { canonical: `/products/${product.id}` },
     keywords: [
       `buy ${product.name}`,
       `${product.name} online India`,
@@ -86,7 +92,14 @@ export async function generateMetadata({ params }: ProductPageParams): Promise<M
     openGraph: {
       title: `${product.name} | ${priceTag} | ${SITE.name}`,
       description: `${product.description} Buy now with PAN India delivery.`,
-      type: 'website',
+      // NOTE: og:type=product and the product:price:* / og:price:* / availability
+      // tags that Pinterest's Rich Pin scraper requires are emitted as explicit
+      // <meta property> tags in the page body below. Next.js's typed OpenGraph
+      // API models neither the "product" og:type nor the OG price namespace, and
+      // their absence is exactly what triggers Pinterest's "invalid parameters"
+      // rejection. We deliberately omit `type` here so there is a single,
+      // authoritative og:type=product tag (emitted below) with no conflict.
+      url: `/products/${product.id}`,
       locale: 'en_IN',
       images: product.images.map((img) => ({
         url: img,
@@ -155,6 +168,29 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
   return (
     <main className="bg-white min-h-screen">
       <ProductViewTracker productId={product.id} productName={product.name} category={product.category} price={product.price} />
+      {/*
+        Pinterest Rich Pin (Product) OpenGraph tags.
+
+        These are the fields Pinterest's product scraper REQUIRES and were the
+        cause of the "invalid parameters" rejection — the page previously
+        advertised og:type=website with no price namespace at all. They are
+        emitted here as explicit property= <meta> tags (React 19 hoists them
+        into <head>) because:
+          • Next.js's typed OpenGraph API models neither og:type=product nor
+            the product:price:* namespace, and its `other` field renders name=
+            attributes, whereas Pinterest reads property=.
+          • Currency MUST be the ISO-4217 code "INR" — never the ₹ symbol,
+            which Pinterest rejects as an invalid parameter.
+          • Price MUST be a plain decimal with no symbol/commas.
+        JSON-LD below is retained for Google (Pinterest does not read it).
+      */}
+      <meta property="og:type" content="product" />
+      <meta property="product:price:amount" content={product.price.toFixed(2)} />
+      <meta property="product:price:currency" content="INR" />
+      <meta property="og:price:amount" content={product.price.toFixed(2)} />
+      <meta property="og:price:currency" content="INR" />
+      <meta property="og:availability" content="instock" />
+
       {/* JSON-LD Structured Data */}
       <script
         type="application/ld+json"

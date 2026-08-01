@@ -2,7 +2,8 @@ import type { Metadata } from 'next'
 import { SITE } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: `Custom 3D Printing Service India | Upload Design & Get Free Quote | ${SITE.name}`,
+  // Root layout appends `| Tathastu Keepsakes` via the title template.
+  title: `Custom 3D Printing Service India | Upload Design & Get Free Quote`,
   description: 'Custom 3D printing service in India - upload your design or photo, get a free quote within 24 hours. Multi-colour FDM printing, PAN India delivery from Agra. No minimum order, personalized 3D printed gifts.',
   keywords: [
     'custom 3D printing India',

@@ -11,7 +11,8 @@ import { SITE } from '@/lib/site'
 import { blogPosts, type BlogCategory } from '@/lib/blog-data'
 
 export const metadata: Metadata = {
-  title: `3D Printing Blog India | Custom 3D Print Ideas & Guides | ${SITE.name}`,
+  // Root layout appends `| Tathastu Keepsakes` via the title template.
+  title: `3D Printing Blog India | Custom 3D Print Ideas & Guides`,
   description: `Expert 3D printing blog India - buy custom 3D printed gifts ideas, materials guide, pricing, how-to tutorials. Learn about 3D printing service, personalised gifts & home decor. ${SITE.name} blog by Agra-based 3D printing experts.`,
   keywords: [
     '3D printing blog India',

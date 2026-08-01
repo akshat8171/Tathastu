@@ -2906,6 +2906,217 @@ export const blogPosts: BlogPost[] = [
     readTime: '10 min read',
     coverImage: '/images/blog/pla-abs-petg-guide.svg',
   },
+  {
+    slug: 'unique-rakhi-gift-ideas-2026',
+    title: 'Unique Rakhi Gift Ideas 2026 — Customised Rakhi for Brother That Lasts Forever',
+    description:
+      'Looking for unique rakhi ideas for 2026? Discover customised, personalised rakhi for your brother — gaming, cricket, superhero, name, photo and secret-message rakhi that become keychain keepsakes. Made in India, PAN India delivery.',
+    keywords:
+      'unique rakhi ideas 2026, customised rakhi, rakhi gift ideas for brother, personalised rakhi, rakhi for brother, keepsake rakhi, best rakhi 2026, rakhi ideas',
+    category: 'guides',
+    content: `<article class="prose prose-lg max-w-none">
+  <p class="lead text-xl text-gray-700">Every year the same question comes around: what rakhi do I tie this Raksha Bandhan? In 2026, the answer is not another thread that ends up in a drawer by September. It is a <strong>customised rakhi</strong> that means something — a personalised keepsake your brother actually keeps. Raksha Bandhan 2026 falls on <strong>Friday, 28 August 2026</strong>, so here are the most unique rakhi gift ideas to order early.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Why "unique" beats "expensive" for rakhi</h2>
+  <p>A rakhi is a symbol of a bond, not a price tag. The rakhi your brother remembers is the one that was clearly chosen for <em>him</em> — his name, his hobby, his favourite game, an inside joke only the two of you share. That is exactly what a <strong>3D-printed customised rakhi</strong> lets you do, and why personalised rakhi are the standout gift idea for 2026.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">8 unique customised rakhi ideas for 2026</h2>
+  <ul class="list-disc pl-6 space-y-2">
+    <li><strong>Gaming console rakhi</strong> — a mini controller with his gamertag, for the brother glued to his console.</li>
+    <li><strong>Cricket bat &amp; ball rakhi</strong> — his favourite jersey number on a tiny bat, for the cricket fanatic.</li>
+    <li><strong>Personalised name rakhi</strong> — the timeless choice, his name 3D-printed in vivid colour.</li>
+    <li><strong>Secret message rakhi</strong> — a hidden engraved note only he can read.</li>
+    <li><strong>Photo rakhi</strong> — your favourite sibling memory printed onto the rakhi itself.</li>
+    <li><strong>Superhero shield rakhi</strong> — for the little brother who is everyone's hero.</li>
+    <li><strong>Car or profession rakhi</strong> — a doctor, engineer, pilot or petrolhead theme with his name.</li>
+    <li><strong>Your own idea</strong> — a pet, a band, a movie — suggest it and we will print it.</li>
+  </ul>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">The twist: a rakhi that becomes a keychain</h2>
+  <p>Here is what makes these unique. Every Tathastu rakhi ships with a free keychain converter. Tie it on for Raksha Bandhan, then clip it onto his keys, bag or car keys afterwards. A one-day festival becomes a <strong>keepsake he keeps for years</strong> — the kind of thoughtful detail that turns a gift into a memory.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Shopping for the whole family?</h2>
+  <p>Add a <strong>Bhaiya Bhabhi rakhi set</strong> (with a lumba rakhi for your sister-in-law) or a <strong>family rakhi set of 4</strong> for the best price per rakhi. Every rakhi in the set is personalised with a different name.</p>
+
+  <div style="background:#fff7ed; border:2px solid #fed7aa; padding:2rem; border-radius:0.75rem; margin:2rem 0; text-align:center;">
+    <p style="font-size:1.2rem; font-weight:600; margin-bottom:0.75rem;">Ready to pick your rakhi?</p>
+    <p style="margin-bottom:1.5rem;">Shop customised rakhi from Rs 259, or suggest your own idea. Order before 24 August 2026 for guaranteed Raksha Bandhan delivery.</p>
+    <p style="margin-bottom:0.5rem;">
+      <a href="/rakhi" style="display:inline-block; padding:0.875rem 2rem; background:#9f1239; color:#fff; border-radius:0.5rem; text-decoration:none; font-weight:bold; margin:0.25rem;">Shop the Rakhi Collection</a>
+      <a href="/customize?type=custom" style="display:inline-block; padding:0.875rem 2rem; background:#0E7A66; color:#fff; border-radius:0.5rem; text-decoration:none; font-weight:bold; margin:0.25rem;">Suggest Your Own Idea</a>
+    </p>
+  </div>
+
+  <p style="text-align:center; margin-top:2rem;"><strong>Tathastu Keepsakes</strong> — Customised 3D-Printed Rakhi from Agra, Delivered PAN India.</p>
+</article>`,
+    date: '2026-07-05',
+    readTime: '7 min read',
+    coverImage: '/images/blog/rakhi-gift-ideas.svg',
+  },
+  {
+    slug: 'personalised-name-photo-rakhi',
+    title: 'Personalised Rakhi Online — Name Rakhi, Photo Rakhi & Secret Message Rakhi',
+    description:
+      'Buy personalised rakhi online for Raksha Bandhan 2026. Add a name, gamertag, favourite photo or a hidden secret message to a 3D-printed rakhi that becomes a keychain keepsake. From Rs 259, COD & PAN India delivery.',
+    keywords:
+      'personalised rakhi, name rakhi, photo rakhi online, secret message rakhi, custom rakhi with name, customised rakhi online, personalised rakhi for brother',
+    category: 'products',
+    content: `<article class="prose prose-lg max-w-none">
+  <p class="lead text-xl text-gray-700">A <strong>personalised rakhi</strong> says what a generic thread never can. Whether you add his name, his gamertag, a favourite photo or a message meant only for him, a custom rakhi turns Raksha Bandhan into something your brother remembers. Here is how our three most-loved personalised rakhi work.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">1. Name rakhi — his name, 3D-printed in colour</h2>
+  <p>The classic. Our <strong>personalised name rakhi</strong> is 3D-printed with any name you choose, in vivid, long-lasting colour. It is the safest, most timeless customised rakhi — and because it converts into a name keychain afterwards, he carries it long after the festival.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">2. Photo rakhi — a memory he can hold</h2>
+  <p>Our <strong>photo rakhi</strong> features your favourite sibling memory printed right onto the rakhi. Perfect for long-distance siblings who cannot be together on Raksha Bandhan 2026 — a piece of home he can keep on his keys. Just upload your image at checkout or send it to us on WhatsApp.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">3. Secret message rakhi — a note only he can read</h2>
+  <p>The most heartfelt option. A <strong>secret message rakhi</strong> carries a hidden engraved note — a private thank-you, an inside joke, or three words you never say out loud. It is the customised rakhi that makes people tear up a little.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">How to personalise your rakhi</h2>
+  <ol class="list-decimal pl-6 space-y-2">
+    <li>Pick your design on the <a href="/rakhi">rakhi collection page</a>.</li>
+    <li>Type the name, gamertag or message in the personalisation box.</li>
+    <li>For photo rakhi, upload your image at checkout (or WhatsApp it to us).</li>
+    <li>We 3D-print it to order in Agra and ship it pan-India with tracking.</li>
+  </ol>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Every personalised rakhi becomes a keychain</h2>
+  <p>All our rakhi ship with a free keychain converter, so your personalised rakhi is not thrown away after one day — it becomes a <strong>keepsake keychain</strong> your brother keeps for years.</p>
+
+  <div style="background:#fdf2f8; border:2px solid #fbcfe8; padding:2rem; border-radius:0.75rem; margin:2rem 0; text-align:center;">
+    <p style="font-size:1.2rem; font-weight:600; margin-bottom:0.75rem;">Personalise your rakhi in 2 minutes</p>
+    <p style="margin-bottom:1.5rem;">From Rs 259. Order before 24 August 2026 for Raksha Bandhan delivery.</p>
+    <a href="/rakhi" style="display:inline-block; padding:0.875rem 2rem; background:#9f1239; color:#fff; border-radius:0.5rem; text-decoration:none; font-weight:bold;">Shop Personalised Rakhi</a>
+  </div>
+
+  <p style="text-align:center; margin-top:2rem;"><strong>Tathastu Keepsakes</strong> — Personalised 3D-Printed Rakhi, Made in Agra.</p>
+</article>`,
+    date: '2026-07-08',
+    readTime: '6 min read',
+    coverImage: '/images/blog/personalised-rakhi.svg',
+  },
+  {
+    slug: 'gaming-cartoon-rakhi-for-kids',
+    title: 'Gaming Rakhi, Superhero & Cartoon Rakhi for Kids — Customised Rakhi Brothers Love',
+    description:
+      'Fun customised rakhi for kids and young brothers: gaming console rakhi, cricket rakhi, superhero shield rakhi and cartoon rakhi — each personalised with a name and doubling as a keychain keepsake. Raksha Bandhan 2026.',
+    keywords:
+      'gaming rakhi, cartoon rakhi for kids, superhero rakhi, cricket rakhi, rakhi for gamer brother, kids rakhi, rakhi for kids, customised rakhi for kids',
+    category: 'products',
+    content: `<article class="prose prose-lg max-w-none">
+  <p class="lead text-xl text-gray-700">Tying a rakhi on a younger brother — or a kid who only cares about games and cartoons? Skip the flowery thread he will roll his eyes at. A <strong>gaming rakhi</strong>, <strong>superhero rakhi</strong> or <strong>cartoon rakhi for kids</strong> speaks his language, and because it becomes a keychain he can clip to his school bag, he will actually keep it.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Gaming console rakhi — for the gamer brother</h2>
+  <p>Our <strong>gaming rakhi</strong> is shaped like a mini game controller and personalised with his name or gamertag. It is the rakhi for the brother who says "one more game" at 2am — and it clips onto his backpack or console kit afterwards.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Cricket bat &amp; ball rakhi — for the little all-rounder</h2>
+  <p>A tiny 3D-printed bat and ball with his favourite jersey number. The perfect <strong>cricket rakhi</strong> for the sibling who plays gully cricket every evening.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Superhero shield &amp; cartoon rakhi for kids</h2>
+  <p>For the youngest brothers, our <strong>superhero shield rakhi</strong> and bright <strong>cartoon rakhi for kids</strong> are instant winners. Add his name and let him wear his favourite hero. Lightweight, kid-safe PLA, bold colours, and a free keychain converter for the school bag.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Why kids keep these rakhi</h2>
+  <ul class="list-disc pl-6 space-y-2">
+    <li><strong>They are cool</strong> — designs kids genuinely want, not "grown-up" threads.</li>
+    <li><strong>They are personalised</strong> — his name makes it his.</li>
+    <li><strong>They become keychains</strong> — clip to a bag, pencil box or cycle.</li>
+    <li><strong>They are durable</strong> — 3D-printed PLA survives real kids.</li>
+  </ul>
+
+  <div style="background:#f5f3ff; border:2px solid #ddd6fe; padding:2rem; border-radius:0.75rem; margin:2rem 0; text-align:center;">
+    <p style="font-size:1.2rem; font-weight:600; margin-bottom:0.75rem;">Find the rakhi he will actually love</p>
+    <p style="margin-bottom:1.5rem;">Gaming, cricket, superhero &amp; cartoon rakhi from Rs 259. Order before 24 August 2026.</p>
+    <a href="/rakhi" style="display:inline-block; padding:0.875rem 2rem; background:#5b21b6; color:#fff; border-radius:0.5rem; text-decoration:none; font-weight:bold;">Shop Kids &amp; Gaming Rakhi</a>
+  </div>
+
+  <p style="text-align:center; margin-top:2rem;"><strong>Tathastu Keepsakes</strong> — Customised 3D-Printed Rakhi for Kids, Made in Agra.</p>
+</article>`,
+    date: '2026-07-10',
+    readTime: '6 min read',
+    coverImage: '/images/blog/gaming-rakhi.svg',
+  },
+  {
+    slug: 'rakhi-that-becomes-keychain-keepsake',
+    title: 'The Rakhi That Becomes a Keychain — A Keepsake You Keep Forever',
+    description:
+      'Most rakhi are forgotten in a week. A keepsake rakhi from Tathastu is 3D-printed and ships with a free keychain converter, so your Raksha Bandhan rakhi becomes a keychain your brother keeps forever.',
+    keywords:
+      'keepsake rakhi, rakhi that becomes keychain, reusable rakhi, 3D printed rakhi, rakhi keychain, keepsake gift Raksha Bandhan, rakhi you keep forever',
+    category: 'brand',
+    content: `<article class="prose prose-lg max-w-none">
+  <p class="lead text-xl text-gray-700">Be honest: where is last year's rakhi? For most of us, the answer is "no idea." A thread that symbolises one of our deepest bonds usually survives about a week. We thought that deserved a rethink — so we built a <strong>rakhi that becomes a keychain keepsake</strong>.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">The problem with traditional rakhi</h2>
+  <p>Traditional rakhi are beautiful for a day. Then they fray, fade, and get tucked away or thrown out. The sentiment is real, but the object does not last — which feels backwards for a festival about a lifelong bond.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Our idea: a keepsake by design</h2>
+  <p>Every Tathastu rakhi is <strong>3D-printed</strong> in durable PLA and ships with a <strong>free keychain converter</strong>. On Raksha Bandhan, it is a rakhi tied on your brother's wrist. The day after, it clips onto his keys, bag or car keys as a <strong>keychain keepsake</strong>. Same object, two lives — and it stays with him for years.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Why this matters</h2>
+  <ul class="list-disc pl-6 space-y-2">
+    <li><strong>It lasts</strong> — a keepsake, not landfill by September.</li>
+    <li><strong>It is personal</strong> — his name, photo or a secret message printed in.</li>
+    <li><strong>It is seen daily</strong> — a keychain travels everywhere he goes.</li>
+    <li><strong>It is sustainable</strong> — one durable object instead of a throwaway thread.</li>
+  </ul>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Made to order in Agra</h2>
+  <p>We 3D-print each rakhi fresh when you order, personalise it with your text, and ship it tracked and insured across India. Choose from gaming, cricket, superhero, name, photo, secret-message and family rakhi sets — every one becomes a keychain.</p>
+
+  <div style="background:#f0fdfa; border:2px solid #99f6e4; padding:2rem; border-radius:0.75rem; margin:2rem 0; text-align:center;">
+    <p style="font-size:1.2rem; font-weight:600; margin-bottom:0.75rem;">Give a rakhi he keeps forever</p>
+    <p style="margin-bottom:1.5rem;">Keepsake rakhi from Rs 259, all with a free keychain converter. Raksha Bandhan is 28 August 2026.</p>
+    <a href="/rakhi" style="display:inline-block; padding:0.875rem 2rem; background:#0E7A66; color:#fff; border-radius:0.5rem; text-decoration:none; font-weight:bold;">Shop Keepsake Rakhi</a>
+  </div>
+
+  <p style="text-align:center; margin-top:2rem;"><strong>Tathastu Keepsakes</strong> — Rakhi That Lasts a Lifetime, Made in Agra.</p>
+</article>`,
+    date: '2026-07-12',
+    readTime: '5 min read',
+    coverImage: '/images/blog/rakhi-keychain-keepsake.svg',
+  },
+  {
+    slug: 'raksha-bandhan-2026-date-muhurat',
+    title: 'When Is Raksha Bandhan 2026? Date, Rakhi Muhurat & Last Date to Order',
+    description:
+      'Raksha Bandhan 2026 is on Friday, 28 August 2026. Get the rakhi date, the meaning of the festival, and the last date to order a customised rakhi online for guaranteed PAN India delivery.',
+    keywords:
+      'Raksha Bandhan 2026, when is rakhi 2026, rakhi 2026 date, raksha bandhan 2026 date, rakhi muhurat 2026, last date to order rakhi 2026',
+    category: 'guides',
+    content: `<article class="prose prose-lg max-w-none">
+  <p class="lead text-xl text-gray-700"><strong>Raksha Bandhan 2026 falls on Friday, 28 August 2026.</strong> If you are planning to send a rakhi to your brother this year — especially a customised, made-to-order one — here is everything you need: the date, what the festival means, and the last date to order online so it arrives in time.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Raksha Bandhan 2026 date</h2>
+  <p>Raksha Bandhan is celebrated on the full moon day (Purnima) of the Hindu month of Shravana. In 2026, that is <strong>Friday, 28 August 2026</strong>. The festival is also known regionally as Rakhi, Rakhi Purnima, Rakhi Pournima and Jhulan Purnima.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">What Raksha Bandhan celebrates</h2>
+  <p>Raksha Bandhan honours the bond between brothers and sisters. A sister ties a rakhi — a sacred thread — around her brother's wrist as a symbol of love and protection, and the brother in return promises to look after her. Today the festival lovingly includes cousins, chosen family, and Bhaiya-Bhabhi (brother and sister-in-law) too.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Last date to order a customised rakhi online</h2>
+  <p>Because a personalised rakhi is 3D-printed and made to order, we recommend ordering early. Here is a simple guide:</p>
+  <ul class="list-disc pl-6 space-y-2">
+    <li><strong>Order by 24 August 2026</strong> — guaranteed PAN India delivery for Raksha Bandhan.</li>
+    <li><strong>Metro cities</strong> — usually a little faster; WhatsApp us to confirm.</li>
+    <li><strong>Sending abroad?</strong> Message us early so we can arrange timing.</li>
+  </ul>
+  <p>Each rakhi is dispatched within 2–4 days of ordering, then shipped tracked and insured.</p>
+
+  <h2 class="text-2xl font-bold mt-10 mb-4">Make it a rakhi he remembers</h2>
+  <p>This year, skip the thread that is forgotten by September. A <a href="/rakhi">customised rakhi from Tathastu</a> is personalised with a name, photo or secret message, and becomes a <strong>keychain keepsake</strong> your brother keeps for years. Choose from gaming, cricket, superhero, cartoon, name, photo and family rakhi sets.</p>
+
+  <div style="background:#fffbeb; border:2px solid #fde68a; padding:2rem; border-radius:0.75rem; margin:2rem 0; text-align:center;">
+    <p style="font-size:1.2rem; font-weight:600; margin-bottom:0.75rem;">Raksha Bandhan 2026 — Friday, 28 August</p>
+    <p style="margin-bottom:1.5rem;">Order your customised rakhi before 24 August 2026 for guaranteed delivery.</p>
+    <a href="/rakhi" style="display:inline-block; padding:0.875rem 2rem; background:#d97706; color:#fff; border-radius:0.5rem; text-decoration:none; font-weight:bold;">Shop Rakhi for 2026</a>
+  </div>
+
+  <p style="text-align:center; margin-top:2rem;"><strong>Tathastu Keepsakes</strong> — Customised 3D-Printed Rakhi, Delivered PAN India from Agra.</p>
+</article>`,
+    date: '2026-07-15',
+    readTime: '5 min read',
+    coverImage: '/images/blog/rakhi-2026-date.svg',
+  },
 ]
 
 /**

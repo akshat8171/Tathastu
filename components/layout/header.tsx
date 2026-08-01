@@ -16,6 +16,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
+  { href: '/rakhi', label: 'Rakhi', badge: 'new' },
   { href: '/products?category=pooja-decor', label: 'Pooja & Decor' },
   { href: '/products?category=keyrings', label: 'Keyrings', badge: 'new' },
   { href: '/products?category=lamps', label: 'Home Decor' },

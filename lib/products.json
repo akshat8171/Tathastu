@@ -3561,5 +3561,929 @@
     ],
     "whyBuy": "Show off your fandom with a crisp, full-colour 3D-printed collectible — made fresh to order and shipped anywhere in India within days.",
     "createdAt": "2025-11-01T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-gaming-console",
+    "name": "Gaming Console Rakhi – Customised Gamer Rakhi for Brother",
+    "description": "A customised gaming rakhi shaped like a mini game controller — the perfect personalised rakhi for a gamer brother this Raksha Bandhan. Add his name or gamertag, and after the festival clip on the free converter to turn this 3D-printed rakhi into a keychain keepsake he keeps forever.",
+    "price": 299,
+    "originalPrice": 499,
+    "images": [
+      "/images/rakhi/products/gaming-console.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.9,
+    "reviewCount": 71,
+    "badge": "Bestseller",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Neon Green",
+      "Electric Blue",
+      "Black & Red"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / gamertag to print",
+      "maxLength": 16,
+      "placeholder": "e.g. PRO_RAHUL"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Customised gaming rakhi with your brother's name or gamertag",
+      "Doubles as a keychain keepsake after Raksha Bandhan",
+      "Premium multi-colour 3D-printed finish",
+      "Lightweight, durable PLA that lasts for years",
+      "Made to order in Agra, shipped pan-India"
+    ],
+    "about": "Gaming Console Rakhi — a customised, 3D-printed gamer rakhi that turns into a keychain keepsake.",
+    "keyFeatures": [
+      "Add name or gamertag",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Rakhi for gamer brother",
+      "Personalised Raksha Bandhan gift",
+      "Keepsake keychain",
+      "Kids & teen rakhi"
+    ],
+    "whyBuy": "The only rakhi built for gamers — a controller he'll actually want to keep, that becomes a keychain the day after Rakhi.",
+    "createdAt": "2026-07-02T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-cricket-bat-ball",
+    "name": "Cricket Bat & Ball Rakhi – Customised Sports Rakhi",
+    "description": "A customised cricket rakhi with a mini 3D-printed bat and ball — a personalised rakhi for a cricket-loving brother. Print his name or jersey number on the bat, then reuse it as a keychain keepsake once Raksha Bandhan is over.",
+    "price": 259,
+    "originalPrice": 449,
+    "images": [
+      "/images/rakhi/products/cricket-bat-ball.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.8,
+    "reviewCount": 58,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Willow & Red",
+      "Multi-colour",
+      "Team Blue",
+      "Classic White"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / jersey number",
+      "maxLength": 16,
+      "placeholder": "e.g. KOHLI 18"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Personalised cricket rakhi with name or jersey number",
+      "Becomes a keychain keepsake after the festival",
+      "Vivid multi-colour 3D print",
+      "Lightweight and durable PLA",
+      "Made to order, fast pan-India delivery"
+    ],
+    "about": "Cricket Bat & Ball Rakhi — a customised sports rakhi keepsake that becomes a keychain.",
+    "keyFeatures": [
+      "Print name or jersey number",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Rakhi for cricket-fan brother",
+      "Sports lover Raksha Bandhan gift",
+      "Keepsake keychain",
+      "Teen rakhi"
+    ],
+    "whyBuy": "For the brother who lives for the game — a rakhi bat-and-ball he can clip to his kit bag all year.",
+    "createdAt": "2026-07-03T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-personalised-name",
+    "name": "Personalised Name Rakhi – Custom Name Rakhi for Brother",
+    "description": "A personalised name rakhi 3D-printed with any name you choose — the classic customised rakhi for Raksha Bandhan 2026. Clean, colourful and built to last, it converts into a name keychain keepsake your brother can carry forever.",
+    "price": 259,
+    "originalPrice": 449,
+    "images": [
+      "/images/rakhi/products/name-personalised.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.9,
+    "reviewCount": 96,
+    "badge": "Bestseller",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Traditional Red & Gold",
+      "Saffron",
+      "Maroon",
+      "Multi-colour"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 20,
+      "placeholder": "e.g. AARAV"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Any name 3D-printed on the rakhi",
+      "Turns into a personalised keychain keepsake",
+      "Premium multi-colour finish",
+      "Lightweight, durable PLA",
+      "Made to order in Agra"
+    ],
+    "about": "Personalised Name Rakhi — a customised name rakhi keepsake that becomes a keychain.",
+    "keyFeatures": [
+      "Print any name",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Personalised rakhi for brother",
+      "Name keychain keepsake",
+      "Raksha Bandhan gift",
+      "Rakhi for kids & adults"
+    ],
+    "whyBuy": "The timeless custom rakhi — his name, his colours, kept forever as a keychain.",
+    "createdAt": "2026-07-01T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-secret-message",
+    "name": "Secret Message Rakhi – Hidden Message Keepsake Rakhi",
+    "description": "A secret message rakhi with a hidden engraved note only your brother can read — the most heartfelt customised rakhi for Raksha Bandhan. Print a private message, then keep it forever as a keychain keepsake.",
+    "price": 299,
+    "originalPrice": 499,
+    "images": [
+      "/images/rakhi/products/secret-message.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.9,
+    "reviewCount": 44,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Traditional Red & Gold",
+      "Maroon",
+      "Multi-colour",
+      "Rose Gold"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Secret message to engrave",
+      "maxLength": 40,
+      "placeholder": "e.g. Best bro ever, forever"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Hidden secret message engraved just for your sibling",
+      "Becomes a keychain keepsake after Raksha Bandhan",
+      "Premium multi-colour 3D print",
+      "Lightweight, durable PLA",
+      "Made to order, shipped pan-India"
+    ],
+    "about": "Secret Message Rakhi — a customised hidden-message rakhi keepsake that becomes a keychain.",
+    "keyFeatures": [
+      "Engrave a secret message",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Sentimental Raksha Bandhan gift",
+      "Secret message keepsake",
+      "Rakhi for brother or sister",
+      "Long-distance sibling gift"
+    ],
+    "whyBuy": "Say what a card never could — a private message your sibling keeps in their pocket forever.",
+    "createdAt": "2026-07-04T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-photo",
+    "name": "Photo Rakhi – Customised Picture Rakhi for Raksha Bandhan",
+    "description": "A customised photo rakhi featuring your favourite sibling memory — a personalised picture rakhi for Raksha Bandhan 2026. Upload a photo during checkout and keep this 3D-printed rakhi forever as a photo keychain keepsake.",
+    "price": 299,
+    "originalPrice": 499,
+    "images": [
+      "/images/rakhi/products/photo-rakhi.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.8,
+    "reviewCount": 52,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Full Colour",
+      "Traditional Red & Gold",
+      "Multi-colour",
+      "Rose Gold"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print (upload photo at checkout)",
+      "maxLength": 20,
+      "placeholder": "e.g. RIYA & AARAV"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Your favourite photo on a 3D-printed rakhi",
+      "Becomes a photo keychain keepsake",
+      "Vivid full-colour print",
+      "Lightweight, durable PLA",
+      "Made to order in Agra"
+    ],
+    "about": "Photo Rakhi — a customised picture rakhi keepsake that becomes a photo keychain.",
+    "keyFeatures": [
+      "Upload a photo",
+      "Free keychain converter included",
+      "Full-colour print"
+    ],
+    "perfectFor": [
+      "Photo Raksha Bandhan gift",
+      "Memory keepsake keychain",
+      "Long-distance sibling rakhi",
+      "Personalised rakhi for brother"
+    ],
+    "whyBuy": "A memory you can hold — your favourite photo, printed into a rakhi that becomes a keychain.",
+    "createdAt": "2026-07-05T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-superhero-shield",
+    "name": "Superhero Shield Rakhi – Customised Hero Rakhi for Kids",
+    "description": "A customised superhero rakhi shaped like a hero's shield — a personalised kids rakhi for Raksha Bandhan. Add your little brother's name and let him wear his hero, then clip on the converter for a keychain keepsake.",
+    "price": 269,
+    "originalPrice": 449,
+    "images": [
+      "/images/rakhi/products/superhero-shield.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.8,
+    "reviewCount": 63,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Red & Gold",
+      "Blue & Silver",
+      "Multi-colour",
+      "Black & Red"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Child's name to print",
+      "maxLength": 16,
+      "placeholder": "e.g. VIVAAN"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Customised superhero rakhi for kids",
+      "Becomes a keychain keepsake",
+      "Bold multi-colour 3D print",
+      "Lightweight, kid-safe PLA",
+      "Made to order, fast delivery"
+    ],
+    "about": "Superhero Shield Rakhi — a customised hero rakhi for kids that becomes a keychain keepsake.",
+    "keyFeatures": [
+      "Print child's name",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Kids superhero rakhi",
+      "Rakhi for little brother",
+      "Cartoon & character rakhi",
+      "Keepsake keychain"
+    ],
+    "whyBuy": "Every little brother is a hero — give him a shield rakhi with his name on it.",
+    "createdAt": "2026-07-06T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-cartoon-kids",
+    "name": "Cartoon Kids Rakhi – Customised Character Rakhi for Kids",
+    "description": "A fun customised cartoon rakhi for kids — a colourful character-style rakhi for Raksha Bandhan 2026 with your child's name. A personalised kids rakhi that becomes a playful keychain keepsake for their school bag.",
+    "price": 259,
+    "originalPrice": 429,
+    "images": [
+      "/images/rakhi/products/cartoon-kids.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.7,
+    "reviewCount": 48,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multi-colour",
+      "Bright Yellow",
+      "Sky Blue",
+      "Pink & Purple"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Child's name to print",
+      "maxLength": 16,
+      "placeholder": "e.g. MEERA"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Playful customised cartoon rakhi for kids",
+      "Doubles as a school-bag keychain keepsake",
+      "Bright multi-colour 3D print",
+      "Lightweight, kid-safe PLA",
+      "Made to order in Agra"
+    ],
+    "about": "Cartoon Kids Rakhi — a customised character rakhi for kids that becomes a keychain keepsake.",
+    "keyFeatures": [
+      "Print child's name",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Kids cartoon rakhi",
+      "Rakhi for little brother or sister",
+      "Character rakhi",
+      "School-bag keychain"
+    ],
+    "whyBuy": "Kids love characters — a cartoon rakhi with their name they'll clip to their bag all year.",
+    "createdAt": "2026-07-07T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-car-lover",
+    "name": "Car Lover Rakhi – Customised Car Rakhi for Brother",
+    "description": "A customised car rakhi for the petrolhead brother — a personalised rakhi with a mini 3D-printed car and his name or number plate. After Raksha Bandhan, it clips onto his car keys as a keychain keepsake.",
+    "price": 269,
+    "originalPrice": 449,
+    "images": [
+      "/images/rakhi/products/car-lover.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.7,
+    "reviewCount": 39,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Racing Red",
+      "Jet Black",
+      "Multi-colour",
+      "Midnight Blue"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name / number plate",
+      "maxLength": 16,
+      "placeholder": "e.g. UP80 AR"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Customised car rakhi with name or number plate",
+      "Becomes a car-key keychain keepsake",
+      "Sleek multi-colour 3D print",
+      "Lightweight, durable PLA",
+      "Made to order, shipped pan-India"
+    ],
+    "about": "Car Lover Rakhi — a customised car rakhi keepsake that becomes a car-key keychain.",
+    "keyFeatures": [
+      "Print name or number plate",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Rakhi for car-lover brother",
+      "Petrolhead Raksha Bandhan gift",
+      "Car-key keychain keepsake",
+      "Personalised rakhi"
+    ],
+    "whyBuy": "For the brother obsessed with his car — a rakhi that ends up on his keyring.",
+    "createdAt": "2026-07-08T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-profession",
+    "name": "Profession Rakhi – Doctor, Engineer & Pilot Rakhi",
+    "description": "A customised profession rakhi celebrating what your brother does best — doctor, engineer, pilot and more. A thoughtful personalised rakhi for Raksha Bandhan 2026 with his name, kept forever as a keychain keepsake.",
+    "price": 349,
+    "originalPrice": 549,
+    "images": [
+      "/images/rakhi/products/profession.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.9,
+    "reviewCount": 35,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Traditional Red & Gold",
+      "Steel & White",
+      "Multi-colour",
+      "Navy & Gold"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 20,
+      "placeholder": "e.g. DR. ARJUN"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Customised profession-themed rakhi (doctor, engineer, pilot, etc.)",
+      "Becomes a keychain keepsake",
+      "Premium multi-colour 3D print",
+      "Lightweight, durable PLA",
+      "Made to order in Agra"
+    ],
+    "about": "Profession Rakhi — a customised doctor/engineer/pilot rakhi keepsake that becomes a keychain.",
+    "keyFeatures": [
+      "Choose profession + print name",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Rakhi for doctor / engineer brother",
+      "Professional Raksha Bandhan gift",
+      "Keepsake keychain",
+      "Personalised rakhi"
+    ],
+    "whyBuy": "Celebrate his calling — a profession rakhi that makes him proud and lives on as a keychain.",
+    "createdAt": "2026-07-09T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-initial-letter",
+    "name": "Initial Letter Rakhi – Customised Alphabet Keychain Rakhi",
+    "description": "A minimalist customised initial rakhi 3D-printed with your brother's first letter — a modern personalised rakhi for Raksha Bandhan. Sleek and simple, it becomes an initial keychain keepsake he'll actually use.",
+    "price": 259,
+    "originalPrice": 429,
+    "images": [
+      "/images/rakhi/products/initial-keychain.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.8,
+    "reviewCount": 41,
+    "badge": null,
+    "labelType": "sale",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Gold",
+      "Rose Gold",
+      "Multi-colour",
+      "Matte Black"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Initial letter",
+      "maxLength": 3,
+      "placeholder": "e.g. A"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Customised initial-letter rakhi",
+      "Becomes an initial keychain keepsake",
+      "Clean multi-colour 3D print",
+      "Lightweight, durable PLA",
+      "Made to order, fast delivery"
+    ],
+    "about": "Initial Letter Rakhi — a customised alphabet rakhi keepsake that becomes a keychain.",
+    "keyFeatures": [
+      "Print any initial",
+      "Free keychain converter included",
+      "Multi-colour FDM print"
+    ],
+    "perfectFor": [
+      "Minimalist rakhi for brother",
+      "Initial keychain keepsake",
+      "Modern Raksha Bandhan gift",
+      "Personalised rakhi"
+    ],
+    "whyBuy": "Understated and modern — a single initial he'll clip to his keys long after Rakhi.",
+    "createdAt": "2026-07-10T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-bhaiya-bhabhi-set",
+    "name": "Bhaiya Bhabhi Rakhi Set – Customised Lumba Rakhi (Set of 2)",
+    "description": "A customised Bhaiya Bhabhi rakhi set (set of 2) with a lumba rakhi for your sister-in-law — personalised with both names for Raksha Bandhan 2026. Two 3D-printed keepsakes that become keychains the couple keeps forever.",
+    "price": 549,
+    "originalPrice": 899,
+    "images": [
+      "/images/rakhi/products/couple-lumba-set.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.9,
+    "reviewCount": 57,
+    "badge": "Value Set",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Traditional Red & Gold",
+      "Maroon & Gold",
+      "Multi-colour",
+      "Rose Gold"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names (Bhaiya & Bhabhi)",
+      "maxLength": 30,
+      "placeholder": "e.g. ROHIT & PRIYA"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Customised Bhaiya Bhabhi rakhi set of 2 (includes lumba rakhi)",
+      "Both keepsakes become keychains",
+      "Premium multi-colour 3D print",
+      "Lightweight, durable PLA",
+      "Made to order in Agra"
+    ],
+    "about": "Bhaiya Bhabhi Rakhi Set — a customised lumba rakhi set of 2 keepsakes that become keychains.",
+    "keyFeatures": [
+      "Print both names",
+      "2 rakhis incl. lumba",
+      "Free keychain converters included"
+    ],
+    "perfectFor": [
+      "Bhaiya Bhabhi rakhi",
+      "Lumba rakhi for bhabhi",
+      "Couple Raksha Bandhan gift",
+      "Keepsake keychains"
+    ],
+    "whyBuy": "For your brother and his other half — a matching set of keepsakes that outlast the festival.",
+    "createdAt": "2026-07-11T00:00:00.000Z"
+  },
+  {
+    "id": "rakhi-family-set",
+    "name": "Family Rakhi Set – Customised Rakhi Set of 4 Keepsakes",
+    "description": "A customised family rakhi set of 4 — personalised with a name on each rakhi for every brother in the family this Raksha Bandhan 2026. Four 3D-printed keepsakes that all convert into keychains, so the whole family keeps them forever.",
+    "price": 1049,
+    "originalPrice": 1699,
+    "images": [
+      "/images/rakhi/products/family-set.png"
+    ],
+    "category": "rakhi",
+    "rating": 4.9,
+    "reviewCount": 33,
+    "badge": "Best Value",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep the colours vivid. After Raksha Bandhan, clip on the free keychain converter to keep your rakhi as a lifelong keepsake.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Order before 24 Aug 2026 for guaranteed Raksha Bandhan delivery. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Traditional Red & Gold",
+      "Assorted Multi-colour",
+      "Saffron & Maroon",
+      "Mixed Set"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Four names (comma separated)",
+      "maxLength": 60,
+      "placeholder": "e.g. ARJUN, VIVAAN, KABIR, DEV"
+    },
+    "options": [
+      {
+        "name": "Thread Colour",
+        "values": [
+          "Traditional Red & Gold",
+          "Saffron",
+          "Maroon",
+          "Multi-colour"
+        ]
+      },
+      {
+        "name": "Keepsake Format",
+        "values": [
+          "Rakhi + Free Keychain Converter",
+          "Rakhi only"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "dimensions": "~5–7 cm rakhi disc",
+      "weight": "~12–18 g",
+      "origin": "Made in India"
+    },
+    "benefits": [
+      "Customised family rakhi set of 4 with a name on each",
+      "All 4 become keychain keepsakes",
+      "Vivid multi-colour 3D print",
+      "Lightweight, durable PLA",
+      "Best value per rakhi — made to order"
+    ],
+    "about": "Family Rakhi Set — a customised set of 4 rakhi keepsakes that all become keychains.",
+    "keyFeatures": [
+      "Print 4 names",
+      "4 rakhis in one set",
+      "Free keychain converters included"
+    ],
+    "perfectFor": [
+      "Family rakhi set",
+      "Rakhi for multiple brothers",
+      "Best-value Raksha Bandhan set",
+      "Keepsake keychains"
+    ],
+    "whyBuy": "One order, the whole family sorted — four personalised keepsakes at the best per-rakhi price.",
+    "createdAt": "2026-07-12T00:00:00.000Z"
   }
 ]
