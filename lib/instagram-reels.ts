@@ -1,12 +1,16 @@
 /**
  * Curated Instagram Reels for the homepage marquee + in-page embed player.
  *
- * Instagram does not allow hotlinking CDN video or stable public thumbnails
- * without Graph API auth. We store real reel shortcodes (permalinks) and
- * local cover images. Playback uses Instagram's official /embed iframe.
+ * Instagram CDN thumbnail URLs expire and often 403 when hotlinked from a
+ * third-party site. We therefore:
+ *  1. Resolve each reel's cover frame from Instagram
+ *  2. Save it under public/images/reels/reel-N.jpg
+ *  3. Point thumbnail at that local file
  *
- * To refresh the list: open Instagram → Copy link on each Reel → paste the
- * shortcode below and drop a matching cover under public/images/reels/.
+ * Playback still uses Instagram's official /embed iframe (real video).
+ *
+ * To refresh covers: copy new reel links from Instagram, download the cover
+ * JPG into public/images/reels/, and update the entries below.
  */
 
 export interface InstagramReel {
@@ -14,7 +18,7 @@ export interface InstagramReel {
   /** Instagram media shortcode from /reel/{shortcode}/ */
   readonly shortcode: string
   readonly title: string
-  /** Local cover image — Instagram CDN thumbs expire / block hotlinking */
+  /** Local copy of the Instagram reel cover frame */
   readonly thumbnail: string
 }
 
@@ -26,21 +30,39 @@ export const INSTAGRAM_PROFILE_URL =
 export const INSTAGRAM_REELS: readonly InstagramReel[] = [
   {
     id: '1',
-    shortcode: 'DZfYs2-hS2C',
-    title: 'Custom keepsake reel',
-    thumbnail: '/images/3dps/products/key-01.png',
+    shortcode: 'Dbf-GcnBa_-',
+    title: 'Kids name decor reel',
+    thumbnail: '/images/reels/reel-1.jpg',
   },
   {
     id: '2',
-    shortcode: 'DZSXxgUBNc_',
-    title: 'Home decor reel',
-    thumbnail: '/images/3dps/products/decor-01.jpg',
+    shortcode: 'DbdUkO9BeFB',
+    title: 'Custom name keychain reel',
+    thumbnail: '/images/reels/reel-2.jpg',
   },
   {
     id: '3',
+    shortcode: 'DbaqVLGBeXJ',
+    title: 'Workshop process reel',
+    thumbnail: '/images/reels/reel-3.jpg',
+  },
+  {
+    id: '4',
     shortcode: 'DbIzZziB-iO',
-    title: 'Pooja decor reel',
-    thumbnail: '/images/3dps/products/pooja-01.png',
+    title: 'Letter name decor reel',
+    thumbnail: '/images/reels/reel-4.jpg',
+  },
+  {
+    id: '5',
+    shortcode: 'DbLhwQtBif2',
+    title: 'Personalized nameplate reel',
+    thumbnail: '/images/reels/reel-5.jpg',
+  },
+  {
+    id: '6',
+    shortcode: 'DaDOy7ehb92',
+    title: 'Behind the print reel',
+    thumbnail: '/images/reels/reel-6.jpg',
   },
 ] as const
 
