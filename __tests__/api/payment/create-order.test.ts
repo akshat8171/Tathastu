@@ -4,10 +4,10 @@
 import { POST } from '@/app/api/payment/create-order/route'
 import { NextRequest } from 'next/server'
 
-const mockCreateCashfreeOrder = jest.fn()
+const mockCreateRazorpayOrder = jest.fn()
 
-jest.mock('@/lib/cashfree-server', () => ({
-  createCashfreeOrder: (...args: any[]) => mockCreateCashfreeOrder(...args),
+jest.mock('@/lib/razorpay-server', () => ({
+  createRazorpayOrder: (...args: unknown[]) => mockCreateRazorpayOrder(...args),
 }))
 
 const VALID_CUSTOMER = { name: 'Rahul Sharma', phone: '9876543210', email: 'rahul@example.com' }
@@ -15,16 +15,15 @@ const VALID_CUSTOMER = { name: 'Rahul Sharma', phone: '9876543210', email: 'rahu
 describe('POST /api/payment/create-order', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    mockCreateCashfreeOrder.mockResolvedValue({
-      order_id: 'cf_test_123',
-      order_amount: 2499,
-      order_currency: 'INR',
-      order_status: 'ACTIVE',
-      payment_session_id: 'session_test_abc',
+    mockCreateRazorpayOrder.mockResolvedValue({
+      id: 'order_test_123',
+      amount: 249900,
+      currency: 'INR',
+      receipt: 'rcpt_1',
     })
   })
 
-  it('creates order and returns a payment session id', async () => {
+  it('creates order and returns order id + amount in paise', async () => {
     const request = new NextRequest('http://localhost:3000/api/payment/create-order', {
       method: 'POST',
       body: JSON.stringify({ amount: 2499, customer: VALID_CUSTOMER }),
@@ -34,8 +33,9 @@ describe('POST /api/payment/create-order', () => {
 
     expect(response.status).toBe(200)
     expect(data.success).toBe(true)
-    expect(data.orderId).toBe('cf_test_123')
-    expect(data.paymentSessionId).toBe('session_test_abc')
+    expect(data.orderId).toBe('order_test_123')
+    expect(data.amount).toBe(249900)
+    expect(data.currency).toBe('INR')
   })
 
   it('rejects invalid amount', async () => {
@@ -56,18 +56,13 @@ describe('POST /api/payment/create-order', () => {
     expect(response.status).toBe(400)
   })
 
-  it('returns 502 when Cashfree omits a payment session', async () => {
-    mockCreateCashfreeOrder.mockResolvedValueOnce({
-      order_id: 'cf_test_123',
-      order_amount: 2499,
-      order_currency: 'INR',
-      order_status: 'ACTIVE',
-    })
+  it('returns 500 when Razorpay create fails', async () => {
+    mockCreateRazorpayOrder.mockRejectedValueOnce(new Error('gateway down'))
     const request = new NextRequest('http://localhost:3000/api/payment/create-order', {
       method: 'POST',
       body: JSON.stringify({ amount: 2499, customer: VALID_CUSTOMER }),
     })
     const response = await POST(request)
-    expect(response.status).toBe(502)
+    expect(response.status).toBe(500)
   })
 })

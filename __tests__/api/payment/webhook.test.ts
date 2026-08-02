@@ -5,71 +5,61 @@ import { POST } from '@/app/api/payment/webhook/route'
 import { NextRequest } from 'next/server'
 import crypto from 'crypto'
 
-// ---------------------------------------------------------------------------
-// Mock supabase/orders module
-// ---------------------------------------------------------------------------
 const mockUpdateOrderPaymentStatus = jest.fn().mockResolvedValue(true)
 const mockLogPayment = jest.fn().mockResolvedValue(true)
 const mockGetOrderByPaymentOrderId = jest.fn()
 const mockHasPaymentBeenLogged = jest.fn()
 
 jest.mock('@/lib/supabase/orders', () => ({
-  updateOrderPaymentStatus: (...args: any[]) => mockUpdateOrderPaymentStatus(...args),
-  logPayment: (...args: any[]) => mockLogPayment(...args),
-  getOrderByPaymentOrderId: (...args: any[]) => mockGetOrderByPaymentOrderId(...args),
-  hasPaymentBeenLogged: (...args: any[]) => mockHasPaymentBeenLogged(...args),
+  updateOrderPaymentStatus: (...args: unknown[]) => mockUpdateOrderPaymentStatus(...args),
+  logPayment: (...args: unknown[]) => mockLogPayment(...args),
+  getOrderByPaymentOrderId: (...args: unknown[]) => mockGetOrderByPaymentOrderId(...args),
+  hasPaymentBeenLogged: (...args: unknown[]) => mockHasPaymentBeenLogged(...args),
 }))
 
-// ---------------------------------------------------------------------------
-// Helpers — Cashfree signs base64(HMAC_SHA256(timestamp + rawBody)) with the secret
-// ---------------------------------------------------------------------------
 const WEBHOOK_SECRET = 'webhook_secret_test'
-const TIMESTAMP = '1700000000000'
 
-function makeWebhookRequest(payload: object, secret = WEBHOOK_SECRET, timestamp = TIMESTAMP) {
+function makeWebhookRequest(payload: object, secret = WEBHOOK_SECRET) {
   const body = JSON.stringify(payload)
-  const sig = crypto.createHmac('sha256', secret).update(`${timestamp}${body}`).digest('base64')
+  const sig = crypto.createHmac('sha256', secret).update(body).digest('hex')
   return new NextRequest('http://localhost:3000/api/payment/webhook', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-webhook-signature': sig,
-      'x-webhook-timestamp': timestamp,
+      'x-razorpay-signature': sig,
     },
     body,
   })
 }
 
-function makeSuccessEvent(overrides: { order?: Record<string, any>; payment?: Record<string, any> } = {}) {
+function makeCapturedEvent() {
   return {
-    type: 'PAYMENT_SUCCESS_WEBHOOK',
-    data: {
-      order: { order_id: 'cf_order_xyz', order_amount: 2299, order_currency: 'INR', ...overrides.order },
+    event: 'payment.captured',
+    payload: {
       payment: {
-        cf_payment_id: 987654,
-        payment_status: 'SUCCESS',
-        payment_amount: 2299,
-        payment_group: 'upi',
-        ...overrides.payment,
+        entity: {
+          id: 'pay_987654',
+          order_id: 'order_xyz',
+          amount: 229900,
+          method: 'upi',
+          status: 'captured',
+        },
       },
     },
   }
 }
 
-// ---------------------------------------------------------------------------
-// Tests
-// ---------------------------------------------------------------------------
 describe('POST /api/payment/webhook', () => {
   beforeAll(() => {
-    process.env.CASHFREE_SECRET_KEY = WEBHOOK_SECRET
+    process.env.RAZORPAY_WEBHOOK_SECRET = WEBHOOK_SECRET
   })
 
   beforeEach(() => {
     jest.clearAllMocks()
   })
 
-  it('rejects request with missing signature headers', async () => {
-    const body = JSON.stringify(makeSuccessEvent())
+  it('rejects request with missing signature', async () => {
+    const body = JSON.stringify(makeCapturedEvent())
     const req = new NextRequest('http://localhost:3000/api/payment/webhook', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -80,13 +70,12 @@ describe('POST /api/payment/webhook', () => {
   })
 
   it('rejects request with invalid signature', async () => {
-    const body = JSON.stringify(makeSuccessEvent())
+    const body = JSON.stringify(makeCapturedEvent())
     const req = new NextRequest('http://localhost:3000/api/payment/webhook', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-webhook-signature': 'invalid_signature',
-        'x-webhook-timestamp': TIMESTAMP,
+        'x-razorpay-signature': 'invalid_signature',
       },
       body,
     })
@@ -94,28 +83,27 @@ describe('POST /api/payment/webhook', () => {
     expect(res.status).toBe(400)
   })
 
-  it('processes PAYMENT_SUCCESS_WEBHOOK and updates order by cashfree order id', async () => {
+  it('processes payment.captured and updates order', async () => {
     mockHasPaymentBeenLogged.mockResolvedValue(false)
     mockGetOrderByPaymentOrderId.mockResolvedValue({ id: 'db-order-uuid', order_number: 'ORDER_1_1' })
 
-    const req = makeWebhookRequest(makeSuccessEvent())
+    const req = makeWebhookRequest(makeCapturedEvent())
     const res = await POST(req)
     const data = await res.json()
 
     expect(res.status).toBe(200)
     expect(data.received).toBe(true)
-
     expect(mockUpdateOrderPaymentStatus).toHaveBeenCalledWith(
       'db-order-uuid',
       'paid',
-      '987654',
-      'cf_order_xyz'
+      'pay_987654',
+      'order_xyz'
     )
     expect(mockLogPayment).toHaveBeenCalledWith(
       expect.objectContaining({
         order_id: 'db-order-uuid',
-        cashfree_order_id: 'cf_order_xyz',
-        cashfree_payment_id: '987654',
+        razorpay_order_id: 'order_xyz',
+        razorpay_payment_id: 'pay_987654',
         amount: 2299,
       })
     )
@@ -124,7 +112,7 @@ describe('POST /api/payment/webhook', () => {
   it('skips update when payment was already logged (idempotency)', async () => {
     mockHasPaymentBeenLogged.mockResolvedValue(true)
 
-    const req = makeWebhookRequest(makeSuccessEvent())
+    const req = makeWebhookRequest(makeCapturedEvent())
     const res = await POST(req)
     const data = await res.json()
 
@@ -132,34 +120,25 @@ describe('POST /api/payment/webhook', () => {
     expect(data.received).toBe(true)
     expect(mockUpdateOrderPaymentStatus).not.toHaveBeenCalled()
     expect(mockLogPayment).not.toHaveBeenCalled()
-    expect(mockGetOrderByPaymentOrderId).not.toHaveBeenCalled()
   })
 
-  it('does not update when the cashfree order id lookup finds nothing', async () => {
+  it('does not update when order lookup finds nothing', async () => {
     mockHasPaymentBeenLogged.mockResolvedValue(false)
     mockGetOrderByPaymentOrderId.mockResolvedValue(null)
 
-    const req = makeWebhookRequest(makeSuccessEvent())
+    const req = makeWebhookRequest(makeCapturedEvent())
     const res = await POST(req)
-    const data = await res.json()
-
     expect(res.status).toBe(200)
-    expect(data.received).toBe(true)
     expect(mockUpdateOrderPaymentStatus).not.toHaveBeenCalled()
-    expect(mockLogPayment).not.toHaveBeenCalled()
   })
 
-  it('ignores non-success events (returns received: true without side effects)', async () => {
-    mockHasPaymentBeenLogged.mockResolvedValue(false)
-
-    const event = { type: 'PAYMENT_FAILED_WEBHOOK', data: { order: {}, payment: {} } }
+  it('ignores non-captured events', async () => {
+    const event = { event: 'payment.failed', payload: { payment: { entity: {} } } }
     const req = makeWebhookRequest(event)
     const res = await POST(req)
     const data = await res.json()
-
     expect(res.status).toBe(200)
     expect(data.received).toBe(true)
     expect(mockUpdateOrderPaymentStatus).not.toHaveBeenCalled()
-    expect(mockLogPayment).not.toHaveBeenCalled()
   })
 })

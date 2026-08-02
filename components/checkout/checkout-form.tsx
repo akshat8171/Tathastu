@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react'
 import { useCart } from '@/components/cart/cart-context'
 import { useCheckout } from '@/components/checkout/checkout-context'
-import { CashfreeCheckout } from '@/components/payment/cashfree-checkout'
+import { RazorpayCheckout } from '@/components/payment/razorpay-checkout'
 import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useRouter } from 'next/navigation'
-import { CashfreePaymentResult } from '@/lib/cashfree'
+import { RazorpayPaymentResult } from '@/lib/razorpay'
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
 import { trackBeginCheckout, trackPurchase } from '@/lib/analytics'
 
@@ -57,7 +57,7 @@ interface PrefillResponse {
   addresses: SavedAddress[]
 }
 
-type PaymentMethod = 'cashfree' | 'cod'
+type PaymentMethod = 'razorpay' | 'cod'
 
 // ── CheckoutForm ──────────────────────────────────────────────────────────────
 export function CheckoutForm() {
@@ -82,7 +82,7 @@ export function CheckoutForm() {
   })
 
   // ── Payment method ───────────────────────────────────────────────────────
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cashfree')
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('razorpay')
 
   // ── Checkout step ────────────────────────────────────────────────────────
   const [step, setStep] = useState<'details' | 'payment'>('details')
@@ -93,7 +93,7 @@ export function CheckoutForm() {
 
   // ── Totals ────────────────────────────────────────────────────────────────
   // appliedCoupon is shared with OrderSummary via CheckoutProvider so the
-  // discount charged here (and via Cashfree) matches what the summary shows.
+  // discount charged here (and via Razorpay) matches what the summary shows.
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
   const discount = appliedCoupon?.discount ?? 0
@@ -201,8 +201,8 @@ export function CheckoutForm() {
     }))
   }
 
-  // ── Cashfree online payment success handler ───────────────────────────────
-  async function handlePaymentSuccess(result: CashfreePaymentResult) {
+  // ── Razorpay online payment success handler ───────────────────────────────
+  async function handlePaymentSuccess(result: RazorpayPaymentResult) {
     setOrderError(null)
     const res = await fetch('/api/orders', {
       method: 'POST',
@@ -218,7 +218,7 @@ export function CheckoutForm() {
           pincode: form.pincode,
         },
         items: buildOrderItems(),
-        payment_method: 'cashfree' as const,
+        payment_method: 'razorpay' as const,
         couponCode,
         payment: result,
       }),
@@ -230,7 +230,7 @@ export function CheckoutForm() {
         orderNumber: data.orderNumber ?? '',
         value: total,
         itemCount: items.reduce((n, i) => n + i.quantity, 0),
-        paymentMethod: 'cashfree',
+        paymentMethod: 'razorpay',
         coupon: couponCode || null,
         discount,
       })
@@ -559,7 +559,7 @@ export function CheckoutForm() {
           {/* Pay Online */}
           <label
             className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-colors ${
-              paymentMethod === 'cashfree'
+              paymentMethod === 'razorpay'
                 ? 'border-brand bg-brand/5'
                 : 'border-gray-200 hover:border-brand/40'
             }`}
@@ -567,9 +567,9 @@ export function CheckoutForm() {
             <input
               type="radio"
               name="payment-method"
-              value="cashfree"
-              checked={paymentMethod === 'cashfree'}
-              onChange={() => setPaymentMethod('cashfree')}
+              value="razorpay"
+              checked={paymentMethod === 'razorpay'}
+              onChange={() => setPaymentMethod('razorpay')}
               className="mt-0.5 accent-brand flex-shrink-0"
             />
             <div>
@@ -577,7 +577,7 @@ export function CheckoutForm() {
                 Pay Online
               </p>
               <p className="text-xs text-muted font-sans mt-0.5">
-                UPI, Credit/Debit Cards, Netbanking, Wallets — via Cashfree
+                UPI, Credit/Debit Cards, Netbanking, Wallets — via Razorpay
               </p>
             </div>
           </label>
@@ -617,8 +617,8 @@ export function CheckoutForm() {
         )}
 
         <div className="mt-5">
-          {paymentMethod === 'cashfree' ? (
-            <CashfreeCheckout
+          {paymentMethod === 'razorpay' ? (
+            <RazorpayCheckout
               amount={total}
               customerName={form.name}
               customerPhone={form.phone}

@@ -123,8 +123,8 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
 
         {/* Preconnect for payment gateway */}
-        <link rel="dns-prefetch" href="https://sdk.cashfree.com" />
-        <link rel="preconnect" href="https://sdk.cashfree.com" />
+        <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
+        <link rel="preconnect" href="https://checkout.razorpay.com" />
 
         {/* Favicons */}
         <link rel="icon" href="/favicon.ico" sizes="any" />

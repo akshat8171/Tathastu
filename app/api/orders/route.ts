@@ -7,67 +7,63 @@ import { grantOrderAccess } from '@/lib/auth/order-access'
 import { repriceItems, applyDiscount } from '@/lib/pricing'
 import { validateCoupon, incrementCouponUsage } from '@/lib/coupons'
 import {
-  fetchCashfreeOrder,
-  fetchCashfreeOrderPayments,
-  isCashfreeOrderPaid,
-  isCashfreePaymentSuccess,
-} from '@/lib/cashfree-server'
+  verifyRazorpayPaymentSignature,
+  confirmRazorpayPaymentAmount,
+} from '@/lib/razorpay-server'
 
 /**
- * Authoritatively confirm a Cashfree payment on the order-create path.
+ * Authoritatively confirm a Razorpay payment on the order-create path.
  *
- * Unlike Razorpay (which hands the browser a signature to forward), Cashfree
- * gives the client only a payment_session_id. Trust therefore comes from the
- * SERVER asking Cashfree for the order status — never from client-supplied data.
- * We require BOTH:
- *   1. order_status === 'PAID'
- *   2. the captured amount matches our server-computed total (defence against a
- *      tampered/under-paid order being marked fully paid)
+ * Trust requires BOTH:
+ *   1. Valid HMAC-SHA256 signature (order_id|payment_id)
+ *   2. Razorpay payment fetch showing captured/authorized for exact server total
  *
- * Fail-closed: any error, non-PAID status, or amount mismatch returns
- * { paid: false } so the order is left 'pending'. A genuinely-captured payment
- * that we miss here is still reconciled by the HMAC-verified idempotent webhook.
+ * Fail-closed: any mismatch leaves the order pending. Webhook reconciles misses.
  */
-async function confirmCashfreePayment(
-  cashfreeOrderId: string,
+async function confirmRazorpayPayment(
+  payment: {
+    razorpay_order_id: string
+    razorpay_payment_id: string
+    razorpay_signature: string
+  },
   expectedTotal: number
-): Promise<{ paid: boolean; cfPaymentId?: string; paymentMethod?: string }> {
-  try {
-    const order = await fetchCashfreeOrder(cashfreeOrderId)
-    if (!isCashfreeOrderPaid(order.order_status)) {
-      return { paid: false }
-    }
-    // Amount check: Cashfree order_amount is in rupees, same unit as our total.
-    if (Math.round(Number(order.order_amount)) !== Math.round(expectedTotal)) {
-      console.error('Cashfree amount mismatch on order-create; refusing to mark paid', {
-        cashfreeOrderId,
-        cashfreeAmount: order.order_amount,
-        expectedTotal,
-      })
-      return { paid: false }
-    }
-    // Recover the successful payment's cf_payment_id for a complete record.
-    const payments = await fetchCashfreeOrderPayments(cashfreeOrderId)
-    const success = payments.find(p => isCashfreePaymentSuccess(p.payment_status))
-    return {
-      paid: true,
-      cfPaymentId: success ? String(success.cf_payment_id) : undefined,
-      paymentMethod: success?.payment_group,
-    }
-  } catch (error) {
-    console.error('Cashfree confirmation failed on order-create; leaving order pending', {
-      cashfreeOrderId,
-      error,
+): Promise<{ paid: boolean; paymentMethod?: string }> {
+  const signatureOk = verifyRazorpayPaymentSignature(payment)
+  if (!signatureOk) {
+    console.error('Razorpay signature mismatch on order-create; refusing to mark paid', {
+      orderId: payment.razorpay_order_id,
     })
     return { paid: false }
   }
+
+  // Mock payments cannot be fetched from Razorpay — leave pending (same as before).
+  if (
+    payment.razorpay_order_id.startsWith('order_mock_') ||
+    payment.razorpay_payment_id.startsWith('pay_mock_')
+  ) {
+    return { paid: false }
+  }
+
+  const amountCheck = await confirmRazorpayPaymentAmount(
+    payment.razorpay_payment_id,
+    expectedTotal
+  )
+  if (!amountCheck.ok) {
+    console.error('Razorpay amount/status check failed on order-create; refusing to mark paid', {
+      paymentId: payment.razorpay_payment_id,
+      expectedTotal,
+      amountPaise: amountCheck.amountPaise,
+    })
+    return { paid: false }
+  }
+
+  return { paid: true, paymentMethod: amountCheck.method }
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    // Validate request shape with Zod
     const parsed = createOrderSchema.safeParse(body)
     if (!parsed.success) {
       const message = parsed.error.errors.map(e => e.message).join('; ')
@@ -76,32 +72,17 @@ export async function POST(request: NextRequest) {
 
     const { customer, items, payment, payment_method, couponCode } = parsed.data
 
-    // Server-side re-pricing: ignore ALL client-sent prices/totals
     let repriced = repriceItems(items)
     if (!repriced.ok) {
       return NextResponse.json({ error: 'Invalid item in order' }, { status: 400 })
     }
 
-    // Resolve the customer FIRST (keyed by phone) so we can enforce
-    // first-order coupon gating against the SAME id the order is written with.
-    // On failure the result is null and the order proceeds with customer_id = null.
-    // This must never block a sale: any error is logged inside upsertCustomerByPhone.
     const customerId = await upsertCustomerByPhone({
       phone: customer.phone,
       name: customer.name,
       email: customer.email,
     })
 
-    // Server-validated coupon: recompute the discount against the trusted
-    // subtotal. An invalid/expired coupon is silently ignored (discount stays 0)
-    // so it can never block a sale; the checkout UI validates separately and
-    // shows the reason before the user reaches this point.
-    //
-    // SECURITY: this is the authoritative money path. We pass `customerId`
-    // (the value stored in orders.customer_id) so first-order-only coupons like
-    // FIRST20 are gated here — NOT just on the advisory /api/coupons/validate
-    // path. A repeat customer (same phone → same customerId → has prior orders)
-    // is correctly denied the discount even if the client re-sends couponCode.
     let appliedCouponCode: string | null = null
     if (couponCode) {
       const couponResult = await validateCoupon(
@@ -118,7 +99,6 @@ export async function POST(request: NextRequest) {
 
     const { subtotal, shipping, total, discount, items: pricedItems } = repriced
 
-    // Build DB items using server-trusted prices
     const dbItems = pricedItems.map(i => ({
       product_id: i.product_id,
       product_name: i.product_name,
@@ -138,15 +118,11 @@ export async function POST(request: NextRequest) {
       discount,
       shipping,
       total,
-      payment_method,
+      payment_method: payment_method === 'cashfree' ? 'razorpay' : payment_method,
       notes: `Address: ${customer.address}, ${customer.city}, ${customer.state} - ${customer.pincode}`,
-      // Structured geography for analytics (migration-008). `notes` above stays
-      // as the human-readable address and the migration's backfill source.
       shipping_state: customer.state,
       shipping_city: customer.city,
       shipping_pincode: customer.pincode,
-      // Full structured address (migration-001 JSONB) so the account address
-      // book can be backfilled from this order without parsing `notes`.
       shipping_address: {
         name: customer.name,
         phone: customer.phone,
@@ -161,65 +137,61 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create order' }, { status: 500 })
     }
 
-    // Cash on Delivery: no payment proof, order stays pending until delivery.
-    // Online (cashfree): mark paid + log the payment ONLY when Cashfree itself
-    // confirms the order is PAID for the expected amount.
-    //
-    // SECURITY (money path): we must NEVER mark an order 'paid' on the strength
-    // of a client-supplied id alone — that would let anyone forge a "paid" order
-    // for free. Cashfree does not hand the browser a signature, so we ask
-    // Cashfree's API directly for the order status and require an exact amount
-    // match. If confirmation fails (unpaid/tampered/error), the order is left
-    // 'pending' and the failed attempt is logged for audit. A genuinely-captured
-    // payment we miss here is still reconciled to 'paid' out-of-band by the
-    // HMAC-verified, idempotent webhook — so failing closed never drops a sale.
-    if (payment_method === 'cashfree' && payment?.cashfree_order_id) {
-      const result = await confirmCashfreePayment(payment.cashfree_order_id, total)
+    const isOnline =
+      (payment_method === 'razorpay' || payment_method === 'cashfree') &&
+      payment?.razorpay_order_id &&
+      payment?.razorpay_payment_id &&
+      payment?.razorpay_signature
+
+    if (isOnline) {
+      const result = await confirmRazorpayPayment(
+        {
+          razorpay_order_id: payment.razorpay_order_id!,
+          razorpay_payment_id: payment.razorpay_payment_id!,
+          razorpay_signature: payment.razorpay_signature!,
+        },
+        total
+      )
       if (result.paid) {
         await updateOrderPaymentStatus(
           order.id,
           'paid',
-          result.cfPaymentId,
-          payment.cashfree_order_id
+          payment.razorpay_payment_id,
+          payment.razorpay_order_id
         )
         await logPayment({
           order_id: order.id,
-          cashfree_order_id: payment.cashfree_order_id,
-          cashfree_payment_id: result.cfPaymentId,
+          razorpay_order_id: payment.razorpay_order_id,
+          razorpay_payment_id: payment.razorpay_payment_id,
+          razorpay_signature: payment.razorpay_signature,
           amount: total,
-          payment_method: result.paymentMethod || 'cashfree',
+          payment_method: result.paymentMethod || 'razorpay',
           payment_status: 'paid',
           response_data: payment,
         })
       } else {
-        console.error(
-          'Cashfree confirmation FAILED on order-create; leaving order pending',
-          { order_id: order.id, cashfree_order_id: payment.cashfree_order_id }
-        )
+        console.error('Razorpay confirmation FAILED on order-create; leaving order pending', {
+          order_id: order.id,
+          razorpay_order_id: payment.razorpay_order_id,
+        })
         await logPayment({
           order_id: order.id,
-          cashfree_order_id: payment.cashfree_order_id,
+          razorpay_order_id: payment.razorpay_order_id,
+          razorpay_payment_id: payment.razorpay_payment_id,
+          razorpay_signature: payment.razorpay_signature,
           amount: total,
-          payment_method: 'cashfree',
+          payment_method: 'razorpay',
           payment_status: 'failed',
           response_data: payment,
-          error_message: 'Cashfree confirmation failed on order-create path',
+          error_message: 'Razorpay confirmation failed on order-create path',
         })
       }
     }
 
-    // Record coupon redemption so usage_limit is actually enforceable.
-    // Best-effort: a failure here must never roll back a successfully placed
-    // order, so incrementCouponUsage swallows its own errors (graceful degrade).
     if (appliedCouponCode) {
       await incrementCouponUsage(appliedCouponCode)
     }
 
-    // Save the delivery address to the buyer's account address book.
-    // Only for authenticated buyers — a guest has no account yet, so their
-    // address is instead backfilled from this order the first time they sign in
-    // (see backfillAddressesFromOrders). Best-effort and de-duplicated; never
-    // blocks the order (saveAddressFromOrder swallows its own errors).
     const appUser = await getCurrentUser()
     if (appUser) {
       await saveAddressFromOrder(appUser.id, {
@@ -232,9 +204,6 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Grant this (possibly guest) buyer access to view the order-confirmation
-    // page for the order they just placed. Best-effort — never fail the order
-    // response over a cookie write.
     try {
       await grantOrderAccess(order.order_number)
     } catch {
@@ -245,7 +214,7 @@ export async function POST(request: NextRequest) {
       success: true,
       orderId: order.id,
       orderNumber: order.order_number,
-      paymentMethod: payment_method,
+      paymentMethod: payment_method === 'cashfree' ? 'razorpay' : payment_method,
       total,
       discount,
     })
