@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: false,
+  // Keep firebase-admin (and its jose/jwks-rsa chain) outside the Turbopack
+  // bundle. Bundling them triggers ERR_REQUIRE_ESM on Vercel and crashes
+  // /api/orders (COD + post-payment order create) with a 500 HTML error page.
+  serverExternalPackages: ['firebase-admin', 'jose', 'jwks-rsa'],
   // Inline small CSS files (<25KB) to eliminate render-blocking stylesheet requests
   experimental: {
     optimizeCss: true,
