@@ -43,7 +43,7 @@ export const INSTAGRAM_REELS: readonly InstagramReel[] = [
   {
     id: '3',
     shortcode: 'DbaqVLGBeXJ',
-    title: 'Workshop process reel',
+    title: 'Couple initials keepsake reel',
     thumbnail: '/images/reels/reel-3.jpg',
   },
   {
@@ -55,13 +55,13 @@ export const INSTAGRAM_REELS: readonly InstagramReel[] = [
   {
     id: '5',
     shortcode: 'DbLhwQtBif2',
-    title: 'Personalized nameplate reel',
+    title: 'Personalized nameplate collection reel',
     thumbnail: '/images/reels/reel-5.jpg',
   },
   {
     id: '6',
     shortcode: 'DaDOy7ehb92',
-    title: 'Behind the print reel',
+    title: '3D printer workshop reel',
     thumbnail: '/images/reels/reel-6.jpg',
   },
 ] as const
