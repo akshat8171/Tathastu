@@ -2,7 +2,6 @@ import 'server-only'
 
 import { cookies } from 'next/headers'
 import { createSupabaseServer } from '@/lib/supabase/server'
-import { getAdminAuth } from '@/lib/firebase/admin'
 import { FIREBASE_SESSION_COOKIE } from './cookies'
 
 /**
@@ -54,11 +53,15 @@ export interface AppUser {
  */
 export async function getCurrentUser(): Promise<AppUser | null> {
   // 1) Firebase phone session
+  // Dynamic-import firebase-admin only when a Firebase cookie is present.
+  // A static import pulls jose/jwks-rsa into every route that uses getCurrentUser
+  // (including guest /api/orders), which crashes on Vercel with ERR_REQUIRE_ESM.
   const fbCookie = (await cookies()).get(FIREBASE_SESSION_COOKIE)?.value
   if (fbCookie) {
-    const adminAuth = getAdminAuth()
-    if (adminAuth) {
-      try {
+    try {
+      const { getAdminAuth } = await import('@/lib/firebase/admin')
+      const adminAuth = getAdminAuth()
+      if (adminAuth) {
         const decoded = await adminAuth.verifySessionCookie(fbCookie, true)
         return {
           id: decoded.uid,
@@ -72,9 +75,9 @@ export async function getCurrentUser(): Promise<AppUser | null> {
             ? new Date(decoded.auth_time * 1000).toISOString()
             : undefined,
         }
-      } catch {
-        // Invalid/expired/revoked cookie → fall through to Supabase.
       }
+    } catch {
+      // Invalid/expired cookie OR firebase-admin/jose load failure → Supabase.
     }
   }
 

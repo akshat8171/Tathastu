@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createOrder, updateOrderPaymentStatus, logPayment, upsertCustomerByPhone } from '@/lib/supabase/orders'
-import { getCurrentUser } from '@/lib/auth/session'
 import { saveAddressFromOrder } from '@/lib/supabase/account'
 import { createOrderSchema } from '@/lib/validation/order'
 import { grantOrderAccess } from '@/lib/auth/order-access'
@@ -10,6 +9,8 @@ import {
   verifyRazorpayPaymentSignature,
   confirmRazorpayPaymentAmount,
 } from '@/lib/razorpay-server'
+
+export const runtime = 'nodejs'
 
 /**
  * Authoritatively confirm a Razorpay payment on the order-create path.
@@ -192,16 +193,24 @@ export async function POST(request: NextRequest) {
       await incrementCouponUsage(appliedCouponCode)
     }
 
-    const appUser = await getCurrentUser()
-    if (appUser) {
-      await saveAddressFromOrder(appUser.id, {
-        name: customer.name,
-        phone: customer.phone,
-        address_line: customer.address,
-        city: customer.city,
-        state: customer.state,
-        pincode: customer.pincode,
-      })
+    // Best-effort address book save. Dynamic-import session so guest checkout
+    // never loads firebase-admin (jose ESM crash on Vercel). Failures here must
+    // never block a successfully created order.
+    try {
+      const { getCurrentUser } = await import('@/lib/auth/session')
+      const appUser = await getCurrentUser()
+      if (appUser) {
+        await saveAddressFromOrder(appUser.id, {
+          name: customer.name,
+          phone: customer.phone,
+          address_line: customer.address,
+          city: customer.city,
+          state: customer.state,
+          pincode: customer.pincode,
+        })
+      }
+    } catch (err) {
+      console.error('Post-order address save skipped', err)
     }
 
     try {
