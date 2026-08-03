@@ -2,253 +2,267 @@
 
 ## Scope: Design Tokens
 
-Evidence: `tailwind.config.js`, `app/globals.css`, `app/layout.tsx`, homepage/header components, screenshots (Desktop 3.24.11 competitor / 3.24.13 ours), plus competitor CSS `:root` from [3dprintshop.in](https://3dprintshop.in/).
+**Sources:** `tailwind.config.js`, `app/globals.css`, `app/layout.tsx` (Poppins/Inter), `components/homepage/hero-carousel.tsx`, screenshots `docs/competitive/assets/competitor-homepage.png` & `ours-homepage.png`.
 
-### Current Tathastu token inventory
-
-| Token | Value | Source |
-|---|---|---|
-| `brand` DEFAULT | `#0E7A66` (HSL ~169° 79% 27%) | `tailwind.config.js` |
-| `violet` DEFAULT | `#4C2A86` | same |
-| `indigo.promo` | `#3730A3` | same |
-| `sale` / `discount` | `#E63946` / `#16A34A` | same |
-| `ink` / `muted` | `#16182B` / `#4B5563` | same |
-| `panel` / `surface` | `#EDF1F6` / `#F8FAFC` | same |
-| display / sans | Poppins / Inter | `layout.tsx` + Tailwind `fontFamily` |
-| radius | `card` 12px, `card2` 16px, `pill` 9999 | Tailwind |
-| shadows | `card`, `card-hover`, `badge` | Tailwind |
-| container | `.container-page` → `max-w-7xl` (1280px) | `globals.css` |
-| promo gradient | `#4C2A86 → #3730A3` (purple→indigo) | `.promo-gradient` |
-
-### Competitor token inventory (from CSS `:root`)
-
-| Token | Value |
-|---|---|
-| `--primary` | `186 60% 30%` → **`#1F717A`** (cool petrol teal) |
-| `--secondary` | `258 35% 46%` → **`#654C9E`** |
-| `--accent` | light teal wash `#EAF8F9` |
-| `--destructive` | `0 72% 46%` → **`#CA2121`** |
-| `--radius` | `0.6rem` (~9.6px) base; pills still `9999px`; cards up to `1–1.75rem` |
-| Font | **Outfit** only (`--font-outfit`) |
-| Container | `max-width: 1280px` |
-| Hardcoded accents | `#41C6CC` (bright cyan), `#634C9F`, `#25D366`, `#E11D48` |
-
-Screenshot cluster confirmation: competitor CTA teal ~`#186068`/`#1D666F`; ours ~`#106858`/`#11705C` (matches `#0E7A66`). Ours announcement ~`#43257B` ≈ `#4C2A86`.
+Token inventory today: brand teal scale, violet/indigo promo, ink/muted, panel/surface, sale/discount, font-display/sans, radius card/card2/pill, shadows card/card-hover/badge. **Missing from theme.extend:** spacing scale, fontSize/lineHeight/letterSpacing, border colors, focus ring, WhatsApp green, price-strip accent, banner radius, elevation ladder.
 
 ---
 
-### DT-01 — Primary brand hue (warm green-teal vs cool petrol)
+### DT-01 — Primary teal hue mismatch
 | | |
 |---|---|
-| **Severity** | High |
-| **Competitor** | `#1F717A` / HSL 186° — cyan-teal petrol |
-| **Ours** | `#0E7A66` / HSL 169° — greener, more “brand green” |
-| **Evidence** | Screenshot left-mid teal avg `#1D666F` vs `#11705C`; competitor CSS `--primary: 186 60% 30%` |
-| **Recommendation** | Shift `brand.DEFAULT` toward `#1F717A` (or `#1A6B73`) and rebuild scale 50–900 around HSL 186°. Keep a named alias `brand.legacy` only if migration needs it. Do **not** copy competitor identity wholesale if Tathastu wants distinct IP — but close the ~18° hue gap if parity is the goal. |
+| **Severity** | P1 |
+| **Competitor** | CTA / accents read as cooler forest-teal (~`#1D5D5E`–`#2E6F71`), slightly less saturated green. |
+| **Ours** | `brand.DEFAULT` / `teal` = `#0E7A66` with scale 50–900; screenshots read greener/brighter than competitor. |
+| **Evidence** | `tailwind.config.js` L12–24; both homepage screenshots (Shop CTAs, logo “T”, pagination). |
+| **Recommendation** | Shift brand DEFAULT toward competitor cool teal (~`#1F6B6C`); regenerate 50–900 from that anchor; keep `#0E7A66` only if brand decision overrides parity. |
 
-### DT-02 — Missing bright cyan “energy” accent
+### DT-02 — Announcement / promo violet closeness
 | | |
 |---|---|
-| **Severity** | Medium |
-| **Competitor** | `#41C6CC` used heavily (borders, fills, glow accents) |
-| **Ours** | No equivalent; only muted `brand-50` `#e6f4f1` |
-| **Recommendation** | Add `brand.bright: '#41C6CC'` (or `#3DB8C0`) for highlights, rings, promo accents — not for primary CTA fill. |
+| **Severity** | P2 |
+| **Competitor** | Deep royal purple announcement bar (~`#4B2C78`). |
+| **Ours** | `violet.DEFAULT` `#4C2A86`, `dark` `#3B1F6A`, `light` `#6B45A8`; `.announcement-bar` uses `bg-violet`. Visually close. |
+| **Evidence** | `tailwind.config.js` L27–31; `globals.css` L89–92; screenshot tops. |
+| **Recommendation** | Optional 1-step darken to `#4B2C78` for pixel parity; not blocking. |
 
-### DT-03 — Purple secondary / announcement mismatch
+### DT-03 — Promo gradient end token vs hardcoded CSS
 | | |
 |---|---|
-| **Severity** | Medium |
-| **Competitor** | `--secondary` → `#654C9E`; screenshot purple cluster `#584090` / avg `#5A4594` |
-| **Ours** | `#4C2A86` (deeper, more saturated); screenshot announce `#43257B` |
-| **Evidence** | `.announcement-bar { @apply … bg-violet }` |
-| **Recommendation** | Lighten `violet.DEFAULT` to ~`#5B4194`–`#654C9E`; keep `violet.dark` for hover. Announcement should use the secondary token explicitly (`bg-secondary` or `bg-violet`). |
+| **Severity** | P2 |
+| **Competitor** | Teal→purple (or purple→indigo) wide promo band with soft corners. |
+| **Ours** | `indigo.promo` `#3730A3` exists, but `.promo-gradient` hardcodes `linear-gradient(135deg, #4C2A86, #3730A3)` instead of Tailwind color refs. |
+| **Evidence** | `tailwind.config.js` L32–34; `globals.css` L95–98. |
+| **Recommendation** | Drive gradient from `violet` + `indigo.promo` (or CSS vars); add `promo-start` / `promo-end` tokens if direction differs from competitor teal→purple. |
 
-### DT-04 — Promo gradient is purple-only (should be teal→purple)
+### DT-04 — Hero wash: violet/mint vs cool gray-blue
 | | |
 |---|---|
-| **Severity** | High |
-| **Competitor** | Promo banner reads teal → purple (screenshot + Agent 5 scope) |
-| **Ours** | `linear-gradient(135deg, #4C2A86 0%, #3730A3 100%)` — purple→indigo only |
-| **Evidence** | `globals.css` `.promo-gradient` |
-| **Recommendation** | Tokenize: `--gradient-promo: linear-gradient(90deg, var(--brand) 0%, var(--violet) 100%)` and drop hardcoded indigo end. Prefer horizontal `to right` like competitor. |
+| **Severity** | P1 |
+| **Competitor** | Soft cool gray-blue / lavender radial wash; very neutral. |
+| **Ours** | `bg-gradient-to-br from-violet/10 via-surface to-brand-50` → mint + violet tint (`surface` `#F8FAFC`, `brand-50` `#e6f4f1`). |
+| **Evidence** | `hero-carousel.tsx` L161; `tailwind.config.js` panel/surface; screenshots. |
+| **Recommendation** | Add `hero-wash` / `hero-wash-end` tokens (e.g. `#F4F6FA` → `#E8EEF5`); drop violet/brand tints from hero background. |
 
-### DT-05 — Sale badge red too bright / off competitor destructive
+### DT-05 — Sale / discount semantic colors diverge in use
 | | |
 |---|---|
-| **Severity** | Low–Medium |
-| **Competitor** | Destructive `#CA2121` / screenshot `#C01818`–`#D83334`; also `#E11D48` in CSS |
-| **Ours** | `sale: '#E63946'` |
-| **Recommendation** | Set `sale: '#DC2626'` or `#CA2121`; keep white text. Optionally add `sale.soft` for backgrounds. |
+| **Severity** | P1 |
+| **Competitor** | Discount chips often teal/green; price overlays are white pills with dark type; NEW in nav is bright green. |
+| **Ours** | Tokens: `sale` `#E63946`, `discount` `#16A34A`, NEW via `badge-new` → `bg-violet`. Hero MiniCard also paints price bar with **untokenized** `from-orange-500 to-red-500`. |
+| **Evidence** | `tailwind.config.js` L48–49; `globals.css` L61–74; `hero-carousel.tsx` L108–117. |
+| **Recommendation** | Tokenize price-strip (`price-strip-from`/`to` or single `price-chip`); decide NEW = green (competitor) vs violet (ours) and align `badge-new`; stop raw `orange-500`/`red-500`. |
 
-### DT-06 — Discount / %OFF green vs competitor bright green
+### DT-06 — WhatsApp / success green not in palette
 | | |
 |---|---|
-| **Severity** | Medium |
-| **Competitor** | Brighter `#20C858` / `#22C55E` family on badges |
-| **Ours** | `discount: '#16A34A'` (Tailwind green-600) |
-| **Recommendation** | Either keep `#16A34A` for WCAG on white, or split: `discount: '#16A34A'` (text-on-light) and `discount.badge: '#22C55E'` (white-on-fill). Don’t use WhatsApp green for commerce %OFF. |
+| **Severity** | P1 |
+| **Competitor** | Green WhatsApp FAB; green NEW accents. |
+| **Ours** | Hero outline uses `border-green-500 text-green-700 hover:bg-green-50`; float uses brand WhatsApp green ad hoc — no `whatsapp` / `success` token. |
+| **Evidence** | `hero-carousel.tsx` L192; `tailwind.config.js` (no whatsapp/success); screenshots FAB. |
+| **Recommendation** | Add `whatsapp: '#25D366'` (and optional `success` alias); wire float + Chat CTAs to it; stop default Tailwind green utilities. |
 
-### DT-07 — Price strip uses untokenized orange→red
+### DT-07 — Ink / muted vs competitor charcoal
 | | |
 |---|---|
-| **Severity** | High (token hygiene + visual noise) |
-| **Competitor** | Clean light/white price area on hero cards (little orange mass) |
-| **Ours** | `bg-gradient-to-r from-orange-500 to-red-500` on hero mini-cards |
-| **Evidence** | `hero-carousel.tsx` L117; screenshot orange cluster `#F2661F` |
-| **Recommendation** | Add `price.strip.from` / `price.strip.to` **or** remove gradient strip and use ink price on white (closer to competitor). Prefer removing — it’s the loudest non-token divergence. |
+| **Severity** | P2 |
+| **Competitor** | Headings near-black charcoal (~`#1A1A1A`); body mid-gray (~`#555`). |
+| **Ours** | `ink` `#16182B` (navy-black), `ink.soft` `#2D2F45`, `muted` `#4B5563` (gray-600). Slightly cooler/navy vs competitor neutral black. |
+| **Evidence** | `tailwind.config.js` L37–41; `globals.css` body/h* L9–15. |
+| **Recommendation** | Optional: `ink` → `#1A1A1A`, body `muted` → `#555555` or `#52525B` for warmer parity; keep AA contrast. |
 
-### DT-08 — WhatsApp greens not in the design system
+### DT-08 — Border / ring / divider tokens absent
 | | |
 |---|---|
-| **Severity** | Medium |
-| **Competitor** | Explicit `#25D366` |
-| **Ours** | Hardcoded `border-green-500 text-green-700 hover:bg-green-50` (+ float) |
-| **Evidence** | `hero-carousel.tsx` L192; contact/account also use raw `green-*` |
-| **Recommendation** | Add `whatsapp: { DEFAULT: '#25D366', dark: '#128C7E', soft: '#DCF8C6' }` and wire all WA CTAs to it. Never reuse as brand primary. |
+| **Severity** | P1 |
+| **Competitor** | Soft hairline borders on secondary CTAs and cards; focus rings via shadcn `ring-ring`. |
+| **Ours** | Cards use `border-gray-100`; forms use `border-gray-200` / `ring-brand` — no named `border`, `divider`, or `ring` tokens in config. `.btn-*` lack focus-visible rings entirely. |
+| **Evidence** | `globals.css` `.card` L82–86, buttons L27–57; widespread `gray-100/200` in forms. |
+| **Recommendation** | Add `border.DEFAULT`, `border.strong`, `ring` (e.g. `brand/50`); apply to `.card`, `.btn-*`, inputs. |
 
-### DT-09 — Font family: Outfit vs Poppins/Inter
+### DT-09 — Panel / surface roles under-specified
 | | |
 |---|---|
-| **Severity** | High (visual language) |
-| **Competitor** | Single family **Outfit** for UI + display |
-| **Ours** | Display **Poppins**, body **Inter** |
-| **Evidence** | Competitor CSS `font-family: var(--font-outfit)…`; ours `layout.tsx` |
-| **Recommendation** | For parity: switch both `font-display` and `font-sans` to Outfit (400–800). If keeping dual-font brand, at least use one geometric for H1+nav (Outfit or Poppins only) and reserve Inter for long body — competitor feels more unified. |
+| **Severity** | P2 |
+| **Competitor** | Product thumbs sit on light gray panels; page mostly white. |
+| **Ours** | `panel` `#EDF1F6`, `surface` `#F8FAFC`; `.image-panel` uses panel. Category grid often white-on-white with weak separation. |
+| **Evidence** | `tailwind.config.js` L43–45; `globals.css` L124–126; ours screenshot category row. |
+| **Recommendation** | Document when to use panel vs surface vs white; add `canvas` = `#FFFFFF` if needed; ensure category thumbs use `panel` like competitor. |
 
-### DT-10 — H1 size/weight mostly aligned; highlight color differs by brand
+### DT-10 — Dual font stack vs competitor single geometric sans
 | | |
 |---|---|
-| **Severity** | Low |
-| **Competitor** | Large bold H1 (~48–60px), highlight in primary teal |
-| **Ours** | `text-4xl sm:text-5xl lg:text-6xl font-extrabold`; highlight `text-brand` |
-| **Evidence** | `hero-carousel.tsx` L173–175 |
-| **Recommendation** | Add typed scale tokens: `text-hero: clamp(2.25rem, 4vw, 3.75rem)`. Keep highlight on `brand` after DT-01 retune. |
+| **Severity** | P1 |
+| **Competitor** | One clean geometric sans for UI + headlines (Montserrat/Poppins-like). |
+| **Ours** | `font-display` = Poppins; `font-sans` = Inter; `serif` aliased to Poppins. Headings forced `font-display` in base layer. |
+| **Evidence** | `tailwind.config.js` L52–57; `layout.tsx` L15–27; `globals.css` L9–15. |
+| **Recommendation** | Audit weight/feel vs competitor; either unify on one family for storefront or keep Poppins display + Inter body but tighten tracking so hero doesn’t feel “two brands.” |
 
-### DT-11 — Nav type: display at 13px vs competitor ~14–16px
+### DT-11 — No type scale / leading / tracking tokens
 | | |
 |---|---|
-| **Severity** | Medium |
-| **Competitor** | Medium-weight sans ~14–16px |
-| **Ours** | `text-[13px] font-display font-medium` |
-| **Evidence** | `header.tsx` L88 |
-| **Recommendation** | Token `text-nav: 0.875rem` (14px); use `font-sans` or Outfit medium, not Poppins for dense nav. Logo can stay `font-display text-lg`. |
+| **Severity** | P1 |
+| **Competitor** | Clear hierarchy: large bold hero (~48–56px), section ~28–32px, nav `text-sm`, labels small uppercase. |
+| **Ours** | Relies on default Tailwind sizes; `.section-heading__title` = `text-2xl sm:text-3xl`; hero sizes local; eyebrow uses `tracking-widest` ad hoc; **no** `fontSize` / `lineHeight` / `letterSpacing` in `theme.extend`. |
+| **Evidence** | `tailwind.config.js` (absent); `globals.css` L115–116; hero classes. |
+| **Recommendation** | Add tokens: `text-hero`, `text-section`, `text-body`, `text-caption`, `tracking-label`; map section-heading + hero to them. |
 
-### DT-12 — Announcement bar type size inconsistency
+### DT-12 — Font weights loaded vs used
 | | |
 |---|---|
-| **Severity** | Low |
-| **Competitor** | ~12px white on purple |
-| **Ours** | Class says `text-sm` in `.announcement-bar`, component overrides to `text-xs` |
-| **Evidence** | `globals.css` L89–91 vs `announcement-bar.tsx` L10 |
-| **Recommendation** | Single token `text-announce: 0.75rem`; remove conflicting utilities. |
+| **Severity** | P2 |
+| **Competitor** | Bold display + medium UI; restrained weight set. |
+| **Ours** | Poppins 400–800; Inter 400–600. Buttons `font-semibold`; headings `font-bold`; little use of 800. |
+| **Evidence** | `layout.tsx` L15–27; `globals.css` btn / section-heading. |
+| **Recommendation** | Drop unused 800 (perf) or use it only for hero; document weight roles (400 body, 500 nav, 600 CTA, 700 heading). |
 
-### DT-13 — Border radius: close, but base system differs
+### DT-13 — Button radius language (pill vs rounded-rect) — critical
 | | |
 |---|---|
-| **Severity** | Low–Medium |
-| **Competitor** | `--radius: 0.6rem`; also `1rem` / `1.5rem` / `1.75rem` / pills |
-| **Ours** | `card` 12px, `card2` 16px, `pill` 9999 — no CSS var `--radius` |
-| **Recommendation** | Expose `--radius: 0.75rem` in `:root`; map `rounded-card`→12px, `rounded-card2`→16px, add `rounded-promo: 1.25rem` for promo banner corners (competitor promo is more rounded than our full-bleed strip). |
+| **Severity** | P0 |
+| **Competitor** | Primary/secondary CTAs are rounded rectangles (~8–12px / shadcn `rounded-md`), not capsules. |
+| **Ours** | `borderRadius.pill` = `9999px`; `.btn-primary` / `.btn-outline` / WhatsApp hero CTA all `rounded-pill`. Screenshots show full pills vs competitor soft rects. |
+| **Evidence** | `tailwind.config.js` L59–63; `globals.css` L27–47; `hero-carousel.tsx` L192; both screenshots. |
+| **Recommendation** | Add `btn: '10px'` or use `rounded-lg`/`xl`; change `.btn-*` off `rounded-pill`. Reserve pill for chips, coupons, dots. |
 
-### DT-14 — Badge radius too sharp vs competitor pills
+### DT-14 — Badge radius: soft square vs competitor pill
 | | |
 |---|---|
-| **Severity** | Low |
-| **Competitor** | Sale/%OFF read as soft pill/capsule |
-| **Ours** | `.badge-*` use `rounded` (4px) |
-| **Evidence** | `globals.css` L61–78 |
-| **Recommendation** | Change badges to `rounded-md` or `rounded-full`; add `radius.badge` token. |
+| **Severity** | P1 |
+| **Competitor** | Sale / %OFF / NEW read as small pills (`rounded-full`). |
+| **Ours** | `.badge-*` use default Tailwind `rounded` (~4px) + `shadow-badge`. |
+| **Evidence** | `globals.css` L61–78; hero MiniCard `rounded` badges L108–112; screenshots. |
+| **Recommendation** | Token `radius.badge = 9999px` (or `rounded-full`); apply to all badge utilities. |
 
-### DT-15 — Shadows: ours softer; competitor has richer elevation set
+### DT-15 — Card / image radius numeric parity
 | | |
 |---|---|
-| **Severity** | Low |
-| **Competitor** | Multiple elevations including `0 10px 25px rgba(15,23,42,.14)`, FAB-like shadows |
-| **Ours** | Light `card` / `card-hover` / `badge` only |
-| **Recommendation** | Keep current card shadows (good). Add `shadow-float` for WhatsApp FAB and `shadow-promo` if promo becomes a raised rounded panel. |
+| **Severity** | P1 |
+| **Competitor** | Product/category tiles ~12–16px; promo band ~24–32px. |
+| **Ours** | `card` 12px, `card2` 16px; `.card` → `rounded-card2`; `.image-panel` → `rounded-card`. No `banner` / `promo` radius token. |
+| **Evidence** | `tailwind.config.js` L59–62; `globals.css` L82–86, L124–126; screenshots. |
+| **Recommendation** | Keep card/card2 if visually matched; add `banner: '24px'` (or 28–32) for promo strip; verify category tiles use same token as competitor. |
 
-### DT-16 — Max container width: already matched
+### DT-16 — Secondary outline CTA radius & border width
 | | |
 |---|---|
-| **Severity** | None (parity) |
-| **Competitor** | `1280px` |
-| **Ours** | `max-w-7xl` = 1280px |
-| **Recommendation** | Tokenize as `--container-max: 80rem` for documentation; no visual change. Gutters `px-5 sm:px-6 lg:px-8` are fine. |
+| **Severity** | P1 |
+| **Competitor** | Ghost/secondary = white fill, thin dark/neutral border, same md radius as primary. |
+| **Ours** | `.btn-outline` = `border-2 border-brand` + full pill — thicker, brand-colored, capsule. |
+| **Evidence** | `globals.css` L40–47; competitor “Customise” style in screenshot. |
+| **Recommendation** | Tokenize `border-btn` width (1px) + neutral or ink border option; share `radius.btn` with primary. |
 
-### DT-17 — Hero background gradient language
+### DT-17 — Shadow elevation ladder incomplete
 | | |
 |---|---|
-| **Severity** | Medium |
-| **Competitor** | Soft pastel lavender / sky / white (cool) |
-| **Ours** | `from-violet/10 via-surface to-brand-50` (lilac→mint) |
-| **Evidence** | `hero-carousel.tsx` L161 |
-| **Recommendation** | After DT-01, use competitor-like wash: `from-[#EAF8F9] via-white to-[#F3EEF9]` via tokens `accent` + `violet.soft`. Avoid warm beige creep. |
+| **Severity** | P2 |
+| **Competitor** | Very soft card/promo elevation; buttons flat. |
+| **Ours** | `shadow.card` and `shadow.card-hover` + `shadow.badge` only — no sm/md/lg/fab ladder; scroll-rail reuses `shadow-card-hover` for circular controls. |
+| **Evidence** | `tailwind.config.js` L65–68; `globals.css` `.card`; screenshots. |
+| **Recommendation** | Add `shadow-sm`/`md`/`lg` brand elevations; map rest/hover/fab; keep buttons shadowless like competitor. |
 
-### DT-18 — No CSS custom properties layer (tokens trapped in Tailwind)
+### DT-18 — Badge shadow may over-elevate chips
 | | |
 |---|---|
-| **Severity** | High (maintainability) |
-| **Competitor** | shadcn-style `:root { --primary: … }` HSL channels |
-| **Ours** | Hex only inside `theme.extend.colors`; `globals.css` hardcodes promo hex |
-| **Recommendation** | Add `:root` CSS vars mirroring competitor pattern; point Tailwind colors at `hsl(var(--brand) / <alpha-value>)`. Enables one-place retunes for DT-01–04. |
+| **Severity** | P2 |
+| **Competitor** | Badges largely flat on imagery. |
+| **Ours** | `shadow-badge: 0 1px 4px rgba(0,0,0,.15)` on all `.badge-*`. |
+| **Evidence** | `tailwind.config.js` L68; `globals.css` L61–78. |
+| **Recommendation** | Soften or remove badge shadow for competitor flatness; reserve shadow for floating FABs. |
 
-### DT-19 — Incomplete semantic color roles
+### DT-19 — No spacing / container tokens beyond utility defaults
 | | |
 |---|---|
-| **Severity** | Medium |
-| **Competitor** | primary, secondary, accent, destructive, muted, ring |
-| **Ours** | brand, violet, sale, discount, ink, muted, panel, surface — missing ring, destructive, success, warning, whatsapp, price |
-| **Recommendation** | Map: `primary←brand`, `secondary←violet`, `destructive←sale`, `success←discount`, add `ring: brand`. |
+| **Severity** | P1 |
+| **Competitor** | Wide gutters, ~16–24px grid gaps, generous hero vertical padding, calm density. |
+| **Ours** | No custom `spacing` in theme; `.container-page` = `max-w-7xl mx-auto px-5 sm:px-6 lg:px-8`; `.section-heading` `mb-6`; btn `px-6 py-3` hardcoded. |
+| **Evidence** | `tailwind.config.js` (no spacing extend); `globals.css` L101–103, L111–112, L27–30. |
+| **Recommendation** | Add semantic spacing: `gutter`, `section-y`, `stack`, `card-gap` (16/20/24); wire container + homepage sections. |
 
-### DT-20 — Hardcoded hex / Tailwind palette leakage
+### DT-20 — Button padding / height not tokenized
 | | |
 |---|---|
-| **Severity** | High |
-| **Ours** | Rakhi page `#9f1239`/`#ffb74d`; blog HTML `#7c3aed`/`#059669`; hero orange/red; WA greens |
-| **Recommendation** | Ban raw `#` and `green-*`/`orange-*` in storefront components except product filament swatches. Festival themes get named token sets (`festival.rakhi.*`). |
+| **Severity** | P1 |
+| **Competitor** | Consistent control heights (`h-9` / `h-11` style). |
+| **Ours** | Only `px-6 py-3 text-sm` on `.btn-*`; product cards override `text-xs py-2` — no size scale in tokens. |
+| **Evidence** | `globals.css` L27–47; product-card overrides. |
+| **Recommendation** | Define `btn-height-sm/md/lg` + horizontal padding tokens; ban one-off py on marketing CTAs. |
 
-### DT-21 — Section heading scale not tokenized
+### DT-21 — Motion duration tokens absent (token-adjacent)
 | | |
 |---|---|
-| **Severity** | Low |
-| **Ours** | `.section-heading__title` → `text-2xl sm:text-3xl`; photo section goes to `lg:text-4xl` ad hoc |
-| **Recommendation** | `fontSize.section` / `fontSize.sectionLg` in Tailwind theme. |
+| **Severity** | P2 |
+| **Competitor** | Subtle, short transitions. |
+| **Ours** | Durations hardcoded (`duration-200`, `duration-300`, fade-in `0.5s`); keyframes in config but no `transitionDuration` theme tokens. |
+| **Evidence** | `tailwind.config.js` L71–78; `globals.css` buttons/card/utilities. |
+| **Recommendation** | Optional: `duration-fast/base/slow` tokens; keep reduced-motion rules. |
 
-### DT-22 — Font weight: `extrabold` (800) everywhere vs competitor medium hierarchy
+### DT-22 — Hardcoded color escapes undermine the token system
 | | |
 |---|---|
-| **Severity** | Low |
-| **Ours** | Hero/CTA sections lean `font-extrabold`; Inter only loaded 400–600 |
-| **Recommendation** | Display max 700 for H2; reserve 800 for H1 only. Ensure Outfit/Poppins loads 700–800 if used. |
+| **Severity** | P0 |
+| **Competitor** | Coherent single palette in UI chrome. |
+| **Ours** | Token file exists, but homepage still uses raw Tailwind greens/oranges and hex in `.promo-gradient`; color swatches duplicate hex maps outside tokens. |
+| **Evidence** | `hero-carousel.tsx` L117, L192; `globals.css` L97; `product-card.tsx` / `product-options.tsx` COLOR_HEX maps. |
+| **Recommendation** | Lint/ban raw palette utilities on storefront chrome; route accents through `theme.extend.colors` only. |
 
-### DT-23 — Cart/count badge uses `brand` (OK) but competitor may use brighter green
+### DT-23 — Focus / selection tokens missing
 | | |
 |---|---|
-| **Severity** | Low |
-| **Ours** | Cart count `bg-brand` |
-| **Competitor** | Screenshot description: bright green cart badge |
-| **Recommendation** | Optional `badge.count: brand` or `brand.bright` after DT-02 — minor. |
+| **Severity** | P1 (a11y + system) |
+| **Competitor** | Explicit `ring-2 ring-ring ring-offset-2` language. |
+| **Ours** | No `ringColor` / `ringOffset` in config; design-system buttons omit focus styles; sporadic `ring-brand` on forms only. |
+| **Evidence** | `tailwind.config.js`; `globals.css` `.btn-*`. |
+| **Recommendation** | Add `ring: brand` (or `brand/40`) + offset white; bake into component layer. |
 
-### DT-24 — Panel/image background vs competitor product card ground
+### DT-24 — Coupon / dashed chip tokens missing
 | | |
 |---|---|
-| **Severity** | Low |
-| **Ours** | `panel: #EDF1F6` |
-| **Competitor** | Cooler muted `#F2F6F8` (`--muted`) |
-| **Recommendation** | Nudge `panel` to `#F2F6F8` or `muted` surface token for cooler airiness. |
+| **Severity** | P2 |
+| **Competitor** | Dashed-border pill for `FIRST20` on promo. |
+| **Ours** | No `radius`/`borderStyle` tokens for coupon chip; promo implementation separate from token file. |
+| **Evidence** | Competitor screenshot promo; `tailwind.config.js` radius list. |
+| **Recommendation** | Add `coupon` radius (pill) + `border-dashed` + contrast fill token for code chip. |
+
+### DT-25 — Pagination / FAB geometry tokens
+| | |
+|---|---|
+| **Severity** | P2 |
+| **Competitor** | Calm carousel; floating circular cart on cards. |
+| **Ours** | Active pager `w-7 h-2.5 rounded-full bg-brand`; WhatsApp circle ad hoc; no `fab` size/radius/shadow tokens. |
+| **Evidence** | `hero-carousel.tsx` L244–245; screenshots. |
+| **Recommendation** | Tokenize `dot`, `dot-active`, `fab-size`, `fab-shadow` for reusable chrome. |
 
 ---
 
-### Recommended token patch (priority order)
+### Token gap summary
 
-1. **Retune** `brand` → `#1F717A` (+ scale); add `brand.bright` `#41C6CC`.
-2. **Retune** `violet` → `#654C9E`; keep dark hover.
-3. **Rewrite** `.promo-gradient` → brand → violet (horizontal).
-4. **Add** `whatsapp`, fix sale/discount; **remove** hero orange price gradient (or tokenize).
-5. **Fonts** → Outfit (or keep Poppins-only, drop Inter for UI chrome).
-6. **Introduce** `:root` CSS variables; eliminate hardcoded hex in storefront CSS/components.
-7. **Radius/type** micro-tokens: nav 14px, badge pill, `--container-max: 80rem`.
+| ID | Area | Sev | One-line fix |
+|----|------|-----|--------------|
+| DT-01 | Color | P1 | Cooler primary teal |
+| DT-02 | Color | P2 | Violet nudge optional |
+| DT-03 | Color | P2 | Gradient from tokens |
+| DT-04 | Color | P1 | Neutral hero wash |
+| DT-05 | Color | P1 | Sale/NEW/price-strip semantics |
+| DT-06 | Color | P1 | WhatsApp/success token |
+| DT-07 | Color | P2 | Ink/muted warmth |
+| DT-08 | Color | P1 | Border + ring tokens |
+| DT-09 | Color | P2 | Panel/surface docs |
+| DT-10 | Font | P1 | Stack pairing audit |
+| DT-11 | Font | P1 | Type scale tokens |
+| DT-12 | Font | P2 | Weight subset |
+| DT-13 | Radius | P0 | Buttons off pill |
+| DT-14 | Radius | P1 | Badge pills |
+| DT-15 | Radius | P1 | Banner radius token |
+| DT-16 | Radius | P1 | Outline CTA border/radius |
+| DT-17 | Shadow | P2 | Elevation ladder |
+| DT-18 | Shadow | P2 | Flatten badges |
+| DT-19 | Spacing | P1 | Semantic spacing |
+| DT-20 | Spacing | P1 | Button size tokens |
+| DT-21 | Motion | P2 | Duration tokens |
+| DT-22 | System | P0 | Kill hardcoded chrome colors |
+| DT-23 | System | P1 | Focus ring tokens |
+| DT-24 | Radius | P2 | Coupon chip tokens |
+| DT-25 | Spacing | P2 | Dot/FAB tokens |
 
-Parity is high on structure (1280 container, pills, dual teal+purple story). The eye-level gaps are **primary hue**, **promo gradient direction**, **typeface unity**, and **untokenized orange/green utilities**.
-
-**GOAT Reminder**: Build boring systems that work when things break. Stop following sheep toward the cliff. 🐐
+**P0 first:** DT-13 (button radius), DT-22 (hardcoded colors). Then P1 color/type/spacing (DT-01,04–06,08,10–11,14–16,19–20,23).
