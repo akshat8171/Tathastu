@@ -16,6 +16,8 @@ interface ProductRailProps {
   variant?: 'carousel' | 'grid'
   /** Grid only: max columns. Defaults to 4. */
   maxCols?: 3 | 4
+  /** Show rating stars on cards (default true) */
+  showRating?: boolean
 }
 
 export function ProductRail({
@@ -25,6 +27,7 @@ export function ProductRail({
   products,
   variant = 'carousel',
   maxCols = 4,
+  showRating = true,
 }: ProductRailProps) {
   if (variant === 'grid') {
     const colClass =
@@ -37,7 +40,7 @@ export function ProductRail({
           <SectionHeading title={title} subtitle={subtitle} viewAllHref={viewAllHref} />
           <div className={`grid ${colClass} gap-4 sm:gap-5`}>
             {products.map((product) => (
-              <ProductCard key={product.id} {...product} />
+              <ProductCard key={product.id} {...product} showRating={showRating} />
             ))}
           </div>
         </div>
@@ -50,13 +53,13 @@ export function ProductRail({
     <section className="py-12 sm:py-16">
       <div className="container-page">
         <SectionHeading title={title} subtitle={subtitle} viewAllHref={viewAllHref} />
-        <ScrollRail className="gap-4 sm:gap-5 pb-2" ariaLabel={title}>
+        <ScrollRail className="gap-4 pb-2" ariaLabel={title}>
           {products.map((product) => (
             <div
               key={product.id}
-              className="snap-start flex-shrink-0 w-40 sm:w-48 lg:w-56"
+              className="snap-start flex-shrink-0 w-44 sm:w-52 lg:w-60"
             >
-              <ProductCard {...product} />
+              <ProductCard {...product} showRating={showRating} />
             </div>
           ))}
         </ScrollRail>

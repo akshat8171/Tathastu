@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button, InfiniteMarquee } from '@/components/ui'
+import { Button } from '@/components/ui'
 import productsData from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui'
 import { useCart } from '@/components/cart/cart-context'
@@ -21,7 +21,7 @@ interface Slide {
   productIds: string[]
 }
 
-// Each slide is themed around a category and showcases matching products only.
+// HE-08: 3 slides is intentional differentiation vs competitor's 2 — each slide is themed around a category and showcases matching products only.
 const SLIDES: Slide[] = [
   {
     eyebrow: 'Pooja & Decor',
@@ -110,6 +110,7 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
       className="group relative block w-36 sm:w-44 lg:w-48 flex-shrink-0 rounded-card2 bg-white shadow-card hover:shadow-card-hover transition-shadow duration-300 overflow-hidden"
       aria-label={`View ${product.name}`}
     >
+      {/* BI-05: overflow-hidden on image container */}
       <div className="relative aspect-[4/5] bg-panel overflow-hidden">
         <Image
           src={product.images[0] ?? ''}
@@ -135,10 +136,10 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
         {/* HE-01: white price pill + circular brand cart */}
         <div className="absolute inset-x-2 bottom-2 z-10 flex items-end justify-between gap-2">
           <span className="inline-flex items-center rounded-full bg-white/95 px-2.5 py-1 text-xs sm:text-sm font-display font-bold text-ink shadow-badge tabular-nums">
-            ₹{product.price.toLocaleString('en-IN')}
+            ₹{product.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             {product.originalPrice && product.originalPrice > product.price && (
               <span className="ml-1.5 text-[10px] font-medium text-muted line-through">
-                ₹{product.originalPrice.toLocaleString('en-IN')}
+                ₹{product.originalPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </span>
             )}
           </span>
@@ -167,15 +168,18 @@ export function HeroCarousel() {
     setActive(((i % SLIDES.length) + SLIDES.length) % SLIDES.length)
   }, [])
 
+  // HE-05: respect prefers-reduced-motion — no auto-advance if user prefers reduced motion
   useEffect(() => {
     if (paused) return
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
     timer.current = setTimeout(() => setActive((a) => (a + 1) % SLIDES.length), AUTO_ADVANCE_MS)
     return () => { if (timer.current) clearTimeout(timer.current) }
   }, [active, paused])
 
   const slide = SLIDES[active]
 
-  const marqueeProducts = useMemo(
+  const slideProducts = useMemo(
     () =>
       slide.productIds
         .map(byId)
@@ -183,11 +187,9 @@ export function HeroCarousel() {
     [slide],
   )
 
-  const marqueeDurationSec = Math.max(24, marqueeProducts.length * 3.5)
-
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-violet/10 via-surface to-brand-50"
+      className="relative overflow-hidden bg-gradient-to-br from-[#EAF8F9] via-white to-[#F3EEF9]"
       aria-roledescription="carousel"
       aria-label="Featured collections"
     >
@@ -195,9 +197,11 @@ export function HeroCarousel() {
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 min-h-[320px] lg:min-h-[400px]">
 
           <div className="flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0">
-            <p className="inline-flex items-center gap-2 text-xs font-display font-semibold uppercase tracking-widest text-violet mb-4 bg-violet/10 px-3 py-1.5 rounded-full">
+            {/* HE-06: title-case eyebrow with softer pill styling */}
+            <p className="inline-flex items-center gap-2 text-sm font-medium text-brand bg-brand/10 mb-4 px-3 py-1.5 rounded-full">
               {slide.eyebrow}
             </p>
+            {/* HE-07: two-tone headline with softer contrast — brand highlight preserved */}
             <h1 className="font-display font-extrabold text-ink text-4xl sm:text-5xl lg:text-6xl leading-tight mb-4">
               {slide.headline}{' '}
               <span className="text-brand">{slide.highlight}</span>
@@ -205,7 +209,7 @@ export function HeroCarousel() {
             <p className="font-sans text-muted text-base sm:text-lg leading-relaxed mb-7 max-w-md mx-auto lg:mx-0">
               {slide.subcopy}
             </p>
-            {/* HE-02: trailing arrow on primary; two CTAs only (WhatsApp stays as float) */}
+            {/* HE-02 / HE-03: trailing arrow on primary; only 2 CTAs in hero (Shop + Tathastu Lab) */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start flex-wrap">
               <Button variant="primary" size="lg" href={slide.ctaHref}>
                 {slide.ctaLabel}
@@ -217,6 +221,7 @@ export function HeroCarousel() {
             </div>
           </div>
 
+          {/* HE-05 / BI-03: horizontal snap scroll instead of infinite marquee */}
           <div
             className="flex-1 w-full min-w-0"
             onMouseEnter={() => setPaused(true)}
@@ -224,22 +229,24 @@ export function HeroCarousel() {
             onFocusCapture={() => setPaused(true)}
             onBlurCapture={() => setPaused(false)}
           >
-            <InfiniteMarquee
+            <div
               key={slide.eyebrow}
-              durationSec={marqueeDurationSec}
-              gapClassName="gap-3 sm:gap-4"
-              trailClassName="pe-3 sm:pe-4"
-              ariaLabel={`${slide.eyebrow} products`}
-              paused={paused}
-              pauseOnHover={false}
+              className="overflow-x-auto snap-x snap-mandatory no-scrollbar"
+              aria-label={`${slide.eyebrow} products`}
             >
-              {marqueeProducts.map((p, i) => (
-                <MiniCard key={p.id} product={p} priority={i === 0} />
-              ))}
-            </InfiniteMarquee>
+              <div className="flex gap-3 sm:gap-4 pe-3 sm:pe-4">
+                {/* AX-05: only first card gets priority loading */}
+                {slideProducts.map((p, i) => (
+                  <div key={p.id} className="snap-start">
+                    <MiniCard product={p} priority={i === 0} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
+        {/* HE-04: simple teal active pill + gray inactive dots, 44px hit targets */}
         <div className="flex items-center justify-center gap-1 mt-8">
           {SLIDES.map((s, i) => (
             <button
@@ -250,7 +257,7 @@ export function HeroCarousel() {
               className="relative flex items-center justify-center w-11 h-11"
             >
               <span className={`block rounded-full transition-all duration-300 ${
-                i === active ? 'w-7 h-2.5 bg-brand' : 'w-2.5 h-2.5 bg-brand/30 hover:bg-brand/50'
+                i === active ? 'w-8 h-2.5 bg-brand' : 'w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400'
               }`} />
             </button>
           ))}

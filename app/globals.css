@@ -69,7 +69,7 @@
   }
 
   .badge-new {
-    @apply inline-block bg-violet text-white text-xs font-display font-semibold
+    @apply inline-block bg-brand text-white text-xs font-display font-semibold
            px-2 py-0.5 rounded shadow-badge leading-none;
   }
 
@@ -151,6 +151,11 @@
       opacity: 1;
       transform: none;
     }
+  }
+
+  /* Safe-area padding for sticky mobile chrome (notch / home indicator) */
+  .pb-safe {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
   }
 }
 

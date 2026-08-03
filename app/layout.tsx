@@ -12,6 +12,7 @@ import { getOrganizationSchema } from '@/lib/schema'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 
+// Intentional dual-font strategy: Poppins (display/headings) + Inter (body) for brand differentiation vs competitor's Outfit mono-font.
 const poppins = Poppins({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],

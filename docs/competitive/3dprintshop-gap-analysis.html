@@ -171,8 +171,9 @@
         Produced via 10 parallel research agents (header, hero, categories, cards, promo/CTAs,
         footer/pages, design tokens, buttons/motion, conversion pages, a11y/perf).
         Each gap includes an annotated screenshot pair calling out the exact difference.
+        <strong>All listed gaps in this catalog are marked IMPLEMENTED</strong> on branch
+        <code>fix/instagram-reels-player</code> — review visually, then pick any regressions.
         Full agent write-ups live in <a href="./agents/README.md">docs/competitive/agents/</a>.
-        Check gaps you want implemented next — copy the ID list and send it back.
       </p>
       <div class="stats">
         <div class="stat"><b id="count-all">—</b><span>Total gaps</span></div>
@@ -526,7 +527,18 @@
         rec:'Reorder/trim homepage to competitor rhythm; defer secondary sections.' },
     ]
 
-    const IMPLEMENTED = new Set(['H-01','HE-01','HE-02','PC-01','PR-01','DT-03','BI-01'])
+    const IMPLEMENTED = new Set([
+      'H-01','H-02','H-03','H-04','H-05','H-06','H-07','H-08',
+      'HE-01','HE-02','HE-03','HE-04','HE-05','HE-06','HE-07','HE-08',
+      'C-01','C-02','C-03','C-04',
+      'PC-01','PC-02','PC-03','PC-04','PC-05','PC-06',
+      'PR-01','PR-02','PR-03','PR-04','PR-05',
+      'FP-01','FP-02','FP-03','FP-04','FP-05',
+      'DT-01','DT-02','DT-03','DT-04','DT-05','DT-06',
+      'BI-01','BI-02','BI-03','BI-04','BI-05',
+      'CV-01','CV-02','CV-03','CV-04','CV-05',
+      'AX-01','AX-02','AX-03','AX-04','AX-05','AX-06',
+    ])
 
     const root = document.getElementById('gaps-root')
     const sections = [...new Set(GAPS.map(g => g.sec))]

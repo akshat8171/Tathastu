@@ -143,42 +143,43 @@ export function ProductInfo({
   const waHref = waLink(`Hi, I have a question about "${name}" (tathastukeepsakes.in/products/${productId})`)
 
   return (
-    <div className="flex flex-col gap-5">
-      {/* ── Name ──────────────────────────────────────────────────────────────── */}
-      <div className="flex items-start justify-between gap-3">
-        <h1 className="font-display font-bold text-2xl md:text-3xl text-ink leading-tight flex-1">
-          {name}
-        </h1>
-        {/* Wishlist / Save button (P2) */}
-        <button
-          type="button"
-          onClick={async () => {
-            if (requiresAuth) {
-              // redirect handled inside toggle
-            }
-            await toggle(productId)
-          }}
-          aria-label={wishlisted ? `Remove ${name} from wishlist` : `Save ${name} to wishlist`}
-          aria-pressed={wishlisted}
-          className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 hover:border-brand hover:text-brand transition-colors text-ink group"
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill={wishlisted ? 'currentColor' : 'none'}
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            className={wishlisted ? 'text-red-500' : 'text-gray-400 group-hover:text-brand'}
+    <>
+      <div className="flex flex-col gap-5">
+        {/* ── Name ──────────────────────────────────────────────────────────────── */}
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="font-display font-bold text-2xl md:text-3xl text-ink leading-tight flex-1">
+            {name}
+          </h1>
+          {/* Wishlist / Save button (P2) */}
+          <button
+            type="button"
+            onClick={async () => {
+              if (requiresAuth) {
+                // redirect handled inside toggle
+              }
+              await toggle(productId)
+            }}
+            aria-label={wishlisted ? `Remove ${name} from wishlist` : `Save ${name} to wishlist`}
+            aria-pressed={wishlisted}
+            className="flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg border border-gray-200 hover:border-brand hover:text-brand transition-colors text-ink group"
           >
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
-          <span className="text-xs font-sans font-medium">{wishlisted ? 'Saved' : 'Save'}</span>
-        </button>
-      </div>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill={wishlisted ? 'currentColor' : 'none'}
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              className={wishlisted ? 'text-red-500' : 'text-gray-400 group-hover:text-brand'}
+            >
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+            <span className="text-xs font-sans font-medium">{wishlisted ? 'Saved' : 'Save'}</span>
+          </button>
+        </div>
 
       {/* ── Rating summary ────────────────────────────────────────────────────── */}
       <div className="flex items-center gap-3 flex-wrap">
@@ -506,8 +507,52 @@ export function ProductInfo({
         </svg>
         Have a question? <span className="text-brand font-medium">Chat on WhatsApp</span>
       </a>
-    </div>
+      </div>
+
+      {/* ── CV-01: Sticky mobile ATC bar ──────────────────────────────────────── */}
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-white border-t border-gray-100 shadow-[0_-4px_12px_rgba(0,0,0,0.08)] md:hidden pb-safe">
+        <div className="container-page py-3 flex items-center gap-3">
+          <div className="flex-1 min-w-0">
+            <p className="font-display font-bold text-brand text-lg">
+              {formatINR(price)}
+            </p>
+            {originalPrice && originalPrice > price && (
+              <p className="text-xs text-muted font-sans">
+                <s>₹{originalPrice}</s>
+                {' · '}
+                {discountPct}% off
+              </p>
+            )}
+          </div>
+          <div className="flex-shrink-0 flex gap-2" onClick={handleAddAttempt}>
+            <AddToCartButton
+              product={{
+                id: productId,
+                name,
+                price,
+                originalPrice: originalPrice ?? price,
+                image,
+              }}
+              quantity={quantity}
+              label="Add to cart"
+              disabled={ctaDisabled}
+              customText={customTextValue || undefined}
+              selectedOptions={Object.keys(selections).length > 0 ? selections : undefined}
+              className="!bg-brand hover:!bg-brand-600 !rounded-xl !py-2.5 !px-4 !text-sm font-display font-semibold disabled:!opacity-60"
+            />
+          </div>
+        </div>
+      </div>
+    </>
   )
+}
+
+function formatINR(amount: number): string {
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(amount)
 }
 
 // ── Accordion ─────────────────────────────────────────────────────────────────

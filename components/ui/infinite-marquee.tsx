@@ -37,10 +37,31 @@ export function InfiniteMarquee({
 }: InfiniteMarqueeProps) {
   return (
     <div className={`relative overflow-hidden ${className}`} aria-label={ariaLabel}>
-      <div className={pauseOnHover ? 'group' : undefined}>
+      <div 
+        className={pauseOnHover ? 'group' : undefined}
+        onFocusCapture={(e) => {
+          // Pause when any child receives focus
+          const target = e.target as HTMLElement
+          if (target.closest('[data-marquee-track]')) {
+            const track = target.closest('[data-marquee-track]') as HTMLElement
+            track.style.animationPlayState = 'paused'
+          }
+        }}
+        onBlurCapture={(e) => {
+          // Resume when focus leaves (if not externally paused)
+          if (!paused) {
+            const target = e.target as HTMLElement
+            const track = target.closest('[data-marquee-track]') as HTMLElement
+            if (track) {
+              track.style.animationPlayState = 'running'
+            }
+          }
+        }}
+      >
         <div
+          data-marquee-track
           className={`flex w-max flex-nowrap animate-[marquee-scroll_var(--marquee-duration)_linear_infinite] motion-reduce:animate-none ${
-            pauseOnHover ? 'group-hover:[animation-play-state:paused]' : ''
+            pauseOnHover ? 'group-hover:[animation-play-state:paused] group-focus-within:[animation-play-state:paused]' : ''
           }`}
           style={{
             ['--marquee-duration' as string]: `${durationSec}s`,

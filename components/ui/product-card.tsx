@@ -63,6 +63,7 @@ export interface ProductCardData {
 export interface ProductCardProps extends ProductCardData {
   onAddToCart?: (id: string) => void
   className?: string
+  showRating?: boolean  // default true
 }
 
 // Swatch overflow threshold
@@ -87,6 +88,7 @@ export function ProductCard({
   colors,
   customizable,
   options,
+  showRating = true,
 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const [isAdding, setIsAdding] = useState(false)
@@ -181,7 +183,7 @@ export function ProductCard({
         </div>
 
         <button
-          className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white"
+          className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center transition-all duration-200 hover:bg-white hover:scale-110"
           aria-label={isWishlisted(id) ? `Remove ${name} from wishlist` : `Add ${name} to wishlist`}
           aria-pressed={isWishlisted(id)}
           onClick={async (e) => {
@@ -210,11 +212,11 @@ export function ProductCard({
           </svg>
         </button>
 
-        {/* PC-01: competitor chrome — price pill + circular ATC on image */}
+        {/* PC-01: competitor chrome — price pill + circular ATC always visible on image */}
         {!isSoldOut && (
           <div className="absolute inset-x-2 bottom-2 z-10 flex items-end justify-between gap-2 pointer-events-none">
             <span className="inline-flex items-center rounded-full bg-white/95 px-2.5 py-1 text-xs font-display font-bold text-ink shadow-badge tabular-nums">
-              {showFromPrice ? 'From ' : ''}₹{price.toLocaleString('en-IN')}
+              {showFromPrice ? 'From ' : ''}₹{price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
             <button
               type="button"
@@ -252,13 +254,13 @@ export function ProductCard({
           {name}
         </Link>
 
-        {/* Rating */}
-        <Rating value={rating} count={reviewCount} />
+        {/* Rating — conditional via prop */}
+        {showRating && <Rating value={rating} count={reviewCount} />}
 
         {/* Price row (mirrors on-image pill for list readability) */}
         {showFromPrice ? (
           <p className="text-sm font-display font-semibold text-brand">
-            From <span className="tabular-nums">₹{price.toLocaleString('en-IN')}</span>
+            From <span className="tabular-nums">₹{price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
           </p>
         ) : (
           <Price current={price} compareAt={originalPrice} showDiscount={false} />

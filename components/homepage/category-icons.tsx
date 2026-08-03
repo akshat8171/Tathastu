@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { SectionHeading, ScrollRail } from '@/components/ui'
-import { categories } from '@/lib/categories'
+import { homepageCategories } from '@/lib/categories'
 import productsData from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui'
 
@@ -27,11 +27,56 @@ export function CategoryIcons() {
         />
 
         <div className="mt-8">
-          <ScrollRail className="gap-3 sm:gap-4 pb-2" ariaLabel="Product categories">
-            {categories.map((cat) => {
-              // Honour a category's explicit `route` when set (e.g. the Rakhi hub
-              // at /rakhi). Existing categories' routes already equal the default
-              // /products?category=<slug> target, so this is behaviour-preserving.
+          {/* Mobile: horizontal scroll rail. Desktop: responsive grid. */}
+          <div className="sm:hidden">
+            <ScrollRail className="gap-3 pb-2" ariaLabel="Product categories">
+              {homepageCategories.map((cat) => {
+                const href = cat.route ?? (cat.isCta ? '/customize' : `/products?category=${cat.slug}`)
+                const from = minPriceByCategory[cat.slug]
+
+                return (
+                  <Link
+                    key={cat.slug}
+                    href={href}
+                    className="group snap-start flex-shrink-0 w-[42%] block"
+                    aria-label={`Shop ${cat.displayName}`}
+                  >
+                    <div className="relative aspect-square rounded-card2 overflow-hidden bg-panel border border-gray-100 shadow-sm group-hover:shadow-card-hover transition-shadow duration-300">
+                      <Image
+                        src={cat.image}
+                        alt={cat.displayName}
+                        fill
+                        sizes="42vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+
+                      {/* C-01: Solid brand teal badge */}
+                      {from !== undefined && !cat.isCta && (
+                        <span className="absolute top-2 left-2 bg-brand text-white text-[11px] px-2.5 py-1 rounded-full leading-none">
+                          Starting at ₹{from}
+                        </span>
+                      )}
+
+                      {cat.isCta && (
+                        <span className="absolute top-2 left-2 bg-violet text-white text-[11px] px-2.5 py-1 rounded-full leading-none">
+                          Custom
+                        </span>
+                      )}
+                    </div>
+
+                    {/* C-04: text-sm font-medium, gap-3 */}
+                    <p className="mt-3 text-center text-sm font-medium text-ink leading-tight group-hover:text-brand transition-colors">
+                      {cat.displayName}
+                    </p>
+                  </Link>
+                )
+              })}
+            </ScrollRail>
+          </div>
+
+          {/* C-02: Desktop grid (sm+) */}
+          <div className="hidden sm:grid sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {homepageCategories.map((cat) => {
               const href = cat.route ?? (cat.isCta ? '/customize' : `/products?category=${cat.slug}`)
               const from = minPriceByCategory[cat.slug]
 
@@ -39,42 +84,40 @@ export function CategoryIcons() {
                 <Link
                   key={cat.slug}
                   href={href}
-                  className="group snap-start flex-shrink-0 w-32 sm:w-40 block"
+                  className="group block"
                   aria-label={`Shop ${cat.displayName}`}
                 >
-                  {/* Small, cute image tile */}
-                  <div className="relative aspect-square rounded-card2 overflow-hidden bg-panel shadow-card group-hover:shadow-card-hover transition-shadow duration-300">
+                  <div className="relative aspect-square rounded-card2 overflow-hidden bg-panel border border-gray-100 shadow-sm group-hover:shadow-card-hover transition-shadow duration-300">
                     <Image
                       src={cat.image}
                       alt={cat.displayName}
                       fill
-                      sizes="(max-width: 640px) 33vw, 160px"
+                      sizes="(max-width: 1024px) 33vw, 16.66vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 
-                    {/* "Starting at ₹X" pill (top-left) */}
+                    {/* C-01: Solid brand teal badge */}
                     {from !== undefined && !cat.isCta && (
-                      <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm text-ink text-[10px] font-display font-semibold px-2 py-0.5 rounded-full shadow-badge leading-none">
+                      <span className="absolute top-2 left-2 bg-brand text-white text-[11px] px-2.5 py-1 rounded-full leading-none">
                         Starting at ₹{from}
                       </span>
                     )}
 
-                    {/* Custom pill for the CTA tile */}
                     {cat.isCta && (
-                      <span className="absolute top-2 left-2 bg-violet text-white text-[10px] font-display font-semibold px-2 py-0.5 rounded-full shadow-badge leading-none">
+                      <span className="absolute top-2 left-2 bg-violet text-white text-[11px] px-2.5 py-1 rounded-full leading-none">
                         Custom
                       </span>
                     )}
                   </div>
 
-                  {/* Label BELOW the tile (not overlaid) — the "cute" look */}
-                  <p className="mt-2.5 text-center font-display font-semibold text-ink text-xs sm:text-sm leading-tight group-hover:text-brand transition-colors">
+                  {/* C-04: text-sm font-medium, gap-3 */}
+                  <p className="mt-3 text-center text-sm font-medium text-ink leading-tight group-hover:text-brand transition-colors">
                     {cat.displayName}
                   </p>
                 </Link>
               )
             })}
-          </ScrollRail>
+          </div>
         </div>
       </div>
     </section>

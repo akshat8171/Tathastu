@@ -10,22 +10,22 @@ module.exports = {
       colors: {
         // ── Primary action: teal / deep-green ──────────────────────────────
         brand: {
-          50:  '#e6f4f1',
-          100: '#c0e4dd',
-          200: '#8ecec5',
-          300: '#52b5a9',
-          400: '#23a191',
-          DEFAULT: '#0E7A66', // primary CTA, buttons, links
-          600: '#0B6E5C',     // hover darken
-          700: '#095748',
-          800: '#073f34',
-          900: '#042720',
+          50:  '#e6f3f4',
+          100: '#c0e2e5',
+          200: '#8ecfd4',
+          300: '#52b9c1',
+          400: '#23a4af',
+          DEFAULT: '#1F717A', // primary CTA, buttons, links — cooler petrol teal
+          600: '#1A6169',     // hover darken
+          700: '#155158',
+          800: '#103d43',
+          900: '#0a292d',
         },
-        teal: '#0E7A66',      // alias – use `brand` tokens above
+        teal: '#1F717A',      // alias – use `brand` tokens above
 
         // ── Promo / announcement / violet ──────────────────────────────────
         violet: {
-          DEFAULT: '#4C2A86', // announcement bar bg, promo gradient start
+          DEFAULT: '#4B2C78', // announcement bar bg, promo gradient start
           dark:    '#3B1F6A', // deeper violet for hover / gradient end
           light:   '#6B45A8',
         },
@@ -47,6 +47,9 @@ module.exports = {
         // ── Badges ────────────────────────────────────────────────────────
         sale:     '#E63946',  // "Sale" badge  (red)
         discount: '#16A34A',  // "%OFF" badge  (green – Tailwind green-600)
+
+        // ── Social / External ──────────────────────────────────────────────
+        whatsapp: '#25D366',  // WhatsApp brand green
       },
 
       fontFamily: {

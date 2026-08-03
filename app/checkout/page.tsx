@@ -16,9 +16,21 @@ export default function CheckoutPage() {
       {/* Page heading */}
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold text-ink">Checkout</h1>
-        <p className="text-muted font-sans mt-1 text-sm">
-          Secure checkout powered by Razorpay
-        </p>
+        <div className="flex items-center gap-3 mt-2 flex-wrap">
+          <p className="text-muted font-sans text-sm">
+            Secure checkout powered by Razorpay
+          </p>
+          <div className="hidden sm:block w-px h-4 bg-gray-200" />
+          <div className="flex items-center gap-2 text-xs text-muted font-sans">
+            <span>COD</span>
+            <span>·</span>
+            <span>UPI</span>
+            <span>·</span>
+            <span>Cards</span>
+            <span>·</span>
+            <span>Wallets</span>
+          </div>
+        </div>
       </div>
 
       {/* Two-column layout: form (left) + summary (right).

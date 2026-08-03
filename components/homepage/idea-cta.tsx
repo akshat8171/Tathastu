@@ -2,7 +2,7 @@ import { Button } from '@/components/ui'
 
 export function IdeaCta() {
   return (
-    <section className="py-14 sm:py-20 bg-ink relative overflow-hidden" aria-label="Custom print enquiry">
+    <section className="py-14 sm:py-20 bg-ink relative overflow-hidden" aria-label="Tathastu Lab custom printing">
       {/* Decorative background circles */}
       <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-violet/20 blur-3xl pointer-events-none" aria-hidden="true" />
       <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-brand/20 blur-3xl pointer-events-none" aria-hidden="true" />
@@ -10,27 +10,27 @@ export function IdeaCta() {
       <div className="container-page relative z-10 text-center">
         {/* Eyebrow */}
         <p className="font-sans text-xs font-semibold uppercase tracking-widest text-white/60 mb-4">
-          Custom 3D Printing
+          Tathastu Lab
         </p>
 
         {/* Headline */}
         <h2 className="font-display font-extrabold text-white text-3xl sm:text-4xl lg:text-5xl leading-tight mb-4 max-w-2xl mx-auto">
-          Have an idea?{' '}
+          Custom 3D Prints{' '}
           <span className="text-brand">
-            We&apos;ll print it.
+            Made Real
           </span>
         </h2>
 
         {/* Sub-copy */}
         <p className="font-sans text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
-          Upload a file, describe what you need, or drop us a message — we&apos;ll
-          turn your idea into a physical object, shipped anywhere in India.
+          Upload your design or share an idea — we&apos;ll bring it to life with
+          precision 3D printing and ship it anywhere across India.
         </p>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button variant="primary" size="lg" href="/customize">
-            Customise Now
+            Visit Tathastu Lab
           </Button>
           <a
             href="https://wa.me/919154892790"
