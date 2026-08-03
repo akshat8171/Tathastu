@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Difference Report — Tathastu Keepsakes vs 3DPrintShop.in</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --panel: #171a22;
+      --panel2: #1e2330;
+      --border: #2a3142;
+      --text: #e8ecf4;
+      --muted: #9aa3b5;
+      --brand: #0E7A66;
+      --violet: #4C2A86;
+      --p0: #ef4444;
+      --p1: #f59e0b;
+      --p2: #3b82f6;
+      --ok: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    a { color: #7dd3c0; }
+    header.top {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(15,17,23,.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+    }
+    .top-inner { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+    .brand-title { font-weight: 800; font-size: 15px; letter-spacing: .02em; }
+    .brand-title span { color: #7dd3c0; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .controls input[type="search"] {
+      background: var(--panel); border: 1px solid var(--border); color: var(--text);
+      border-radius: 8px; padding: 8px 12px; min-width: 220px;
+    }
+    .chip {
+      border: 1px solid var(--border); background: var(--panel); color: var(--muted);
+      border-radius: 999px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    .chip.active { color: #fff; border-color: transparent; }
+    .chip.p0.active { background: var(--p0); }
+    .chip.p1.active { background: var(--p1); color: #111; }
+    .chip.p2.active { background: var(--p2); }
+    .chip.sec.active { background: var(--brand); }
+    .btn {
+      background: var(--brand); color: #fff; border: 0; border-radius: 8px;
+      padding: 8px 12px; font-weight: 700; font-size: 12px; cursor: pointer;
+    }
+    .btn.secondary { background: var(--panel2); border: 1px solid var(--border); }
+    main { max-width: 1280px; margin: 0 auto; padding: 24px 20px 80px; }
+    .hero-note {
+      background: linear-gradient(135deg, #1a1230, #10241f);
+      border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+      margin-bottom: 24px;
+    }
+    .hero-note h1 { margin: 0 0 8px; font-size: 28px; }
+    .hero-note p { margin: 0; color: var(--muted); max-width: 80ch; }
+    .stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .stat {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 14px; min-width: 110px;
+    }
+    .stat b { display: block; font-size: 22px; }
+    .stat span { color: var(--muted); font-size: 12px; }
+    .compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0;
+    }
+    @media (max-width: 900px) { .compare { grid-template-columns: 1fr; } }
+    .shot {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    }
+    .shot .label {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 700;
+    }
+    .shot img { width: 100%; display: block; background: #000; }
+    .section {
+      margin: 28px 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+      background: var(--panel);
+    }
+    .section > summary, .section-head {
+      list-style: none; cursor: pointer; padding: 14px 16px; background: var(--panel2);
+      display: flex; justify-content: space-between; align-items: center; gap: 12px;
+      font-weight: 800;
+    }
+    details.section > summary::-webkit-details-marker { display: none; }
+    .section-body { padding: 8px 12px 16px; }
+    .gap {
+      display: grid; grid-template-columns: 28px 1fr; gap: 10px;
+      border: 1px solid var(--border); border-radius: 12px; padding: 12px;
+      margin: 10px 0; background: #141822;
+    }
+    .gap.hidden { display: none; }
+    .gap .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 6px; }
+    .id { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: #a5b4fc; }
+    .sev {
+      font-size: 11px; font-weight: 800; border-radius: 999px; padding: 2px 8px; color: #fff;
+    }
+    .sev.P0 { background: var(--p0); }
+    .sev.P1 { background: var(--p1); color: #111; }
+    .sev.P2 { background: var(--p2); }
+    .sec-tag {
+      font-size: 11px; border: 1px solid var(--border); border-radius: 999px;
+      padding: 2px 8px; color: var(--muted);
+    }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 800px) { .cols { grid-template-columns: 1fr; } }
+    .box {
+      background: #0d1018; border: 1px solid var(--border); border-radius: 10px; padding: 10px; font-size: 13px;
+    }
+    .box h4 { margin: 0 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .rec { margin-top: 8px; font-size: 13px; color: #bbf7d0; }
+    .ev { margin-top: 6px; font-size: 12px; color: var(--muted); }
+    footer.note { color: var(--muted); font-size: 12px; margin-top: 32px; }
+    #selected-panel {
+      position: fixed; right: 16px; bottom: 16px; z-index: 60;
+      background: var(--panel2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 12px; width: min(360px, calc(100vw - 32px));
+      box-shadow: 0 12px 40px rgba(0,0,0,.45);
+    }
+    #selected-panel textarea {
+      width: 100%; height: 90px; background: #0d1018; color: var(--text);
+      border: 1px solid var(--border); border-radius: 8px; padding: 8px; font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <div class="top-inner">
+      <div class="brand-title">Difference Report · <span>Tathastu</span> vs 3DPrintShop.in</div>
+      <div class="controls">
+        <input id="q" type="search" placeholder="Filter gaps…" />
+        <button class="chip p0 active" data-sev="P0">P0</button>
+        <button class="chip p1 active" data-sev="P1">P1</button>
+        <button class="chip p2 active" data-sev="P2">P2</button>
+        <button class="btn secondary" id="select-visible">Select visible</button>
+        <button class="btn secondary" id="clear-sel">Clear</button>
+        <button class="btn" id="copy-sel">Copy selected IDs</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero-note">
+      <h1>Competitive deep-dive for review &amp; pick-list</h1>
+      <p>
+        Comparison of <strong>Tathastu Keepsakes</strong> against
+        <a href="https://3dprintshop.in/" target="_blank" rel="noopener">3dprintshop.in</a>.
+        Produced via 10 parallel research agents (header, hero, categories, cards, promo/CTAs,
+        footer/pages, design tokens, buttons/motion, conversion pages, a11y/perf).
+        Full agent write-ups live in <a href="./agents/README.md">docs/competitive/agents/</a>.
+        Check gaps you want implemented next — copy the ID list and send it back.
+      </p>
+      <div class="stats">
+        <div class="stat"><b id="count-all">—</b><span>Total gaps</span></div>
+        <div class="stat"><b id="count-p0">—</b><span>P0 critical</span></div>
+        <div class="stat"><b id="count-p1">—</b><span>P1 important</span></div>
+        <div class="stat"><b id="count-p2">—</b><span>P2 polish</span></div>
+        <div class="stat"><b id="count-sel">0</b><span>Selected</span></div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <figure class="shot">
+        <div class="label"><span>Competitor — 3dprintshop.in</span><span style="color:var(--muted)">Homepage hero</span></div>
+        <img src="./assets/competitor-homepage.png" alt="3DPrintShop.in homepage screenshot" />
+      </figure>
+      <figure class="shot">
+        <div class="label"><span>Ours — Tathastu Keepsakes</span><span style="color:var(--muted)">Homepage hero</span></div>
+        <img src="./assets/ours-homepage.png" alt="Tathastu Keepsakes homepage screenshot" />
+      </figure>
+    </div>
+
+    <div id="section-filters" class="controls" style="margin-bottom:16px"></div>
+    <div id="gaps-root"></div>
+
+    <footer class="note">
+      Sources: local screenshots (Aug 3, 2026), Tathastu codebase (<code>components/</code>, <code>app/</code>, <code>tailwind.config.js</code>),
+      competitor public site <a href="https://3dprintshop.in/">https://3dprintshop.in/</a>
+      (note: competitor may geo-gate outside India). Generated for Director review — pick IDs to implement.
+    </footer>
+  </main>
+
+  <aside id="selected-panel">
+    <div style="font-weight:800;margin-bottom:8px;font-size:13px">Selected for implementation</div>
+    <textarea id="sel-out" readonly placeholder="Checked gap IDs appear here…"></textarea>
+  </aside>
+
+  <script>
+    /**
+     * Gap catalog — each item is independently reviewable.
+     * Severity: P0 must-match competitor conversion chrome, P1 strong UX parity, P2 polish.
+     */
+    const GAPS = [
+      // ── Header & Announcement ───────────────────────────────────────────
+      { id:'H-01', sev:'P0', sec:'Header', title:'Nav density & IA mismatch',
+        theirs:'5 focused links: Pooja & Decor, Home Decor, Keyrings/BagTag, Workspace, 3DPrintShop Lab (NEW).',
+        ours:'9+ links including Home, Rakhi NEW, Gaming, Customise Now, Blog — denser, harder to scan.',
+        ev:'components/layout/header.tsx navItems; screenshot side-by-side',
+        rec:'Reduce desktop nav to 5–6 category-first items; move Blog/Home elsewhere; keep one Lab/Customise entry with NEW.' },
+      { id:'H-02', sev:'P1', sec:'Header', title:'NEW badge style differs',
+        theirs:'Small teal NEW pill on Lab only.',
+        ours:'Purple NEW badges on Rakhi + Keyrings (violet token).',
+        ev:'header.tsx Badge variant; competitor screenshot',
+        rec:'Match competitor: fewer NEW badges; use brand/teal for NEW, not violet.' },
+      { id:'H-03', sev:'P1', sec:'Header', title:'Cart badge color & presence',
+        theirs:'Teal bubble with count on bag icon.',
+        ours:'Cart badge present but styling may not match teal competitor chip.',
+        ev:'header.tsx cart badge; competitor screenshot cart=1',
+        rec:'Use brand teal circular badge with white numeral; ensure always visible when count>0.' },
+      { id:'H-04', sev:'P2', sec:'Header', title:'Announcement bar free-shipping copy',
+        theirs:'Shorter left message without free-shipping clause in bar.',
+        ours:'Includes free shipping above ₹199 in the same bar (longer).',
+        ev:'announcement-bar.tsx; screenshots',
+        rec:'Shorten announcement; keep free-shipping in promo strip only (like competitor).' },
+      { id:'H-05', sev:'P2', sec:'Header', title:'Track Order icon treatment',
+        theirs:'Location-pin style cue beside Track Order.',
+        ours:'Text link Track Order without pin icon.',
+        ev:'announcement-bar.tsx',
+        rec:'Add pin icon for Track Order to match competitor utility row.' },
+      { id:'H-06', sev:'P1', sec:'Header', title:'Logo wordmark + mark hierarchy',
+        theirs:'Colorful cube mark + 3DPrintShop.in compact wordmark.',
+        ours:'TK mark + longer “Tathastu Keepsakes” (hidden on smaller lg breakpoints partially).',
+        ev:'header.tsx Image logo',
+        rec:'Ensure mark+wordmark balance; consider shorter display name on md.' },
+      { id:'H-07', sev:'P2', sec:'Header', title:'Utility icon stroke weight',
+        theirs:'Thin outline icons, generous hit area.',
+        ours:'Similar SVG icons but padding/hover surface differs.',
+        ev:'header.tsx icon buttons',
+        rec:'Normalize icon size 20–22px, hit area ≥44px, subtle hover bg.' },
+      { id:'H-08', sev:'P1', sec:'Header', title:'No Lab-equivalent primary nav spotlight',
+        theirs:'3DPrintShop Lab is a first-class nav item with NEW.',
+        ours:'Customise Now is one of many; Lab metaphor weaker.',
+        ev:'header.tsx; competitor nav',
+        rec:'Promote /customize as “Tathastu Lab” (or similar) with NEW badge as primary nav CTA.' },
+
+      // ── Hero ────────────────────────────────────────────────────────────
+      { id:'HE-01', sev:'P0', sec:'Hero', title:'Hero product card chrome ≠ competitor',
+        theirs:'White price pill bottom-left + circular teal cart button bottom-right; sale+%OFF top-left.',
+        ours:'Full-width orange/red price bar; Sale top-left + %OFF top-right; no on-card cart button.',
+        ev:'hero-carousel.tsx MiniCard; screenshot compare',
+        rec:'Restyle MiniCard to competitor anatomy: price pill + round ATC; relocate badges.' },
+      { id:'HE-02', sev:'P0', sec:'Hero', title:'Primary CTA has no trailing arrow',
+        theirs:'Shop … → with arrow.',
+        ours:'Shop Gaming / Shop Pooja without arrow icon.',
+        ev:'hero-carousel.tsx Button primary',
+        rec:'Add → / chevron icon to primary hero CTA.' },
+      { id:'HE-03', sev:'P1', sec:'Hero', title:'Secondary CTA destination',
+        theirs:'Outline “3DPrintShop Lab”.',
+        ours:'Outline “Customise Now” + extra WhatsApp button (3 CTAs).',
+        ev:'hero-carousel.tsx CTA group; screenshots',
+        rec:'Limit hero to 2 CTAs (Shop + Lab/Customise); move WhatsApp to float only or tertiary text link.' },
+      { id:'HE-04', sev:'P1', sec:'Hero', title:'Carousel dots language',
+        theirs:'Simple 2-dot indicators (teal active).',
+        ours:'Custom dash/box/dot mix; more complex.',
+        ev:'hero-carousel.tsx dots',
+        rec:'Simplify to pill/dot pagination matching competitor.' },
+      { id:'HE-05', sev:'P1', sec:'Hero', title:'Hero product motion model',
+        theirs:'Appears as themed product row / carousel per slide (static-looking cards in screenshot).',
+        ours:'InfiniteMarquee continuous scroll within slide.',
+        ev:'hero-carousel.tsx InfiniteMarquee',
+        rec:'Confirm desired motion: competitor-like snap carousel vs continuous marquee; optionally pause/auto-advance cards without infinite duplicate.' },
+      { id:'HE-06', sev:'P2', sec:'Hero', title:'Eyebrow casing',
+        theirs:'Title case “Pooja & Decor”.',
+        ours:'Uppercase tracking “GAMING & FUN”.',
+        ev:'hero-carousel.tsx eyebrow',
+        rec:'Match title-case softer pill like competitor.' },
+      { id:'HE-07', sev:'P2', sec:'Hero', title:'Headline emphasis pattern',
+        theirs:'Single-color bold headline in screenshot.',
+        ours:'Two-tone: ink + brand highlight span.',
+        ev:'hero-carousel.tsx h1',
+        rec:'Optional: keep brand accent but reduce color split intensity.' },
+      { id:'HE-08', sev:'P1', sec:'Hero', title:'Slide count vs competitor',
+        theirs:'Appears ~2 slides in dots.',
+        ours:'3 themed slides (Pooja/Keyrings/Gaming).',
+        ev:'SLIDES in hero-carousel.tsx',
+        rec:'Keep 3 if intentional; or collapse to competitor’s tighter set.' },
+
+      // ── Categories ──────────────────────────────────────────────────────
+      { id:'C-01', sev:'P1', sec:'Categories', title:'Starting-at badge style',
+        theirs:'Solid teal “Starting at ₹…” chip.',
+        ours:'White/blur translucent pill.',
+        ev:'category-icons.tsx; competitor category area',
+        rec:'Use solid brand chip for starting price.' },
+      { id:'C-02', sev:'P2', sec:'Categories', title:'Category rail vs grid',
+        theirs:'Category tiles in horizontal presentation.',
+        ours:'ScrollRail horizontal with arrows on md+.',
+        ev:'category-icons.tsx ScrollRail',
+        rec:'Parity OK; verify peek amount and arrow chrome match competitor polish.' },
+      { id:'C-03', sev:'P1', sec:'Categories', title:'Category set includes extras',
+        theirs:'Core shop categories + Lab.',
+        ours:'Pooja, Keyrings, Lamps, Workspace, Gaming, Custom CTA, possibly Rakhi hub.',
+        ev:'lib/categories.ts',
+        rec:'Align homepage category order/count with competitor’s shop mental model; Lab CTA tile last.' },
+      { id:'C-04', sev:'P2', sec:'Categories', title:'Label placement',
+        theirs:'Labels under tiles (similar).',
+        ours:'Labels below tiles — good parity.',
+        ev:'category-icons.tsx',
+        rec:'Keep; tighten typography weight to match competitor.' },
+
+      // ── Product cards & rails ───────────────────────────────────────────
+      { id:'PC-01', sev:'P0', sec:'Product Cards', title:'Listing card ≠ hero mini-card ≠ competitor card',
+        theirs:'Consistent card language sitewide (price pill + cart circle).',
+        ours:'ProductCard has richer features (wishlist, rating, swatches) but different price/ATC pattern than hero MiniCard and competitor.',
+        ev:'components/ui/product-card.tsx vs hero MiniCard',
+        rec:'Unify card system: one ProductCard variant=”compact|rail|grid” matching competitor chrome.' },
+      { id:'PC-02', sev:'P1', sec:'Product Cards', title:'Add-to-cart affordance on card',
+        theirs:'Always-visible circular cart on card.',
+        ours:'ATC may be hover/secondary depending on card implementation.',
+        ev:'product-card.tsx',
+        rec:'Always show round ATC on cards for parity.' },
+      { id:'PC-03', sev:'P1', sec:'Product Cards', title:'Sale + %OFF stacking',
+        theirs:'Sale + %OFF stacked top-left.',
+        ours:'Sale left, %OFF right on hero; listing may differ.',
+        ev:'hero MiniCard; badge.tsx',
+        rec:'Stack both badges top-left like competitor.' },
+      { id:'PC-04', sev:'P2', sec:'Product Cards', title:'Price decimals',
+        theirs:'₹449.00 style.',
+        ours:'₹179 integer style.',
+        ev:'screenshots; Price component',
+        rec:'Decide currency format; competitor uses decimals.' },
+      { id:'PC-05', sev:'P1', sec:'Product Cards', title:'Best sellers rail interaction',
+        theirs:'Likely snap/scroll product rows.',
+        ours:'ScrollRail with prev/next arrows, no auto-marquee.',
+        ev:'product-rail.tsx; best-sellers.tsx',
+        rec:'Keep arrows; ensure card peek & spacing match competitor density.' },
+      { id:'PC-06', sev:'P2', sec:'Product Cards', title:'Rating on cards',
+        theirs:'Not prominent on homepage hero cards.',
+        ours:'Rating/review count on ProductCard.',
+        ev:'product-card.tsx Rating',
+        rec:'Hide ratings on homepage rails if chasing competitor minimalism; keep on PLP/PDP.' },
+
+      // ── Promo / trust / CTAs ────────────────────────────────────────────
+      { id:'PR-01', sev:'P0', sec:'Promo', title:'FIRST20 banner layout gap',
+        theirs:'Full-width teal→purple gradient, ticket icon, dashed code box, copy icon.',
+        ours:'promo-gradient with text + solid white pill code; no ticket icon; no dashed border; no explicit copy button.',
+        ev:'promo-strip.tsx; competitor screenshot promo',
+        rec:'Rebuild PromoStrip to ticket + dashed FIRST20 + copy-to-clipboard.' },
+      { id:'PR-02', sev:'P1', sec:'Promo', title:'Promo headline phrasing',
+        theirs:'“Get 20% OFF on your first order” + detailed subcopy.',
+        ours:'“20% OFF your first order” shorter subcopy.',
+        ev:'promo-strip.tsx',
+        rec:'Match competitor copy hierarchy and free-shipping mention placement.' },
+      { id:'PR-03', sev:'P2', sec:'Promo', title:'WhatsApp float parity',
+        theirs:'Green circular WhatsApp FAB bottom-right.',
+        ours:'whatsapp-float present — likely parity.',
+        ev:'whatsapp-float.tsx',
+        rec:'Verify size/offset vs competitor; avoid collision with chat widgets.' },
+      { id:'PR-04', sev:'P1', sec:'Promo', title:'Idea / Lab CTA band',
+        theirs:'Strong Lab customise messaging in site chrome.',
+        ours:'idea-cta + customize pages exist but visual may be less Lab-branded.',
+        ev:'idea-cta.tsx; customize/page.tsx',
+        rec:'Rename/restyle Idea CTA as Lab strip with competitor-like clarity.' },
+      { id:'PR-05', sev:'P2', sec:'Promo', title:'Instagram reels section',
+        theirs:'Not visible in provided homepage screenshot fold.',
+        ours:'InstagramReels marquee section on homepage.',
+        ev:'instagram-reels.tsx; app/page.tsx',
+        rec:'Keep as differentiator or move below fold per competitor density.' },
+
+      // ── Footer & pages ──────────────────────────────────────────────────
+      { id:'FP-01', sev:'P1', sec:'Footer', title:'Footer column model',
+        theirs:'Shop / Services / Contact + legal row; payment/COD cues.',
+        ours:'Shop / Services / policies + brand watermark; social icons.',
+        ev:'footer.tsx; competitor footer from site content',
+        rec:'Add Contact column with phone/email/WhatsApp/COD/Pay badges like competitor.' },
+      { id:'FP-02', sev:'P2', sec:'Footer', title:'Services link naming',
+        theirs:'3DPrintShop Lab, Upload Your Design, Track Order, Wishlist, Cart…',
+        ours:'Customise Now, Upload Your Design, Track Order→/account, Bulk Orders.',
+        ev:'footer.tsx serviceLinks',
+        rec:'Align labels; ensure Track Order hits /account/track-order.' },
+      { id:'FP-03', sev:'P1', sec:'Pages', title:'Lab naming / route clarity',
+        theirs:'Dedicated Lab nav identity.',
+        ours:'/customize + /custom-3d-printing + /watch-shop extras.',
+        ev:'app/customize; app/custom-3d-printing; app/watch-shop',
+        rec:'Consolidate Lab UX under one primary route in nav.' },
+      { id:'FP-04', sev:'P2', sec:'Pages', title:'Extra pages we have that competitor may not emphasize',
+        theirs:'Leaner marketing surface in fold.',
+        ours:'Rakhi hub, Blog, Watch & Shop, Bulk, Instagram, Reviews, Newsletter.',
+        ev:'app/**/page.tsx inventory',
+        rec:'Keep extras but reduce homepage chrome so hero+promo+categories dominate like competitor.' },
+      { id:'FP-05', sev:'P1', sec:'Pages', title:'Geo / India-only messaging',
+        theirs:'Explicit India shipping / coming-soon outside India gate.',
+        ours:'Pan-India messaging without geo gate.',
+        ev:'https://3dprintshop.in/ coming soon page; lib/site.ts',
+        rec:'Optional: add India-only trust line; skip geo-block unless needed.' },
+
+      // ── Design tokens ───────────────────────────────────────────────────
+      { id:'DT-01', sev:'P1', sec:'Design Tokens', title:'Primary teal hue',
+        theirs:'Slightly brighter teal CTA (~#2e6f71 range in screenshot).',
+        ours:'brand DEFAULT #0E7A66.',
+        ev:'tailwind.config.js colors.brand',
+        rec:'Tune brand scale to competitor teal if pixel-matching.' },
+      { id:'DT-02', sev:'P2', sec:'Design Tokens', title:'Announcement violet',
+        theirs:'Deep purple bar.',
+        ours:'violet #4C2A86 — close.',
+        ev:'tailwind violet; announcement-bar',
+        rec:'Minor tweak if needed for exact match.' },
+      { id:'DT-03', sev:'P0', sec:'Design Tokens', title:'Button radius language',
+        theirs:'Rounded rectangles (~10–12px), not full pills on primary hero CTA in screenshot.',
+        ours:'rounded-pill (fully pill) on btn-primary/outline.',
+        ev:'globals.css .btn-primary; screenshots',
+        rec:'Change primary/secondary buttons to rounded-xl/2xl to match competitor (not full pill).' },
+      { id:'DT-04', sev:'P1', sec:'Design Tokens', title:'Card radius',
+        theirs:'Noticeably rounded product cards.',
+        ours:'rounded-card2 tokens — verify numeric match.',
+        ev:'tailwind.config.js borderRadius',
+        rec:'Align card radius token to competitor ~12–16px.' },
+      { id:'DT-05', sev:'P2', sec:'Design Tokens', title:'Hero background gradient',
+        theirs:'Soft cool gray-blue wash.',
+        ours:'from-violet/10 via-surface to-brand-50.',
+        ev:'hero-carousel.tsx section class',
+        rec:'Reduce violet tint; cooler neutral wash like competitor.' },
+      { id:'DT-06', sev:'P1', sec:'Design Tokens', title:'Typography pairing',
+        theirs:'Bold display headline + clean sans UI.',
+        ours:'font-display + font-sans from config.',
+        ev:'tailwind fontFamily; globals.css',
+        rec:'Audit loaded fonts vs competitor; avoid overly decorative if competitor is simpler.' },
+
+      // ── Buttons / icons / motion ────────────────────────────────────────
+      { id:'BI-01', sev:'P0', sec:'Buttons/Motion', title:'Pill buttons vs rounded-rect competitor',
+        theirs:'Rounded-rect CTAs.',
+        ours:'Pill CTAs sitewide.',
+        ev:'globals.css btn-*; Button.tsx',
+        rec:'Global button radius change (see DT-03).' },
+      { id:'BI-02', sev:'P1', sec:'Buttons/Motion', title:'Missing copy-icon interaction on coupon',
+        theirs:'Clickable copy on FIRST20.',
+        ours:'select-all cursor-copy but no button/feedback toast.',
+        ev:'promo-strip.tsx',
+        rec:'Implement copy button + “Copied!” microfeedback.' },
+      { id:'BI-03', sev:'P1', sec:'Buttons/Motion', title:'Hero marquee vs competitor calm row',
+        theirs:'Cards read as stable carousel.',
+        ours:'Continuous CSS marquee animation.',
+        ev:'InfiniteMarquee; globals marquee-scroll',
+        rec:'Offer prefers-reduced-motion already; consider snap carousel for hero parity.' },
+      { id:'BI-04', sev:'P2', sec:'Buttons/Motion', title:'Spinner/skeleton language',
+        theirs:'Loading states (“Loading…” on competitor shell).',
+        ours:'spinner.tsx + skeleton.tsx exist.',
+        ev:'components/ui/spinner.tsx skeleton.tsx',
+        rec:'Ensure PLP/cart use skeletons with brand shimmer; avoid blank flashes.' },
+      { id:'BI-05', sev:'P2', sec:'Buttons/Motion', title:'Hover scale on cards',
+        theirs:'Subtle image zoom implied.',
+        ours:'group-hover:scale-105 on many images.',
+        ev:'product-card / category-icons / MiniCard',
+        rec:'Keep; ensure no layout jank (overflow hidden).' },
+
+      // ── Conversion pages ────────────────────────────────────────────────
+      { id:'CV-01', sev:'P1', sec:'Conversion', title:'PDP gallery + sticky ATC bar',
+        theirs:'Modern shop expectation: sticky buy on mobile.',
+        ours:'product-gallery + product-info exist; verify sticky mobile ATC.',
+        ev:'components/products/*; app/products/[id]',
+        rec:'Add sticky mobile ATC bar with price + Add to cart.' },
+      { id:'CV-02', sev:'P1', sec:'Conversion', title:'Coupon field prominence in cart/checkout',
+        theirs:'FIRST20 heavily marketed; expect coupon UX in cart.',
+        ours:'Coupon engine exists (lib/coupons.ts); UI prominence varies.',
+        ev:'lib/coupons.ts; checkout components',
+        rec:'Surface coupon input with FIRST20 hint near order summary.' },
+      { id:'CV-03', sev:'P2', sec:'Conversion', title:'Customize / Lab upload UX',
+        theirs:'Lab is a productized service.',
+        ours:'customize page with upload/preview.',
+        ev:'app/customize/page.tsx',
+        rec:'Visual Lab branding + clearer steps matching competitor service framing.' },
+      { id:'CV-04', sev:'P1', sec:'Conversion', title:'Trust near payment',
+        theirs:'PayU / COD / pan-India cues in footer/contact.',
+        ours:'Razorpay; trust band on homepage.',
+        ev:'trust-band.tsx; footer; payment',
+        rec:'Repeat COD/UPI/secure badges on checkout.' },
+      { id:'CV-05', sev:'P2', sec:'Conversion', title:'Auth paths',
+        theirs:'Account/wishlist/cart in services.',
+        ours:'Firebase phone OTP + Google + email flows.',
+        ev:'app/login; phone-otp-form',
+        rec:'Keep; ensure wishlist auth gate messaging is clear.' },
+
+      // ── A11y / perf / SEO / mobile ──────────────────────────────────────
+      { id:'AX-01', sev:'P1', sec:'A11y/Perf', title:'Marquee accessibility',
+        theirs:'Less aggressive motion in fold.',
+        ours:'Infinite marquees; motion-reduce class present.',
+        ev:'infinite-marquee.tsx motion-reduce:animate-none',
+        rec:'Ensure pause on focus + reduced motion fully disables both hero & IG marquees.' },
+      { id:'AX-02', sev:'P1', sec:'A11y/Perf', title:'Touch targets on dots/icons',
+        theirs:'Large enough utility icons.',
+        ours:'Hero dots use w-11 h-11 hit area — good; verify all icon buttons.',
+        ev:'hero-carousel dots; header icons',
+        rec:'Audit any remaining <40px targets.' },
+      { id:'AX-03', sev:'P2', sec:'A11y/Perf', title:'SEO/schema',
+        theirs:'Standard shop SEO.',
+        ours:'JSON-LD helpers in lib/schema.ts; WebSite schema on homepage.',
+        ev:'lib/schema.ts; app/page.tsx',
+        rec:'Keep; add Organization/Product rich results parity.' },
+      { id:'AX-04', sev:'P1', sec:'A11y/Perf', title:'Mobile nav IA',
+        theirs:'Fewer items → easier mobile menu.',
+        ours:'Long mobile nav list from dense IA.',
+        ev:'header.tsx mobile menu',
+        rec:'Group mobile nav: Shop categories accordion + Lab + Account.' },
+      { id:'AX-05', sev:'P2', sec:'A11y/Perf', title:'LCP image priority',
+        theirs:'Hero product imagery critical.',
+        ours:'priority on first MiniCard only.',
+        ev:'hero-carousel MiniCard priority',
+        rec:'Prioritize LCP image carefully; avoid prioritizing entire marquee set.' },
+      { id:'AX-06', sev:'P1', sec:'A11y/Perf', title:'Homepage content weight',
+        theirs:'Tighter fold: header → hero → promo → categories.',
+        ours:'Many sections (trust, rails, reviews, photo upload, idea, IG, newsletter).',
+        ev:'app/page.tsx section order',
+        rec:'Reorder/trim homepage to competitor rhythm; defer secondary sections.' },
+    ]
+
+    const root = document.getElementById('gaps-root')
+    const sections = [...new Set(GAPS.map(g => g.sec))]
+    const secFilters = document.getElementById('section-filters')
+    const activeSecs = new Set(sections)
+    sections.forEach(sec => {
+      const b = document.createElement('button')
+      b.className = 'chip sec active'
+      b.textContent = sec
+      b.dataset.sec = sec
+      b.onclick = () => {
+        b.classList.toggle('active')
+        if (b.classList.contains('active')) activeSecs.add(sec); else activeSecs.delete(sec)
+        applyFilter()
+      }
+      secFilters.appendChild(b)
+    })
+
+    const bySec = Object.fromEntries(sections.map(s => [s, []]))
+    GAPS.forEach(g => bySec[g.sec].push(g))
+
+    sections.forEach(sec => {
+      const det = document.createElement('details')
+      det.className = 'section'
+      det.open = true
+      det.innerHTML = `<summary class="section-head"><span>${sec}</span><span style="color:var(--muted);font-weight:600;font-size:12px">${bySec[sec].length} gaps</span></summary>`
+      const body = document.createElement('div')
+      body.className = 'section-body'
+      bySec[sec].forEach(g => {
+        const el = document.createElement('div')
+        el.className = 'gap'
+        el.dataset.sev = g.sev
+        el.dataset.sec = g.sec
+        el.dataset.id = g.id
+        el.innerHTML = `
+          <input type="checkbox" class="pick" data-id="${g.id}" />
+          <div>
+            <div class="meta">
+              <span class="id">${g.id}</span>
+              <span class="sev ${g.sev}">${g.sev}</span>
+              <span class="sec-tag">${g.sec}</span>
+              <strong>${g.title}</strong>
+            </div>
+            <div class="cols">
+              <div class="box"><h4>3DPrintShop.in</h4>${g.theirs}</div>
+              <div class="box"><h4>Tathastu (ours)</h4>${g.ours}</div>
+            </div>
+            <div class="rec"><strong>Recommend:</strong> ${g.rec}</div>
+            <div class="ev"><strong>Evidence:</strong> ${g.ev}</div>
+          </div>`
+        body.appendChild(el)
+      })
+      det.appendChild(body)
+      root.appendChild(det)
+    })
+
+    const sevActive = new Set(['P0','P1','P2'])
+    document.querySelectorAll('.chip[data-sev]').forEach(btn => {
+      btn.onclick = () => {
+        btn.classList.toggle('active')
+        const s = btn.dataset.sev
+        if (btn.classList.contains('active')) sevActive.add(s); else sevActive.delete(s)
+        applyFilter()
+      }
+    })
+
+    const q = document.getElementById('q')
+    q.addEventListener('input', applyFilter)
+
+    function applyFilter() {
+      const term = q.value.trim().toLowerCase()
+      document.querySelectorAll('.gap').forEach(el => {
+        const g = GAPS.find(x => x.id === el.dataset.id)
+        const okSev = sevActive.has(el.dataset.sev)
+        const okSec = activeSecs.has(el.dataset.sec)
+        const okQ = !term || `${g.id} ${g.title} ${g.theirs} ${g.ours} ${g.rec}`.toLowerCase().includes(term)
+        el.classList.toggle('hidden', !(okSev && okSec && okQ))
+      })
+    }
+
+    function selectedIds() {
+      return [...document.querySelectorAll('.pick:checked')].map(x => x.dataset.id)
+    }
+    function refreshSel() {
+      const ids = selectedIds()
+      document.getElementById('count-sel').textContent = ids.length
+      document.getElementById('sel-out').value = ids.join(', ')
+    }
+    document.getElementById('gaps-root').addEventListener('change', e => {
+      if (e.target.classList.contains('pick')) refreshSel()
+    })
+    document.getElementById('select-visible').onclick = () => {
+      document.querySelectorAll('.gap:not(.hidden) .pick').forEach(c => { c.checked = true })
+      refreshSel()
+    }
+    document.getElementById('clear-sel').onclick = () => {
+      document.querySelectorAll('.pick').forEach(c => { c.checked = false })
+      refreshSel()
+    }
+    document.getElementById('copy-sel').onclick = async () => {
+      const text = selectedIds().join(', ')
+      await navigator.clipboard.writeText(text || '')
+      alert(text ? `Copied ${selectedIds().length} IDs` : 'Nothing selected')
+    }
+
+    document.getElementById('count-all').textContent = GAPS.length
+    document.getElementById('count-p0').textContent = GAPS.filter(g => g.sev==='P0').length
+    document.getElementById('count-p1').textContent = GAPS.filter(g => g.sev==='P1').length
+    document.getElementById('count-p2').textContent = GAPS.filter(g => g.sev==='P2').length
+  </script>
+</body>
+</html>
