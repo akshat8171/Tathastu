@@ -11,6 +11,7 @@ import { CheckoutProvider } from '@/components/checkout/checkout-context'
 import { getOrganizationSchema } from '@/lib/schema'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { GoogleAnalytics } from '@/components/analytics/google-analytics'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -141,6 +142,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
+
+        {/* Google Analytics 4 — production-only, loads after interactive */}
+        <GoogleAnalytics />
       </head>
       <body className="min-h-screen flex flex-col">
         <CartProvider>
