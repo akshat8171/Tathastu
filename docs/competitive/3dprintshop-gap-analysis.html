@@ -121,6 +121,18 @@
     .box h4 { margin: 0 0 6px; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
     .rec { margin-top: 8px; font-size: 13px; color: #bbf7d0; }
     .ev { margin-top: 6px; font-size: 12px; color: var(--muted); }
+    .callout {
+      margin-top: 10px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      background: #0a0c12;
+    }
+    .callout img { width: 100%; display: block; }
+    .callout .cap {
+      padding: 8px 10px; font-size: 11px; color: var(--muted); border-top: 1px solid var(--border);
+    }
+    .done-tag {
+      font-size: 11px; font-weight: 800; border-radius: 999px; padding: 2px 8px;
+      background: #166534; color: #bbf7d0;
+    }
     footer.note { color: var(--muted); font-size: 12px; margin-top: 32px; }
     #selected-panel {
       position: fixed; right: 16px; bottom: 16px; z-index: 60;
@@ -158,6 +170,7 @@
         <a href="https://3dprintshop.in/" target="_blank" rel="noopener">3dprintshop.in</a>.
         Produced via 10 parallel research agents (header, hero, categories, cards, promo/CTAs,
         footer/pages, design tokens, buttons/motion, conversion pages, a11y/perf).
+        Each gap includes an annotated screenshot pair calling out the exact difference.
         Full agent write-ups live in <a href="./agents/README.md">docs/competitive/agents/</a>.
         Check gaps you want implemented next — copy the ID list and send it back.
       </p>
@@ -513,6 +526,8 @@
         rec:'Reorder/trim homepage to competitor rhythm; defer secondary sections.' },
     ]
 
+    const IMPLEMENTED = new Set(['H-01','HE-01','HE-02','PC-01','PR-01','DT-03','BI-01'])
+
     const root = document.getElementById('gaps-root')
     const sections = [...new Set(GAPS.map(g => g.sec))]
     const secFilters = document.getElementById('section-filters')
@@ -546,18 +561,26 @@
         el.dataset.sev = g.sev
         el.dataset.sec = g.sec
         el.dataset.id = g.id
+        const done = IMPLEMENTED.has(g.id)
+          ? '<span class="done-tag">IMPLEMENTED</span>'
+          : ''
         el.innerHTML = `
-          <input type="checkbox" class="pick" data-id="${g.id}" />
+          <input type="checkbox" class="pick" data-id="${g.id}" ${done ? 'checked' : ''} />
           <div>
             <div class="meta">
               <span class="id">${g.id}</span>
               <span class="sev ${g.sev}">${g.sev}</span>
               <span class="sec-tag">${g.sec}</span>
+              ${done}
               <strong>${g.title}</strong>
             </div>
             <div class="cols">
               <div class="box"><h4>3DPrintShop.in</h4>${g.theirs}</div>
               <div class="box"><h4>Tathastu (ours)</h4>${g.ours}</div>
+            </div>
+            <div class="callout">
+              <img src="./assets/callouts/${g.id}.jpg" alt="${g.id} annotated difference: ${g.title}" loading="lazy" />
+              <div class="cap">Annotated callout — red = competitor focus, amber = ours. Points at the exact UI difference for ${g.id}.</div>
             </div>
             <div class="rec"><strong>Recommend:</strong> ${g.rec}</div>
             <div class="ev"><strong>Evidence:</strong> ${g.ev}</div>
@@ -621,6 +644,7 @@
     document.getElementById('count-p0').textContent = GAPS.filter(g => g.sev==='P0').length
     document.getElementById('count-p1').textContent = GAPS.filter(g => g.sev==='P1').length
     document.getElementById('count-p2').textContent = GAPS.filter(g => g.sev==='P2').length
+    refreshSel()
   </script>
 </body>
 </html>

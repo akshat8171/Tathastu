@@ -59,7 +59,8 @@ module.exports = {
       borderRadius: {
         card:  '12px',
         card2: '16px',
-        pill:  '9999px',
+        btn:   '10px',   // primary/secondary CTAs (competitor rounded-md, not pill)
+        pill:  '9999px', // chips, coupons, badges only
       },
 
       boxShadow: {

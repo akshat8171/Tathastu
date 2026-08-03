@@ -14,15 +14,19 @@ interface NavItem {
   badge?: 'new' | 'discount' | 'sale'
 }
 
+/** Desktop/mobile primary nav — category-first (H-01 parity with competitor IA). */
 const navItems: NavItem[] = [
-  { href: '/', label: 'Home' },
-  { href: '/rakhi', label: 'Rakhi', badge: 'new' },
   { href: '/products?category=pooja-decor', label: 'Pooja & Decor' },
-  { href: '/products?category=keyrings', label: 'Keyrings', badge: 'new' },
   { href: '/products?category=lamps', label: 'Home Decor' },
+  { href: '/products?category=keyrings', label: 'Keyrings / Bag Tags' },
   { href: '/products?category=organizers', label: 'Workspace' },
+  { href: '/customize', label: 'Tathastu Lab', badge: 'new' },
+]
+
+/** Extra mobile-only destinations kept out of the dense desktop bar. */
+const mobileExtraItems: NavItem[] = [
   { href: '/products?category=gaming', label: 'Gaming' },
-  { href: '/customize', label: 'Customise Now' },
+  { href: '/rakhi', label: 'Rakhi', badge: 'new' },
   { href: '/blog', label: 'Blog' },
 ]
 
@@ -89,7 +93,10 @@ export function Header() {
                 >
                   {item.label}
                   {item.badge && (
-                    <Badge variant={item.badge} className="text-[9px] px-1 py-0">
+                    <Badge
+                      variant={item.href === '/customize' ? 'discount' : item.badge}
+                      className="text-[9px] px-1 py-0"
+                    >
                       NEW
                     </Badge>
                   )}
@@ -196,7 +203,7 @@ export function Header() {
             data-testid="mobile-menu"
           >
             <ul className="container-page py-3 flex flex-col gap-0.5">
-              {navItems.map((item) => (
+              {[...navItems, ...mobileExtraItems].map((item) => (
                 <li key={`mob-${item.href}-${item.label}`}>
                   <Link
                     href={item.href}
@@ -205,7 +212,10 @@ export function Header() {
                   >
                     <span>{item.label}</span>
                     {item.badge && (
-                      <Badge variant={item.badge} className="text-[10px] px-1.5 py-0">
+                      <Badge
+                        variant={item.badge === 'new' && item.href === '/customize' ? 'discount' : item.badge}
+                        className="text-[10px] px-1.5 py-0"
+                      >
                         NEW
                       </Badge>
                     )}
@@ -213,7 +223,7 @@ export function Header() {
                 </li>
               ))}
 
-              {/* Divider + extra mobile links */}
+              {/* Divider + account utilities */}
               <li>
                 <hr className="my-2 border-gray-100" />
               </li>

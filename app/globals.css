@@ -23,11 +23,11 @@
 /* ─── Design-system components ───────────────────────────────────────────── */
 @layer components {
 
-  /* ── Buttons ── */
+  /* ── Buttons (DT-03 / BI-01: rounded-rect like competitor, not full pills) ── */
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2
            bg-brand text-white font-display font-semibold
-           px-6 py-3 rounded-pill text-sm
+           px-6 py-3 rounded-btn text-sm
            hover:bg-brand-600 active:bg-brand-700
            transition-colors duration-200
            disabled:opacity-50 disabled:cursor-not-allowed;
@@ -40,7 +40,7 @@
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2
            border-2 border-brand text-brand font-display font-semibold
-           px-6 py-3 rounded-pill text-sm bg-transparent
+           px-6 py-3 rounded-btn text-sm bg-transparent
            hover:bg-brand hover:text-white
            transition-colors duration-200
            disabled:opacity-50 disabled:cursor-not-allowed;
@@ -91,10 +91,10 @@
            text-center py-2 px-4;
   }
 
-  /* ── Promo strip ── */
+  /* ── Promo strip (PR-01 / DT-03 tokens: brand teal → violet) ── */
   .promo-gradient {
     @apply w-full text-white;
-    background: linear-gradient(135deg, #4C2A86 0%, #3730A3 100%);
+    background: linear-gradient(90deg, theme('colors.brand.DEFAULT') 0%, theme('colors.violet.DEFAULT') 100%);
   }
 
   /* ── Consistent page container ── */

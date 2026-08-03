@@ -171,44 +171,17 @@ export function ProductCard({
           />
         )}
 
-        {/* ── Customizable badge – top-left (P1) ── */}
-        {isCustomizable && !isSoldOut && (
-          <span className="absolute top-2 left-2 z-10">
-            <Badge variant="customizable">Customizable</Badge>
-          </span>
-        )}
+        {/* PC-01 / PC-03: badges stacked top-left */}
+        <div className="absolute top-2 left-2 z-10 flex flex-col gap-1 items-start">
+          {isSoldOut && <Badge variant="sale">Sold Out</Badge>}
+          {isCustomizable && !isSoldOut && <Badge variant="customizable">Customizable</Badge>}
+          {showSaleBadge && !isCustomizable && <Badge variant="sale">Sale</Badge>}
+          {showDiscountBadge && <Badge variant="discount">{discountPct}% OFF</Badge>}
+          {showNewBadge && !isCustomizable && <Badge variant="new">New</Badge>}
+        </div>
 
-        {/* ── Sale badge – top-left (when not customizable) ── */}
-        {showSaleBadge && !isCustomizable && (
-          <span className="absolute top-2 left-2 z-10">
-            <Badge variant="sale">Sale</Badge>
-          </span>
-        )}
-
-        {/* ── Sold-out overlay ── */}
-        {isSoldOut && (
-          <span className="absolute top-2 left-2 z-10">
-            <Badge variant="sale">Sold Out</Badge>
-          </span>
-        )}
-
-        {/* ── New badge – top-left (when no sale / customizable) ── */}
-        {showNewBadge && !isCustomizable && (
-          <span className="absolute top-2 left-2 z-10">
-            <Badge variant="new">New</Badge>
-          </span>
-        )}
-
-        {/* ── Discount badge – top-right ── */}
-        {showDiscountBadge && (
-          <span className="absolute top-2 right-2 z-10">
-            <Badge variant="discount">{discountPct}% OFF</Badge>
-          </span>
-        )}
-
-        {/* ── Wishlist heart – top-right ── */}
         <button
-          className={`absolute ${showDiscountBadge ? 'top-9' : 'top-2'} right-2 z-10 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white`}
+          className="absolute top-2 right-2 z-10 w-8 h-8 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white"
           aria-label={isWishlisted(id) ? `Remove ${name} from wishlist` : `Add ${name} to wishlist`}
           aria-pressed={isWishlisted(id)}
           onClick={async (e) => {
@@ -236,6 +209,37 @@ export function ProductCard({
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
         </button>
+
+        {/* PC-01: competitor chrome — price pill + circular ATC on image */}
+        {!isSoldOut && (
+          <div className="absolute inset-x-2 bottom-2 z-10 flex items-end justify-between gap-2 pointer-events-none">
+            <span className="inline-flex items-center rounded-full bg-white/95 px-2.5 py-1 text-xs font-display font-bold text-ink shadow-badge tabular-nums">
+              {showFromPrice ? 'From ' : ''}₹{price.toLocaleString('en-IN')}
+            </span>
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              disabled={isAdding}
+              className="pointer-events-auto flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-brand text-white shadow-badge hover:bg-brand-600 transition-colors disabled:opacity-60"
+              aria-label={
+                needsPdpFirst
+                  ? `${ctaLabel} — ${name}`
+                  : `Add ${name} to cart`
+              }
+            >
+              {isAdding ? (
+                <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+              ) : (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+                </svg>
+              )}
+            </button>
+          </div>
+        )}
       </Link>
 
       {/* ── Info section ──────────────────────────────────────────────────── */}
@@ -251,7 +255,7 @@ export function ProductCard({
         {/* Rating */}
         <Rating value={rating} count={reviewCount} />
 
-        {/* Price — "From ₹X" when has options/variants (P1) */}
+        {/* Price row (mirrors on-image pill for list readability) */}
         {showFromPrice ? (
           <p className="text-sm font-display font-semibold text-brand">
             From <span className="tabular-nums">₹{price.toLocaleString('en-IN')}</span>
@@ -260,10 +264,10 @@ export function ProductCard({
           <Price current={price} compareAt={originalPrice} showDiscount={false} />
         )}
 
-        {/* Color swatches (P1) — show up to SWATCH_MAX with +N overflow */}
+        {/* Color swatches — show up to SWATCH_MAX with +N overflow */}
         {hasColors && (
           <div
-            className="flex items-center gap-1.5 flex-wrap"
+            className="flex items-center gap-1.5 flex-wrap mt-auto"
             aria-label={`Available in: ${colors!.join(', ')}`}
           >
             <span className="text-[10px] text-muted font-sans">Colors:</span>
@@ -283,32 +287,6 @@ export function ProductCard({
             )}
           </div>
         )}
-
-        {/* Add to cart */}
-        <button
-          onClick={handleAddToCart}
-          disabled={isSoldOut || isAdding}
-          className={`mt-auto btn-primary-full text-xs py-2 rounded-lg ${isSoldOut ? 'opacity-50 cursor-not-allowed' : ''}`}
-          aria-label={
-            isSoldOut
-              ? `${name} is sold out`
-              : needsPdpFirst
-              ? `${ctaLabel} — ${name}`
-              : `Add ${name} to cart`
-          }
-        >
-          {isAdding ? (
-            <span className="flex items-center justify-center gap-1.5">
-              <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-              </svg>
-              Adding...
-            </span>
-          ) : (
-            ctaLabel
-          )}
-        </button>
       </div>
     </div>
   )
