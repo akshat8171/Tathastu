@@ -2,19 +2,6 @@ import '@testing-library/jest-dom'
 import { render } from '@testing-library/react'
 import { GoogleAnalytics } from '@/components/analytics/google-analytics'
 
-// Mock next/script so we can inspect exactly what the component emits. The real
-// afterInteractive Script renders null during SSR/test and appends to
-// document.body via an effect, which is hard to assert on; a passthrough <script>
-// lets us verify the loader src and the inline gtag config string directly.
-jest.mock('next/script', () => ({
-  __esModule: true,
-  default: ({ id, src, children }: { id?: string; src?: string; children?: React.ReactNode }) => (
-    <script data-testid={id} data-src={src}>
-      {children}
-    </script>
-  ),
-}))
-
 describe('GoogleAnalytics — OFF path', () => {
   it('renders nothing in the test / non-production environment', () => {
     // Under jest NODE_ENV === 'test', so analytics is gated off and the
@@ -53,17 +40,25 @@ describe('GoogleAnalytics — production ON path', () => {
     )
     const { container } = render(<ProdGA />)
 
-    const loader = container.querySelector('[data-testid="ga4-lib"]')
+    // React 19 hoists `<script async src>` out of the render tree into
+    // <head> (and dedupes it), so query the whole document, not `container`.
+    const loader = document.querySelector(
+      'script[src^="https://www.googletagmanager.com/gtag/js"]',
+    )
     expect(loader).not.toBeNull()
     expect(loader).toHaveAttribute(
-      'data-src',
+      'src',
       'https://www.googletagmanager.com/gtag/js?id=G-TESTID123',
     )
+    expect(loader).toHaveAttribute('async')
 
-    const init = container.querySelector('[data-testid="ga4-init"]')
-    expect(init).not.toBeNull()
-    expect(init?.textContent).toContain("gtag('config', 'G-TESTID123')")
-    expect(init?.textContent).toContain('dataLayer')
+    // The inline bootstrap <script> must configure the resolved ID.
+    const inline = Array.from(container.querySelectorAll('script')).find(
+      (s) => !s.getAttribute('src') && s.textContent?.includes('gtag('),
+    )
+    expect(inline).toBeDefined()
+    expect(inline?.textContent).toContain("gtag('config', 'G-TESTID123')")
+    expect(inline?.textContent).toContain('dataLayer')
   })
 
   it('renders nothing on a Vercel preview deployment (NODE_ENV=production)', async () => {
