@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Button } from '@/components/ui'
-import { useCart } from '@/components/cart/cart-context'
+import { Button, InfiniteMarquee } from '@/components/ui'
 import productsData from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui'
 import { SITE, waLink } from '@/lib/site'
@@ -22,7 +21,8 @@ interface Slide {
   productIds: string[]
 }
 
-// Each slide is themed around a category and showcases 4 real products.
+// Each slide is themed around a category and showcases real products.
+// The header marquee unions ALL of these IDs so it scrolls a richer set.
 const SLIDES: Slide[] = [
   {
     eyebrow: 'Pooja & Decor',
@@ -32,7 +32,14 @@ const SLIDES: Slide[] = [
       'Intricately detailed idols, diya stands and pooja essentials crafted for your sacred space.',
     ctaLabel: 'Shop Pooja & Decor',
     ctaHref: '/products?category=pooja-decor',
-    productIds: ['pooja-decor-ganesha', 'pooja-decor-lakshmi', 'pooja-decor-krishna', 'pooja-decor-temple'],
+    productIds: [
+      'pooja-decor-ganesha',
+      'pooja-decor-lakshmi',
+      'pooja-decor-krishna',
+      'pooja-decor-temple',
+      'pooja-decor-shiva',
+      'lamps-glow-arc',
+    ],
   },
   {
     eyebrow: 'Keyrings & Bag Tags',
@@ -42,7 +49,14 @@ const SLIDES: Slide[] = [
       'Name keyrings and bag tags printed in vivid multi-colour — the perfect little everyday statement.',
     ctaLabel: 'Shop Keyrings',
     ctaHref: '/products?category=keyrings',
-    productIds: ['keyrings-name', 'keyrings-puppy', 'keyrings-tennis', 'keyrings-shiva'],
+    productIds: [
+      'keyrings-name',
+      'keyrings-puppy',
+      'keyrings-tennis',
+      'keyrings-shiva',
+      'keyrings-numberplate',
+      'keyrings-oreo',
+    ],
   },
   {
     eyebrow: 'Gaming & Fun',
@@ -52,7 +66,14 @@ const SLIDES: Slide[] = [
       'Collectible 3D-printed pieces for fans and gamers — crisp detail, bold colour, endless personality.',
     ctaLabel: 'Shop Gaming',
     ctaHref: '/products?category=gaming',
-    productIds: ['gaming-shield', 'gaming-gamepad', 'gaming-toad', 'gaming-question'],
+    productIds: [
+      'gaming-shield',
+      'gaming-gamepad',
+      'gaming-toad',
+      'gaming-question',
+      'lamps-lunar-night',
+      'planters-terrace-trio',
+    ],
   },
 ]
 
@@ -119,7 +140,25 @@ export function HeroCarousel() {
   }, [active, paused])
 
   const slide = SLIDES[active]
-  const products = slide.productIds.map(byId).filter((p): p is ProductCardData => !!p)
+
+  // Continuous header product scroller: all unique products across slides so
+  // the marquee doesn't feel stuck on the same 4 cards repeating.
+  const marqueeProducts = useMemo(() => {
+    const seen = new Set<string>()
+    const list: ProductCardData[] = []
+    for (const s of SLIDES) {
+      for (const id of s.productIds) {
+        if (seen.has(id)) continue
+        const product = byId(id)
+        if (!product) continue
+        seen.add(id)
+        list.push(product)
+      }
+    }
+    return list
+  }, [])
+
+  const marqueeDurationSec = Math.max(30, marqueeProducts.length * 3.5)
 
   return (
     <section
@@ -172,32 +211,26 @@ export function HeroCarousel() {
             </div>
           </div>
 
-          {/* ── Right: product mini-cards for this slide ── */}
+          {/* ── Right: continuous product marquee (all slide products) ── */}
           <div
-            className="flex-1 w-full overflow-hidden"
+            className="flex-1 w-full min-w-0"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocusCapture={() => setPaused(true)}
             onBlurCapture={() => setPaused(false)}
           >
-            <div className="relative flex justify-center lg:justify-end">
-              <div
-                className="flex gap-3 sm:gap-4"
-                style={{
-                  animation: 'marquee-scroll 20s linear infinite',
-                  animationPlayState: paused ? 'paused' : 'running',
-                }}
-              >
-                {/* Original set of products */}
-                {products.map((p, i) => (
-                  <MiniCard key={p.id} product={p} priority={i === 0} />
-                ))}
-                {/* Duplicate set for seamless loop */}
-                {products.map((p) => (
-                  <MiniCard key={`${p.id}-duplicate`} product={p} />
-                ))}
-              </div>
-            </div>
+            <InfiniteMarquee
+              durationSec={marqueeDurationSec}
+              gapClassName="gap-3 sm:gap-4"
+              trailClassName="pe-3 sm:pe-4"
+              ariaLabel="Featured products"
+              paused={paused}
+              pauseOnHover={false}
+            >
+              {marqueeProducts.map((p, i) => (
+                <MiniCard key={p.id} product={p} priority={i === 0} />
+              ))}
+            </InfiniteMarquee>
           </div>
         </div>
 

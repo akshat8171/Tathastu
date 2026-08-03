@@ -15,4 +15,6 @@ export { SectionHeading } from './section-heading'
 
 export { ScrollRail } from './scroll-rail'
 
+export { InfiniteMarquee } from './infinite-marquee'
+
 export { Spinner } from './spinner'

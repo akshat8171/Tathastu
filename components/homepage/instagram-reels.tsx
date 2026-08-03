@@ -1,15 +1,17 @@
 'use client'
 
 /**
- * InstagramReels — marquee of real reel covers + in-page Instagram embed player.
+ * InstagramReels — continuous marquee of curated reel covers + in-page embed player.
  *
- * Covers are local product stills (CDN thumbs are blocked without Graph API).
- * Play opens Instagram's official embed iframe so video plays on-site.
+ * Each tile is a unique reel. The track duplicates once for a seamless loop
+ * (InfiniteMarquee). Duration scales with reel count so more items = longer
+ * before the set repeats.
  */
 
-import { useCallback, useEffect, useId, useState } from 'react'
+import { useCallback, useEffect, useId, useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { InfiniteMarquee } from '@/components/ui/infinite-marquee'
 import {
   INSTAGRAM_HANDLE,
   INSTAGRAM_PROFILE_URL,
@@ -19,11 +21,16 @@ import {
   type InstagramReel,
 } from '@/lib/instagram-reels'
 
+/** ~4.5s per reel so a longer catalog takes longer to loop. */
+const SECONDS_PER_REEL = 4.5
+
 export function InstagramReels() {
   const [activeReel, setActiveReel] = useState<InstagramReel | null>(null)
   const titleId = useId()
-  // Duplicate once for seamless CSS marquee (translateX -50%)
-  const marqueeReels = [...INSTAGRAM_REELS, ...INSTAGRAM_REELS]
+  const durationSec = useMemo(
+    () => Math.max(28, Math.round(INSTAGRAM_REELS.length * SECONDS_PER_REEL)),
+    [],
+  )
 
   const closePlayer = useCallback(() => {
     setActiveReel(null)
@@ -64,51 +71,57 @@ export function InstagramReels() {
             @{INSTAGRAM_HANDLE}
             <InstagramGlyph className="w-4 h-4" />
           </Link>
+          <p className="mt-2 text-sm text-gray-500">
+            {INSTAGRAM_REELS.length} reels · tap any cover to play
+          </p>
         </div>
 
-        <div className="relative overflow-hidden">
+        <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-          <div className="group flex">
-            <div className="flex gap-4 animate-[marquee-scroll_28s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
-              {marqueeReels.map((reel, index) => (
-                <button
-                  key={`${reel.id}-${index}`}
-                  type="button"
-                  onClick={() => setActiveReel(reel)}
-                  className="flex-shrink-0 group/card text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
-                  aria-label={`Play Instagram reel: ${reel.title}`}
-                >
-                  <div className="relative w-[120px] h-[213px] sm:w-[150px] sm:h-[266px] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-gray-200">
-                    <Image
-                      src={reel.thumbnail}
-                      alt=""
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 640px) 120px, 150px"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/20 group-hover/card:bg-black/30 transition-colors duration-300 flex items-center justify-center">
-                      <span className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/90 group-hover/card:bg-white flex items-center justify-center shadow-lg transition-all duration-300 group-hover/card:scale-110">
-                        <svg
-                          className="w-6 h-6 sm:w-7 sm:h-7 text-brand ml-1"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          aria-hidden="true"
-                        >
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
-                      </span>
-                    </div>
-                    <span className="absolute top-2 right-2 w-6 h-6 sm:w-7 sm:h-7 bg-white rounded-full flex items-center justify-center shadow-md">
-                      <InstagramGlyph className="w-4 h-4 sm:w-5 sm:h-5 text-pink-600" />
+          <InfiniteMarquee
+            durationSec={durationSec}
+            gapClassName="gap-4"
+            trailClassName="pe-4"
+            ariaLabel="Scrolling Instagram reels"
+          >
+            {INSTAGRAM_REELS.map((reel) => (
+              <button
+                key={reel.id}
+                type="button"
+                onClick={() => setActiveReel(reel)}
+                className="flex-shrink-0 group/card text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+                aria-label={`Play Instagram reel: ${reel.title}`}
+              >
+                <div className="relative w-[120px] h-[213px] sm:w-[150px] sm:h-[266px] rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-gray-200">
+                  <Image
+                    src={reel.thumbnail}
+                    alt=""
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 120px, 150px"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover/card:bg-black/30 transition-colors duration-300 flex items-center justify-center">
+                    <span className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-white/90 group-hover/card:bg-white flex items-center justify-center shadow-lg transition-all duration-300 group-hover/card:scale-110">
+                      <svg
+                        className="w-6 h-6 sm:w-7 sm:h-7 text-brand ml-1"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
                     </span>
                   </div>
-                </button>
-              ))}
-            </div>
-          </div>
+                  <span className="absolute top-2 right-2 w-6 h-6 sm:w-7 sm:h-7 bg-white rounded-full flex items-center justify-center shadow-md">
+                    <InstagramGlyph className="w-4 h-4 sm:w-5 sm:h-5 text-pink-600" />
+                  </span>
+                </div>
+              </button>
+            ))}
+          </InfiniteMarquee>
         </div>
       </div>
 
@@ -176,9 +189,7 @@ function ReelPlayerModal({ reel, titleId, onClose }: ReelPlayerModalProps) {
         </div>
 
         <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-between gap-3">
-          <p className="text-xs text-gray-500">
-            Playing via Instagram embed
-          </p>
+          <p className="text-xs text-gray-500">Playing via Instagram embed</p>
           <a
             href={permalink}
             target="_blank"
