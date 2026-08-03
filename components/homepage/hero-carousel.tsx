@@ -21,8 +21,7 @@ interface Slide {
   productIds: string[]
 }
 
-// Each slide is themed around a category and showcases real products.
-// The header marquee unions ALL of these IDs so it scrolls a richer set.
+// Each slide is themed around a category and showcases matching products only.
 const SLIDES: Slide[] = [
   {
     eyebrow: 'Pooja & Decor',
@@ -38,7 +37,9 @@ const SLIDES: Slide[] = [
       'pooja-decor-krishna',
       'pooja-decor-temple',
       'pooja-decor-shiva',
-      'lamps-glow-arc',
+      'pooja-decor-saraswati',
+      'pooja-decor-trishul',
+      'pooja-decor-incense',
     ],
   },
   {
@@ -56,6 +57,8 @@ const SLIDES: Slide[] = [
       'keyrings-shiva',
       'keyrings-numberplate',
       'keyrings-oreo',
+      'keyrings-nike',
+      'keyrings-airplane',
     ],
   },
   {
@@ -71,8 +74,9 @@ const SLIDES: Slide[] = [
       'gaming-gamepad',
       'gaming-toad',
       'gaming-question',
-      'lamps-lunar-night',
-      'planters-terrace-trio',
+      'gaming-streamer',
+      'gaming-ak47',
+      'gaming-marlboro',
     ],
   },
 ]
@@ -141,24 +145,16 @@ export function HeroCarousel() {
 
   const slide = SLIDES[active]
 
-  // Continuous header product scroller: all unique products across slides so
-  // the marquee doesn't feel stuck on the same 4 cards repeating.
-  const marqueeProducts = useMemo(() => {
-    const seen = new Set<string>()
-    const list: ProductCardData[] = []
-    for (const s of SLIDES) {
-      for (const id of s.productIds) {
-        if (seen.has(id)) continue
-        const product = byId(id)
-        if (!product) continue
-        seen.add(id)
-        list.push(product)
-      }
-    }
-    return list
-  }, [])
+  // Per-slide themed products only — continuous marquee within that catalogue.
+  const marqueeProducts = useMemo(
+    () =>
+      slide.productIds
+        .map(byId)
+        .filter((p): p is ProductCardData => p !== undefined),
+    [slide],
+  )
 
-  const marqueeDurationSec = Math.max(30, marqueeProducts.length * 3.5)
+  const marqueeDurationSec = Math.max(24, marqueeProducts.length * 3.5)
 
   return (
     <section
@@ -211,7 +207,7 @@ export function HeroCarousel() {
             </div>
           </div>
 
-          {/* ── Right: continuous product marquee (all slide products) ── */}
+          {/* ── Right: continuous marquee for THIS slide's catalogue only ── */}
           <div
             className="flex-1 w-full min-w-0"
             onMouseEnter={() => setPaused(true)}
@@ -220,10 +216,11 @@ export function HeroCarousel() {
             onBlurCapture={() => setPaused(false)}
           >
             <InfiniteMarquee
+              key={slide.eyebrow}
               durationSec={marqueeDurationSec}
               gapClassName="gap-3 sm:gap-4"
               trailClassName="pe-3 sm:pe-4"
-              ariaLabel="Featured products"
+              ariaLabel={`${slide.eyebrow} products`}
               paused={paused}
               pauseOnHover={false}
             >
