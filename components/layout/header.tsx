@@ -14,15 +14,19 @@ interface NavItem {
   badge?: 'new' | 'discount' | 'sale'
 }
 
+/** Desktop/mobile primary nav — category-first (H-01 parity with competitor IA). */
 const navItems: NavItem[] = [
-  { href: '/', label: 'Home' },
-  { href: '/rakhi', label: 'Rakhi', badge: 'new' },
   { href: '/products?category=pooja-decor', label: 'Pooja & Decor' },
-  { href: '/products?category=keyrings', label: 'Keyrings', badge: 'new' },
   { href: '/products?category=lamps', label: 'Home Decor' },
+  { href: '/products?category=keyrings', label: 'Keyrings / Bag Tags' },
   { href: '/products?category=organizers', label: 'Workspace' },
+  { href: '/customize', label: 'Tathastu Lab', badge: 'new' },
+]
+
+/** Extra mobile-only destinations kept out of the dense desktop bar. */
+const mobileExtraItems: NavItem[] = [
   { href: '/products?category=gaming', label: 'Gaming' },
-  { href: '/customize', label: 'Customise Now' },
+  { href: '/rakhi', label: 'Rakhi', badge: 'new' },
   { href: '/blog', label: 'Blog' },
 ]
 
@@ -76,7 +80,7 @@ export function Header() {
                 className="w-[34px] h-[34px]"
                 priority
               />
-              <span className="hidden lg:inline">Tathastu<span className="text-brand"> Keepsakes</span></span>
+              <span className="hidden md:inline">Tathastu<span className="text-brand"> Keepsakes</span></span>
             </Link>
 
             {/* ── Desktop Nav ───────────────────────────────── */}
@@ -89,7 +93,10 @@ export function Header() {
                 >
                   {item.label}
                   {item.badge && (
-                    <Badge variant={item.badge} className="text-[9px] px-1 py-0">
+                    <Badge
+                      variant={item.href === '/customize' ? 'discount' : item.badge}
+                      className="text-[9px] px-1 py-0"
+                    >
                       NEW
                     </Badge>
                   )}
@@ -102,7 +109,7 @@ export function Header() {
               {/* Search */}
               <button
                 onClick={() => setSearchOpen(true)}
-                className="p-2 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface"
+                className="p-3 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface min-w-[44px] min-h-[44px]"
                 aria-label="Search products"
                 data-testid="header-search-btn"
               >
@@ -114,7 +121,7 @@ export function Header() {
               {/* Account */}
               <Link
                 href="/account"
-                className="p-2 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface"
+                className="p-3 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface min-w-[44px] min-h-[44px]"
                 aria-label="My account"
                 data-testid="header-account-link"
               >
@@ -126,7 +133,7 @@ export function Header() {
               {/* Wishlist — Link with live count badge */}
               <Link
                 href="/wishlist"
-                className="relative hidden sm:flex p-2 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface"
+                className="relative hidden sm:flex p-3 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface min-w-[44px] min-h-[44px]"
                 aria-label={`Wishlist${wishlistCount > 0 ? `, ${wishlistCount} saved item${wishlistCount !== 1 ? 's' : ''}` : ''}`}
                 data-testid="header-wishlist-link"
               >
@@ -147,7 +154,7 @@ export function Header() {
               {/* Cart */}
               <Link
                 href="/cart"
-                className="relative p-2 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface"
+                className="relative p-3 text-muted hover:text-brand transition-colors rounded-md hover:bg-surface min-w-[44px] min-h-[44px]"
                 aria-label={`Shopping cart${itemCount > 0 ? `, ${itemCount} item${itemCount !== 1 ? 's' : ''}` : ''}`}
                 data-testid="header-cart-link"
               >
@@ -169,7 +176,7 @@ export function Header() {
               <button
                 id="hamburger-btn"
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="lg:hidden p-2 text-ink hover:text-brand transition-colors rounded-md hover:bg-surface"
+                className="lg:hidden p-3 text-ink hover:text-brand transition-colors rounded-md hover:bg-surface min-w-[44px] min-h-[44px]"
                 aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={mobileOpen}
                 aria-controls="mobile-menu"
@@ -196,7 +203,8 @@ export function Header() {
             data-testid="mobile-menu"
           >
             <ul className="container-page py-3 flex flex-col gap-0.5">
-              {navItems.map((item) => (
+              {/* Categories first */}
+              {navItems.filter(item => item.href !== '/customize').map((item) => (
                 <li key={`mob-${item.href}-${item.label}`}>
                   <Link
                     href={item.href}
@@ -205,7 +213,52 @@ export function Header() {
                   >
                     <span>{item.label}</span>
                     {item.badge && (
-                      <Badge variant={item.badge} className="text-[10px] px-1.5 py-0">
+                      <Badge
+                        variant={item.badge === 'new' && item.href === '/customize' ? 'discount' : item.badge}
+                        className="text-[10px] px-1.5 py-0"
+                      >
+                        NEW
+                      </Badge>
+                    )}
+                  </Link>
+                </li>
+              ))}
+              
+              {/* Tathastu Lab */}
+              {navItems.filter(item => item.href === '/customize').map((item) => (
+                <li key={`mob-${item.href}-${item.label}`}>
+                  <Link
+                    href={item.href}
+                    className="flex items-center justify-between px-3 py-3 text-sm font-display font-medium text-ink hover:text-brand hover:bg-surface rounded-md transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <span>{item.label}</span>
+                    {item.badge && (
+                      <Badge
+                        variant="discount"
+                        className="text-[10px] px-1.5 py-0"
+                      >
+                        NEW
+                      </Badge>
+                    )}
+                  </Link>
+                </li>
+              ))}
+              
+              {/* Extra items */}
+              {mobileExtraItems.map((item) => (
+                <li key={`mob-${item.href}-${item.label}`}>
+                  <Link
+                    href={item.href}
+                    className="flex items-center justify-between px-3 py-3 text-sm font-display font-medium text-ink hover:text-brand hover:bg-surface rounded-md transition-colors"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <span>{item.label}</span>
+                    {item.badge && (
+                      <Badge
+                        variant={item.badge}
+                        className="text-[10px] px-1.5 py-0"
+                      >
                         NEW
                       </Badge>
                     )}
@@ -213,7 +266,7 @@ export function Header() {
                 </li>
               ))}
 
-              {/* Divider + extra mobile links */}
+              {/* Divider + account utilities */}
               <li>
                 <hr className="my-2 border-gray-100" />
               </li>

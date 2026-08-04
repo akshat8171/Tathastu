@@ -1,13 +1,12 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui'
-import { useCart } from '@/components/cart/cart-context'
 import productsData from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui'
-import { SITE, waLink } from '@/lib/site'
+import { useCart } from '@/components/cart/cart-context'
 
 const allProducts = productsData as ProductCardData[]
 const byId = (id: string) => allProducts.find((p) => p.id === id)
@@ -22,7 +21,7 @@ interface Slide {
   productIds: string[]
 }
 
-// Each slide is themed around a category and showcases 4 real products.
+// HE-08: 3 slides is intentional differentiation vs competitor's 2 — each slide is themed around a category and showcases matching products only.
 const SLIDES: Slide[] = [
   {
     eyebrow: 'Pooja & Decor',
@@ -32,7 +31,16 @@ const SLIDES: Slide[] = [
       'Intricately detailed idols, diya stands and pooja essentials crafted for your sacred space.',
     ctaLabel: 'Shop Pooja & Decor',
     ctaHref: '/products?category=pooja-decor',
-    productIds: ['pooja-decor-ganesha', 'pooja-decor-lakshmi', 'pooja-decor-krishna', 'pooja-decor-temple'],
+    productIds: [
+      'pooja-decor-ganesha',
+      'pooja-decor-lakshmi',
+      'pooja-decor-krishna',
+      'pooja-decor-temple',
+      'pooja-decor-shiva',
+      'pooja-decor-saraswati',
+      'pooja-decor-trishul',
+      'pooja-decor-incense',
+    ],
   },
   {
     eyebrow: 'Keyrings & Bag Tags',
@@ -42,7 +50,16 @@ const SLIDES: Slide[] = [
       'Name keyrings and bag tags printed in vivid multi-colour — the perfect little everyday statement.',
     ctaLabel: 'Shop Keyrings',
     ctaHref: '/products?category=keyrings',
-    productIds: ['keyrings-name', 'keyrings-puppy', 'keyrings-tennis', 'keyrings-shiva'],
+    productIds: [
+      'keyrings-name',
+      'keyrings-puppy',
+      'keyrings-tennis',
+      'keyrings-shiva',
+      'keyrings-numberplate',
+      'keyrings-oreo',
+      'keyrings-nike',
+      'keyrings-airplane',
+    ],
   },
   {
     eyebrow: 'Gaming & Fun',
@@ -52,17 +69,40 @@ const SLIDES: Slide[] = [
       'Collectible 3D-printed pieces for fans and gamers — crisp detail, bold colour, endless personality.',
     ctaLabel: 'Shop Gaming',
     ctaHref: '/products?category=gaming',
-    productIds: ['gaming-shield', 'gaming-gamepad', 'gaming-toad', 'gaming-question'],
+    productIds: [
+      'gaming-shield',
+      'gaming-gamepad',
+      'gaming-toad',
+      'gaming-question',
+      'gaming-streamer',
+      'gaming-ak47',
+      'gaming-marlboro',
+    ],
   },
 ]
 
 const AUTO_ADVANCE_MS = 5500
 
 function MiniCard({ product, priority = false }: { product: ProductCardData; priority?: boolean }) {
+  const { addItem } = useCart()
   const discountPct =
     product.originalPrice && product.originalPrice > product.price
       ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
       : null
+
+  function handleAddToCart(e: React.MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    addItem({
+      id: product.id,
+      name: product.name,
+      variant: 'Default',
+      price: product.price,
+      originalPrice: product.originalPrice ?? product.price,
+      quantity: 1,
+      image: product.images[0] ?? '',
+    })
+  }
 
   return (
     <Link
@@ -70,6 +110,7 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
       className="group relative block w-36 sm:w-44 lg:w-48 flex-shrink-0 rounded-card2 bg-white shadow-card hover:shadow-card-hover transition-shadow duration-300 overflow-hidden"
       aria-label={`View ${product.name}`}
     >
+      {/* BI-05: overflow-hidden on image container */}
       <div className="relative aspect-[4/5] bg-panel overflow-hidden">
         <Image
           src={product.images[0] ?? ''}
@@ -79,23 +120,39 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           priority={priority}
         />
-        {/* Sale badge top-left */}
-        <span className="absolute top-2 left-2 bg-sale text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded leading-none shadow-badge">
-          Sale
-        </span>
-        {discountPct !== null && (
-          <span className="absolute top-2 right-2 bg-discount text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded leading-none shadow-badge">
-            {discountPct}% OFF
+
+        {/* HE-01 / PC-03: Sale + %OFF stacked top-left */}
+        <div className="absolute top-2 left-2 z-10 flex flex-col gap-1 items-start">
+          <span className="bg-sale text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded-full leading-none shadow-badge">
+            Sale
           </span>
-        )}
-        {/* Price badge at bottom - like competitor site */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-2">
-          <div className="flex items-center justify-between gap-2">
-            <span className="font-display font-bold text-sm sm:text-base">₹{product.price}</span>
+          {discountPct !== null && (
+            <span className="bg-discount text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded-full leading-none shadow-badge">
+              {discountPct}% OFF
+            </span>
+          )}
+        </div>
+
+        {/* HE-01: white price pill + circular brand cart */}
+        <div className="absolute inset-x-2 bottom-2 z-10 flex items-end justify-between gap-2">
+          <span className="inline-flex items-center rounded-full bg-white/95 px-2.5 py-1 text-xs sm:text-sm font-display font-bold text-ink shadow-badge tabular-nums">
+            ₹{product.price.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             {product.originalPrice && product.originalPrice > product.price && (
-              <span className="font-display text-xs line-through opacity-80">₹{product.originalPrice}</span>
+              <span className="ml-1.5 text-[10px] font-medium text-muted line-through">
+                ₹{product.originalPrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
             )}
-          </div>
+          </span>
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-brand text-white shadow-badge hover:bg-brand-600 transition-colors"
+            aria-label={`Add ${product.name} to cart`}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+            </svg>
+          </button>
         </div>
       </div>
     </Link>
@@ -111,30 +168,40 @@ export function HeroCarousel() {
     setActive(((i % SLIDES.length) + SLIDES.length) % SLIDES.length)
   }, [])
 
-  // Auto-advance (pauses on hover/focus).
+  // HE-05: respect prefers-reduced-motion — no auto-advance if user prefers reduced motion
   useEffect(() => {
     if (paused) return
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
     timer.current = setTimeout(() => setActive((a) => (a + 1) % SLIDES.length), AUTO_ADVANCE_MS)
     return () => { if (timer.current) clearTimeout(timer.current) }
   }, [active, paused])
 
   const slide = SLIDES[active]
-  const products = slide.productIds.map(byId).filter((p): p is ProductCardData => !!p)
+
+  const slideProducts = useMemo(
+    () =>
+      slide.productIds
+        .map(byId)
+        .filter((p): p is ProductCardData => p !== undefined),
+    [slide],
+  )
 
   return (
     <section
-      className="relative overflow-hidden bg-gradient-to-br from-violet/10 via-surface to-brand-50"
+      className="relative overflow-hidden bg-gradient-to-br from-[#EAF8F9] via-white to-[#F3EEF9]"
       aria-roledescription="carousel"
       aria-label="Featured collections"
     >
       <div className="container-page py-10 sm:py-14 lg:py-20">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 min-h-[320px] lg:min-h-[400px]">
 
-          {/* ── Left: themed copy (no key — DOM stays stable for LCP) ── */}
           <div className="flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0">
-            <p className="inline-flex items-center gap-2 text-xs font-display font-semibold uppercase tracking-widest text-violet mb-4 bg-violet/10 px-3 py-1.5 rounded-full">
+            {/* HE-06: title-case eyebrow with softer pill styling */}
+            <p className="inline-flex items-center gap-2 text-sm font-medium text-brand bg-brand/10 mb-4 px-3 py-1.5 rounded-full">
               {slide.eyebrow}
             </p>
+            {/* HE-07: two-tone headline with softer contrast — brand highlight preserved */}
             <h1 className="font-display font-extrabold text-ink text-4xl sm:text-5xl lg:text-6xl leading-tight mb-4">
               {slide.headline}{' '}
               <span className="text-brand">{slide.highlight}</span>
@@ -142,66 +209,44 @@ export function HeroCarousel() {
             <p className="font-sans text-muted text-base sm:text-lg leading-relaxed mb-7 max-w-md mx-auto lg:mx-0">
               {slide.subcopy}
             </p>
+            {/* HE-02 / HE-03: trailing arrow on primary; only 2 CTAs in hero (Shop + Tathastu Lab) */}
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start flex-wrap">
               <Button variant="primary" size="lg" href={slide.ctaHref}>
                 {slide.ctaLabel}
+                <span aria-hidden="true">→</span>
               </Button>
               <Button variant="outline" size="lg" href="/customize">
-                Customise Now
+                Tathastu Lab
               </Button>
-              {/* WhatsApp secondary CTA — number sourced from SITE frozen contract */}
-              <a
-                href={waLink('Hi! I saw your homepage and want to know more about custom 3D prints.')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 border-2 border-green-500 text-green-700 font-display font-semibold px-6 py-3 rounded-pill text-sm bg-white hover:bg-green-50 transition-colors duration-200"
-                aria-label={`Chat on WhatsApp — ${SITE.phone}`}
-              >
-                {/* WhatsApp icon */}
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                </svg>
-                Chat on WhatsApp
-              </a>
             </div>
           </div>
 
-          {/* ── Right: product mini-cards for this slide ── */}
+          {/* HE-05 / BI-03: horizontal snap scroll instead of infinite marquee */}
           <div
-            className="flex-1 w-full overflow-hidden"
+            className="flex-1 w-full min-w-0"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onFocusCapture={() => setPaused(true)}
             onBlurCapture={() => setPaused(false)}
           >
-            <div className="relative flex justify-center lg:justify-end">
-              <div
-                className="flex gap-3 sm:gap-4"
-                style={{
-                  animation: 'marquee-scroll 20s linear infinite',
-                  animationPlayState: paused ? 'paused' : 'running',
-                }}
-              >
-                {/* Original set of products */}
-                {products.map((p, i) => (
-                  <MiniCard key={p.id} product={p} priority={i === 0} />
-                ))}
-                {/* Duplicate set for seamless loop */}
-                {products.map((p) => (
-                  <MiniCard key={`${p.id}-duplicate`} product={p} />
+            <div
+              key={slide.eyebrow}
+              className="overflow-x-auto snap-x snap-mandatory no-scrollbar"
+              aria-label={`${slide.eyebrow} products`}
+            >
+              <div className="flex gap-3 sm:gap-4 pe-3 sm:pe-4">
+                {/* AX-05: only first card gets priority loading */}
+                {slideProducts.map((p, i) => (
+                  <div key={p.id} className="snap-start">
+                    <MiniCard product={p} priority={i === 0} />
+                  </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── Dots (min 44px touch target via padding) ── */}
+        {/* HE-04: simple teal active pill + gray inactive dots, 44px hit targets */}
         <div className="flex items-center justify-center gap-1 mt-8">
           {SLIDES.map((s, i) => (
             <button
@@ -212,7 +257,7 @@ export function HeroCarousel() {
               className="relative flex items-center justify-center w-11 h-11"
             >
               <span className={`block rounded-full transition-all duration-300 ${
-                i === active ? 'w-7 h-2.5 bg-brand' : 'w-2.5 h-2.5 bg-brand/30 hover:bg-brand/50'
+                i === active ? 'w-8 h-2.5 bg-brand' : 'w-2.5 h-2.5 bg-gray-300 hover:bg-gray-400'
               }`} />
             </button>
           ))}

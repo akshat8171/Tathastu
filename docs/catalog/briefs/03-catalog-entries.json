@@ -1,0 +1,662 @@
+[
+  {
+    "productId": "pooja-decor-ganesha",
+    "name": "Golden Ganesha Idol",
+    "description": "Golden Ganesha Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 899,
+    "priceLabel": "₹899.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/key-07.png",
+    "pageNumber": 1
+  },
+  {
+    "productId": "pooja-decor-trishul",
+    "name": "Shiva Trishul & Om Stand",
+    "description": "Shiva Trishul & Om Stand — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 699,
+    "priceLabel": "₹699.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/key-08.png",
+    "pageNumber": 2
+  },
+  {
+    "productId": "pooja-decor-incense",
+    "name": "Lotus Incense Holder",
+    "description": "Lotus Incense Holder — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 299,
+    "priceLabel": "₹299.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/key-11.png",
+    "pageNumber": 3
+  },
+  {
+    "productId": "pooja-decor-saraswati",
+    "name": "Maa Saraswati Idol",
+    "description": "Maa Saraswati Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 999,
+    "priceLabel": "₹999.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/key-12.png",
+    "pageNumber": 4
+  },
+  {
+    "productId": "pooja-decor-shiva",
+    "name": "Meditating Mahadev Idol",
+    "description": "Meditating Mahadev Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 1199,
+    "priceLabel": "₹1,199.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/pooja-01.png",
+    "pageNumber": 5
+  },
+  {
+    "productId": "pooja-decor-lakshmi",
+    "name": "Mahalakshmi Idol on Lotus",
+    "description": "Mahalakshmi Idol on Lotus — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 1099,
+    "priceLabel": "₹1,099.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/pooja-02.png",
+    "pageNumber": 6
+  },
+  {
+    "productId": "pooja-decor-krishna",
+    "name": "Bal Krishna Idol",
+    "description": "Bal Krishna Idol — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 799,
+    "priceLabel": "₹799.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/pooja-03.png",
+    "pageNumber": 7
+  },
+  {
+    "productId": "pooja-decor-temple",
+    "name": "Kedarnath Temple Miniature",
+    "description": "Kedarnath Temple Miniature — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 1499,
+    "priceLabel": "₹1,499.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/pooja-04.png",
+    "pageNumber": 8
+  },
+  {
+    "productId": "pooja-decor-sign",
+    "name": "Shrikrishna Devotional Sign",
+    "description": "Shrikrishna Devotional Sign — intricately detailed and beautifully 3D printed for your sacred space. Made to order in vivid, long-lasting multi-colour.",
+    "price": 499,
+    "priceLabel": "₹499.00",
+    "category": "pooja-decor",
+    "imagePath": "/images/3dps/products/key-06.png",
+    "pageNumber": 9
+  },
+  {
+    "productId": "keyrings-piano",
+    "name": "Piano Keys Keychain",
+    "description": "Piano Keys Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "priceLabel": "₹149.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/key-01.png",
+    "pageNumber": 10
+  },
+  {
+    "productId": "keyrings-popit",
+    "name": "Pop-It Fidget Keychain",
+    "description": "Pop-It Fidget Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "priceLabel": "₹129.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/key-02.png",
+    "pageNumber": 11
+  },
+  {
+    "productId": "keyrings-backpack",
+    "name": "Mini Backpack Keychain",
+    "description": "Mini Backpack Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "priceLabel": "₹149.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/key-03.png",
+    "pageNumber": 12
+  },
+  {
+    "productId": "keyrings-caduceus",
+    "name": "Caduceus Medical Keychain",
+    "description": "Caduceus Medical Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 179,
+    "priceLabel": "₹179.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/key-04.png",
+    "pageNumber": 13
+  },
+  {
+    "productId": "keyrings-oreo",
+    "name": "Oreo Cookie Keychain",
+    "description": "Oreo Cookie Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "priceLabel": "₹129.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/key-05.png",
+    "pageNumber": 14
+  },
+  {
+    "productId": "keyrings-shiva",
+    "name": "Mahadev Face Keychain",
+    "description": "Mahadev Face Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "priceLabel": "₹149.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/key-09.png",
+    "pageNumber": 15
+  },
+  {
+    "productId": "keyrings-name",
+    "name": "Custom Name Keychain",
+    "description": "Custom Name Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "priceLabel": "₹199.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/key-10.png",
+    "pageNumber": 16
+  },
+  {
+    "productId": "keyrings-numberplate",
+    "name": "Custom Number Plate Keychain",
+    "description": "Custom Number Plate Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "priceLabel": "₹199.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/pooja-06.png",
+    "pageNumber": 17
+  },
+  {
+    "productId": "keyrings-airplane",
+    "name": "Paper Airplane Keychain",
+    "description": "Paper Airplane Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "priceLabel": "₹129.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/pooja-07.png",
+    "pageNumber": 18
+  },
+  {
+    "productId": "keyrings-nike",
+    "name": "Slides Keychain",
+    "description": "Slides Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 149,
+    "priceLabel": "₹149.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/pooja-08.png",
+    "pageNumber": 19
+  },
+  {
+    "productId": "keyrings-iphone",
+    "name": "Mini Phone Keychain",
+    "description": "Mini Phone Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 179,
+    "priceLabel": "₹179.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/game-02.png",
+    "pageNumber": 20
+  },
+  {
+    "productId": "keyrings-gymplate",
+    "name": "Custom Gym Weight Plate Keychain",
+    "description": "Custom Gym Weight Plate Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "priceLabel": "₹199.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/game-03.png",
+    "pageNumber": 21
+  },
+  {
+    "productId": "keyrings-puppy",
+    "name": "Knitted Puppy Keychain",
+    "description": "Knitted Puppy Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 199,
+    "priceLabel": "₹199.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/decor-02.webp",
+    "pageNumber": 22
+  },
+  {
+    "productId": "keyrings-tennis",
+    "name": "Tennis Ball Keychain",
+    "description": "Tennis Ball Keychain — personalised, multi-colour and built to last. Lightweight, durable, and perfect for keys or bag tags.",
+    "price": 129,
+    "priceLabel": "₹129.00",
+    "category": "keyrings",
+    "imagePath": "/images/3dps/products/decor-03.png",
+    "pageNumber": 23
+  },
+  {
+    "productId": "gaming-ak47",
+    "name": "AK-47 Keychain",
+    "description": "AK-47 Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 179,
+    "priceLabel": "₹179.00",
+    "category": "gaming",
+    "imagePath": "/images/3dps/products/game-01.png",
+    "pageNumber": 24
+  },
+  {
+    "productId": "gaming-marlboro",
+    "name": "Marlboro Keychain",
+    "description": "Marlboro Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 149,
+    "priceLabel": "₹149.00",
+    "category": "gaming",
+    "imagePath": "/images/3dps/products/game-04.png",
+    "pageNumber": 25
+  },
+  {
+    "productId": "gaming-toad",
+    "name": "Toad Character Keychain",
+    "description": "Toad Character Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 199,
+    "priceLabel": "₹199.00",
+    "category": "gaming",
+    "imagePath": "/images/3dps/products/pooja-05.png",
+    "pageNumber": 26
+  },
+  {
+    "productId": "gaming-shield",
+    "name": "Captain America Shield Keychain",
+    "description": "Captain America Shield Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 199,
+    "priceLabel": "₹199.00",
+    "category": "gaming",
+    "imagePath": "/images/3dps/products/decor-01.webp",
+    "pageNumber": 27
+  },
+  {
+    "productId": "gaming-streamer",
+    "name": "Gamer Character Keychain",
+    "description": "Gamer Character Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 199,
+    "priceLabel": "₹199.00",
+    "category": "gaming",
+    "imagePath": "/images/3dps/products/decor-04.png",
+    "pageNumber": 28
+  },
+  {
+    "productId": "gaming-gamepad",
+    "name": "Gamepad Keychain",
+    "description": "Gamepad Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 179,
+    "priceLabel": "₹179.00",
+    "category": "gaming",
+    "imagePath": "/images/3dps/hero/slide-5.png",
+    "pageNumber": 29
+  },
+  {
+    "productId": "gaming-question",
+    "name": "Question Block Keychain",
+    "description": "Question Block Keychain — a fun, collectible 3D-printed piece for fans and gamers. Crisp detail and vibrant colour, made to order.",
+    "price": 149,
+    "priceLabel": "₹149.00",
+    "category": "gaming",
+    "imagePath": "/images/3dps/hero/slide-6.png",
+    "pageNumber": 30
+  },
+  {
+    "productId": "organizers-organizer1",
+    "name": "Multi-Purpose Desk Organizer",
+    "description": "A beautifully designed organizer that helps you keep your space tidy and organized. Features multiple compartments and a sleek design that complements any decor style. Perfect for desks, shelves, or countertops.",
+    "price": 1899,
+    "priceLabel": "₹1,899.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer1/2025-02-05_2c663f44c88c1.webp",
+    "pageNumber": 31
+  },
+  {
+    "productId": "organizers-organizer2",
+    "name": "Premium Storage Organizer",
+    "description": "An elegant storage solution that combines form and function. This organizer features a modern design with ample storage space. Ideal for organizing office supplies, cosmetics, or small accessories.",
+    "price": 2199,
+    "priceLabel": "₹2,199.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer2/d6452f90-c897-11ef-b2c7-2dc1a7392ad7.png",
+    "pageNumber": 32
+  },
+  {
+    "productId": "organizers-organizer3",
+    "name": "TISTWO Tissue Box Organizer",
+    "description": "A stylish tissue box organizer with hidden magnets for secure placement. Features a modern design that blends seamlessly with any decor. Keeps tissues easily accessible while maintaining a clean, organized look.",
+    "price": 1599,
+    "priceLabel": "₹1,599.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer3/TISTWO20tissue20box.jpg",
+    "pageNumber": 33
+  },
+  {
+    "productId": "organizers-organizer4",
+    "name": "THALOR Kitchen Tissue Holder",
+    "description": "A practical kitchen tissue holder designed for convenience and style. Features easy mounting and quick tissue access. Perfect for kitchens, dining areas, or bathrooms. Durable construction ensures long-lasting use.",
+    "price": 1399,
+    "priceLabel": "₹1,399.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer4/THALOR20kitchen20tissue20holder.jpg",
+    "pageNumber": 34
+  },
+  {
+    "productId": "organizers-stackdesk-pro",
+    "name": "StackDesk Pro Organizer",
+    "description": "A modular stacking desk organizer system with interlocking tiers. Configure it as a pen caddy, cable manager, or card holder — all in one elegant unit. Printed in smooth matte PLA for a professional look.",
+    "price": 999,
+    "priceLabel": "₹999.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer1/2025-02-05_2c663f44c88c1.webp",
+    "pageNumber": 35
+  },
+  {
+    "productId": "organizers-cable-den",
+    "name": "Cable Den Desk Tidy",
+    "description": "Tame the cable chaos on your desk with this wall-mountable or freestanding cable organizer. Hidden routing channels keep USB, power, and headphone cables neat and tangle-free. Minimal design suits any workspace.",
+    "price": 799,
+    "priceLabel": "₹799.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer2/d657cd30-c897-11ef-b2c7-2dc1a7392ad7.jpg",
+    "pageNumber": 36
+  },
+  {
+    "productId": "organizers-mag-tissue",
+    "name": "MagBase Tissue Caddy",
+    "description": "Magnetic-base tissue caddy that stays put on metallic surfaces — fridges, filing cabinets, whiteboards. A clean alternative to plastic holders, printed in a range of matte finishes. Gift-ready packaging included.",
+    "price": 1299,
+    "priceLabel": "₹1,299.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer3/TISTWO20tissue20box.jpg",
+    "pageNumber": 37
+  },
+  {
+    "productId": "organizers-counter-caddy",
+    "name": "Counter Caddy Kitchen Holder",
+    "description": "Keep your kitchen counter clutter-free with this slim and practical caddy. Holds paper towels, spatulas, and small utensils in one spot. Weighted base prevents tipping. Dishwasher safe.",
+    "price": 1199,
+    "priceLabel": "₹1,199.00",
+    "category": "organizers",
+    "imagePath": "/images/products/organizers/organizer4/THALOR20kitchen20tissue20holder.jpg",
+    "pageNumber": 38
+  },
+  {
+    "productId": "lamps-lamp1",
+    "name": "Rustic Charm Lamp",
+    "description": "A stunning rustic lamp that brings warmth and character to any space. Features a unique design with natural textures and earthy tones. Perfect for creating a cozy ambiance in living rooms, bedrooms, or study areas. Handcrafted with attention to detail.",
+    "price": 2299,
+    "priceLabel": "₹2,299.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/lamp1/34952bf0-2a35-11f0-8ecc-91091a12b35c.jpg",
+    "pageNumber": 39
+  },
+  {
+    "productId": "lamps-lamp2",
+    "name": "Modern Elegance Lamp",
+    "description": "A beautifully crafted lamp that combines modern design with rustic charm. Perfect for adding ambient lighting to any room. Made with premium materials and attention to detail, this lamp will be a statement piece in your home decor.",
+    "price": 2499,
+    "priceLabel": "₹2,499.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/lamp2/IMG_2517.jpeg",
+    "pageNumber": 40
+  },
+  {
+    "productId": "lamps-lamp3",
+    "name": "Contemporary Style Lamp",
+    "description": "An elegant and sophisticated lamp design that brings warmth and style to your living space. Features a unique base design and premium finish. Ideal for bedside tables, study desks, or as a decorative accent piece.",
+    "price": 2799,
+    "priceLabel": "₹2,799.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/lamp3/2025-11-18_19d636c83adc7.webp",
+    "pageNumber": 41
+  },
+  {
+    "productId": "lamps-lamp4",
+    "name": "Artistic Designer Lamp",
+    "description": "A stunning contemporary lamp that blends functionality with artistic design. Perfect for modern interiors, this lamp features a unique silhouette and premium materials. Creates the perfect ambiance for any setting.",
+    "price": 3199,
+    "priceLabel": "₹3,199.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/Lamp4/2025-06-19_055478830772c8.webp",
+    "pageNumber": 42
+  },
+  {
+    "productId": "lamps-lamp5",
+    "name": "Minimalist Modern Lamp",
+    "description": "A sleek and minimalist lamp design that complements contemporary interiors. Features clean lines and a sophisticated aesthetic. Perfect for modern homes and offices. Provides excellent lighting while serving as a stylish decor piece.",
+    "price": 2899,
+    "priceLabel": "₹2,899.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/lamp5/09d2f170-e355-11f0-a875-5de986fdb37b.jpg",
+    "pageNumber": 43
+  },
+  {
+    "productId": "lamps-glow-arc",
+    "name": "Glow Arc Pendant Lamp",
+    "description": "An arc-shaped pendant lamp with a smooth matte finish, designed to hang over dining tables or reading nooks. The curved silhouette creates a soft halo effect that's as beautiful unlit as it is glowing.",
+    "price": 1999,
+    "priceLabel": "₹1,999.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/lamp2/IMG_2517.jpeg",
+    "pageNumber": 44
+  },
+  {
+    "productId": "lamps-terra-glow",
+    "name": "Terra Glow Table Lamp",
+    "description": "Earth-toned 3D-printed lamp with a terracotta-inspired palette. The geometric lattice pattern casts stunning shadow patterns on your walls. A conversation-starter for any boho or earthy interior.",
+    "price": 2149,
+    "priceLabel": "₹2,149.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/lamp1/34952bf0-2a35-11f0-8ecc-91091a12b35c.jpg",
+    "pageNumber": 45
+  },
+  {
+    "productId": "lamps-lunar-night",
+    "name": "Lunar Night Lamp",
+    "description": "Inspired by the moon's craters and surface, this night lamp casts a warm celestial glow. Ideal as a bedside lamp, nursery light, or a thoughtful gift. Printed in translucent filament for maximum diffusion.",
+    "price": 1699,
+    "priceLabel": "₹1,699.00",
+    "category": "lamps",
+    "imagePath": "/images/products/lamps/lamp3/2025-11-18_98ad47b29ecd68.webp",
+    "pageNumber": 46
+  },
+  {
+    "productId": "planters-planter1",
+    "name": "CACTIA Cactus Planter",
+    "description": "A charming cactus-themed planter perfect for succulents and small plants. Features a unique design that adds personality to any space. Made with durable materials and excellent drainage. Ideal for indoor gardening enthusiasts.",
+    "price": 1499,
+    "priceLabel": "₹1,499.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter1/CACTIA20planter202.jpg",
+    "pageNumber": 47
+  },
+  {
+    "productId": "planters-planter2",
+    "name": "STEMRA Stackable Planter Set",
+    "description": "Innovative stackable planters that maximize vertical space. Perfect for creating a living wall or herb garden. Features modular design for flexible arrangements. Ideal for small spaces and urban gardening.",
+    "price": 2199,
+    "priceLabel": "₹2,199.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter2/STACKABLE.jpg",
+    "pageNumber": 48
+  },
+  {
+    "productId": "planters-planter3",
+    "name": "Artisan Geometric Planter",
+    "description": "A beautiful geometric planter that brings nature into your home. Crafted with care, this planter is perfect for indoor plants and adds a touch of greenery to any space. Features excellent drainage and a timeless faceted design.",
+    "price": 1599,
+    "priceLabel": "₹1,599.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter1/CACTIA20planter202.jpg",
+    "pageNumber": 49
+  },
+  {
+    "productId": "planters-herb-tower",
+    "name": "Herb Tower Planter",
+    "description": "A tall tower planter with three self-watering pockets — perfect for growing basil, mint, and coriander on your kitchen windowsill. The modular tiers can be removed for easy harvesting. Compact and lightweight.",
+    "price": 1299,
+    "priceLabel": "₹1,299.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter2/STEMRA2011.jpg",
+    "pageNumber": 50
+  },
+  {
+    "productId": "planters-wall-bloom",
+    "name": "Wall Bloom Hanging Planter",
+    "description": "Mount it, hang it, or set it on a shelf — this versatile planter works three ways. The integrated hanger is load-tested for 1.5kg. Comes in warm terracotta-inspired tones that look gorgeous with trailing pothos or string-of-pearls.",
+    "price": 899,
+    "priceLabel": "₹899.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter1/CACTIA20planter202.jpg",
+    "pageNumber": 51
+  },
+  {
+    "productId": "planters-urban-pot",
+    "name": "Urban Pocket Pot Set",
+    "description": "A set of two minimalist pocket pots for desk succulents or air plants. The slim silhouette takes up barely any desk real estate, while the built-in drainage keeps your plants happy. A great gifting option.",
+    "price": 699,
+    "priceLabel": "₹699.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter2/STACKABLE20(2).jpg",
+    "pageNumber": 52
+  },
+  {
+    "productId": "planters-terrace-trio",
+    "name": "Terrace Trio Planter Bundle",
+    "description": "Three graduating-size planters sold as a bundle — small for succulents, medium for herbs, large for a statement monstera. Designed to stack or display in a row. A popular housewarming gift.",
+    "price": 2499,
+    "priceLabel": "₹2,499.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter2/STEMRA2011.jpg",
+    "pageNumber": 53
+  },
+  {
+    "productId": "planters-geo-fern",
+    "name": "Geo Fern Floor Planter",
+    "description": "A bold geometric floor planter that makes a statement in hallways, living corners, and entryways. Its 30cm height is ideal for ferns, fiddle-leaf figs, or tall ornamental grasses. Printed in weather-resistant PETG.",
+    "price": 3499,
+    "priceLabel": "₹3,499.00",
+    "category": "planters",
+    "imagePath": "/images/products/planters/planter1/CACTIA20planter202.jpg",
+    "pageNumber": 54
+  },
+  {
+    "productId": "rakhi-gaming-console",
+    "name": "Gaming Console Rakhi – Customised Gamer Rakhi for Brother",
+    "description": "A customised gaming rakhi shaped like a mini game controller — the perfect personalised rakhi for a gamer brother this Raksha Bandhan. Add his name or gamertag, and after the festival clip on the free converter to turn this 3D-printed rakhi into a keychain keepsake he keeps forever.",
+    "price": 299,
+    "priceLabel": "₹299.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/gaming-console.png",
+    "pageNumber": 55
+  },
+  {
+    "productId": "rakhi-cricket-bat-ball",
+    "name": "Cricket Bat & Ball Rakhi – Customised Sports Rakhi",
+    "description": "A customised cricket rakhi with a mini 3D-printed bat and ball — a personalised rakhi for a cricket-loving brother. Print his name or jersey number on the bat, then reuse it as a keychain keepsake once Raksha Bandhan is over.",
+    "price": 259,
+    "priceLabel": "₹259.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/cricket-bat-ball.png",
+    "pageNumber": 56
+  },
+  {
+    "productId": "rakhi-personalised-name",
+    "name": "Personalised Name Rakhi – Custom Name Rakhi for Brother",
+    "description": "A personalised name rakhi 3D-printed with any name you choose — the classic customised rakhi for Raksha Bandhan 2026. Clean, colourful and built to last, it converts into a name keychain keepsake your brother can carry forever.",
+    "price": 259,
+    "priceLabel": "₹259.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/name-personalised.png",
+    "pageNumber": 57
+  },
+  {
+    "productId": "rakhi-secret-message",
+    "name": "Secret Message Rakhi – Hidden Message Keepsake Rakhi",
+    "description": "A secret message rakhi with a hidden engraved note only your brother can read — the most heartfelt customised rakhi for Raksha Bandhan. Print a private message, then keep it forever as a keychain keepsake.",
+    "price": 299,
+    "priceLabel": "₹299.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/secret-message.png",
+    "pageNumber": 58
+  },
+  {
+    "productId": "rakhi-photo",
+    "name": "Photo Rakhi – Customised Picture Rakhi for Raksha Bandhan",
+    "description": "A customised photo rakhi featuring your favourite sibling memory — a personalised picture rakhi for Raksha Bandhan 2026. Upload a photo during checkout and keep this 3D-printed rakhi forever as a photo keychain keepsake.",
+    "price": 299,
+    "priceLabel": "₹299.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/photo-rakhi.png",
+    "pageNumber": 59
+  },
+  {
+    "productId": "rakhi-superhero-shield",
+    "name": "Superhero Shield Rakhi – Customised Hero Rakhi for Kids",
+    "description": "A customised superhero rakhi shaped like a hero's shield — a personalised kids rakhi for Raksha Bandhan. Add your little brother's name and let him wear his hero, then clip on the converter for a keychain keepsake.",
+    "price": 269,
+    "priceLabel": "₹269.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/superhero-shield.png",
+    "pageNumber": 60
+  },
+  {
+    "productId": "rakhi-cartoon-kids",
+    "name": "Cartoon Kids Rakhi – Customised Character Rakhi for Kids",
+    "description": "A fun customised cartoon rakhi for kids — a colourful character-style rakhi for Raksha Bandhan 2026 with your child's name. A personalised kids rakhi that becomes a playful keychain keepsake for their school bag.",
+    "price": 259,
+    "priceLabel": "₹259.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/cartoon-kids.png",
+    "pageNumber": 61
+  },
+  {
+    "productId": "rakhi-car-lover",
+    "name": "Car Lover Rakhi – Customised Car Rakhi for Brother",
+    "description": "A customised car rakhi for the petrolhead brother — a personalised rakhi with a mini 3D-printed car and his name or number plate. After Raksha Bandhan, it clips onto his car keys as a keychain keepsake.",
+    "price": 269,
+    "priceLabel": "₹269.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/car-lover.png",
+    "pageNumber": 62
+  },
+  {
+    "productId": "rakhi-profession",
+    "name": "Profession Rakhi – Doctor, Engineer & Pilot Rakhi",
+    "description": "A customised profession rakhi celebrating what your brother does best — doctor, engineer, pilot and more. A thoughtful personalised rakhi for Raksha Bandhan 2026 with his name, kept forever as a keychain keepsake.",
+    "price": 349,
+    "priceLabel": "₹349.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/profession.png",
+    "pageNumber": 63
+  },
+  {
+    "productId": "rakhi-initial-letter",
+    "name": "Initial Letter Rakhi – Customised Alphabet Keychain Rakhi",
+    "description": "A minimalist customised initial rakhi 3D-printed with your brother's first letter — a modern personalised rakhi for Raksha Bandhan. Sleek and simple, it becomes an initial keychain keepsake he'll actually use.",
+    "price": 259,
+    "priceLabel": "₹259.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/initial-keychain.png",
+    "pageNumber": 64
+  },
+  {
+    "productId": "rakhi-bhaiya-bhabhi-set",
+    "name": "Bhaiya Bhabhi Rakhi Set – Customised Lumba Rakhi (Set of 2)",
+    "description": "A customised Bhaiya Bhabhi rakhi set (set of 2) with a lumba rakhi for your sister-in-law — personalised with both names for Raksha Bandhan 2026. Two 3D-printed keepsakes that become keychains the couple keeps forever.",
+    "price": 549,
+    "priceLabel": "₹549.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/couple-lumba-set.png",
+    "pageNumber": 65
+  },
+  {
+    "productId": "rakhi-family-set",
+    "name": "Family Rakhi Set – Customised Rakhi Set of 4 Keepsakes",
+    "description": "A customised family rakhi set of 4 — personalised with a name on each rakhi for every brother in the family this Raksha Bandhan 2026. Four 3D-printed keepsakes that all convert into keychains, so the whole family keeps them forever.",
+    "price": 1049,
+    "priceLabel": "₹1,049.00",
+    "category": "rakhi",
+    "imagePath": "/images/rakhi/products/family-set.png",
+    "pageNumber": 66
+  }
+]

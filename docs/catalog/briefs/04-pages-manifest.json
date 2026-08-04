@@ -1,0 +1,398 @@
+[
+  {
+    "page": 1,
+    "id": "lamps-lamp1",
+    "path": "docs/catalog/pages/page-001-lamps-lamp1.png",
+    "price": 2299
+  },
+  {
+    "page": 2,
+    "id": "lamps-lamp2",
+    "path": "docs/catalog/pages/page-002-lamps-lamp2.png",
+    "price": 2499
+  },
+  {
+    "page": 3,
+    "id": "lamps-lamp3",
+    "path": "docs/catalog/pages/page-003-lamps-lamp3.png",
+    "price": 2799
+  },
+  {
+    "page": 4,
+    "id": "lamps-lamp4",
+    "path": "docs/catalog/pages/page-004-lamps-lamp4.png",
+    "price": 3199
+  },
+  {
+    "page": 5,
+    "id": "lamps-lamp5",
+    "path": "docs/catalog/pages/page-005-lamps-lamp5.png",
+    "price": 2899
+  },
+  {
+    "page": 6,
+    "id": "lamps-glow-arc",
+    "path": "docs/catalog/pages/page-006-lamps-glow-arc.png",
+    "price": 1999
+  },
+  {
+    "page": 7,
+    "id": "lamps-terra-glow",
+    "path": "docs/catalog/pages/page-007-lamps-terra-glow.png",
+    "price": 2149
+  },
+  {
+    "page": 8,
+    "id": "lamps-lunar-night",
+    "path": "docs/catalog/pages/page-008-lamps-lunar-night.png",
+    "price": 1699
+  },
+  {
+    "page": 9,
+    "id": "organizers-organizer1",
+    "path": "docs/catalog/pages/page-009-organizers-organizer1.png",
+    "price": 1899
+  },
+  {
+    "page": 10,
+    "id": "organizers-organizer2",
+    "path": "docs/catalog/pages/page-010-organizers-organizer2.png",
+    "price": 2199
+  },
+  {
+    "page": 11,
+    "id": "organizers-organizer3",
+    "path": "docs/catalog/pages/page-011-organizers-organizer3.png",
+    "price": 1599
+  },
+  {
+    "page": 12,
+    "id": "organizers-organizer4",
+    "path": "docs/catalog/pages/page-012-organizers-organizer4.png",
+    "price": 1399
+  },
+  {
+    "page": 13,
+    "id": "organizers-stackdesk-pro",
+    "path": "docs/catalog/pages/page-013-organizers-stackdesk-pro.png",
+    "price": 999
+  },
+  {
+    "page": 14,
+    "id": "organizers-cable-den",
+    "path": "docs/catalog/pages/page-014-organizers-cable-den.png",
+    "price": 799
+  },
+  {
+    "page": 15,
+    "id": "organizers-mag-tissue",
+    "path": "docs/catalog/pages/page-015-organizers-mag-tissue.png",
+    "price": 1299
+  },
+  {
+    "page": 16,
+    "id": "organizers-counter-caddy",
+    "path": "docs/catalog/pages/page-016-organizers-counter-caddy.png",
+    "price": 1199
+  },
+  {
+    "page": 17,
+    "id": "planters-planter1",
+    "path": "docs/catalog/pages/page-017-planters-planter1.png",
+    "price": 1499
+  },
+  {
+    "page": 18,
+    "id": "planters-planter2",
+    "path": "docs/catalog/pages/page-018-planters-planter2.png",
+    "price": 2199
+  },
+  {
+    "page": 19,
+    "id": "planters-planter3",
+    "path": "docs/catalog/pages/page-019-planters-planter3.png",
+    "price": 1599
+  },
+  {
+    "page": 20,
+    "id": "planters-herb-tower",
+    "path": "docs/catalog/pages/page-020-planters-herb-tower.png",
+    "price": 1299
+  },
+  {
+    "page": 21,
+    "id": "planters-wall-bloom",
+    "path": "docs/catalog/pages/page-021-planters-wall-bloom.png",
+    "price": 899
+  },
+  {
+    "page": 22,
+    "id": "planters-urban-pot",
+    "path": "docs/catalog/pages/page-022-planters-urban-pot.png",
+    "price": 699
+  },
+  {
+    "page": 23,
+    "id": "planters-terrace-trio",
+    "path": "docs/catalog/pages/page-023-planters-terrace-trio.png",
+    "price": 2499
+  },
+  {
+    "page": 24,
+    "id": "planters-geo-fern",
+    "path": "docs/catalog/pages/page-024-planters-geo-fern.png",
+    "price": 3499
+  },
+  {
+    "page": 25,
+    "id": "pooja-decor-ganesha",
+    "path": "docs/catalog/pages/page-025-pooja-decor-ganesha.png",
+    "price": 899
+  },
+  {
+    "page": 26,
+    "id": "pooja-decor-trishul",
+    "path": "docs/catalog/pages/page-026-pooja-decor-trishul.png",
+    "price": 699
+  },
+  {
+    "page": 27,
+    "id": "pooja-decor-incense",
+    "path": "docs/catalog/pages/page-027-pooja-decor-incense.png",
+    "price": 299
+  },
+  {
+    "page": 28,
+    "id": "pooja-decor-saraswati",
+    "path": "docs/catalog/pages/page-028-pooja-decor-saraswati.png",
+    "price": 999
+  },
+  {
+    "page": 29,
+    "id": "pooja-decor-shiva",
+    "path": "docs/catalog/pages/page-029-pooja-decor-shiva.png",
+    "price": 1199
+  },
+  {
+    "page": 30,
+    "id": "pooja-decor-lakshmi",
+    "path": "docs/catalog/pages/page-030-pooja-decor-lakshmi.png",
+    "price": 1099
+  },
+  {
+    "page": 31,
+    "id": "pooja-decor-krishna",
+    "path": "docs/catalog/pages/page-031-pooja-decor-krishna.png",
+    "price": 799
+  },
+  {
+    "page": 32,
+    "id": "pooja-decor-temple",
+    "path": "docs/catalog/pages/page-032-pooja-decor-temple.png",
+    "price": 1499
+  },
+  {
+    "page": 33,
+    "id": "pooja-decor-sign",
+    "path": "docs/catalog/pages/page-033-pooja-decor-sign.png",
+    "price": 499
+  },
+  {
+    "page": 34,
+    "id": "keyrings-piano",
+    "path": "docs/catalog/pages/page-034-keyrings-piano.png",
+    "price": 149
+  },
+  {
+    "page": 35,
+    "id": "keyrings-popit",
+    "path": "docs/catalog/pages/page-035-keyrings-popit.png",
+    "price": 129
+  },
+  {
+    "page": 36,
+    "id": "keyrings-backpack",
+    "path": "docs/catalog/pages/page-036-keyrings-backpack.png",
+    "price": 149
+  },
+  {
+    "page": 37,
+    "id": "keyrings-caduceus",
+    "path": "docs/catalog/pages/page-037-keyrings-caduceus.png",
+    "price": 179
+  },
+  {
+    "page": 38,
+    "id": "keyrings-oreo",
+    "path": "docs/catalog/pages/page-038-keyrings-oreo.png",
+    "price": 129
+  },
+  {
+    "page": 39,
+    "id": "keyrings-shiva",
+    "path": "docs/catalog/pages/page-039-keyrings-shiva.png",
+    "price": 149
+  },
+  {
+    "page": 40,
+    "id": "keyrings-name",
+    "path": "docs/catalog/pages/page-040-keyrings-name.png",
+    "price": 199
+  },
+  {
+    "page": 41,
+    "id": "keyrings-numberplate",
+    "path": "docs/catalog/pages/page-041-keyrings-numberplate.png",
+    "price": 199
+  },
+  {
+    "page": 42,
+    "id": "keyrings-airplane",
+    "path": "docs/catalog/pages/page-042-keyrings-airplane.png",
+    "price": 129
+  },
+  {
+    "page": 43,
+    "id": "keyrings-nike",
+    "path": "docs/catalog/pages/page-043-keyrings-nike.png",
+    "price": 149
+  },
+  {
+    "page": 44,
+    "id": "keyrings-iphone",
+    "path": "docs/catalog/pages/page-044-keyrings-iphone.png",
+    "price": 179
+  },
+  {
+    "page": 45,
+    "id": "keyrings-gymplate",
+    "path": "docs/catalog/pages/page-045-keyrings-gymplate.png",
+    "price": 199
+  },
+  {
+    "page": 46,
+    "id": "keyrings-puppy",
+    "path": "docs/catalog/pages/page-046-keyrings-puppy.png",
+    "price": 199
+  },
+  {
+    "page": 47,
+    "id": "keyrings-tennis",
+    "path": "docs/catalog/pages/page-047-keyrings-tennis.png",
+    "price": 129
+  },
+  {
+    "page": 48,
+    "id": "gaming-ak47",
+    "path": "docs/catalog/pages/page-048-gaming-ak47.png",
+    "price": 179
+  },
+  {
+    "page": 49,
+    "id": "gaming-marlboro",
+    "path": "docs/catalog/pages/page-049-gaming-marlboro.png",
+    "price": 149
+  },
+  {
+    "page": 50,
+    "id": "gaming-toad",
+    "path": "docs/catalog/pages/page-050-gaming-toad.png",
+    "price": 199
+  },
+  {
+    "page": 51,
+    "id": "gaming-shield",
+    "path": "docs/catalog/pages/page-051-gaming-shield.png",
+    "price": 199
+  },
+  {
+    "page": 52,
+    "id": "gaming-streamer",
+    "path": "docs/catalog/pages/page-052-gaming-streamer.png",
+    "price": 199
+  },
+  {
+    "page": 53,
+    "id": "gaming-gamepad",
+    "path": "docs/catalog/pages/page-053-gaming-gamepad.png",
+    "price": 179
+  },
+  {
+    "page": 54,
+    "id": "gaming-question",
+    "path": "docs/catalog/pages/page-054-gaming-question.png",
+    "price": 149
+  },
+  {
+    "page": 55,
+    "id": "rakhi-gaming-console",
+    "path": "docs/catalog/pages/page-055-rakhi-gaming-console.png",
+    "price": 299
+  },
+  {
+    "page": 56,
+    "id": "rakhi-cricket-bat-ball",
+    "path": "docs/catalog/pages/page-056-rakhi-cricket-bat-ball.png",
+    "price": 259
+  },
+  {
+    "page": 57,
+    "id": "rakhi-personalised-name",
+    "path": "docs/catalog/pages/page-057-rakhi-personalised-name.png",
+    "price": 259
+  },
+  {
+    "page": 58,
+    "id": "rakhi-secret-message",
+    "path": "docs/catalog/pages/page-058-rakhi-secret-message.png",
+    "price": 299
+  },
+  {
+    "page": 59,
+    "id": "rakhi-photo",
+    "path": "docs/catalog/pages/page-059-rakhi-photo.png",
+    "price": 299
+  },
+  {
+    "page": 60,
+    "id": "rakhi-superhero-shield",
+    "path": "docs/catalog/pages/page-060-rakhi-superhero-shield.png",
+    "price": 269
+  },
+  {
+    "page": 61,
+    "id": "rakhi-cartoon-kids",
+    "path": "docs/catalog/pages/page-061-rakhi-cartoon-kids.png",
+    "price": 259
+  },
+  {
+    "page": 62,
+    "id": "rakhi-car-lover",
+    "path": "docs/catalog/pages/page-062-rakhi-car-lover.png",
+    "price": 269
+  },
+  {
+    "page": 63,
+    "id": "rakhi-profession",
+    "path": "docs/catalog/pages/page-063-rakhi-profession.png",
+    "price": 349
+  },
+  {
+    "page": 64,
+    "id": "rakhi-initial-letter",
+    "path": "docs/catalog/pages/page-064-rakhi-initial-letter.png",
+    "price": 259
+  },
+  {
+    "page": 65,
+    "id": "rakhi-bhaiya-bhabhi-set",
+    "path": "docs/catalog/pages/page-065-rakhi-bhaiya-bhabhi-set.png",
+    "price": 549
+  },
+  {
+    "page": 66,
+    "id": "rakhi-family-set",
+    "path": "docs/catalog/pages/page-066-rakhi-family-set.png",
+    "price": 1049
+  }
+]

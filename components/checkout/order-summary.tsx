@@ -131,7 +131,7 @@ export function OrderSummary() {
         ))}
       </div>
 
-      {/* Coupon input */}
+      {/* Coupon input (CV-02: added hint) */}
       <div className="mb-5">
         {appliedCoupon ? (
           <div className="flex items-center justify-between rounded-xl bg-green-50 border border-green-200 px-4 py-3">
@@ -153,15 +153,20 @@ export function OrderSummary() {
           </div>
         ) : (
           <div className="space-y-2">
+            <label htmlFor="coupon-input" className="block text-xs font-medium text-ink font-sans mb-1">
+              Have a coupon code?
+            </label>
             <div className="flex gap-2">
               <input
+                id="coupon-input"
                 type="text"
                 value={couponInput}
                 onChange={e => setCouponInput(e.target.value.toUpperCase())}
                 onKeyDown={handleCouponKeyDown}
-                placeholder="Coupon code"
+                placeholder="FIRST20"
                 className="flex-1 px-4 py-2.5 rounded-xl bg-surface border border-gray-200 text-ink placeholder-muted/60 font-sans text-sm focus:outline-none focus:ring-2 focus:ring-brand/50 focus:border-brand transition-colors"
                 aria-label="Coupon code"
+                aria-describedby="coupon-hint"
               />
               <button
                 onClick={handleApplyCoupon}
@@ -175,6 +180,9 @@ export function OrderSummary() {
                 )}
               </button>
             </div>
+            <p id="coupon-hint" className="text-xs text-muted font-sans">
+              Try <strong className="text-brand">FIRST20</strong> for 20% off your first order
+            </p>
             {couponError && (
               <p className="text-xs text-red-600 font-sans">{couponError}</p>
             )}

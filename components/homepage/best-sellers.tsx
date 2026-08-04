@@ -31,6 +31,7 @@ export function BestSellers() {
       subtitle="Our most-loved custom prints, picked by customers."
       viewAllHref="/products"
       products={bestSellers}
+      showRating={false}
     />
   )
 }

@@ -16,7 +16,7 @@ export const SITE = {
   email: 'tathastukeepsakes@gmail.com',
   whatsapp: 'https://wa.me/919154892790',
   whatsappNumber: '919154892790',
-  instagram: 'https://instagram.com/tathastukeepsakes', // placeholder until owner confirms handle
+  instagram: 'https://www.instagram.com/tathastukeepsakes/',
   facebook: 'https://facebook.com/tathastukeepsakes', // placeholder until owner confirms handle
   addressLines: ['Agra, Uttar Pradesh', 'India'],
   supportHours: 'Mon–Sat, 10am–7pm IST',

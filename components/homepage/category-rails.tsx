@@ -22,30 +22,35 @@ export function CategoryRails() {
         subtitle="Personalised, multi-colour and built to last."
         viewAllHref="/products?category=keyrings"
         products={byCategory('keyrings', 10)}
+        showRating={false}
       />
       <ProductRail
         title="Pooja & Decor"
         subtitle="Devotional pieces, beautifully printed."
         viewAllHref="/products?category=pooja-decor"
         products={byCategory('pooja-decor', 10)}
+        showRating={false}
       />
       <ProductRail
         title="Gaming & Fun"
         subtitle="One-of-a-kind, made-to-order creations."
         viewAllHref="/products?category=gaming"
         products={byCategory('gaming', 10)}
+        showRating={false}
       />
       <ProductRail
         title="Lamps & Lighting"
         subtitle="Statement pieces that cast the perfect glow."
         viewAllHref="/products?category=lamps"
         products={byCategory('lamps', 10)}
+        showRating={false}
       />
       <ProductRail
         title="Planters & Garden"
         subtitle="Unique planters for succulents, herbs, and house plants."
         viewAllHref="/products?category=planters"
         products={byCategory('planters', 10)}
+        showRating={false}
       />
     </>
   )

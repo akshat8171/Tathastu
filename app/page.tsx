@@ -17,50 +17,57 @@ import { IdeaCta }             from '@/components/homepage/idea-cta'
 import { PhotoUploadSection }  from '@/components/homepage/photo-upload-section'
 import { InstagramReels }      from '@/components/homepage/instagram-reels'
 import { NewsletterForm }      from '@/components/layout/newsletter-form'
-import { getWebSiteSchema } from '@/lib/schema'
+import { getWebSiteSchema, getOrganizationSchema } from '@/lib/schema'
 
 export default function HomePage() {
   const webSiteSchema = getWebSiteSchema()
+  const organizationSchema = getOrganizationSchema()
 
   return (
     <>
+      {/* Organization Schema JSON-LD for business entity */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+
       {/* WebSite Schema JSON-LD for sitelinks search box */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
       />
 
-      {/* 1. Hero carousel (with WhatsApp secondary CTA) */}
+      {/* 1. Hero carousel — rotating slides with product showcases */}
       <HeroCarousel />
 
-      {/* 2. Category grid */}
-      <CategoryIcons />
-
-      {/* 3. Promo strip (FIRST20 — 20% off, min ₹199) */}
+      {/* 2. Promo strip — FIRST20 discount banner */}
       <PromoStrip />
 
-      {/* 4. Best Sellers */}
+      {/* 3. Category navigation grid */}
+      <CategoryIcons />
+
+      {/* 4. Best Sellers — curated top products */}
       <BestSellers />
 
-      {/* 5. Trust band */}
+      {/* 5. Trust indicators — delivery, quality, returns */}
       <TrustBand />
 
-      {/* 6. Per-category rails */}
+      {/* 6. Category product rails — browse by type */}
       <CategoryRails />
 
-      {/* 7. Customer reviews */}
+      {/* 7. Customer reviews and testimonials */}
       <ReviewsSection />
 
-      {/* 8. Photo → Keychain / Portrait upload section */}
+      {/* 8. Photo upload CTA — custom keychains/portraits */}
       <PhotoUploadSection />
 
-      {/* 9. Idea / Custom CTA */}
+      {/* 9. Tathastu Lab CTA — custom 3D printing services */}
       <IdeaCta />
 
-      {/* 10. Instagram Reels marquee */}
+      {/* 10. Instagram Reels showcase — social proof */}
       <InstagramReels />
 
-      {/* 11. Newsletter signup (above footer, additive chrome) */}
+      {/* 11. Newsletter signup — above footer */}
       <section className="py-14 sm:py-20 bg-white border-t border-gray-100" aria-label="Newsletter signup">
         <div className="container-page">
           <NewsletterForm />

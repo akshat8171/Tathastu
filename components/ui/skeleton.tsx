@@ -1,12 +1,12 @@
 import React from 'react'
 
 /**
- * Base skeleton loading component with pulse animation
+ * Base skeleton loading component with brand-tinted pulse animation
  */
 export function Skeleton({ className = '' }: { className?: string }) {
   return (
     <div
-      className={`animate-pulse bg-gray-200 rounded ${className}`}
+      className={`animate-pulse bg-brand/10 rounded ${className}`}
       aria-label="Loading..."
     />
   )

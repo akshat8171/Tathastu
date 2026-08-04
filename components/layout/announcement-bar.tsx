@@ -9,11 +9,11 @@ export function AnnouncementBar() {
         {/* Centered marquee message */}
         <div className="flex-1 text-center text-xs font-sans">
           <span className="hidden sm:inline">
-            Fast pan-India delivery&nbsp;🇮🇳&nbsp;&bull;&nbsp;Custom 3D prints made to order&nbsp;&bull;&nbsp;Free shipping on orders above ₹{FREE_SHIPPING_THRESHOLD}
+            Fast pan-India delivery&nbsp;🇮🇳&nbsp;&bull;&nbsp;Custom 3D prints made to order
           </span>
           {/* Mobile — shorter */}
           <span className="sm:hidden">
-            Free shipping above ₹{FREE_SHIPPING_THRESHOLD}&nbsp;&bull;&nbsp;Pan-India delivery
+            Pan-India delivery&nbsp;&bull;&nbsp;Custom 3D prints
           </span>
         </div>
 
@@ -21,7 +21,7 @@ export function AnnouncementBar() {
         <div className="hidden md:flex items-center gap-4 text-xs font-sans shrink-0">
           <a
             href={SITE.phoneTel}
-            className="flex items-center gap-1 text-white/80 hover:text-white transition-colors"
+            className="flex items-center gap-1 text-white/80 hover:text-white transition-colors py-2 px-2 min-h-[44px]"
             aria-label="Call us"
           >
             {/* Phone icon */}
@@ -39,9 +39,24 @@ export function AnnouncementBar() {
           <span className="text-white/30">|</span>
 
           <Link
-            href="/account"
-            className="text-white/80 hover:text-white transition-colors"
+            href="/account/track-order"
+            className="flex items-center gap-1 text-white/80 hover:text-white transition-colors py-2 px-2 min-h-[44px]"
           >
+            {/* Location/Pin icon */}
+            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+              />
+            </svg>
             Track Order
           </Link>
 
@@ -51,7 +66,7 @@ export function AnnouncementBar() {
             href={SITE.whatsapp}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1 text-white/80 hover:text-white transition-colors"
+            className="flex items-center gap-1 text-white/80 hover:text-white transition-colors py-2 px-2 min-h-[44px]"
             aria-label="WhatsApp us"
           >
             {/* WhatsApp icon */}

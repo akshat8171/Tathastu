@@ -79,7 +79,7 @@ export default function WishlistPage() {
         </div>
 
         {products.length === 0 ? (
-          /* ── Empty state ──────────────────────────────────────────────── */
+          /* ── Empty state (CV-05: clearer auth messaging) ──────────────────────────────────────────────── */
           <div className="flex flex-col items-center justify-center py-24 text-center">
             <div className="w-20 h-20 rounded-full bg-brand/10 flex items-center justify-center mb-6">
               <svg
@@ -100,9 +100,19 @@ export default function WishlistPage() {
             <h2 className="text-xl font-display font-bold text-ink mb-2">
               Your wishlist is empty
             </h2>
-            <p className="text-muted font-sans mb-8 max-w-xs">
-              Tap the heart icon on any product to save it here.
+            <p className="text-muted font-sans mb-2 max-w-xs">
+              {requiresAuth
+                ? 'Sign in to save your favourite products and access them from any device.'
+                : 'Tap the heart icon on any product to save it here.'}
             </p>
+            {requiresAuth && (
+              <p className="text-sm text-brand font-sans mb-6 max-w-xs">
+                <Link href="/login" className="hover:underline font-medium">
+                  Sign in now
+                </Link>
+                {' '}to keep your favourites safe
+              </p>
+            )}
             <Link href="/products" className="btn-primary">
               Browse products
             </Link>
@@ -196,9 +206,12 @@ export default function WishlistPage() {
           </div>
         )}
 
-        {/* Guest login prompt */}
-        {requiresAuth && (
-          <div className="mt-10 text-center">
+        {/* Guest login prompt (CV-05: clearer auth prompt) */}
+        {requiresAuth && products.length > 0 && (
+          <div className="mt-10 p-4 rounded-xl bg-brand/5 border border-brand/20 text-center">
+            <p className="text-sm font-sans text-ink mb-2">
+              <strong className="font-semibold">Keep your favourites safe</strong>
+            </p>
             <p className="text-sm font-sans text-muted">
               <Link href="/login" className="text-brand hover:underline font-medium">
                 Sign in

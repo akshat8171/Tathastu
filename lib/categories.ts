@@ -42,6 +42,15 @@ export const categories: Category[] = [
     route: '/products?category=keyrings',
   },
   {
+    slug: 'organizers',
+    name: 'organizers',
+    displayName: 'Desk & Workspace',
+    description:
+      'Stylish desk organisers, phone stands, and tissue holders that keep your workspace neat and looking great.',
+    image: '/images/3dps/categories/workspace.png',
+    route: '/products?category=organizers',
+  },
+  {
     slug: 'gaming',
     name: 'gaming',
     displayName: 'Gaming',
@@ -60,15 +69,6 @@ export const categories: Category[] = [
     route: '/products?category=lamps',
   },
   {
-    slug: 'organizers',
-    name: 'organizers',
-    displayName: 'Desk & Workspace',
-    description:
-      'Stylish desk organisers, phone stands, and tissue holders that keep your workspace neat and looking great.',
-    image: '/images/3dps/categories/workspace.png',
-    route: '/products?category=organizers',
-  },
-  {
     slug: 'planters',
     name: 'planters',
     displayName: 'Planters & Garden',
@@ -84,20 +84,36 @@ export const categories: Category[] = [
     description:
       'Customised 3D-printed rakhi for Raksha Bandhan 2026 — gaming console, cricket bat-ball, superhero, cartoon, name, photo and secret-message rakhi. Each one becomes a keychain keepsake you keep forever.',
     image: '/images/rakhi/categories/rakhi.png',
-    // Clean, keyword-rich landing page (SEO hub). The homepage rail honours this
-    // route; the /products?category=rakhi filter view continues to work too.
     route: '/rakhi',
   },
   {
     slug: 'customise',
     name: 'customise',
-    displayName: 'Customise Now',
+    displayName: 'Tathastu Lab',
     description:
-      "Upload your design and we'll print it for you. Personalised gifts, signs, keychains, and more.",
+      "Upload your design and we'll print it for you. Custom prints, personalised gifts, and unique pieces made to order.",
     image: '/images/3dps/categories/customized.png',
     route: '/customize',
     isCta: true,
   },
+]
+
+/**
+ * Homepage featured categories (~6 tiles).
+ * Home Decor reuses lamps catalog with the home-decor lifestyle image.
+ */
+export const homepageCategories: Category[] = [
+  categories.find((c) => c.slug === 'pooja-decor')!,
+  {
+    ...categories.find((c) => c.slug === 'lamps')!,
+    displayName: 'Home Decor',
+    image: '/images/3dps/categories/home-decor.png',
+    route: '/products?category=lamps',
+  },
+  categories.find((c) => c.slug === 'keyrings')!,
+  categories.find((c) => c.slug === 'organizers')!,
+  categories.find((c) => c.slug === 'gaming')!,
+  categories.find((c) => c.slug === 'customise')!,
 ]
 
 /**
