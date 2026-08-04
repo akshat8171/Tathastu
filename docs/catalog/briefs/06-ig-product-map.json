@@ -1,0 +1,44 @@
+[
+  {
+    "shortcode": "Dbf-GcnBa_-",
+    "reelTitle": "Kids name decor reel",
+    "productId": null,
+    "confidence": "none",
+    "note": "Generic content showcasing custom name decoration/personalization capability. Does not match a specific catalog product - represents a category/customization service rather than a SKU."
+  },
+  {
+    "shortcode": "DbdUkO9BeFB",
+    "reelTitle": "Custom name keychain reel",
+    "productId": "keyrings-name",
+    "confidence": "high",
+    "note": "Direct match to 'Custom Name Keychain' product. Reel showcases personalized name keychain which is the exact offering of this catalog item."
+  },
+  {
+    "shortcode": "DbaqVLGBeXJ",
+    "reelTitle": "Couple initials keepsake reel",
+    "productId": "keyrings-name",
+    "confidence": "medium",
+    "note": "Likely showcases the 'Custom Name Keychain' product configured for couple initials. Same product as reel-2 but different use case (couple initials vs. individual names)."
+  },
+  {
+    "shortcode": "DbIzZziB-iO",
+    "reelTitle": "Letter name decor reel",
+    "productId": null,
+    "confidence": "none",
+    "note": "Generic content about letter/name decoration. Does not match a specific catalog product. Shows customization capability rather than a purchasable SKU."
+  },
+  {
+    "shortcode": "DbLhwQtBif2",
+    "reelTitle": "Personalized nameplate collection reel",
+    "productId": null,
+    "confidence": "none",
+    "note": "Collection showcase reel displaying multiple personalized items. Not a single product match - represents the broader nameplate/keychain product line including keyrings-name, keyrings-numberplate, and potentially rakhi items with custom names."
+  },
+  {
+    "shortcode": "DaDOy7ehb92",
+    "reelTitle": "3D printer workshop reel",
+    "productId": null,
+    "confidence": "none",
+    "note": "Behind-the-scenes workshop/manufacturing content. Not a product showcase - represents brand story and manufacturing capability. No catalog product match."
+  }
+]

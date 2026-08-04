@@ -64,3 +64,10 @@ next-env.d.ts
 !docs/GO-LIVE-MIGRATIONS.md
 !.github/BRANCH_PROTECTION.md
 
+
+# Catalog page raster intermediates (regen via scripts/catalog/)
+docs/catalog/pages/page-*.png
+docs/catalog/pages/section-*.png
+docs/catalog/pages/keyrings-*.png
+docs/catalog/pages/lamps-*.png
+docs/catalog/pages/pooja-*.png

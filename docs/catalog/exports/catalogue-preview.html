@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tathastu Product Catalogue - Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        .spread-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .spread {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        .page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+        }
+        .page-label {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            font-weight: 500;
+        }
+        .single {
+            justify-content: center;
+        }
+        .single .page {
+            max-width: 50%;
+        }
+        .stats {
+            text-align: center;
+            padding: 30px;
+            background: #2a2a2a;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+        .stats h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        .stats p {
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            margin: 8px 0;
+        }
+        @media (max-width: 1200px) {
+            .spread {
+                flex-direction: column;
+            }
+            .single .page {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📚 Tathastu Product Catalogue</h1>
+        <p>HTML Preview - Left/Right Spread Layout</p>
+    </div>
+    
+    <div class="spread-container">
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/cover.png" alt="cover.png">
+                <div class="page-label">Page 1: cover.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/section-gaming.png" alt="section-gaming.png">
+                <div class="page-label">Page 2: section-gaming.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/section-keyrings.png" alt="section-keyrings.png">
+                <div class="page-label">Page 3: section-keyrings.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/section-lamps.png" alt="section-lamps.png">
+                <div class="page-label">Page 4: section-lamps.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/section-organizers.png" alt="section-organizers.png">
+                <div class="page-label">Page 5: section-organizers.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/section-planters.png" alt="section-planters.png">
+                <div class="page-label">Page 6: section-planters.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/section-pooja-decor.png" alt="section-pooja-decor.png">
+                <div class="page-label">Page 7: section-pooja-decor.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/section-rakhi.png" alt="section-rakhi.png">
+                <div class="page-label">Page 8: section-rakhi.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-001-lamps-lamp1.png" alt="page-001-lamps-lamp1.png">
+                <div class="page-label">Page 9: page-001-lamps-lamp1.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-002-lamps-lamp2.png" alt="page-002-lamps-lamp2.png">
+                <div class="page-label">Page 10: page-002-lamps-lamp2.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-003-lamps-lamp3.png" alt="page-003-lamps-lamp3.png">
+                <div class="page-label">Page 11: page-003-lamps-lamp3.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-004-lamps-lamp4.png" alt="page-004-lamps-lamp4.png">
+                <div class="page-label">Page 12: page-004-lamps-lamp4.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-005-lamps-lamp5.png" alt="page-005-lamps-lamp5.png">
+                <div class="page-label">Page 13: page-005-lamps-lamp5.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-006-lamps-glow-arc.png" alt="page-006-lamps-glow-arc.png">
+                <div class="page-label">Page 14: page-006-lamps-glow-arc.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-007-lamps-terra-glow.png" alt="page-007-lamps-terra-glow.png">
+                <div class="page-label">Page 15: page-007-lamps-terra-glow.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-008-lamps-lunar-night.png" alt="page-008-lamps-lunar-night.png">
+                <div class="page-label">Page 16: page-008-lamps-lunar-night.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-009-organizers-organizer1.png" alt="page-009-organizers-organizer1.png">
+                <div class="page-label">Page 17: page-009-organizers-organizer1.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-010-organizers-organizer2.png" alt="page-010-organizers-organizer2.png">
+                <div class="page-label">Page 18: page-010-organizers-organizer2.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-011-organizers-organizer3.png" alt="page-011-organizers-organizer3.png">
+                <div class="page-label">Page 19: page-011-organizers-organizer3.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-012-organizers-organizer4.png" alt="page-012-organizers-organizer4.png">
+                <div class="page-label">Page 20: page-012-organizers-organizer4.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-013-organizers-stackdesk-pro.png" alt="page-013-organizers-stackdesk-pro.png">
+                <div class="page-label">Page 21: page-013-organizers-stackdesk-pro.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-014-organizers-cable-den.png" alt="page-014-organizers-cable-den.png">
+                <div class="page-label">Page 22: page-014-organizers-cable-den.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-015-organizers-mag-tissue.png" alt="page-015-organizers-mag-tissue.png">
+                <div class="page-label">Page 23: page-015-organizers-mag-tissue.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-016-organizers-counter-caddy.png" alt="page-016-organizers-counter-caddy.png">
+                <div class="page-label">Page 24: page-016-organizers-counter-caddy.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-017-planters-planter1.png" alt="page-017-planters-planter1.png">
+                <div class="page-label">Page 25: page-017-planters-planter1.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-018-planters-planter2.png" alt="page-018-planters-planter2.png">
+                <div class="page-label">Page 26: page-018-planters-planter2.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-019-planters-planter3.png" alt="page-019-planters-planter3.png">
+                <div class="page-label">Page 27: page-019-planters-planter3.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-020-planters-herb-tower.png" alt="page-020-planters-herb-tower.png">
+                <div class="page-label">Page 28: page-020-planters-herb-tower.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-021-planters-wall-bloom.png" alt="page-021-planters-wall-bloom.png">
+                <div class="page-label">Page 29: page-021-planters-wall-bloom.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-022-planters-urban-pot.png" alt="page-022-planters-urban-pot.png">
+                <div class="page-label">Page 30: page-022-planters-urban-pot.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-023-planters-terrace-trio.png" alt="page-023-planters-terrace-trio.png">
+                <div class="page-label">Page 31: page-023-planters-terrace-trio.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-024-planters-geo-fern.png" alt="page-024-planters-geo-fern.png">
+                <div class="page-label">Page 32: page-024-planters-geo-fern.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-025-pooja-decor-ganesha.png" alt="page-025-pooja-decor-ganesha.png">
+                <div class="page-label">Page 33: page-025-pooja-decor-ganesha.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-026-pooja-decor-trishul.png" alt="page-026-pooja-decor-trishul.png">
+                <div class="page-label">Page 34: page-026-pooja-decor-trishul.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-027-pooja-decor-incense.png" alt="page-027-pooja-decor-incense.png">
+                <div class="page-label">Page 35: page-027-pooja-decor-incense.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-028-pooja-decor-saraswati.png" alt="page-028-pooja-decor-saraswati.png">
+                <div class="page-label">Page 36: page-028-pooja-decor-saraswati.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-029-pooja-decor-shiva.png" alt="page-029-pooja-decor-shiva.png">
+                <div class="page-label">Page 37: page-029-pooja-decor-shiva.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-030-pooja-decor-lakshmi.png" alt="page-030-pooja-decor-lakshmi.png">
+                <div class="page-label">Page 38: page-030-pooja-decor-lakshmi.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-031-pooja-decor-krishna.png" alt="page-031-pooja-decor-krishna.png">
+                <div class="page-label">Page 39: page-031-pooja-decor-krishna.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-032-pooja-decor-temple.png" alt="page-032-pooja-decor-temple.png">
+                <div class="page-label">Page 40: page-032-pooja-decor-temple.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-033-pooja-decor-sign.png" alt="page-033-pooja-decor-sign.png">
+                <div class="page-label">Page 41: page-033-pooja-decor-sign.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-034-keyrings-piano.png" alt="page-034-keyrings-piano.png">
+                <div class="page-label">Page 42: page-034-keyrings-piano.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-035-keyrings-popit.png" alt="page-035-keyrings-popit.png">
+                <div class="page-label">Page 43: page-035-keyrings-popit.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-036-keyrings-backpack.png" alt="page-036-keyrings-backpack.png">
+                <div class="page-label">Page 44: page-036-keyrings-backpack.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-037-keyrings-caduceus.png" alt="page-037-keyrings-caduceus.png">
+                <div class="page-label">Page 45: page-037-keyrings-caduceus.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-038-keyrings-oreo.png" alt="page-038-keyrings-oreo.png">
+                <div class="page-label">Page 46: page-038-keyrings-oreo.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-039-keyrings-shiva.png" alt="page-039-keyrings-shiva.png">
+                <div class="page-label">Page 47: page-039-keyrings-shiva.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-040-keyrings-name.png" alt="page-040-keyrings-name.png">
+                <div class="page-label">Page 48: page-040-keyrings-name.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-041-keyrings-numberplate.png" alt="page-041-keyrings-numberplate.png">
+                <div class="page-label">Page 49: page-041-keyrings-numberplate.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-042-keyrings-airplane.png" alt="page-042-keyrings-airplane.png">
+                <div class="page-label">Page 50: page-042-keyrings-airplane.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-043-keyrings-nike.png" alt="page-043-keyrings-nike.png">
+                <div class="page-label">Page 51: page-043-keyrings-nike.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-044-keyrings-iphone.png" alt="page-044-keyrings-iphone.png">
+                <div class="page-label">Page 52: page-044-keyrings-iphone.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-045-keyrings-gymplate.png" alt="page-045-keyrings-gymplate.png">
+                <div class="page-label">Page 53: page-045-keyrings-gymplate.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-046-keyrings-puppy.png" alt="page-046-keyrings-puppy.png">
+                <div class="page-label">Page 54: page-046-keyrings-puppy.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-047-keyrings-tennis.png" alt="page-047-keyrings-tennis.png">
+                <div class="page-label">Page 55: page-047-keyrings-tennis.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-048-gaming-ak47.png" alt="page-048-gaming-ak47.png">
+                <div class="page-label">Page 56: page-048-gaming-ak47.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-049-gaming-marlboro.png" alt="page-049-gaming-marlboro.png">
+                <div class="page-label">Page 57: page-049-gaming-marlboro.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-050-gaming-toad.png" alt="page-050-gaming-toad.png">
+                <div class="page-label">Page 58: page-050-gaming-toad.png</div>
+            </div>
+        </div>
+
+        <div class="spread">
+            <div class="page">
+                <img src="../pages/page-051-gaming-shield.png" alt="page-051-gaming-shield.png">
+                <div class="page-label">Page 59: page-051-gaming-shield.png</div>
+            </div>
+            <div class="page">
+                <img src="../pages/page-052-gaming-streamer.png" alt="page-052-gaming-streamer.png">
+                <div class="page-label">Page 60: page-052-gaming-streamer.png</div>
+            </div>
+        </div>
+
+        <div class="spread single">
+            <div class="page">
+                <img src="../pages/back-cover.png" alt="back-cover.png">
+                <div class="page-label">Page 61: back-cover.png</div>
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="stats">
+        <h2>📊 Catalogue Statistics</h2>
+        <p><strong>Total Pages:</strong> 61</p>
+        <p><strong>Generated:</strong> 2026-08-04 12:10:17</p>
+    </div>
+</body>
+</html>

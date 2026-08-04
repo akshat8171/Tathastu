@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "handle": "tathastukeepsakes",
+    "fetch_method": "curated_local",
+    "total_items": 6,
+    "notes": "Public IG endpoints return login walls. Full archive needs Meta Graph API (IG_ACCESS_TOKEN + IG_USER_ID)."
+  },
+  "media": [
+    {
+      "id": "1",
+      "type": "reel",
+      "shortcode": "Dbf-GcnBa_-",
+      "permalink": "https://www.instagram.com/tathastukeepsakes/reel/Dbf-GcnBa_-/",
+      "title": "Kids name decor reel",
+      "caption_snippet": "Kids name decor reel",
+      "local_thumbnail": "/images/reels/reel-1.jpg",
+      "thumbnail_source": "manual_download"
+    },
+    {
+      "id": "2",
+      "type": "reel",
+      "shortcode": "DbdUkO9BeFB",
+      "permalink": "https://www.instagram.com/tathastukeepsakes/reel/DbdUkO9BeFB/",
+      "title": "Custom name keychain reel",
+      "caption_snippet": "Custom name keychain reel",
+      "local_thumbnail": "/images/reels/reel-2.jpg",
+      "thumbnail_source": "manual_download"
+    },
+    {
+      "id": "3",
+      "type": "reel",
+      "shortcode": "DbaqVLGBeXJ",
+      "permalink": "https://www.instagram.com/tathastukeepsakes/reel/DbaqVLGBeXJ/",
+      "title": "Couple initials keepsake reel",
+      "caption_snippet": "Couple initials keepsake reel",
+      "local_thumbnail": "/images/reels/reel-3.jpg",
+      "thumbnail_source": "manual_download"
+    },
+    {
+      "id": "4",
+      "type": "reel",
+      "shortcode": "DbIzZziB-iO",
+      "permalink": "https://www.instagram.com/tathastukeepsakes/reel/DbIzZziB-iO/",
+      "title": "Letter name decor reel",
+      "caption_snippet": "Letter name decor reel",
+      "local_thumbnail": "/images/reels/reel-4.jpg",
+      "thumbnail_source": "manual_download"
+    },
+    {
+      "id": "5",
+      "type": "reel",
+      "shortcode": "DbLhwQtBif2",
+      "permalink": "https://www.instagram.com/tathastukeepsakes/reel/DbLhwQtBif2/",
+      "title": "Personalized nameplate collection reel",
+      "caption_snippet": "Personalized nameplate collection reel",
+      "local_thumbnail": "/images/reels/reel-5.jpg",
+      "thumbnail_source": "manual_download"
+    },
+    {
+      "id": "6",
+      "type": "reel",
+      "shortcode": "DaDOy7ehb92",
+      "permalink": "https://www.instagram.com/tathastukeepsakes/reel/DaDOy7ehb92/",
+      "title": "3D printer workshop reel",
+      "caption_snippet": "3D printer workshop reel",
+      "local_thumbnail": "/images/reels/reel-6.jpg",
+      "thumbnail_source": "manual_download"
+    }
+  ]
+}
