@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: `How ${SITE.name} collects, uses, and protects your personal information when you shop with us.`,
 }
 
-const LAST_UPDATED = 'July 2026'
+const LAST_UPDATED = 'August 2026'
 
 export default function PrivacyPage() {
   return (
@@ -99,6 +99,7 @@ export default function PrivacyPage() {
               <li>Provide customer support and respond to your enquiries.</li>
               <li>Prevent fraudulent transactions and enhance account security.</li>
               <li>Improve our website, product catalogue, and service offerings.</li>
+              <li>Display relevant advertisements via Google AdSense (when enabled on the live site).</li>
               <li>Send promotional communications (only with your explicit consent; you may opt out at any time).</li>
               <li>Comply with applicable Indian laws and regulations.</li>
             </ul>
@@ -149,6 +150,30 @@ export default function PrivacyPage() {
                 . Both providers maintain industry-standard security measures.
               </li>
               <li>
+                <strong>Advertising — Google AdSense:</strong> we may show third-party
+                advertisements served by Google AdSense. Google and its advertising partners may
+                use cookies or similar technologies to serve ads based on your prior visits to
+                this or other websites. You can opt out of personalised ads via{' '}
+                <a
+                  href="https://www.google.com/settings/ads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand hover:underline"
+                >
+                  Google Ads Settings
+                </a>
+                {' '}and learn more in{' '}
+                <a
+                  href="https://policies.google.com/technologies/ads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand hover:underline"
+                >
+                  Google&apos;s Advertising policy
+                </a>
+                . We do not sell your personal information to advertisers.
+              </li>
+              <li>
                 <strong>Legal Obligations:</strong> we may disclose information where required by
                 law, court order, or governmental authority in India.
               </li>
@@ -180,15 +205,29 @@ export default function PrivacyPage() {
             <ul className="list-disc pl-6 space-y-2">
               <li>Maintain your shopping cart across sessions (stored in <code className="bg-gray-100 px-1 rounded text-sm">localStorage</code>).</li>
               <li>Keep you logged in securely after OTP verification (a strictly-necessary session cookie).</li>
+              <li>
+                <strong>Advertising (Google AdSense):</strong> when ads are enabled on the live
+                site, Google and partners may set cookies or use similar technologies to deliver
+                and measure ads. These are third-party cookies governed by Google&apos;s policies;
+                you can control personalised ads at{' '}
+                <a
+                  href="https://www.google.com/settings/ads"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-brand hover:underline"
+                >
+                  Google Ads Settings
+                </a>
+                .
+              </li>
             </ul>
             <p className="mt-3">
-              We use only <strong>strictly-necessary</strong> cookies and local storage — those
-              required to keep you signed in and to remember your cart. We do <em>not</em> use
-              advertising or cross-site tracking cookies. Our traffic and performance analytics
-              (Vercel Web Analytics and Speed Insights) are <strong>cookieless</strong> and store
-              nothing in your browser, so no analytics-consent banner is required. You can instruct
-              your browser to refuse cookies, but note that sign-in and cart features may not
-              function properly without the strictly-necessary ones.
+              <strong>Strictly-necessary</strong> cookies and local storage keep you signed in and
+              remember your cart. Our first-party traffic and performance analytics (Vercel Web
+              Analytics and Speed Insights) are <strong>cookieless</strong>. Advertising cookies
+              (if AdSense is active) are separate and controlled via Google&apos;s tools linked
+              above. You can instruct your browser to refuse cookies, but note that sign-in and
+              cart features may not function properly without the strictly-necessary ones.
             </p>
           </section>
 
