@@ -71,13 +71,11 @@ Google pays after the payment threshold is met and after tax/identity verificati
 
 | Item | Value / action |
 |------|----------------|
-| Publisher ID (`ca-pub-…`) | ⟦DIRECTOR INPUT⟧ From AdSense → Account → Account information |
-| `ads.txt` publisher | Same digits as `pub-…` (without `ca-` prefix) |
-| Env on Vercel (Production) | `NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-XXXXXXXXXXXXXXXX` |
-| Code on site | Auto-wired by `components/ads/adsense-script.tsx` when env is set + production deploy |
-| `https://www.tathastukeepsakes.in/ads.txt` | Served by `app/ads.txt/route.ts` once client ID is set |
-
-Until the publisher ID is set in Vercel env and redeployed, ads script and `ads.txt` stay off (fail-safe).
+| Publisher ID (`ca-pub-…`) | `ca-pub-3744909748780337` (built-in default; mobile + desktop use the same ID) |
+| `ads.txt` publisher | `pub-3744909748780337` |
+| Env on Vercel (Production) | Optional override: `NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-3744909748780337` |
+| Code on site | Auto-wired by `components/ads/adsense-script.tsx` on production deploy |
+| `https://www.tathastukeepsakes.in/ads.txt` | Served by `app/ads.txt/route.ts` |
 
 ---
 

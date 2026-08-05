@@ -146,7 +146,7 @@ export default function RootLayout({
 
         {/* Google Analytics 4 — production-only */}
         <GoogleAnalytics />
-        {/* Google AdSense Auto ads — production-only, requires NEXT_PUBLIC_ADSENSE_CLIENT_ID */}
+        {/* Google AdSense Auto ads — production-only (mobile + desktop) */}
         <AdSenseScript />
       </head>
       <body className="min-h-screen flex flex-col">

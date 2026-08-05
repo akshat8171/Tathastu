@@ -20,7 +20,7 @@
 
 | Item | Action |
 |------|--------|
-| Publisher ID | Set `NEXT_PUBLIC_ADSENSE_CLIENT_ID` on Vercel Production → redeploy |
+| Publisher ID | `ca-pub-3744909748780337` baked in as default — merge + deploy to activate |
 | Payee / tax / bank | Fill `⟦DIRECTOR INPUT⟧` fields in `docs/ops/adsense-account-fill-sheet.md` inside AdSense UI |
 | Site review | Submit after code is live with `ca-pub-…` |
 

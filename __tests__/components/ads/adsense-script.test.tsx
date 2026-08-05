@@ -16,6 +16,13 @@ describe('AdSenseScript — production ON path', () => {
   beforeEach(() => {
     jest.resetModules()
     process.env = { ...OLD_ENV }
+    // React 19 may hoist async scripts into document.head; clear leftovers
+    // so assertions do not see a prior test's adsbygoogle loader.
+    document
+      .querySelectorAll(
+        'script[src*="pagead2.googlesyndication.com"], script[src*="googletagmanager.com"]',
+      )
+      .forEach((el) => el.remove())
   })
 
   afterAll(() => {
@@ -57,15 +64,25 @@ describe('AdSenseScript — production ON path', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('renders nothing when client id is unset', async () => {
+  it('falls back to the built-in publisher id when env is unset', async () => {
     mutableEnv().NODE_ENV = 'production'
     delete process.env.NEXT_PUBLIC_VERCEL_ENV
     delete process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID
+    delete process.env.NEXT_PUBLIC_ADSENSE_DISABLED
 
-    const { AdSenseScript: NoIdAdSense } = await import(
+    const { AdSenseScript: DefaultAdSense } = await import(
       '@/components/ads/adsense-script'
     )
-    const { container } = render(<NoIdAdSense />)
-    expect(container).toBeEmptyDOMElement()
+    const { DEFAULT_ADSENSE_CLIENT_ID } = await import('@/lib/ads/adsense')
+    render(<DefaultAdSense />)
+
+    const loader = document.querySelector(
+      'script[src^="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]',
+    )
+    expect(loader).not.toBeNull()
+    expect(loader).toHaveAttribute(
+      'src',
+      `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${DEFAULT_ADSENSE_CLIENT_ID}`,
+    )
   })
 })

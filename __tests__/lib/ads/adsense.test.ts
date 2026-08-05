@@ -1,4 +1,5 @@
 import {
+  DEFAULT_ADSENSE_CLIENT_ID,
   buildAdsTxtBody,
   isValidAdsenseClientId,
   resolveAdsenseClientId,
@@ -20,10 +21,10 @@ describe('isValidAdsenseClientId', () => {
 })
 
 describe('resolveAdsenseClientId', () => {
-  it('returns null when unset', () => {
-    expect(resolveAdsenseClientId(undefined)).toBeNull()
-    expect(resolveAdsenseClientId('')).toBeNull()
-    expect(resolveAdsenseClientId('   ')).toBeNull()
+  it('falls back to the built-in Tathastu publisher id when unset', () => {
+    expect(resolveAdsenseClientId(undefined)).toBe(DEFAULT_ADSENSE_CLIENT_ID)
+    expect(resolveAdsenseClientId('')).toBe(DEFAULT_ADSENSE_CLIENT_ID)
+    expect(resolveAdsenseClientId('   ')).toBe(DEFAULT_ADSENSE_CLIENT_ID)
   })
 
   it('returns the trimmed valid id', () => {

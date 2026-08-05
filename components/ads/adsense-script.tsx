@@ -7,12 +7,10 @@ import {
  * Google AdSense (Auto ads) integration.
  *
  * Renders the standard adsbygoogle.js loader in the root layout `<head>`
- * so Google's site scanner can detect the tag. Loads only when:
- * - `NEXT_PUBLIC_ADSENSE_CLIENT_ID` is a valid `ca-pub-…` ID, and
- * - the deployment is production (same gate as GA4).
- *
- * Until the Director pastes a real publisher ID into Vercel Production env,
- * this component returns null — no ads, no accidental invalid claims.
+ * so Google's site scanner can detect the tag. One script covers mobile and
+ * desktop — Auto ads places responsive units. Loads only on production
+ * (same gate as GA4) when a valid `ca-pub-…` ID resolves (built-in default
+ * or `NEXT_PUBLIC_ADSENSE_CLIENT_ID` override).
  */
 export function AdSenseScript() {
   const clientId = resolveAdsenseClientId()
