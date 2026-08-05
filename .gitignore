@@ -58,6 +58,7 @@ next-env.d.ts
 !.env.example
 !docs/archive/*.md
 !docs/social/*.md
+!docs/ops/*.md
 !docs/superpowers/specs/*.md
 !docs/superpowers/plans/*.md
 !scripts/pinterest/SETUP.md

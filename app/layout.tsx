@@ -12,6 +12,7 @@ import { getOrganizationSchema } from '@/lib/schema'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GoogleAnalytics } from '@/components/analytics/google-analytics'
+import { AdSenseScript } from '@/components/ads/adsense-script'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -143,8 +144,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
 
-        {/* Google Analytics 4 — production-only, loads after interactive */}
+        {/* Google Analytics 4 — production-only */}
         <GoogleAnalytics />
+        {/* Google AdSense Auto ads — production-only (mobile + desktop) */}
+        <AdSenseScript />
       </head>
       <body className="min-h-screen flex flex-col">
         <CartProvider>
