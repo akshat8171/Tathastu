@@ -3,8 +3,15 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowLeft, Package, Truck, CheckCircle, XCircle, Clock } from 'lucide-react'
+import { ArrowLeft, Package, Truck, CheckCircle, XCircle, Clock, MessageCircle, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
+import { CopyLinkButton } from '@/components/admin/copy-link-button'
+import {
+  customerWhatsAppUrl,
+  orderConfirmationUrl,
+  orderCustomerWhatsAppText,
+  customerTrackingWhatsAppText,
+} from '@/lib/admin/links'
 
 interface OrderItem {
   id: string
@@ -38,6 +45,17 @@ interface Order {
   shipped_at?: string
   delivered_at?: string
   cancelled_at?: string
+  shipping_city?: string
+  shipping_state?: string
+  shipping_pincode?: string
+  shipping_address?: {
+    name?: string
+    phone?: string
+    address_line?: string
+    city?: string
+    state?: string
+    pincode?: string
+  } | null
 }
 
 export default function AdminOrderDetailPage() {
@@ -188,6 +206,38 @@ export default function AdminOrderDetailPage() {
         <div>
           <h1 className="text-3xl font-display font-bold text-ink">{order.order_number}</h1>
           <p className="text-muted mt-1">Order placed on {formatDate(order.created_at)}</p>
+          <div className="flex flex-wrap items-center gap-3 mt-3">
+            <CopyLinkButton
+              value={orderConfirmationUrl(order.order_number)}
+              label="Copy customer confirmation link"
+            />
+            <a
+              href={orderConfirmationUrl(order.order_number)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs font-medium text-brand"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              Open confirmation
+            </a>
+            {customerWhatsAppUrl(
+              order.customer_phone,
+              orderCustomerWhatsAppText(order.order_number, order.status)
+            ) && (
+              <a
+                href={customerWhatsAppUrl(
+                  order.customer_phone,
+                  orderCustomerWhatsAppText(order.order_number, order.status)
+                )!}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-medium text-brand"
+              >
+                <MessageCircle className="w-3.5 h-3.5" />
+                WhatsApp customer
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
@@ -289,6 +339,23 @@ export default function AdminOrderDetailPage() {
                 <p className="text-ink font-medium mt-1">{order.customer_phone}</p>
               </div>
             </div>
+            {(order.shipping_address || order.shipping_city) && (
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <p className="text-sm text-muted">Shipping address</p>
+                <p className="text-ink mt-1">
+                  {order.shipping_address?.address_line || ''}
+                  {(order.shipping_address?.city || order.shipping_city) && (
+                    <>
+                      <br />
+                      {order.shipping_address?.city || order.shipping_city}
+                      {', '}
+                      {order.shipping_address?.state || order.shipping_state}{' '}
+                      {order.shipping_address?.pincode || order.shipping_pincode}
+                    </>
+                  )}
+                </p>
+              </div>
+            )}
             {order.notes && (
               <div className="mt-4 pt-4 border-t border-gray-200">
                 <p className="text-sm text-muted">Order Notes</p>
@@ -378,7 +445,26 @@ export default function AdminOrderDetailPage() {
                     <p className="font-medium text-ink">Shipped</p>
                     <p className="text-sm text-muted">{formatDate(order.shipped_at)}</p>
                     {order.tracking_number && (
-                      <p className="text-xs text-muted mt-1">Tracking: {order.tracking_number}</p>
+                      <p className="text-xs text-muted mt-1">
+                        Tracking: {order.tracking_number}{' '}
+                        <CopyLinkButton value={order.tracking_number} label="Copy tracking" />
+                        {customerWhatsAppUrl(
+                          order.customer_phone,
+                          customerTrackingWhatsAppText(order.order_number, order.tracking_number)
+                        ) && (
+                          <a
+                            href={customerWhatsAppUrl(
+                              order.customer_phone,
+                              customerTrackingWhatsAppText(order.order_number, order.tracking_number)
+                            )!}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ml-2 text-brand"
+                          >
+                            WhatsApp tracking
+                          </a>
+                        )}
+                      </p>
                     )}
                   </div>
                 </div>

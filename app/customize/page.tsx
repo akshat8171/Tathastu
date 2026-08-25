@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { Button, Spinner } from '@/components/ui'
 import { SITE, waLink } from '@/lib/site'
-import productsData from '@/lib/products.json'
+import { useCatalogProducts } from '@/lib/catalog/use-catalog-products'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -149,9 +149,8 @@ function CustomizePageInner() {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Customizable products for the rail
-  const customizableProducts: Product[] = (productsData as Product[]).filter(
-    (p) => p.customizable
-  )
+  const catalog = useCatalogProducts()
+  const customizableProducts: Product[] = catalog.filter((p) => p.customizable)
 
   // Sync type selector when ?type= changes (e.g. browser back/forward)
   useEffect(() => {

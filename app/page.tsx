@@ -18,9 +18,32 @@ import { PhotoUploadSection }  from '@/components/homepage/photo-upload-section'
 import { InstagramReels }      from '@/components/homepage/instagram-reels'
 import { NewsletterForm }      from '@/components/layout/newsletter-form'
 import { getWebSiteSchema } from '@/lib/schema'
+import { getCatalogProducts, getHomepageSettings } from '@/lib/catalog/store'
+import type { ProductCardData } from '@/components/ui'
 
-export default function HomePage() {
+export const revalidate = 60
+
+export default async function HomePage() {
   const webSiteSchema = getWebSiteSchema()
+  const [products, settings] = await Promise.all([getCatalogProducts(), getHomepageSettings()])
+  const { sections } = settings
+
+  const minPriceByCategory: Record<string, number> = {}
+  for (const product of products) {
+    const current = minPriceByCategory[product.category]
+    if (current === undefined || product.price < current) {
+      minPriceByCategory[product.category] = product.price
+    }
+  }
+
+  const bestSellers = settings.bestSellerIds
+    .map((id) => products.find((product) => product.id === id))
+    .filter((product): product is (typeof products)[number] => Boolean(product))
+
+  const rails = settings.categoryRails.map((rail) => ({
+    ...rail,
+    products: products.filter((product) => product.category === rail.slug).slice(0, 10) as ProductCardData[],
+  }))
 
   return (
     <>
@@ -30,42 +53,39 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
       />
 
-      {/* 1. Hero carousel (with WhatsApp secondary CTA) */}
-      <HeroCarousel />
+      {sections.hero && <HeroCarousel slides={settings.heroSlides} products={products} />}
 
-      {/* 2. Category grid */}
-      <CategoryIcons />
+      {sections.categories && <CategoryIcons minPriceByCategory={minPriceByCategory} />}
 
-      {/* 3. Promo strip (FIRST20 — 20% off, min ₹199) */}
-      <PromoStrip />
+      {sections.promo && settings.promo.enabled && (
+        <PromoStrip
+          headline={settings.promo.headline}
+          subcopy={settings.promo.subcopy}
+          code={settings.promo.code}
+        />
+      )}
 
-      {/* 4. Best Sellers */}
-      <BestSellers />
+      {sections.bestSellers && <BestSellers products={bestSellers} />}
 
-      {/* 5. Trust band */}
-      <TrustBand />
+      {sections.trust && <TrustBand />}
 
-      {/* 6. Per-category rails */}
-      <CategoryRails />
+      {sections.rails && <CategoryRails rails={rails} />}
 
-      {/* 7. Customer reviews */}
-      <ReviewsSection />
+      {sections.reviews && <ReviewsSection />}
 
-      {/* 8. Photo → Keychain / Portrait upload section */}
-      <PhotoUploadSection />
+      {sections.photoUpload && <PhotoUploadSection />}
 
-      {/* 9. Idea / Custom CTA */}
-      <IdeaCta />
+      {sections.ideaCta && <IdeaCta />}
 
-      {/* 10. Instagram Reels marquee */}
-      <InstagramReels />
+      {sections.instagram && <InstagramReels />}
 
-      {/* 11. Newsletter signup (above footer, additive chrome) */}
-      <section className="py-14 sm:py-20 bg-white border-t border-gray-100" aria-label="Newsletter signup">
-        <div className="container-page">
-          <NewsletterForm />
-        </div>
-      </section>
+      {sections.newsletter && (
+        <section className="py-14 sm:py-20 bg-white border-t border-gray-100" aria-label="Newsletter signup">
+          <div className="container-page">
+            <NewsletterForm />
+          </div>
+        </section>
+      )}
     </>
   )
 }

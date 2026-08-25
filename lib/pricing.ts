@@ -1,8 +1,8 @@
 /**
  * Server-side authoritative pricing helper.
  *
- * Prices are sourced exclusively from lib/products.json (the same file the
- * product pages use). Client-supplied prices are NEVER trusted.
+ * Prices are sourced from lib/products.json plus published admin catalog SKUs.
+ * Client-supplied prices are NEVER trusted.
  */
 
 import productsData from '@/lib/products.json'
@@ -53,10 +53,14 @@ export interface RepriceError {
 }
 
 /**
- * Looks up each item's price from products.json and recomputes order totals.
+ * Looks up each item's price from products.json (plus optional live catalog
+ * rows from admin) and recomputes order totals.
  *
  * Returns { ok: false, unknownId } if any product_id is not found.
  * Shipping rule: FREE when subtotal > FREE_SHIPPING_THRESHOLD, else SHIPPING_FEE.
+ *
+ * `extraProducts` overlays/extends the JSON map so admin-created SKUs can
+ * check out. JSON-only tests keep calling this with one argument.
  */
 export function repriceItems(
   items: Array<{
@@ -65,12 +69,16 @@ export function repriceItems(
     product_image?: string
     product_variant?: string
     quantity: number
-  }>
+  }>,
+  extraProducts?: Array<{ id: string; price: number }>
 ): RepriceResult | RepriceError {
+  const lookup = new Map(productMap)
+  extraProducts?.forEach((product) => lookup.set(product.id, product))
+
   const pricedItems: PricedItem[] = []
 
   for (const item of items) {
-    const product = productMap.get(item.product_id)
+    const product = lookup.get(item.product_id)
     if (!product) {
       return { ok: false, unknownId: item.product_id }
     }

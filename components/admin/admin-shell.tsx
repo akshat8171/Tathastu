@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Package, Users, LayoutDashboard, LogOut, BarChart3 } from 'lucide-react'
+import { Package, Users, LayoutDashboard, LogOut, BarChart3, FileBox, Tags, Home } from 'lucide-react'
 import { useEffect, type ReactNode } from 'react'
 
 /**
@@ -17,7 +17,10 @@ import { useEffect, type ReactNode } from 'react'
 
 const NAV_ITEMS = [
   { href: '/admin', icon: LayoutDashboard, label: 'Dashboard', exact: true },
+  { href: '/admin/catalog', icon: Tags, label: 'Catalog' },
+  { href: '/admin/homepage', icon: Home, label: 'Landing page' },
   { href: '/admin/orders', icon: Package, label: 'Orders' },
+  { href: '/admin/quotes', icon: FileBox, label: 'Quotes' },
   { href: '/admin/customers', icon: Users, label: 'Customers' },
   { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
 ]

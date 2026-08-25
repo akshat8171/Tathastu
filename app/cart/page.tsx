@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { ProductCard } from '@/components/ui/product-card'
-import productsData from '@/lib/products.json'
+import { useCatalogProducts } from '@/lib/catalog/use-catalog-products'
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
 
 const SHIPPING_COST = SHIPPING_FEE
@@ -176,7 +176,8 @@ function CartLineItem({
 
 // ── You May Also Like ─────────────────────────────────────────────────────────
 function YouMayAlsoLike({ excludeIds }: { excludeIds: string[] }) {
-  const suggestions = (productsData as typeof productsData).filter(
+  const catalog = useCatalogProducts()
+  const suggestions = catalog.filter(
     p => !excludeIds.includes(p.id)
   ).slice(0, 4)
 

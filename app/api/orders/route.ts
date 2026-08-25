@@ -4,6 +4,7 @@ import { saveAddressFromOrder } from '@/lib/supabase/account'
 import { createOrderSchema } from '@/lib/validation/order'
 import { grantOrderAccess } from '@/lib/auth/order-access'
 import { repriceItems, applyDiscount } from '@/lib/pricing'
+import { getCatalogProducts } from '@/lib/catalog/store'
 import { validateCoupon, incrementCouponUsage } from '@/lib/coupons'
 import {
   verifyRazorpayPaymentSignature,
@@ -73,7 +74,11 @@ export async function POST(request: NextRequest) {
 
     const { customer, items, payment, payment_method, couponCode } = parsed.data
 
-    let repriced = repriceItems(items)
+    const catalog = await getCatalogProducts()
+    let repriced = repriceItems(
+      items,
+      catalog.map((product) => ({ id: product.id, price: product.price }))
+    )
     if (!repriced.ok) {
       return NextResponse.json({ error: 'Invalid item in order' }, { status: 400 })
     }

@@ -7,7 +7,7 @@ import { ProductCard } from '@/components/ui/product-card'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { getCategoryBySlug } from '@/lib/categories'
 import { getReviewsForProduct, getAverageRating } from '@/lib/reviews'
-import productsJson from '@/lib/products.json'
+import { getCatalogProduct, getCatalogProducts, getJsonCatalog } from '@/lib/catalog/store'
 import type { ProductCardData } from '@/components/ui/product-card'
 import { SITE } from '@/lib/site'
 import { getProductSchema, getBreadcrumbSchema } from '@/lib/schema'
@@ -47,16 +47,18 @@ interface FullProduct extends ProductCardData {
 
 // ── Static params ─────────────────────────────────────────────────────────────
 
+export const dynamicParams = true
+export const revalidate = 60
+
 export function generateStaticParams() {
-  return (productsJson as FullProduct[]).map((p) => ({ id: p.id }))
+  return getJsonCatalog().map((p) => ({ id: p.id }))
 }
 
 // ── Dynamic Metadata ──────────────────────────────────────────────────────────
 
 export async function generateMetadata({ params }: ProductPageParams): Promise<Metadata> {
   const { id } = await params
-  const products = productsJson as FullProduct[]
-  const product = products.find((p) => p.id === id)
+  const product = (await getCatalogProduct(id)) as FullProduct | null
 
   if (!product) return {}
 
@@ -113,7 +115,7 @@ export async function generateMetadata({ params }: ProductPageParams): Promise<M
 
 export default async function ProductDetailPage({ params }: ProductPageParams) {
   const { id } = await params
-  const products = productsJson as FullProduct[]
+  const products = (await getCatalogProducts()) as FullProduct[]
   const product = products.find((p) => p.id === id)
 
   if (!product) notFound()

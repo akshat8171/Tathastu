@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase/client'
 import { GoogleSignInButton } from '@/components/auth/google-button'
 import { Spinner } from '@/components/ui/spinner'
+import { getPostLoginPath } from '@/lib/auth/post-login-path'
 
 function sanitizeNext(raw: string | null): string {
   if (!raw) return '/account'
@@ -61,14 +62,25 @@ export function LoginForm() {
       email: trimmed,
       password,
     })
-    setLoading(false)
 
     if (authError) {
+      setLoading(false)
       setError(authError.message || 'Login failed. Please check your credentials.')
-    } else {
-      router.push(next)
-      router.refresh()
+      return
     }
+
+    // Probe the server session — do not ship the admin allowlist to the browser.
+    let isAdmin = false
+    try {
+      const me = await fetch('/api/admin/me')
+      isAdmin = me.ok
+    } catch {
+      isAdmin = false
+    }
+
+    setLoading(false)
+    router.push(getPostLoginPath(isAdmin, next))
+    router.refresh()
   }
 
   return (

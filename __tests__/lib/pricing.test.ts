@@ -132,3 +132,26 @@ describe('applyDiscount', () => {
     expect(r.total).toBe(2299 + r.shipping)
   })
 })
+
+describe('repriceItems extra catalog overlay', () => {
+  it('prices admin-created SKUs from extraProducts', () => {
+    const result = repriceItems(
+      [{ product_id: 'admin-new-sku', product_name: 'New', quantity: 2 }],
+      [{ id: 'admin-new-sku', price: 499 }]
+    )
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.items[0].serverPrice).toBe(499)
+    expect(result.subtotal).toBe(998)
+  })
+
+  it('lets extraProducts overlay a JSON price', () => {
+    const result = repriceItems(
+      [{ product_id: 'lamps-lamp1', product_name: 'Lamp', quantity: 1 }],
+      [{ id: 'lamps-lamp1', price: 1999 }]
+    )
+    expect(result.ok).toBe(true)
+    if (!result.ok) return
+    expect(result.items[0].serverPrice).toBe(1999)
+  })
+})

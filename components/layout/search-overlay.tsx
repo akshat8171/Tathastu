@@ -16,7 +16,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import productsData from '@/lib/products.json'
+import { useCatalogProducts } from '@/lib/catalog/use-catalog-products'
 
 interface Product {
   id: string
@@ -29,8 +29,6 @@ interface Product {
   badge?: string | null
   isSoldOut?: boolean
 }
-
-const allProducts = productsData as Product[]
 
 /** Maximum results displayed while typing */
 const MAX_RESULTS = 8
@@ -56,6 +54,7 @@ export interface SearchOverlayProps {
 export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
   const [query, setQuery] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
+  const allProducts = useCatalogProducts()
 
   // Focus input when opened
   useEffect(() => {
@@ -93,7 +92,7 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
           return (
             p.name.toLowerCase().includes(q) ||
             p.category.toLowerCase().includes(q) ||
-            p.description.toLowerCase().includes(q)
+            (p.description ?? '').toLowerCase().includes(q)
           )
         })
         .slice(0, MAX_RESULTS)

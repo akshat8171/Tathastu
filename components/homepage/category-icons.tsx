@@ -4,19 +4,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { SectionHeading, ScrollRail } from '@/components/ui'
 import { categories } from '@/lib/categories'
-import productsData from '@/lib/products.json'
-import type { ProductCardData } from '@/components/ui'
 
-const allProducts = productsData as ProductCardData[]
-
-// Lowest price per category → "Starting at ₹X" badge (like the reference site).
-const minPriceByCategory: Record<string, number> = {}
-for (const p of allProducts) {
-  const cur = minPriceByCategory[p.category]
-  if (cur === undefined || p.price < cur) minPriceByCategory[p.category] = p.price
+interface CategoryIconsProps {
+  minPriceByCategory?: Record<string, number>
 }
 
-export function CategoryIcons() {
+export function CategoryIcons({ minPriceByCategory = {} }: CategoryIconsProps) {
   return (
     <section className="py-14 sm:py-20 bg-surface">
       <div className="container-page">

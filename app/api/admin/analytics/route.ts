@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     // Build base query
     let ordersQuery = supabaseAdmin
       .from('orders')
-      .select('id, customer_id, total, status, created_at, shipping_state')
+      .select('id, customer_id, total, status, payment_status, created_at, shipping_state')
 
     if (sinceIso) {
       ordersQuery = ordersQuery.gte('created_at', sinceIso)
@@ -88,10 +88,14 @@ export async function GET(request: NextRequest) {
       }
     })
 
-    // LTV: average, median, top customers
+    const REVENUE_STATUSES = new Set(['paid', 'processing', 'shipped', 'delivered'])
+    const countsTowardRevenue = (order: { status?: string; payment_status?: string }) =>
+      REVENUE_STATUSES.has(order.status || '') || order.payment_status === 'paid'
+
+    // LTV: average, median, top customers (paid pipeline only — cancelled/pending excluded)
     const customerSpending = new Map<string, { total: number; count: number }>()
     orders?.forEach((order) => {
-      if (order.customer_id && order.total) {
+      if (order.customer_id && order.total && countsTowardRevenue(order)) {
         const existing = customerSpending.get(order.customer_id) || { total: 0, count: 0 }
         customerSpending.set(order.customer_id, {
           total: existing.total + order.total,
@@ -153,7 +157,7 @@ export async function GET(request: NextRequest) {
       const existing = geographyMap.get(state) || { orders: 0, revenue: 0 }
       geographyMap.set(state, {
         orders: existing.orders + 1,
-        revenue: existing.revenue + (order.total || 0),
+        revenue: existing.revenue + (countsTowardRevenue(order) ? order.total || 0 : 0),
       })
     })
 
@@ -172,7 +176,7 @@ export async function GET(request: NextRequest) {
       const existing = timeseriesMap.get(dateKey) || { orders: 0, revenue: 0 }
       timeseriesMap.set(dateKey, {
         orders: existing.orders + 1,
-        revenue: existing.revenue + (order.total || 0),
+        revenue: existing.revenue + (countsTowardRevenue(order) ? order.total || 0 : 0),
       })
     })
 
@@ -183,6 +187,21 @@ export async function GET(request: NextRequest) {
         revenue: stats.revenue,
       }))
       .sort((a, b) => a.date.localeCompare(b.date))
+
+    let quotes: Array<{ status: string; file_url: string | null; type: string; created_at: string }> | null = null
+    const quoteTypeCounts: Record<string, number> = {}
+    const { data: quoteRows } = await supabaseAdmin
+      .from('quote_requests')
+      .select('status, file_url, type, created_at')
+
+    if (quoteRows) {
+      quotes = sinceIso
+        ? quoteRows.filter((q) => q.created_at >= sinceIso)
+        : quoteRows
+      quotes.forEach((q) => {
+        quoteTypeCounts[q.type] = (quoteTypeCounts[q.type] || 0) + 1
+      })
+    }
 
     return NextResponse.json({
       range: {
@@ -204,6 +223,12 @@ export async function GET(request: NextRequest) {
       },
       geography,
       timeseries,
+      quotes: {
+        total: quotes?.length ?? 0,
+        pending: quotes?.filter((q) => q.status === 'new').length ?? 0,
+        withFile: quotes?.filter((q) => Boolean(q.file_url)).length ?? 0,
+        byType: quoteTypeCounts,
+      },
     })
   } catch (error) {
     console.error('Admin analytics error:', error)

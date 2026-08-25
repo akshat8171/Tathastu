@@ -224,6 +224,35 @@ SELECT column_name FROM information_schema.columns WHERE table_name = 'orders' A
 
 ---
 
+### Migration 012: Catalog CMS (admin SKUs + landing page)
+**File**: `supabase/migration-012-catalog-cms.sql`
+
+**Purpose**: Lets admins add catalog SKUs (photos, price, description, and all product-page metadata) and control what the homepage shows, without editing `lib/products.json`.
+
+**Dependencies**: None (new tables + a public Storage bucket)
+
+**What it does**:
+- Creates `catalog_products` (`id` text PK, `payload` jsonb, `published`)
+- Creates `homepage_settings` (single row `id=1`)
+- Creates public Storage bucket `catalog-images` (8 MB, jpeg/png/webp/gif)
+- RLS: public can read published products and homepage settings; service role manages writes
+
+**How to apply**:
+1. Open Supabase SQL Editor
+2. Paste the contents of `migration-012-catalog-cms.sql`
+3. Click **Run**
+4. Confirm Storage → `catalog-images` exists and is **public**
+
+**Verification**:
+```sql
+SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename IN ('catalog_products', 'homepage_settings');
+-- Should return 2 rows
+```
+
+**Without this migration**: The storefront still uses `lib/products.json`. Admin Catalog / Landing page saves will show an error asking you to run this SQL. Checkout of shipped SKUs is unaffected.
+
+---
+
 ## Hard Dependencies Summary
 
 These migrations are **required** for deployed code to function correctly:

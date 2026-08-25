@@ -41,6 +41,12 @@ interface AnalyticsData {
     orders: number
     revenue: number
   }>
+  quotes?: {
+    total: number
+    pending: number
+    withFile: number
+    byType: Record<string, number>
+  }
 }
 
 export default function AdminAnalyticsPage() {
@@ -291,6 +297,59 @@ export default function AdminAnalyticsPage() {
           </div>
         </div>
       </div>
+
+      {analytics.quotes && (
+        <div className="bg-white p-6 rounded-card2 shadow-card">
+          <h2 className="text-xl font-display font-bold text-ink mb-4">Custom quotes</h2>
+          <div className="grid grid-cols-3 gap-4 mb-4">
+            <div className="text-center p-4 bg-gray-50 rounded-lg">
+              <p className="text-2xl font-bold text-ink">{analytics.quotes.total}</p>
+              <p className="text-xs text-muted mt-1">Total</p>
+            </div>
+            <div className="text-center p-4 bg-amber-50 rounded-lg">
+              <p className="text-2xl font-bold text-ink">{analytics.quotes.pending}</p>
+              <p className="text-xs text-muted mt-1">New / unanswered</p>
+            </div>
+            <div className="text-center p-4 bg-green-50 rounded-lg">
+              <p className="text-2xl font-bold text-ink">{analytics.quotes.withFile}</p>
+              <p className="text-xs text-muted mt-1">With file attached</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(analytics.quotes.byType).map(([type, count]) => (
+              <span key={type} className="text-xs bg-gray-100 text-ink px-3 py-1 rounded-full capitalize">
+                {type.replace(/_/g, ' ')} · {count}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {analytics.timeseries.length > 0 && (
+        <div className="bg-white p-6 rounded-card2 shadow-card">
+          <h2 className="text-xl font-display font-bold text-ink mb-2">Orders over time</h2>
+          <p className="text-sm text-muted mb-6">Daily order count in the selected range</p>
+          <div className="flex items-end gap-1 h-40">
+            {analytics.timeseries.map((point) => {
+              const max = Math.max(...analytics.timeseries.map((p) => p.orders), 1)
+              const height = Math.max(8, (point.orders / max) * 100)
+              return (
+                <div key={point.date} className="flex-1 min-w-0 flex flex-col items-center justify-end h-full">
+                  <div
+                    className="w-full bg-brand rounded-t"
+                    style={{ height: `${height}%` }}
+                    title={`${point.date}: ${point.orders} orders, ${formatCurrency(point.revenue)}`}
+                  />
+                </div>
+              )
+            })}
+          </div>
+          <div className="flex justify-between text-xs text-muted mt-2">
+            <span>{analytics.timeseries[0]?.date}</span>
+            <span>{analytics.timeseries[analytics.timeseries.length - 1]?.date}</span>
+          </div>
+        </div>
+      )}
 
       {/* 4. Geography */}
       <div className="bg-white p-6 rounded-card2 shadow-card">

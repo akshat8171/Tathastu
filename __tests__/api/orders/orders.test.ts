@@ -10,6 +10,13 @@ jest.mock('@/lib/products.json', () => [
   { id: 'organizers-organizer1', price: 1899 },
 ])
 
+jest.mock('@/lib/catalog/store', () => ({
+  getCatalogProducts: jest.fn().mockResolvedValue([
+    { id: 'lamps-lamp1', price: 2299 },
+    { id: 'organizers-organizer1', price: 1899 },
+  ]),
+}))
+
 const mockCreateOrder = jest.fn()
 const mockUpdateOrderPaymentStatus = jest.fn().mockResolvedValue(true)
 const mockLogPayment = jest.fn().mockResolvedValue(true)

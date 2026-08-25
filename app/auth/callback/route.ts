@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
+import { isAllowlistedAdminEmail } from '@/lib/auth/admin-emails'
+import { getPostLoginPath } from '@/lib/auth/post-login-path'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -11,12 +13,9 @@ export const dynamic = 'force-dynamic'
  * `?code=...`. We exchange that code for a session and forward the user on.
  *
  * COOKIE HANDLING (why this is written the way it is):
- * We build the redirect Response FIRST and let `exchangeCodeForSession` write
- * the session cookies straight onto THAT response via the `setAll` adapter.
- * This guarantees the `Set-Cookie` headers ride along with the 3xx redirect,
- * instead of relying on the framework implicitly merging next/headers
- * `cookies()` mutations onto a separately-constructed redirect. On an auth path
- * we prefer the explicit, provably-correct version.
+ * We collect Set-Cookie mutations during exchangeCodeForSession, then write
+ * them onto the final redirect Response so they ride with the 3xx. Destination
+ * is chosen after we know who signed in (admin → /admin).
  *
  * `next` is sanitized to a same-site path to prevent open-redirects.
  */
@@ -37,31 +36,28 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${origin}/login?error=oauth`)
   }
 
-  // Success target — cookies get written onto this exact response object.
-  const response = NextResponse.redirect(`${origin}${next}`)
+  const pendingCookies: Array<{
+    name: string
+    value: string
+    options?: Parameters<NextResponse['cookies']['set']>[2]
+  }> = []
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!,
     {
-      // Not httpOnly: the browser client must be able to read this session
-      // (via document.cookie) for OAuth session detection and the password-
-      // reset flow to work. Attributes match lib/supabase/server.ts.
       cookieOptions: {
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
         path: '/',
       },
       cookies: {
-        // Read the incoming cookies (incl. the PKCE code-verifier the browser
-        // client stored when signInWithOAuth was called).
         getAll() {
           return request.cookies.getAll()
         },
-        // Write the rotated/session cookies directly onto the redirect response.
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
+            pendingCookies.push({ name, value, options })
           )
         },
       },
@@ -74,6 +70,22 @@ export async function GET(request: NextRequest) {
     console.error('OAuth callback exchange failed:', error)
     return NextResponse.redirect(`${origin}/login?error=oauth`)
   }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  const isAdmin =
+    Boolean(user?.email) &&
+    Boolean(user?.email_confirmed_at) &&
+    isAllowlistedAdminEmail(user?.email)
+
+  const destination = getPostLoginPath(isAdmin, next)
+  const response = NextResponse.redirect(`${origin}${destination}`)
+
+  pendingCookies.forEach(({ name, value, options }) =>
+    response.cookies.set(name, value, options)
+  )
 
   return response
 }

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase/client'
 import { GoogleSignInButton } from '@/components/auth/google-button'
 import { Spinner } from '@/components/ui/spinner'
+import { getPostLoginPath } from '@/lib/auth/post-login-path'
 
 function sanitizeNext(raw: string | null): string {
   if (!raw) return '/account'
@@ -74,7 +75,14 @@ export function SignupForm() {
 
     // Session present → auto-confirm is on, the user is signed in immediately.
     if (data.session) {
-      router.push(next)
+      let isAdmin = false
+      try {
+        const me = await fetch('/api/admin/me')
+        isAdmin = me.ok
+      } catch {
+        isAdmin = false
+      }
+      router.push(getPostLoginPath(isAdmin, next))
       router.refresh()
       return
     }
