@@ -18,15 +18,13 @@ export async function GET(request: NextRequest) {
 
     let query = supabaseAdmin
       .from('orders')
-      .select('*')
+      .select('*, order_items(product_name, product_image, quantity)')
       .order('created_at', { ascending: false })
 
-    // Filter by status
     if (status && status !== 'all') {
       query = query.eq('status', status)
     }
 
-    // Search by order number or customer name
     if (search) {
       query = query.or(`order_number.ilike.%${search}%,customer_name.ilike.%${search}%`)
     }
@@ -38,7 +36,26 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to fetch orders' }, { status: 500 })
     }
 
-    return NextResponse.json({ orders: orders || [] })
+    const shaped = (orders || []).map((order) => {
+      const items = Array.isArray(order.order_items) ? order.order_items : []
+      const withImage = items.find((item: { product_image?: string }) => item.product_image)
+      const first = (withImage || items[0]) as { product_image?: string; product_name?: string } | undefined
+      const { order_items, ...rest } = order
+      return {
+        ...rest,
+        thumbnail: first?.product_image ?? null,
+        item_summary: items
+          .map((item: { product_name?: string }) => item.product_name)
+          .filter(Boolean)
+          .join(', '),
+        item_count: items.reduce(
+          (sum: number, item: { quantity?: number }) => sum + (item.quantity || 0),
+          0
+        ),
+      }
+    })
+
+    return NextResponse.json({ orders: shaped })
   } catch (error) {
     console.error('Admin orders error:', error)
     return NextResponse.json(

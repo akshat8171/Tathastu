@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { Search, Filter } from 'lucide-react'
+import Image from 'next/image'
+import { Search, Filter, MessageCircle, Package } from 'lucide-react'
+import { CopyLinkButton } from '@/components/admin/copy-link-button'
+import { formatInr, formatAdminDate, statusBadgeClass } from '@/lib/admin/format'
+import {
+  customerWhatsAppUrl,
+  orderConfirmationUrl,
+  orderCustomerWhatsAppText,
+} from '@/lib/admin/links'
 
 interface Order {
   id: string
@@ -14,6 +22,9 @@ interface Order {
   status: string
   payment_method: string
   created_at: string
+  thumbnail?: string | null
+  item_summary?: string
+  item_count?: number
 }
 
 const statusOptions = [
@@ -33,6 +44,13 @@ export default function AdminOrdersPage() {
   const [statusFilter, setStatusFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
+
+  useEffect(() => {
+    const status = new URLSearchParams(window.location.search).get('status')
+    if (status && statusOptions.some((option) => option.value === status)) {
+      setStatusFilter(status)
+    }
+  }, [])
 
   // Debounce search
   useEffect(() => {
@@ -69,35 +87,9 @@ export default function AdminOrdersPage() {
     }
   }
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0,
-    }).format(amount)
-  }
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    })
-  }
-
-  const getStatusColor = (status: string) => {
-    const colors: Record<string, string> = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      paid: 'bg-blue-100 text-blue-800',
-      processing: 'bg-purple-100 text-purple-800',
-      shipped: 'bg-indigo-100 text-indigo-800',
-      delivered: 'bg-green-100 text-green-800',
-      cancelled: 'bg-red-100 text-red-800',
-    }
-    return colors[status] || 'bg-gray-100 text-gray-800'
-  }
+  const formatCurrency = formatInr
+  const formatDate = formatAdminDate
+  const getStatusColor = statusBadgeClass
 
   return (
     <div className="space-y-6">
@@ -183,6 +175,7 @@ export default function AdminOrdersPage() {
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Items</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Order #</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Customer</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Phone</th>
@@ -200,6 +193,28 @@ export default function AdminOrdersPage() {
                     onClick={() => window.location.href = `/admin/orders/${order.id}`}
                   >
                     <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 rounded-lg overflow-hidden bg-panel flex-shrink-0">
+                          {order.thumbnail ? (
+                            <Image
+                              src={order.thumbnail}
+                              alt={order.item_summary || order.order_number}
+                              width={48}
+                              height={48}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <Package className="w-5 h-5 text-gray-400" />
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-xs text-muted line-clamp-2 max-w-[140px]">
+                          {order.item_summary || '—'}
+                        </p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
                       <Link
                         href={`/admin/orders/${order.id}`}
                         className="text-brand hover:text-brand-600 font-medium"
@@ -207,11 +222,35 @@ export default function AdminOrdersPage() {
                       >
                         {order.order_number}
                       </Link>
+                      <div className="mt-1" onClick={(e) => e.stopPropagation()}>
+                        <CopyLinkButton
+                          value={orderConfirmationUrl(order.order_number)}
+                          label="Copy customer link"
+                        />
+                      </div>
                     </td>
                     <td className="px-6 py-4">
                       <div>
                         <p className="text-sm font-medium text-ink">{order.customer_name}</p>
                         <p className="text-xs text-muted">{order.customer_email}</p>
+                        {(() => {
+                          const wa = customerWhatsAppUrl(
+                            order.customer_phone,
+                            orderCustomerWhatsAppText(order.order_number, order.status)
+                          )
+                          return wa ? (
+                            <a
+                              href={wa}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-xs text-brand mt-1"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <MessageCircle className="w-3.5 h-3.5" />
+                              WhatsApp
+                            </a>
+                          ) : null
+                        })()}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-sm text-ink">{order.customer_phone}</td>

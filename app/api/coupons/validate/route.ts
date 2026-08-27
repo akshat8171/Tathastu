@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { repriceItems } from '@/lib/pricing'
+import { getCatalogProducts } from '@/lib/catalog/store'
 import { validateCoupon } from '@/lib/coupons'
 import { getCurrentUser } from '@/lib/auth/session'
 import { getCustomerIdByPhone } from '@/lib/supabase/orders'
@@ -50,7 +51,11 @@ export async function POST(request: NextRequest) {
 
     const { code, items } = parsed.data
 
-    const repriced = repriceItems(items)
+    const catalog = await getCatalogProducts()
+    const repriced = repriceItems(
+      items,
+      catalog.map((product) => ({ id: product.id, price: product.price }))
+    )
     if (!repriced.ok) {
       return NextResponse.json(
         { valid: false, discount: 0, message: 'Your cart has an invalid item' },

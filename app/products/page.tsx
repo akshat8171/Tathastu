@@ -7,8 +7,10 @@ import { CategoryFilter } from '@/components/products/category-filter'
 import { PRICE_BUCKETS } from '@/lib/price-buckets'
 import { CatalogClient } from './catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
-import productsJson from '@/lib/products.json'
+import { getCatalogProducts } from '@/lib/catalog/store'
 import { SITE } from '@/lib/site'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   // The root layout applies the `%s | Tathastu Keepsakes` title template, so the
@@ -80,7 +82,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const productCategories = getProductCategories()
   const activeCategory = categorySlug ? getCategoryBySlug(categorySlug) : null
 
-  const allProducts = productsJson as FullProductData[]
+  const allProducts = (await getCatalogProducts()) as FullProductData[]
 
   // ── Server-side filter ───────────────────────────────────────────────────────
   // Step 1: filter by category (this becomes the "universe" for facet counts)

@@ -14,26 +14,16 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useWishlist } from '@/components/wishlist/wishlist-context'
 import { AddToCartButton } from '@/components/cart/add-to-cart-button'
-import productsJson from '@/lib/products.json'
-
-interface ProductData {
-  id: string
-  name: string
-  price: number
-  originalPrice: number
-  images: string[]
-  category: string
-  isSoldOut?: boolean
-}
-
-const allProducts = productsJson as ProductData[]
+import { useCatalogProducts } from '@/lib/catalog/use-catalog-products'
+import type { CatalogProduct } from '@/lib/catalog/types'
 
 export default function WishlistPage() {
   const { ids, toggle, isReady, requiresAuth, count } = useWishlist()
+  const allProducts = useCatalogProducts()
 
   const products = Array.from(ids)
-    .map(id => allProducts.find(p => p.id === id))
-    .filter((p): p is ProductData => p !== undefined)
+    .map((id) => allProducts.find((p) => p.id === id))
+    .filter((p): p is CatalogProduct => p !== undefined)
 
   if (!isReady) {
     return (
@@ -167,7 +157,7 @@ export default function WishlistPage() {
                         <span className="font-display font-bold text-ink text-sm">
                           ₹{product.price.toLocaleString('en-IN')}
                         </span>
-                        {product.originalPrice > product.price && (
+                        {product.originalPrice != null && product.originalPrice > product.price && (
                           <s className="text-muted text-xs font-sans">
                             ₹{product.originalPrice.toLocaleString('en-IN')}
                           </s>
@@ -181,7 +171,7 @@ export default function WishlistPage() {
                           id: product.id,
                           name: product.name,
                           price: product.price,
-                          originalPrice: product.originalPrice,
+                          originalPrice: product.originalPrice ?? product.price,
                           image: primaryImage,
                         }}
                         size="sm"

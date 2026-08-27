@@ -1,17 +1,24 @@
 import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
 
+interface PromoStripProps {
+  headline?: string
+  subcopy?: string
+  code?: string
+}
+
 /**
  * PromoStrip — full-width promotional banner below the hero.
- *
- * Copy is intentionally aligned with the seeded coupon engine:
- *   - Code:          FIRST20
- *   - Discount:      20% off first order
- *   - Min order:     ₹199  (FREE_SHIPPING_THRESHOLD — same threshold as free shipping)
- *   - Free shipping: orders over ₹199 (FREE_SHIPPING_THRESHOLD)
- *
- * Never hardcode ₹199; import FREE_SHIPPING_THRESHOLD from lib/pricing.
+ * Copy can be overridden from admin homepage settings.
  */
-export function PromoStrip() {
+export function PromoStrip({
+  headline = '20% OFF your first order',
+  subcopy,
+  code = 'FIRST20',
+}: PromoStripProps) {
+  const detail =
+    subcopy ||
+    `One-time use · Min order ₹${FREE_SHIPPING_THRESHOLD} · Free shipping on orders over ₹${FREE_SHIPPING_THRESHOLD}`
+
   return (
     <section className="promo-gradient py-5 sm:py-6" aria-label="Promotional offer">
       <div className="container-page">
@@ -20,10 +27,10 @@ export function PromoStrip() {
           {/* Main offer text */}
           <div>
             <p className="font-display font-bold text-white text-lg sm:text-xl leading-tight">
-              20% OFF your first order
+              {headline}
             </p>
             <p className="font-sans text-white/80 text-sm mt-0.5">
-              One-time use &middot; Min order ₹{FREE_SHIPPING_THRESHOLD} &middot; Free shipping on orders over ₹{FREE_SHIPPING_THRESHOLD}
+              {detail}
             </p>
           </div>
 
@@ -36,10 +43,10 @@ export function PromoStrip() {
             <span
               className="font-display font-bold text-violet bg-white px-4 py-1.5 rounded-full text-sm tracking-widest select-all cursor-copy"
               title="Click to select and copy"
-              aria-label="Coupon code FIRST20"
+              aria-label={`Coupon code ${code}`}
               role="text"
             >
-              FIRST20
+              {code}
             </span>
           </div>
 

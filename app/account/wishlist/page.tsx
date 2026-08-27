@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { requireAuth } from '@/lib/supabase/auth-helpers'
 import { getWishlist } from '@/lib/supabase/account'
-import productsJson from '@/lib/products.json'
+import { getCatalogProducts } from '@/lib/catalog/store'
 import { WishlistItemActions } from './wishlist-item-actions'
 
 interface ProductData {
@@ -33,7 +33,7 @@ export default async function WishlistPage() {
   const slugs = await getWishlist(user.id)
 
   // Resolve slugs → ProductData, dropping any that no longer exist in the catalog.
-  const allProducts = productsJson as ProductData[]
+  const allProducts = (await getCatalogProducts()) as ProductData[]
   const products: ProductData[] = slugs
     .map((slug) => allProducts.find((p) => p.id === slug))
     .filter((p): p is ProductData => p !== undefined)

@@ -4,57 +4,17 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '@/components/ui'
-import { useCart } from '@/components/cart/cart-context'
-import productsData from '@/lib/products.json'
 import type { ProductCardData } from '@/components/ui'
+import type { HeroSlide } from '@/lib/catalog/types'
+import { DEFAULT_HOMEPAGE_SETTINGS } from '@/lib/catalog/homepage-defaults'
 import { SITE, waLink } from '@/lib/site'
 
-const allProducts = productsData as ProductCardData[]
-const byId = (id: string) => allProducts.find((p) => p.id === id)
-
-interface Slide {
-  eyebrow: string
-  headline: string
-  highlight: string
-  subcopy: string
-  ctaLabel: string
-  ctaHref: string
-  productIds: string[]
+interface HeroCarouselProps {
+  slides?: HeroSlide[]
+  products?: ProductCardData[]
 }
 
-// Each slide is themed around a category and showcases 4 real products.
-const SLIDES: Slide[] = [
-  {
-    eyebrow: 'Pooja & Decor',
-    headline: 'Devotion,',
-    highlight: 'beautifully printed.',
-    subcopy:
-      'Intricately detailed idols, diya stands and pooja essentials crafted for your sacred space.',
-    ctaLabel: 'Shop Pooja & Decor',
-    ctaHref: '/products?category=pooja-decor',
-    productIds: ['pooja-decor-ganesha', 'pooja-decor-lakshmi', 'pooja-decor-krishna', 'pooja-decor-temple'],
-  },
-  {
-    eyebrow: 'Keyrings & Bag Tags',
-    headline: 'Personalised,',
-    highlight: 'built to last.',
-    subcopy:
-      'Name keyrings and bag tags printed in vivid multi-colour — the perfect little everyday statement.',
-    ctaLabel: 'Shop Keyrings',
-    ctaHref: '/products?category=keyrings',
-    productIds: ['keyrings-name', 'keyrings-puppy', 'keyrings-tennis', 'keyrings-shiva'],
-  },
-  {
-    eyebrow: 'Gaming & Fun',
-    headline: 'One-of-a-kind,',
-    highlight: 'made to order.',
-    subcopy:
-      'Collectible 3D-printed pieces for fans and gamers — crisp detail, bold colour, endless personality.',
-    ctaLabel: 'Shop Gaming',
-    ctaHref: '/products?category=gaming',
-    productIds: ['gaming-shield', 'gaming-gamepad', 'gaming-toad', 'gaming-question'],
-  },
-]
+const byId = (products: ProductCardData[], id: string) => products.find((p) => p.id === id)
 
 const AUTO_ADVANCE_MS = 5500
 
@@ -102,24 +62,28 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
   )
 }
 
-export function HeroCarousel() {
+export function HeroCarousel({
+  slides = DEFAULT_HOMEPAGE_SETTINGS.heroSlides,
+  products: catalog = [],
+}: HeroCarouselProps) {
   const [active, setActive] = useState(0)
   const [paused, setPaused] = useState(false)
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const slidesSafe = slides.length > 0 ? slides : DEFAULT_HOMEPAGE_SETTINGS.heroSlides
 
   const go = useCallback((i: number) => {
-    setActive(((i % SLIDES.length) + SLIDES.length) % SLIDES.length)
-  }, [])
+    setActive(((i % slidesSafe.length) + slidesSafe.length) % slidesSafe.length)
+  }, [slidesSafe.length])
 
   // Auto-advance (pauses on hover/focus).
   useEffect(() => {
     if (paused) return
-    timer.current = setTimeout(() => setActive((a) => (a + 1) % SLIDES.length), AUTO_ADVANCE_MS)
+    timer.current = setTimeout(() => setActive((a) => (a + 1) % slidesSafe.length), AUTO_ADVANCE_MS)
     return () => { if (timer.current) clearTimeout(timer.current) }
-  }, [active, paused])
+  }, [active, paused, slidesSafe.length])
 
-  const slide = SLIDES[active]
-  const products = slide.productIds.map(byId).filter((p): p is ProductCardData => !!p)
+  const slide = slidesSafe[active] ?? slidesSafe[0]
+  const products = slide.productIds.map((id) => byId(catalog, id)).filter((p): p is ProductCardData => !!p)
 
   return (
     <section
@@ -203,9 +167,9 @@ export function HeroCarousel() {
 
         {/* ── Dots (min 44px touch target via padding) ── */}
         <div className="flex items-center justify-center gap-1 mt-8">
-          {SLIDES.map((s, i) => (
+          {slidesSafe.map((s, i) => (
             <button
-              key={s.eyebrow}
+              key={`${s.eyebrow}-${i}`}
               onClick={() => go(i)}
               aria-label={`Go to slide ${i + 1}: ${s.eyebrow}`}
               aria-current={i === active}

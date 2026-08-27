@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import productsData from '@/lib/products.json'
+import { getCatalogProduct } from '@/lib/catalog/store'
 
 interface ProductDetailPageProps {
   params: Promise<{
@@ -13,16 +13,15 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    
-    const product = productsData.find((p) => p.id === id)
-    
+    const product = await getCatalogProduct(id)
+
     if (!product) {
       return NextResponse.json(
         { error: 'Product not found' },
         { status: 404 }
       )
     }
-    
+
     return NextResponse.json({ product })
   } catch (error) {
     console.error('Error fetching product:', error)

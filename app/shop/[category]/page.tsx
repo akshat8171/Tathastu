@@ -14,7 +14,9 @@ import { CategoryFilter } from '@/components/products/category-filter'
 import { PRICE_BUCKETS } from '@/lib/price-buckets'
 import { CatalogClient } from '../../products/catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
-import productsJson from '@/lib/products.json'
+import { getCatalogProducts } from '@/lib/catalog/store'
+
+export const revalidate = 60
 
 interface ShopCategoryPageProps {
   params: Promise<{ category: string }>
@@ -104,7 +106,7 @@ export default async function ShopCategoryPage({
   const showInStock      = sp.inStock === '1'
   const showCustomizable = sp.customizable === '1'
 
-  const allProducts = productsJson as FullProductData[]
+  const allProducts = (await getCatalogProducts()) as FullProductData[]
 
   // Base: filter by category
   let filtered: FullProductData[] = allProducts.filter((p) => p.category === slug)

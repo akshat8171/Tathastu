@@ -149,11 +149,21 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     let fileUrl: string | null = null
     if (fileRef) {
-      fileUrl = await uploadQuoteFile(
+      const uploaded = await uploadQuoteFile(
         await fileRef.arrayBuffer().then(buf => Buffer.from(buf)),
         fileRef.name,
         fileRef.type || 'application/octet-stream'
       )
+      if (!uploaded.ok) {
+        return NextResponse.json(
+          {
+            error:
+              'Could not save your file. Please try again, or WhatsApp us the file directly.',
+          },
+          { status: 503 }
+        )
+      }
+      fileUrl = uploaded.path
     }
 
     // ── Persist to DB ────────────────────────────────────────────────────────
@@ -193,7 +203,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         phone: phone.trim() || 'not provided',
         type,
         description: description.slice(0, 300) || '(none)',
-        file_url: fileUrl ?? 'none (received but not stored)',
+        file_url: fileUrl ?? 'none',
         quote_id: result.id ?? 'DB error — check logs',
       },
     })

@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Package, TrendingUp, DollarSign, ShoppingBag } from 'lucide-react'
+import { Package, TrendingUp, DollarSign, ShoppingBag, FileBox } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { formatInr, formatAdminDate, statusBadgeClass } from '@/lib/admin/format'
 
 interface DashboardStats {
   totalOrders: number
@@ -17,7 +19,16 @@ interface DashboardStats {
     total: number
     status: string
     created_at: string
+    thumbnail?: string | null
+    item_summary?: string
   }>
+  pendingQuotes: number
+  quotesToday: number
+  quotesTotal: number
+  quotesSlaBreached?: number
+  printQueue?: number
+  unpaid?: number
+  needsTracking?: number
   topProducts: Array<{
     product_name: string
     quantity: number
@@ -56,34 +67,9 @@ export default function AdminDashboardPage() {
     }
   }
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0,
-    }).format(amount)
-  }
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-IN', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-    })
-  }
-
-  const getStatusColor = (status: string) => {
-    const colors: Record<string, string> = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      paid: 'bg-blue-100 text-blue-800',
-      processing: 'bg-purple-100 text-purple-800',
-      shipped: 'bg-indigo-100 text-indigo-800',
-      delivered: 'bg-green-100 text-green-800',
-      cancelled: 'bg-red-100 text-red-800',
-    }
-    return colors[status] || 'bg-gray-100 text-gray-800'
-  }
+  const formatCurrency = formatInr
+  const formatDate = formatAdminDate
+  const getStatusColor = statusBadgeClass
 
   if (loading) {
     return (
@@ -109,11 +95,42 @@ export default function AdminDashboardPage() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-display font-bold text-ink">Dashboard</h1>
-        <p className="text-muted mt-2">Overview of your store performance</p>
+        <p className="text-muted mt-2">What to print, quote, or ship today</p>
+        <div className="flex flex-wrap gap-3 mt-4">
+          <Link href="/admin/catalog/new" className="text-sm font-medium text-brand hover:underline">
+            Add a SKU →
+          </Link>
+          <Link href="/admin/homepage" className="text-sm font-medium text-brand hover:underline">
+            Edit landing page →
+          </Link>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link href="/admin/orders?status=processing" className="bg-white p-4 rounded-card2 shadow-card hover:ring-2 hover:ring-brand/30">
+          <p className="text-xs text-muted">Print queue</p>
+          <p className="text-2xl font-bold text-ink mt-1">{stats.printQueue ?? 0}</p>
+          <p className="text-xs text-muted mt-1">Paid + processing</p>
+        </Link>
+        <Link href="/admin/quotes" className="bg-white p-4 rounded-card2 shadow-card hover:ring-2 hover:ring-brand/30">
+          <p className="text-xs text-muted">Quotes overdue</p>
+          <p className="text-2xl font-bold text-ink mt-1">{stats.quotesSlaBreached ?? 0}</p>
+          <p className="text-xs text-muted mt-1">New for more than 24h</p>
+        </Link>
+        <Link href="/admin/orders?status=shipped" className="bg-white p-4 rounded-card2 shadow-card hover:ring-2 hover:ring-brand/30">
+          <p className="text-xs text-muted">Needs tracking</p>
+          <p className="text-2xl font-bold text-ink mt-1">{stats.needsTracking ?? 0}</p>
+          <p className="text-xs text-muted mt-1">Shipped, no AWB</p>
+        </Link>
+        <Link href="/admin/orders?status=pending" className="bg-white p-4 rounded-card2 shadow-card hover:ring-2 hover:ring-brand/30">
+          <p className="text-xs text-muted">Unpaid</p>
+          <p className="text-2xl font-bold text-ink mt-1">{stats.unpaid ?? 0}</p>
+          <p className="text-xs text-muted mt-1">Still pending</p>
+        </Link>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <div className="bg-white p-6 rounded-card2 shadow-card">
           <div className="flex items-center justify-between">
             <div>
@@ -132,7 +149,7 @@ export default function AdminDashboardPage() {
         <div className="bg-white p-6 rounded-card2 shadow-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted">Total Revenue</p>
+              <p className="text-sm text-muted">Paid revenue</p>
               <p className="text-2xl font-bold text-ink mt-1">{formatCurrency(stats.totalRevenue)}</p>
             </div>
             <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
@@ -164,6 +181,21 @@ export default function AdminDashboardPage() {
             </div>
           </div>
         </div>
+
+        <Link href="/admin/quotes" className="bg-white p-6 rounded-card2 shadow-card hover:ring-2 hover:ring-brand/30 transition">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-muted">Custom quotes</p>
+              <p className="text-2xl font-bold text-ink mt-1">{stats.pendingQuotes ?? 0}</p>
+            </div>
+            <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center">
+              <FileBox className="w-6 h-6 text-amber-700" />
+            </div>
+          </div>
+          <p className="text-xs text-muted mt-4">
+            {stats.quotesToday ?? 0} today · {stats.quotesTotal ?? 0} total · new ones need a reply
+          </p>
+        </Link>
       </div>
 
       {/* Recent Orders & Top Products */}
@@ -193,12 +225,29 @@ export default function AdminDashboardPage() {
                 {stats.recentOrders.map((order) => (
                   <tr key={order.id} className="hover:bg-gray-50">
                     <td className="px-6 py-4">
-                      <Link
-                        href={`/admin/orders/${order.id}`}
-                        className="text-brand hover:text-brand-600 font-medium"
-                      >
-                        {order.order_number}
-                      </Link>
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-lg overflow-hidden bg-panel flex-shrink-0">
+                          {order.thumbnail ? (
+                            <Image
+                              src={order.thumbnail}
+                              alt={order.item_summary || order.order_number}
+                              width={40}
+                              height={40}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <Package className="w-4 h-4 text-gray-400" />
+                            </div>
+                          )}
+                        </div>
+                        <Link
+                          href={`/admin/orders/${order.id}`}
+                          className="text-brand hover:text-brand-600 font-medium"
+                        >
+                          {order.order_number}
+                        </Link>
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-sm text-ink">{order.customer_name}</td>
                     <td className="px-6 py-4 text-sm font-medium text-ink">{formatCurrency(order.total)}</td>

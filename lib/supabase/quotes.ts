@@ -1,5 +1,11 @@
 import 'server-only'
 import { supabaseAdmin } from './admin'
+import type { QuoteInsert, QuoteRow, QuoteStatus } from './quote-types'
+import { QUOTE_STATUSES } from './quote-types'
+import { isQuoteStorageDisabled } from './quote-storage-flag'
+
+export type { QuoteInsert, QuoteRow, QuoteStatus, QuoteType } from './quote-types'
+export { QUOTE_STATUSES, isQuoteStorageDisabled }
 
 /**
  * Data layer for quote_requests (see supabase/migration-006-quote-requests.sql).
@@ -11,91 +17,58 @@ import { supabaseAdmin } from './admin'
  * All access via the service-role client (server-side only).
  */
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-
-export type QuoteType = 'keychain' | 'portrait' | 'custom_object' | 'bulk_order' | 'custom'
-
-export interface QuoteInsert {
-  name: string
-  email: string
-  phone?: string
-  type: QuoteType
-  description?: string
-  file_url?: string
-}
-
-export interface QuoteRow extends QuoteInsert {
-  id: string
-  status: string
-  created_at: string
-}
-
 export interface QuoteResult {
   ok: boolean
   id?: string
   error?: string
 }
 
-// ── Storage (env-gated) ───────────────────────────────────────────────────────
+export type QuoteUploadResult =
+  | { ok: true; path: string }
+  | { ok: false; error: string; skipped?: boolean }
 
-const STORAGE_BUCKET = 'quote-uploads'
+export const QUOTE_STORAGE_BUCKET = 'quote-uploads'
 
-/**
- * Upload a file to Supabase Storage.
- *
- * Gated behind QUOTE_STORAGE_ENABLED — when unset (mock mode) NO real upload
- * happens and this returns `null`. Returning null (rather than a fake
- * `placeholder/...` path) is deliberate: the quote row then stores
- * `file_url = null`, which is the honest state — nothing was actually stored,
- * so we must not persist a path that resolves to nothing. The owner reviews the
- * quote from the email/console notification and follows up for the file. Once
- * QUOTE_STORAGE_ENABLED is set with a real bucket, this returns the real path.
- *
- * Returns the storage path on a successful real upload, or null in mock mode /
- * on any upload error. Never throws.
- */
+const SIGNED_URL_TTL_SECONDS = 60 * 60
+
 export async function uploadQuoteFile(
   file: File | Buffer,
   filename: string,
   contentType: string
-): Promise<string | null> {
-  if (!process.env.QUOTE_STORAGE_ENABLED) {
-    // Mock mode: no real storage configured. Do NOT fabricate a path.
+): Promise<QuoteUploadResult> {
+  if (isQuoteStorageDisabled()) {
     console.log(
-      `[quotes] QUOTE_STORAGE_ENABLED not set — file "${filename}" was received but not stored (mock mode)`
+      `[quotes] QUOTE_STORAGE_ENABLED=false — file "${filename}" received but not stored (kill switch)`
     )
-    return null
+    return { ok: false, skipped: true, error: 'Quote storage is disabled' }
   }
 
   try {
-    // Build a unique storage key to avoid collisions.
     const key = `${Date.now()}-${filename.replace(/[^a-zA-Z0-9._-]/g, '_')}`
-
     const { data, error } = await supabaseAdmin.storage
-      .from(STORAGE_BUCKET)
+      .from(QUOTE_STORAGE_BUCKET)
       .upload(key, file, {
         contentType,
         upsert: false,
       })
 
-    if (error) {
+    if (error || !data?.path) {
       console.error('[quotes] storage upload error:', error)
-      return null
+      return {
+        ok: false,
+        error:
+          error?.message ||
+          `Could not save file to ${QUOTE_STORAGE_BUCKET}. Create that private bucket in Supabase Storage.`,
+      }
     }
 
-    return data.path
+    return { ok: true, path: data.path }
   } catch (err) {
     console.error('[quotes] unexpected storage error:', err)
-    return null
+    return { ok: false, error: 'Unexpected error saving the uploaded file' }
   }
 }
 
-// ── Insert ────────────────────────────────────────────────────────────────────
-
-/**
- * Insert a new quote request row.
- * Returns { ok: true, id } on success, { ok: false, error } on any failure.
- */
 export async function insertQuoteRequest(payload: QuoteInsert): Promise<QuoteResult> {
   try {
     const { data, error } = await supabaseAdmin
@@ -120,5 +93,85 @@ export async function insertQuoteRequest(payload: QuoteInsert): Promise<QuoteRes
   } catch (err) {
     console.error('[quotes] insertQuoteRequest unexpected error:', err)
     return { ok: false, error: 'Unexpected error saving quote request' }
+  }
+}
+
+export async function listQuoteRequests(): Promise<{ ok: true; quotes: QuoteRow[] } | { ok: false; error: string }> {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('quote_requests')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (error) {
+      console.error('[quotes] listQuoteRequests error:', error)
+      return { ok: false, error: error.message }
+    }
+
+    return { ok: true, quotes: (data ?? []) as QuoteRow[] }
+  } catch (err) {
+    console.error('[quotes] listQuoteRequests unexpected error:', err)
+    return { ok: false, error: 'Unexpected error listing quotes' }
+  }
+}
+
+export async function getQuoteById(id: string): Promise<QuoteRow | null> {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('quote_requests')
+      .select('*')
+      .eq('id', id)
+      .single()
+
+    if (error || !data) return null
+    return data as QuoteRow
+  } catch {
+    return null
+  }
+}
+
+export async function updateQuoteStatus(
+  id: string,
+  status: QuoteStatus
+): Promise<QuoteResult> {
+  if (!QUOTE_STATUSES.includes(status)) {
+    return { ok: false, error: 'Invalid status' }
+  }
+
+  try {
+    const { error } = await supabaseAdmin
+      .from('quote_requests')
+      .update({ status })
+      .eq('id', id)
+
+    if (error) {
+      console.error('[quotes] updateQuoteStatus error:', error)
+      return { ok: false, error: error.message }
+    }
+
+    return { ok: true, id }
+  } catch (err) {
+    console.error('[quotes] updateQuoteStatus unexpected error:', err)
+    return { ok: false, error: 'Unexpected error updating quote' }
+  }
+}
+
+export async function createQuoteFileSignedUrl(
+  storagePath: string
+): Promise<string | null> {
+  try {
+    const { data, error } = await supabaseAdmin.storage
+      .from(QUOTE_STORAGE_BUCKET)
+      .createSignedUrl(storagePath, SIGNED_URL_TTL_SECONDS)
+
+    if (error || !data?.signedUrl) {
+      console.error('[quotes] signed URL error:', error)
+      return null
+    }
+
+    return data.signedUrl
+  } catch (err) {
+    console.error('[quotes] signed URL unexpected error:', err)
+    return null
   }
 }

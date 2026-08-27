@@ -2,6 +2,7 @@ import 'server-only'
 
 import { NextResponse } from 'next/server'
 import { getCurrentUser, type AppUser } from '@/lib/auth/session'
+import { isAllowlistedAdminEmail } from '@/lib/auth/admin-emails'
 
 /**
  * Server-side admin authorization.
@@ -42,35 +43,13 @@ import { getCurrentUser, type AppUser } from '@/lib/auth/session'
  */
 
 /**
- * Fallback allowlist used only when ADMIN_EMAILS is not configured, so a
- * misconfigured deploy does not lock the store owner out of their own admin.
- * Prefer setting ADMIN_EMAILS (comma-separated) in the environment.
- */
-const FALLBACK_ADMIN_EMAILS = ['tathastukeepsakes@gmail.com']
-
-/** Normalize an email for case-insensitive comparison. */
-function normalizeEmail(email: string): string {
-  return email.trim().toLowerCase()
-}
-
-/** Parse ADMIN_EMAILS (comma-separated, e.g. "a@x.com,b@y.com"), normalized. */
-function getAdminEmails(): string[] {
-  const raw = process.env.ADMIN_EMAILS
-  const source = raw
-    ? raw.split(',').map((s) => s.trim()).filter(Boolean)
-    : []
-  const list = source.length > 0 ? source : FALLBACK_ADMIN_EMAILS
-  return list.map(normalizeEmail)
-}
-
-/**
  * True when the user is present, their email is VERIFIED, and that email is on
  * the admin allowlist. The `emailVerified` requirement is load-bearing security —
  * see the module header. Phone-only sessions (no verified email) are never admin.
  */
 export function isAdminUser(user: AppUser | null): boolean {
   if (!user?.email || !user.emailVerified) return false
-  return getAdminEmails().includes(normalizeEmail(user.email))
+  return isAllowlistedAdminEmail(user.email)
 }
 
 /**

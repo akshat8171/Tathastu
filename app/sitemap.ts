@@ -8,12 +8,13 @@
 import { MetadataRoute } from 'next'
 import { blogPosts } from '@/lib/blog-data'
 import { getProductCategories } from '@/lib/categories'
-import productsJson from '@/lib/products.json'
+import { getCatalogProducts } from '@/lib/catalog/store'
 
 const BASE_URL = 'https://www.tathastukeepsakes.in'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const currentDate = new Date().toISOString()
+  const catalog = await getCatalogProducts()
 
   // Static pages with priority and change frequency
   const staticPages: MetadataRoute.Sitemap = [
@@ -125,9 +126,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // rich results). Previously absent from the sitemap, so product pages were
   // left to organic discovery only. Rakhi SKUs get a small priority bump so
   // they are crawled first during the pre-festival window.
-  const productPages: MetadataRoute.Sitemap = (
-    productsJson as Array<{ id: string; category: string }>
-  ).map((product) => ({
+  const productPages: MetadataRoute.Sitemap = catalog.map((product) => ({
     url: `${BASE_URL}/products/${product.id}`,
     lastModified: currentDate,
     changeFrequency: 'weekly' as const,

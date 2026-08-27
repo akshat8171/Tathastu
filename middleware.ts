@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { FIREBASE_SESSION_COOKIE } from '@/lib/auth/cookies'
+import { isAllowlistedAdminEmail } from '@/lib/auth/admin-emails'
 
 // Routes that require an authenticated user. A logged-out visitor is
 // redirected to /login?next=<path> so they return here after signing in.
@@ -71,11 +72,16 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  // A signed-in user has no reason to see /login or /signup — send them to
-  // their account.
+  // A signed-in user has no reason to see /login or /signup.
+  // Admin allowlist (verified email) always goes to /admin; everyone else
+  // to /account. Firebase phone sessions have no verified email → /account.
   if ((pathname === '/login' || pathname === '/signup') && isAuthenticated) {
     const url = request.nextUrl.clone()
-    url.pathname = '/account'
+    const isAdmin =
+      Boolean(user?.email) &&
+      Boolean(user?.email_confirmed_at) &&
+      isAllowlistedAdminEmail(user?.email)
+    url.pathname = isAdmin ? '/admin' : '/account'
     url.search = ''
     return NextResponse.redirect(url)
   }

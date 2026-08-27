@@ -21,7 +21,7 @@ import type { ProductCardData } from '@/components/ui/product-card'
 import { SITE, waLink } from '@/lib/site'
 import { getFAQSchema, getBreadcrumbSchema } from '@/lib/schema'
 import { getCategoryBySlug } from '@/lib/categories'
-import productsJson from '@/lib/products.json'
+import { getCatalogProducts } from '@/lib/catalog/store'
 
 // ── SEO metadata ──────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
@@ -129,8 +129,10 @@ const DESIGN_IDEAS: Array<{ title: string; desc: string; emoji: string }> = [
   { title: 'Your Own Idea', desc: 'Car, profession, initial, pet — suggest anything and we’ll print it.', emoji: '✨' },
 ]
 
-export default function RakhiLandingPage() {
-  const rakhiProducts = (productsJson as ProductCardData[]).filter((p) => p.category === 'rakhi')
+export const revalidate = 60
+
+export default async function RakhiLandingPage() {
+  const rakhiProducts = (await getCatalogProducts()).filter((p) => p.category === 'rakhi') as ProductCardData[]
   const category = getCategoryBySlug('rakhi')
 
   const fromPrice = rakhiProducts.reduce(
