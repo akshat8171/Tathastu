@@ -146,6 +146,7 @@ function CustomizePageInner() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [submitState, setSubmitState] = useState<SubmitState>('idle')
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [createdOrderNumber, setCreatedOrderNumber] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Customizable products for the rail
@@ -247,6 +248,7 @@ function CustomizePageInner() {
         return
       }
 
+      setCreatedOrderNumber(typeof json.order_number === 'string' ? json.order_number : null)
       setSubmitState('success')
     } catch {
       setErrorMessage('Network error — check your connection and try again.')
@@ -453,8 +455,16 @@ function CustomizePageInner() {
                 Thank you! Our team will review your {selectedTypeLabel.toLowerCase()} request and
                 send you a quote within 24 hours.
               </p>
+              {createdOrderNumber && (
+                <p className="font-sans text-ink text-sm mb-2">
+                  Request number:{' '}
+                  <Link href={`/order-confirmation/${createdOrderNumber}`} className="text-brand font-semibold">
+                    {createdOrderNumber}
+                  </Link>
+                </p>
+              )}
               <p className="font-sans text-muted text-sm mb-8 max-w-md mx-auto">
-                For faster replies, ping us on WhatsApp — we typically respond within the hour.
+                Sign in with the same email to see this under My Orders. For faster replies, ping us on WhatsApp.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button

@@ -9,6 +9,10 @@ import type { Order, OrderItem } from '@/lib/supabase/client'
 type BadgeConfig = { label: string; className: string }
 
 function getStatusBadge(order: Order): BadgeConfig {
+  const isCustomRequest = (order.notes ?? '').includes('quote_id=')
+  if (isCustomRequest && order.payment_status === 'pending' && Number(order.total) === 0) {
+    return { label: 'Custom request', className: 'bg-violet/10 text-violet' }
+  }
   // payment_status takes priority for the most actionable signal.
   if (order.payment_status === 'paid') {
     if (order.status === 'delivered') {
