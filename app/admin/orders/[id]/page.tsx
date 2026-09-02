@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { ArrowLeft, Package, Truck, CheckCircle, XCircle, Clock, MessageCircle, ExternalLink } from 'lucide-react'
 import Link from 'next/link'
 import { CopyLinkButton } from '@/components/admin/copy-link-button'
+import { quoteIdFromNotes } from '@/lib/supabase/quote-order-notes'
 import {
   customerWhatsAppUrl,
   orderConfirmationUrl,
@@ -70,6 +71,8 @@ export default function AdminOrderDetailPage() {
   const [updating, setUpdating] = useState(false)
   const [newStatus, setNewStatus] = useState('')
   const [trackingNumber, setTrackingNumber] = useState('')
+  const [quotePrice, setQuotePrice] = useState('')
+  const [savingPrice, setSavingPrice] = useState(false)
 
   useEffect(() => {
     fetchOrderDetails()
@@ -90,6 +93,9 @@ export default function AdminOrderDetailPage() {
       setItems(data.items)
       setNewStatus(data.order.status)
       setTrackingNumber(data.order.tracking_number || '')
+      setQuotePrice(
+        data.order.total > 0 ? String(Math.round(Number(data.order.total))) : ''
+      )
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load order')
     } finally {
@@ -120,6 +126,32 @@ export default function AdminOrderDetailPage() {
       alert(err instanceof Error ? err.message : 'Failed to update order')
     } finally {
       setUpdating(false)
+    }
+  }
+
+  const quoteId = order ? quoteIdFromNotes(order.notes) : null
+  const canEditQuotePrice =
+    Boolean(quoteId) &&
+    order?.payment_status !== 'paid' &&
+    order?.status !== 'cancelled' &&
+    order?.status !== 'delivered'
+
+  const handleSaveQuotePrice = async () => {
+    if (!quoteId) return
+    try {
+      setSavingPrice(true)
+      const response = await fetch('/api/admin/quotes', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: quoteId, quoted_price: Number(quotePrice) }),
+      })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'Failed to update price')
+      await fetchOrderDetails()
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed to update price')
+    } finally {
+      setSavingPrice(false)
     }
   }
 
@@ -249,6 +281,33 @@ export default function AdminOrderDetailPage() {
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-xl font-display font-bold text-ink">Order Items</h2>
             </div>
+            {canEditQuotePrice && (
+              <div className="px-6 pt-4 flex flex-wrap items-end gap-3">
+                <div>
+                  <label htmlFor="quote-order-price" className="block text-xs font-medium text-muted mb-1">
+                    Custom quote (₹)
+                  </label>
+                  <input
+                    id="quote-order-price"
+                    type="number"
+                    min={1}
+                    step={1}
+                    inputMode="numeric"
+                    value={quotePrice}
+                    onChange={(e) => setQuotePrice(e.target.value)}
+                    className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => void handleSaveQuotePrice()}
+                  disabled={savingPrice}
+                  className="px-4 py-2 bg-brand text-white rounded-lg text-sm font-medium disabled:opacity-60"
+                >
+                  {savingPrice ? 'Saving…' : 'Update price'}
+                </button>
+              </div>
+            )}
             <div className="p-6 space-y-4">
               {items.map((item) => (
                 <div key={item.id} className="flex gap-4 pb-4 border-b border-gray-100 last:border-0">

@@ -35,3 +35,9 @@ export function shopWhatsAppForOrder(orderNumber: string): string {
 export function quoteCustomerWhatsAppText(name: string, type: string): string {
   return `Hi ${name}, this is Tathastu Keepsakes. We received your ${type.replace(/_/g, ' ')} request and will share a quote shortly.`
 }
+
+export function quotePriceWhatsAppText(name: string, type: string, priceRupees: number): string {
+  const kind = type.replace(/_/g, ' ')
+  const amount = priceRupees.toLocaleString('en-IN')
+  return `Hi ${name}, this is Tathastu Keepsakes. Your custom ${kind} quote is ₹${amount} (pay on delivery). Reply here if you'd like us to go ahead.`
+}

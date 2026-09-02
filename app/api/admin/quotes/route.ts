@@ -10,7 +10,9 @@ import {
   enrichQuotesWithOrders,
   ensureOrderForQuote,
   ensureOrdersForUnlinkedQuotes,
+  setQuotedPrice,
 } from '@/lib/supabase/quote-orders'
+import { parseQuotedPriceRupees } from '@/lib/supabase/quote-order-notes'
 
 export const dynamic = 'force-dynamic'
 
@@ -32,7 +34,12 @@ export async function POST(request: NextRequest) {
   if (!auth.ok) return auth.response
 
   try {
-    const body = (await request.json().catch(() => ({}))) as { ids?: unknown; id?: unknown }
+    const body = (await request.json().catch(() => ({}))) as {
+      ids?: unknown
+      id?: unknown
+      quoted_price?: unknown
+      quotedPrice?: unknown
+    }
     const ids = Array.isArray(body.ids)
       ? body.ids.map((value) => String(value)).filter(Boolean)
       : body.id
@@ -40,6 +47,14 @@ export async function POST(request: NextRequest) {
         : undefined
 
     if (ids?.length === 1) {
+      const priceRaw = body.quoted_price ?? body.quotedPrice
+      if (priceRaw !== undefined && priceRaw !== null && priceRaw !== '') {
+        const priced = await setQuotedPrice(ids[0], priceRaw)
+        if (!priced.ok) {
+          return NextResponse.json({ error: priced.error }, { status: 400 })
+        }
+      }
+
       const result = await ensureOrderForQuote(ids[0])
       if (!result.ok) {
         return NextResponse.json({ error: result.error }, { status: 400 })
@@ -73,18 +88,45 @@ export async function PATCH(request: NextRequest) {
   try {
     const body = await request.json()
     const id = String(body.id ?? body.quoteId ?? '')
-    const status = String(body.status ?? '') as QuoteStatus
-
-    if (!id || !QUOTE_STATUSES.includes(status)) {
-      return NextResponse.json({ error: 'Invalid id or status' }, { status: 400 })
+    if (!id) {
+      return NextResponse.json({ error: 'Missing quote id' }, { status: 400 })
     }
 
-    const result = await updateQuoteStatus(id, status)
-    if (!result.ok) {
-      return NextResponse.json({ error: 'Failed to update quote' }, { status: 500 })
+    const priceRaw = body.quoted_price ?? body.quotedPrice
+    const hasPrice = priceRaw !== undefined && priceRaw !== null && priceRaw !== ''
+    const statusRaw = body.status !== undefined ? String(body.status) : ''
+    const hasStatus = Boolean(statusRaw)
+
+    if (!hasPrice && !hasStatus) {
+      return NextResponse.json({ error: 'Provide quoted_price or status' }, { status: 400 })
     }
 
-    return NextResponse.json({ ok: true, id: result.id, status })
+    if (hasPrice && parseQuotedPriceRupees(priceRaw) === null) {
+      return NextResponse.json(
+        { error: 'Enter a quote of at least ₹1 before saving' },
+        { status: 400 }
+      )
+    }
+
+    if (hasPrice) {
+      const priced = await setQuotedPrice(id, priceRaw)
+      if (!priced.ok) {
+        return NextResponse.json({ error: priced.error }, { status: 400 })
+      }
+    }
+
+    if (hasStatus) {
+      const status = statusRaw as QuoteStatus
+      if (!QUOTE_STATUSES.includes(status)) {
+        return NextResponse.json({ error: 'Invalid id or status' }, { status: 400 })
+      }
+      const result = await updateQuoteStatus(id, status)
+      if (!result.ok) {
+        return NextResponse.json({ error: 'Failed to update quote' }, { status: 500 })
+      }
+    }
+
+    return NextResponse.json({ ok: true, id })
   } catch {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
   }

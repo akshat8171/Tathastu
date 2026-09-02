@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { insertQuoteRequest, uploadQuoteFile, type QuoteType } from '@/lib/supabase/quotes'
-import { ensureOrderForQuote } from '@/lib/supabase/quote-orders'
-import { grantOrderAccess } from '@/lib/auth/order-access'
 import { send } from '@/lib/notify'
 import { redactEmail } from '@/lib/redact'
 
@@ -192,17 +190,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       })
     }
 
-    let orderNumber: string | null = null
-    if (result.ok && result.id) {
-      const orderResult = await ensureOrderForQuote(result.id)
-      if (orderResult.ok && orderResult.orderNumber) {
-        orderNumber = orderResult.orderNumber
-        await grantOrderAccess(orderResult.orderNumber)
-      } else {
-        console.error('[custom-quote] order create failed:', orderResult.error)
-      }
-    }
-
     // ── Team notification (env-gated) ────────────────────────────────────────
     // Full PII (name/email/phone) is intentionally included here: it goes only
     // to the configured notification provider (the access-controlled channel),
@@ -218,7 +205,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         description: description.slice(0, 300) || '(none)',
         file_url: fileUrl ?? 'none',
         quote_id: result.id ?? 'DB error — check logs',
-        order_number: orderNumber ?? 'not created',
       },
     })
 
@@ -226,7 +212,6 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       {
         ok: true,
         id: result.id ?? null,
-        order_number: orderNumber,
         message: 'Quote request received',
       },
       { status: 201 }

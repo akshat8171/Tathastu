@@ -1,6 +1,27 @@
 export const CUSTOM_QUOTE_PRODUCT_ID = 'custom-quote'
 export const QUOTE_ID_NOTE_PREFIX = 'quote_id='
 const PLACEHOLDER_PHONE = '0000000000'
+const MIN_QUOTED_PRICE_RUPEES = 1
+const MAX_QUOTED_PRICE_RUPEES = 1_000_000
+
+export function parseQuotedPriceRupees(raw: unknown): number | null {
+  if (raw === null || raw === undefined || raw === '') return null
+  const numeric = typeof raw === 'number' ? raw : Number(String(raw).replace(/[,₹\s]/g, ''))
+  if (!Number.isFinite(numeric)) return null
+  const rupees = Math.round(numeric)
+  if (rupees < MIN_QUOTED_PRICE_RUPEES || rupees > MAX_QUOTED_PRICE_RUPEES) return null
+  return rupees
+}
+
+export function requireQuotedPrice(
+  raw: unknown
+): { ok: true; price: number } | { ok: false; error: string } {
+  const price = parseQuotedPriceRupees(raw)
+  if (price === null) {
+    return { ok: false, error: 'Enter a quote of at least ₹1 before creating the order' }
+  }
+  return { ok: true, price }
+}
 
 export function customQuoteProductName(type: string): string {
   const label = type.replace(/_/g, ' ').trim() || 'print'

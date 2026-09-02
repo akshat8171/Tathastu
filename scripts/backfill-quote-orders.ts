@@ -1,6 +1,6 @@
 /**
- * One-shot backfill: create an orders row for every quote_requests row that
- * does not already have one. Safe to re-run (matches quote_id= in notes).
+ * One-shot helper: link existing quote orders, or create an order only when
+ * quoted_price is at least ₹1. Does not create ₹0 orders.
  *
  * Usage: npx tsx scripts/backfill-quote-orders.ts
  */
@@ -42,7 +42,7 @@ const supabase = createClient(url, key, { auth: { persistSession: false, autoRef
 async function main(): Promise<void> {
   const { data: quotes, error } = await supabase
     .from('quote_requests')
-    .select('id, name, email, phone, type, description')
+    .select('id, name, email, phone, type, description, quoted_price')
     .order('created_at', { ascending: true })
 
   if (error) {
@@ -67,7 +67,10 @@ async function main(): Promise<void> {
       continue
     }
 
-    const price = 0
+    const price = Number(quote.quoted_price)
+    if (!Number.isFinite(price) || price < 1) {
+      continue
+    }
     const orderNumber = `ORDER_${Date.now()}_${Math.floor(Math.random() * 10000)}`
     const { data: order, error: orderError } = await supabase
       .from('orders')

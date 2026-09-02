@@ -156,6 +156,32 @@ export async function updateQuoteStatus(
   }
 }
 
+export async function updateQuotePrice(
+  id: string,
+  quotedPrice: number,
+  status?: QuoteStatus
+): Promise<QuoteResult> {
+  const patch: Record<string, unknown> = { quoted_price: quotedPrice }
+  if (status) patch.status = status
+
+  try {
+    const { error } = await supabaseAdmin
+      .from('quote_requests')
+      .update(patch)
+      .eq('id', id)
+
+    if (error) {
+      console.error('[quotes] updateQuotePrice error:', error)
+      return { ok: false, error: error.message }
+    }
+
+    return { ok: true, id }
+  } catch (err) {
+    console.error('[quotes] updateQuotePrice unexpected error:', err)
+    return { ok: false, error: 'Unexpected error saving quoted price' }
+  }
+}
+
 export async function createQuoteFileSignedUrl(
   storagePath: string
 ): Promise<string | null> {
