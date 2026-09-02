@@ -24,4 +24,9 @@ export interface QuoteRow extends QuoteInsert {
   id: string
   status: string
   created_at: string
+  order_id?: string | null
+  quoted_price?: number | null
+  order_number?: string | null
+  order_total?: number | null
+  order_status?: string | null
 }

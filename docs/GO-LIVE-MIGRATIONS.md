@@ -253,6 +253,27 @@ SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename IN ('c
 
 ---
 
+### Migration 013: Quote → order link
+**File**: `supabase/migration-013-quote-orders.sql`
+
+**Purpose**: Custom `/customize` requests now create a real `orders` row so they show in admin Orders and the customer's My Orders. This adds `quote_requests.order_id` (and optional `quoted_price`) to link the two.
+
+**Dependencies**: `quote_requests` (006/011) and `orders`
+
+**How to apply**:
+1. Open Supabase SQL Editor
+2. Paste the contents of `migration-013-quote-orders.sql`
+3. Click **Run**
+4. In admin → Quotes, click **Create orders for requests without one** to backfill existing quotes
+
+**Verification**:
+```sql
+SELECT column_name FROM information_schema.columns WHERE table_name = 'quote_requests' AND column_name IN ('order_id', 'quoted_price');
+-- Should return 2 rows
+```
+
+---
+
 ## Hard Dependencies Summary
 
 These migrations are **required** for deployed code to function correctly:

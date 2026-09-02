@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Download, MessageCircle, Search } from 'lucide-react'
+import { Download, MessageCircle, Search, PackagePlus } from 'lucide-react'
 import { formatAdminDate, statusBadgeClass } from '@/lib/admin/format'
 import { customerWhatsAppUrl, quoteCustomerWhatsAppText } from '@/lib/admin/links'
 import { QUOTE_STATUSES, type QuoteRow, type QuoteStatus } from '@/lib/supabase/quote-types'
@@ -12,6 +12,7 @@ export default function AdminQuotesPage() {
   const [error, setError] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [creatingOrders, setCreatingOrders] = useState(false)
 
   useEffect(() => {
     fetchQuotes()
@@ -48,6 +49,40 @@ export default function AdminQuotesPage() {
     setQuotes((prev) => prev.map((q) => (q.id === id ? { ...q, status } : q)))
   }
 
+  async function handleCreateOrder(id: string) {
+    const response = await fetch('/api/admin/quotes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    })
+    const data = await response.json()
+    if (!response.ok) {
+      alert(data.error || 'Could not create order')
+      return
+    }
+    await fetchQuotes()
+  }
+
+  async function handleCreateMissingOrders() {
+    setCreatingOrders(true)
+    try {
+      const response = await fetch('/api/admin/quotes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      })
+      const data = await response.json()
+      if (!response.ok) {
+        alert(data.error || 'Could not create orders')
+        return
+      }
+      alert(`Created ${data.created ?? 0} orders. Linked ${data.linked ?? 0} existing. Failed ${data.failed ?? 0}.`)
+      await fetchQuotes()
+    } finally {
+      setCreatingOrders(false)
+    }
+  }
+
   async function handleDownload(id: string) {
     const response = await fetch(`/api/admin/quotes/${id}/file`)
     if (!response.ok) {
@@ -69,7 +104,7 @@ export default function AdminQuotesPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-3xl font-display font-bold text-ink">Custom quotes</h1>
-        <p className="text-muted mt-2">STL, photos and descriptions from /customize</p>
+        <p className="text-muted mt-2">STL, photos and descriptions from /customize — each request also creates an order the customer can see.</p>
       </div>
 
       <div className="bg-white rounded-card2 shadow-card p-6 flex flex-col lg:flex-row gap-4">
@@ -93,6 +128,15 @@ export default function AdminQuotesPage() {
           />
         </div>
         <p className="text-sm text-muted self-center">{filtered.length} quotes</p>
+        <button
+          type="button"
+          onClick={() => void handleCreateMissingOrders()}
+          disabled={creatingOrders}
+          className="inline-flex items-center gap-2 px-4 py-2 bg-brand text-white rounded-lg text-sm font-medium disabled:opacity-60"
+        >
+          <PackagePlus className="w-4 h-4" />
+          {creatingOrders ? 'Creating orders…' : 'Create orders for requests without one'}
+        </button>
       </div>
 
       <div className="bg-white rounded-card2 shadow-card overflow-hidden">
@@ -111,6 +155,7 @@ export default function AdminQuotesPage() {
                   <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase">Type</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase">Details</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase">File</th>
+                  <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase">Order</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase">Status</th>
                   <th className="px-4 py-3 text-left text-xs font-medium text-muted uppercase">When</th>
                 </tr>
@@ -155,6 +200,24 @@ export default function AdminQuotesPage() {
                           </button>
                         ) : (
                           <span className="text-xs text-muted">No file</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-4">
+                        {quote.order_number || quote.order_id ? (
+                          <a
+                            href={`/admin/orders/${quote.order_id}`}
+                            className="text-sm text-brand font-medium"
+                          >
+                            {quote.order_number ?? 'View order'}
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => handleCreateOrder(quote.id)}
+                            className="text-sm text-brand font-medium"
+                          >
+                            Create order
+                          </button>
                         )}
                       </td>
                       <td className="px-4 py-4">
