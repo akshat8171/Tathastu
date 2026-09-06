@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gWed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F472B6"/>
+      <stop offset="100%" style="stop-color:#BE185D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gWed)"/>
+  <circle cx="150" cy="150" r="120" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1050" cy="480" r="140" fill="rgba(255,255,255,0.12)"/>
+  <g transform="translate(600,235)">
+    <circle cx="-30" cy="6" r="50" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="12"/>
+    <circle cx="30" cy="6" r="50" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="12"/>
+    <polygon points="-30,-64 -18,-48 -42,-48" fill="#FDE68A"/>
+  </g>
+  <text x="600" y="455" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#ffffff" text-anchor="middle">Wedding Gifts</text>
+  <text x="600" y="512" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.92)" text-anchor="middle">Return Gifts &amp; Cake Toppers</text>
+  <text x="600" y="582" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

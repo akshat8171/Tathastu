@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gBday" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F59E0B"/>
+      <stop offset="100%" style="stop-color:#DB2777"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gBday)"/>
+  <circle cx="150" cy="150" r="120" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1050" cy="480" r="140" fill="rgba(255,255,255,0.12)"/>
+  <g transform="translate(600,230)">
+    <path d="M0,-74 C 9,-58 5,-47 0,-45 C -5,-47 -9,-58 0,-74 Z" fill="#FDE047"/>
+    <rect x="-4" y="-46" width="8" height="22" fill="rgba(255,255,255,0.95)"/>
+    <rect x="-72" y="-24" width="144" height="30" rx="6" fill="rgba(255,255,255,0.95)"/>
+    <rect x="-82" y="6" width="164" height="46" rx="8" fill="rgba(255,255,255,0.9)"/>
+    <circle cx="-42" cy="8" r="6" fill="#DB2777"/>
+    <circle cx="0" cy="8" r="6" fill="#DB2777"/>
+    <circle cx="42" cy="8" r="6" fill="#DB2777"/>
+  </g>
+  <text x="600" y="455" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#ffffff" text-anchor="middle">Birthday Gifts</text>
+  <text x="600" y="512" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.92)" text-anchor="middle">Cake Toppers &amp; Figurines</text>
+  <text x="600" y="582" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

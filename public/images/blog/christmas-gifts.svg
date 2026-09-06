@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gXmas" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#15803D"/>
+      <stop offset="100%" style="stop-color:#B91C1C"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gXmas)"/>
+  <circle cx="150" cy="150" r="120" fill="rgba(255,255,255,0.14)"/>
+  <circle cx="1050" cy="480" r="140" fill="rgba(255,255,255,0.12)"/>
+  <g transform="translate(600,230)">
+    <polygon points="0,-104 6,-92 18,-92 8,-84 12,-72 0,-80 -12,-72 -8,-84 -18,-92 -6,-92" fill="#FDE047"/>
+    <polygon points="0,-88 32,-42 -32,-42" fill="rgba(255,255,255,0.95)"/>
+    <polygon points="0,-58 46,2 -46,2" fill="rgba(255,255,255,0.95)"/>
+    <polygon points="0,-28 60,46 -60,46" fill="rgba(255,255,255,0.95)"/>
+    <rect x="-13" y="46" width="26" height="22" fill="rgba(255,255,255,0.8)"/>
+  </g>
+  <text x="600" y="455" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#ffffff" text-anchor="middle">Christmas Gifts</text>
+  <text x="600" y="512" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.92)" text-anchor="middle">Personalised 3D Printed Ideas</text>
+  <text x="600" y="582" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gDiwali" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#9333EA"/>
+      <stop offset="100%" style="stop-color:#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gDiwali)"/>
+  <circle cx="150" cy="150" r="120" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1050" cy="480" r="140" fill="rgba(255,255,255,0.12)"/>
+  <g transform="translate(600,240)">
+    <path d="M0,-78 C 20,-48 13,-18 0,-12 C -13,-18 -20,-48 0,-78 Z" fill="#FDE68A"/>
+    <path d="M0,-64 C 10,-44 7,-24 0,-20 C -7,-24 -10,-44 0,-64 Z" fill="#F97316"/>
+    <path d="M-80,-6 C -80,34 80,34 80,-6 Z" fill="rgba(255,255,255,0.95)"/>
+    <ellipse cx="0" cy="-6" rx="80" ry="14" fill="rgba(255,255,255,0.7)"/>
+    <path d="M60,-14 L88,-24 L80,-2 Z" fill="rgba(255,255,255,0.95)"/>
+  </g>
+  <text x="600" y="455" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#ffffff" text-anchor="middle">Diwali Gifts 2026</text>
+  <text x="600" y="512" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.92)" text-anchor="middle">Personalised &amp; 3D Printed</text>
+  <text x="600" y="582" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>
