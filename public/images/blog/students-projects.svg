@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gStudent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6"/>
+      <stop offset="100%" style="stop-color:#1E40AF"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gStudent)"/>
+  <circle cx="150" cy="150" r="120" fill="rgba(255,255,255,0.14)"/>
+  <circle cx="1050" cy="480" r="140" fill="rgba(255,255,255,0.11)"/>
+  <g transform="translate(600,235)" fill="rgba(255,255,255,0.95)">
+    <polygon points="0,-72 94,-40 0,-8 -94,-40"/>
+    <path d="M-42,-26 L-42,10 C -42,30 42,30 42,10 L42,-26" fill="rgba(30,64,175,0.4)"/>
+    <line x1="94" y1="-40" x2="94" y2="8" stroke="rgba(255,255,255,0.95)" stroke-width="6"/>
+    <circle cx="94" cy="14" r="10"/>
+  </g>
+  <text x="600" y="455" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#ffffff" text-anchor="middle">3D Printing for Students</text>
+  <text x="600" y="512" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.92)" text-anchor="middle">College &amp; Final-Year Projects</text>
+  <text x="600" y="582" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

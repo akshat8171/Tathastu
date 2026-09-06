@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gAfford" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22C55E"/>
+      <stop offset="100%" style="stop-color:#15803D"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gAfford)"/>
+  <circle cx="150" cy="150" r="120" fill="rgba(255,255,255,0.14)"/>
+  <circle cx="1050" cy="480" r="140" fill="rgba(255,255,255,0.11)"/>
+  <g transform="translate(600,235)">
+    <path d="M-62,-58 L18,-58 L78,2 L18,62 L-62,2 Z" fill="rgba(255,255,255,0.95)"/>
+    <circle cx="-38" cy="-34" r="12" fill="rgba(21,128,61,0.6)"/>
+    <text x="8" y="22" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#15803D" text-anchor="middle">₹</text>
+  </g>
+  <text x="600" y="455" font-family="Arial, sans-serif" font-size="50" font-weight="bold" fill="#ffffff" text-anchor="middle">Gifts Under ₹500 &amp; ₹1000</text>
+  <text x="600" y="512" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.92)" text-anchor="middle">Affordable Personalised Ideas</text>
+  <text x="600" y="582" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>

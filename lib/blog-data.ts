@@ -6,6 +6,10 @@
  * Content will be populated by dedicated authoring agents.
  */
 
+import { festivalPosts } from './blog-posts-festivals'
+import { giftingPosts } from './blog-posts-gifting'
+import { customPosts } from './blog-posts-custom'
+
 export type BlogCategory = 'services' | 'products' | 'guides' | 'brand'
 
 export interface BlogPost {
@@ -20,7 +24,7 @@ export interface BlogPost {
   coverImage?: string
 }
 
-export const blogPosts: BlogPost[] = [
+const corePosts: BlogPost[] = [
   {
     slug: 'custom-3d-printing-service-india',
     title: 'Custom 3D Printing Service in India – Get a Free Quote in 24 Hours',
@@ -3117,6 +3121,18 @@ export const blogPosts: BlogPost[] = [
     readTime: '5 min read',
     coverImage: '/images/blog/rakhi-2026-date.svg',
   },
+]
+
+/**
+ * Master blog list — core posts plus imported festival, gifting and custom
+ * posts. Festival/seasonal content is ordered first so timely posts surface at
+ * the top of the /blog listing and related-posts widgets.
+ */
+export const blogPosts: BlogPost[] = [
+  ...festivalPosts,
+  ...giftingPosts,
+  ...customPosts,
+  ...corePosts,
 ]
 
 /**

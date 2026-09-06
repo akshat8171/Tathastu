@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gGanesh" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FB923C"/>
+      <stop offset="100%" style="stop-color:#C2410C"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gGanesh)"/>
+  <circle cx="150" cy="150" r="120" fill="rgba(255,255,255,0.15)"/>
+  <circle cx="1050" cy="480" r="140" fill="rgba(255,255,255,0.12)"/>
+  <g transform="translate(600,235)" fill="rgba(255,255,255,0.95)">
+    <path d="M0,12 C -12,-62 -58,-72 -74,-30 C -42,-24 -20,-4 0,12 Z"/>
+    <path d="M0,12 C 12,-62 58,-72 74,-30 C 42,-24 20,-4 0,12 Z"/>
+    <path d="M0,16 C -10,-72 10,-72 0,16 Z"/>
+    <path d="M0,12 C -32,-40 -74,-34 -100,-4 C -58,2 -26,8 0,12 Z" opacity="0.8"/>
+    <path d="M0,12 C 32,-40 74,-34 100,-4 C 58,2 26,8 0,12 Z" opacity="0.8"/>
+    <ellipse cx="0" cy="20" rx="86" ry="12"/>
+  </g>
+  <text x="600" y="455" font-family="Arial, sans-serif" font-size="52" font-weight="bold" fill="#ffffff" text-anchor="middle">Ganesh Chaturthi</text>
+  <text x="600" y="512" font-family="Arial, sans-serif" font-size="32" fill="rgba(255,255,255,0.92)" text-anchor="middle">Eco-Friendly 3D Printed Idols</text>
+  <text x="600" y="582" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes</text>
+</svg>
