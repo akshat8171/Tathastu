@@ -3,9 +3,10 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Search, Filter, MessageCircle, Package } from 'lucide-react'
+import { Search, Filter, MessageCircle, Package, Plus } from 'lucide-react'
 import { CopyLinkButton } from '@/components/admin/copy-link-button'
 import { formatInr, formatAdminDate, statusBadgeClass } from '@/lib/admin/format'
+import { channelBadgeClass, OFFLINE_PLACEHOLDER_EMAIL, OFFLINE_PLACEHOLDER_PHONE } from '@/lib/offline-orders'
 import {
   customerWhatsAppUrl,
   orderConfirmationUrl,
@@ -21,14 +22,18 @@ interface Order {
   total: number
   status: string
   payment_method: string
+  payment_status?: string
   created_at: string
   thumbnail?: string | null
   item_summary?: string
   item_count?: number
+  channel?: 'online' | 'offline'
+  print_status?: string | null
+  offline_payment_status?: string | null
 }
 
 const statusOptions = [
-  { value: 'all', label: 'All Orders' },
+  { value: 'all', label: 'All statuses' },
   { value: 'pending', label: 'Pending' },
   { value: 'paid', label: 'Paid' },
   { value: 'processing', label: 'Processing' },
@@ -37,11 +42,18 @@ const statusOptions = [
   { value: 'cancelled', label: 'Cancelled' },
 ]
 
+const channelOptions = [
+  { value: 'all', label: 'Online + offline' },
+  { value: 'online', label: 'Online' },
+  { value: 'offline', label: 'Offline' },
+]
+
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [statusFilter, setStatusFilter] = useState('all')
+  const [channelFilter, setChannelFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('')
 
@@ -62,13 +74,14 @@ export default function AdminOrdersPage() {
 
   useEffect(() => {
     fetchOrders()
-  }, [statusFilter, debouncedSearch])
+  }, [statusFilter, channelFilter, debouncedSearch])
 
   const fetchOrders = async () => {
     try {
       setLoading(true)
       const params = new URLSearchParams()
       if (statusFilter !== 'all') params.append('status', statusFilter)
+      if (channelFilter !== 'all') params.append('channel', channelFilter)
       if (debouncedSearch) params.append('search', debouncedSearch)
 
       const response = await fetch(`/api/admin/orders?${params.toString()}`)
@@ -94,20 +107,42 @@ export default function AdminOrdersPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-display font-bold text-ink">Orders</h1>
-        <p className="text-muted mt-2">Manage and track all customer orders</p>
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-display font-bold text-ink">Orders</h1>
+          <p className="text-muted mt-2">Website checkout and workshop (offline) orders in one list</p>
+        </div>
+        <Link
+          href="/admin/orders/new"
+          className="inline-flex items-center justify-center gap-2 bg-brand text-white px-4 py-2 rounded-lg font-medium hover:bg-brand-600"
+        >
+          <Plus className="w-4 h-4" />
+          Add offline order
+        </Link>
       </div>
 
       {/* Filters & Search */}
       <div className="bg-white rounded-card2 shadow-card p-6">
         <div className="flex flex-col lg:flex-row gap-4">
-          {/* Status Filter */}
           <div className="flex-1">
             <label className="block text-sm font-medium text-ink mb-2">
               <Filter className="w-4 h-4 inline mr-2" />
-              Filter by Status
+              Channel
             </label>
+            <select
+              value={channelFilter}
+              onChange={(e) => setChannelFilter(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand"
+            >
+              {channelOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex-1">
+            <label className="block text-sm font-medium text-ink mb-2">Status</label>
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
@@ -139,10 +174,11 @@ export default function AdminOrdersPage() {
 
         <div className="mt-4 flex items-center justify-between text-sm text-muted">
           <span>{orders.length} orders found</span>
-          {(statusFilter !== 'all' || debouncedSearch) && (
+          {(statusFilter !== 'all' || channelFilter !== 'all' || debouncedSearch) && (
             <button
               onClick={() => {
                 setStatusFilter('all')
+                setChannelFilter('all')
                 setSearchQuery('')
               }}
               className="text-brand hover:text-brand-600 font-medium"
@@ -177,6 +213,7 @@ export default function AdminOrdersPage() {
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Items</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Order #</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Channel</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Customer</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Phone</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-muted uppercase">Total</th>
@@ -230,10 +267,21 @@ export default function AdminOrdersPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full capitalize ${channelBadgeClass(order.channel)}`}>
+                        {order.channel === 'offline' ? 'Offline' : 'Online'}
+                      </span>
+                      {order.channel === 'offline' && order.print_status && (
+                        <p className="text-xs text-muted mt-1">{order.print_status}</p>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">
                       <div>
                         <p className="text-sm font-medium text-ink">{order.customer_name}</p>
-                        <p className="text-xs text-muted">{order.customer_email}</p>
+                        {order.customer_email && order.customer_email !== OFFLINE_PLACEHOLDER_EMAIL && (
+                          <p className="text-xs text-muted">{order.customer_email}</p>
+                        )}
                         {(() => {
+                          if (order.customer_phone === OFFLINE_PLACEHOLDER_PHONE) return null
                           const wa = customerWhatsAppUrl(
                             order.customer_phone,
                             orderCustomerWhatsAppText(order.order_number, order.status)
@@ -253,14 +301,20 @@ export default function AdminOrdersPage() {
                         })()}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-ink">{order.customer_phone}</td>
+                    <td className="px-6 py-4 text-sm text-ink">
+                      {order.customer_phone === OFFLINE_PLACEHOLDER_PHONE ? '—' : order.customer_phone}
+                    </td>
                     <td className="px-6 py-4 text-sm font-medium text-ink">{formatCurrency(order.total)}</td>
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(order.status)}`}>
                         {order.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-ink uppercase">{order.payment_method}</td>
+                    <td className={`px-6 py-4 text-sm text-ink ${order.channel === 'offline' ? '' : 'uppercase'}`}>
+                      {order.channel === 'offline'
+                        ? (order.offline_payment_status || order.payment_status || order.payment_method)
+                        : order.payment_method}
+                    </td>
                     <td className="px-6 py-4 text-sm text-muted">{formatDate(order.created_at)}</td>
                   </tr>
                 ))}

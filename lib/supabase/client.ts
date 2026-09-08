@@ -108,6 +108,14 @@ export interface Order {
     state?: string
     pincode?: string
   } | null
+  // Workshop / Google Sheet fields (migration-015). Absent on online checkout
+  // rows and on databases that have not run the migration yet.
+  channel?: 'online' | 'offline'
+  print_status?: string | null
+  item_delivered?: string | null
+  cost?: number | null
+  amount_collected?: number | null
+  offline_payment_status?: string | null
 }
 
 export interface OrderItem {

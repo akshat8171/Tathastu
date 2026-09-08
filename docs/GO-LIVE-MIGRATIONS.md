@@ -291,6 +291,30 @@ SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename = 'ins
 
 ---
 
+### Migration 015: Offline workshop orders
+**File**: `supabase/migration-015-offline-orders.sql`
+
+**Purpose**: Adds `channel` (`online` | `offline`) and Organized Products sheet fields (`print_status`, `item_delivered`, `cost`, `amount_collected`, `offline_payment_status`) so workshop orders live in the same admin list as website checkout.
+
+**Dependencies**: `orders`
+
+**How to apply**:
+1. Open Supabase SQL Editor
+2. Paste `supabase/migration-015-offline-orders.sql`
+3. Click **Run**
+
+**Verification**:
+```sql
+SELECT column_name FROM information_schema.columns
+WHERE table_name = 'orders'
+  AND column_name IN ('channel', 'print_status', 'item_delivered', 'cost', 'amount_collected', 'offline_payment_status');
+-- Should return 6 rows
+```
+
+Without this migration, checkout still works. Creating an offline order still writes the core order row; the workshop columns are skipped until this SQL has run.
+
+---
+
 ## Hard Dependencies Summary
 
 These migrations are **required** for deployed code to function correctly:

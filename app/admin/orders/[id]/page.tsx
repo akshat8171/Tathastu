@@ -12,6 +12,7 @@ import {
   orderCustomerWhatsAppText,
   customerTrackingWhatsAppText,
 } from '@/lib/admin/links'
+import { channelBadgeClass, paymentPendingAmount } from '@/lib/offline-orders'
 
 interface OrderItem {
   id: string
@@ -56,6 +57,12 @@ interface Order {
     state?: string
     pincode?: string
   } | null
+  channel?: 'online' | 'offline'
+  print_status?: string | null
+  item_delivered?: string | null
+  cost?: number | null
+  amount_collected?: number | null
+  offline_payment_status?: string | null
 }
 
 export default function AdminOrderDetailPage() {
@@ -206,6 +213,11 @@ export default function AdminOrderDetailPage() {
         <div>
           <h1 className="text-3xl font-display font-bold text-ink">{order.order_number}</h1>
           <p className="text-muted mt-1">Order placed on {formatDate(order.created_at)}</p>
+          <div className="mt-2">
+            <span className={`px-2 py-1 text-xs font-medium rounded-full ${channelBadgeClass(order.channel)}`}>
+              {order.channel === 'offline' ? 'Offline' : 'Online'}
+            </span>
+          </div>
           <div className="flex flex-wrap items-center gap-3 mt-3">
             <CopyLinkButton
               value={orderConfirmationUrl(order.order_number)}
@@ -318,6 +330,26 @@ export default function AdminOrderDetailPage() {
                   <span className="text-ink">Total</span>
                   <span className="text-ink">{formatCurrency(order.total)}</span>
                 </div>
+                {order.channel === 'offline' && (
+                  <>
+                    {order.cost != null && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted">Cost</span>
+                        <span className="text-ink">{formatCurrency(order.cost)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted">Payment Recieved</span>
+                      <span className="text-ink">{formatCurrency(order.amount_collected ?? 0)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted">Payment Pending</span>
+                      <span className="text-ink">
+                        {formatCurrency(paymentPendingAmount(order.total, order.amount_collected ?? 0))}
+                      </span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -367,6 +399,25 @@ export default function AdminOrderDetailPage() {
 
         {/* Sidebar */}
         <div className="space-y-6">
+          {order.channel === 'offline' && (
+            <div className="bg-white rounded-card2 shadow-card p-6">
+              <h2 className="text-xl font-display font-bold text-ink mb-4">Workshop</h2>
+              <dl className="space-y-3 text-sm">
+                <div>
+                  <dt className="text-muted">Print Status</dt>
+                  <dd className="font-medium text-ink mt-1">{order.print_status || '—'}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted">Payment Status</dt>
+                  <dd className="font-medium text-ink mt-1">{order.offline_payment_status || order.payment_status}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted">Item Delivered</dt>
+                  <dd className="font-medium text-ink mt-1">{order.item_delivered || '—'}</dd>
+                </div>
+              </dl>
+            </div>
+          )}
           {/* Status Update */}
           <div className="bg-white rounded-card2 shadow-card p-6">
             <h2 className="text-xl font-display font-bold text-ink mb-4">Update Status</h2>

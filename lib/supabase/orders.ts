@@ -137,6 +137,11 @@ export async function getCustomerIdByPhone(phone: string): Promise<string | null
   }
 }
 
+function isMissingColumn(error: { code?: string } | null | undefined): boolean {
+  const code = error?.code
+  return code === '42703' || code === 'PGRST204'
+}
+
 /**
  * Create a new order
  */
@@ -160,7 +165,10 @@ export async function createOrder(orderData: {
   shipping?: number
   total: number
   payment_method?: string
+  payment_status?: 'pending' | 'paid' | 'failed' | 'refunded'
+  status?: Order['status']
   notes?: string
+  created_at?: string
   // Structured shipping geography (migration-008). Optional so older callers
   // and DBs without the columns degrade gracefully — see the insert note below.
   shipping_state?: string
@@ -176,10 +184,21 @@ export async function createOrder(orderData: {
     state: string
     pincode: string
   }
+  // Offline workshop fields (migration-015). Optional so checkout is unchanged
+  // and a DB without the columns still accepts the insert.
+  channel?: 'online' | 'offline'
+  print_status?: string | null
+  item_delivered?: string | null
+  cost?: number | null
+  amount_collected?: number | null
+  offline_payment_status?: string | null
 }): Promise<{ order: Order | null; error: any }> {
   try {
     // Generate order number
     const orderNumber = `ORDER_${Date.now()}_${Math.floor(Math.random() * 10000)}`
+
+    const paymentStatus = orderData.payment_status || 'pending'
+    const status = orderData.status || 'pending'
 
     // Base row — always present columns.
     const baseRow: Record<string, unknown> = {
@@ -194,10 +213,15 @@ export async function createOrder(orderData: {
       shipping: orderData.shipping || 0,
       total: orderData.total,
       payment_method: orderData.payment_method || 'upi',
-      payment_status: 'pending',
-      status: 'pending',
+      payment_status: paymentStatus,
+      status,
       notes: orderData.notes,
     }
+    if (orderData.created_at) baseRow.created_at = orderData.created_at
+    if (paymentStatus === 'paid') baseRow.paid_at = new Date().toISOString()
+    if (status === 'delivered') baseRow.delivered_at = new Date().toISOString()
+    if (status === 'cancelled') baseRow.cancelled_at = new Date().toISOString()
+    if (status === 'shipped') baseRow.shipped_at = new Date().toISOString()
 
     // Structured shipping geography (migration-008). Kept separate so that a DB
     // where migration-008 hasn't run yet doesn't break checkout: if the insert
@@ -210,35 +234,38 @@ export async function createOrder(orderData: {
     if (orderData.shipping_pincode) geographyRow.shipping_pincode = orderData.shipping_pincode
     if (orderData.shipping_address) geographyRow.shipping_address = orderData.shipping_address
 
-    let { data: order, error: orderError } = await supabaseAdmin
-      .from('orders')
-      .insert({ ...baseRow, ...geographyRow })
-      .select()
-      .single()
+    const offlineRow: Record<string, unknown> = {}
+    if (orderData.channel) offlineRow.channel = orderData.channel
+    if (orderData.print_status) offlineRow.print_status = orderData.print_status
+    if (orderData.item_delivered) offlineRow.item_delivered = orderData.item_delivered
+    if (orderData.cost != null) offlineRow.cost = orderData.cost
+    if (orderData.amount_collected != null) offlineRow.amount_collected = orderData.amount_collected
+    if (orderData.offline_payment_status) {
+      offlineRow.offline_payment_status = orderData.offline_payment_status
+    }
 
-    // Retry without geography columns if they're the reason the insert failed
-    // (Postgres 42703 undefined_column / PostgREST PGRST204 schema-cache miss).
-    if (orderError && Object.keys(geographyRow).length > 0) {
-      // Fire ONLY on the exact codes Postgres / PostgREST raise for an unknown
-      // column: 42703 (undefined_column) or PGRST204 (schema-cache miss). We
-      // deliberately do NOT also pattern-match the message text — a different
-      // failure (constraint, trigger, RLS) whose message merely mentions a
-      // shipping_* column would otherwise be misclassified and silently retried
-      // WITHOUT the geography, losing data on a DB that actually has the columns.
-      const code = (orderError as { code?: string }).code
-      const msg = (orderError as { message?: string }).message ?? ''
-      const missingColumn = code === '42703' || code === 'PGRST204'
-      if (missingColumn) {
-        console.error(
-          'createOrder: shipping geography columns missing (run migration-008); retrying without them',
-          { code, msg }
-        )
-        ;({ data: order, error: orderError } = await supabaseAdmin
-          .from('orders')
-          .insert(baseRow)
-          .select()
-          .single())
-      }
+    const insertAttempts: Record<string, unknown>[] = [
+      { ...baseRow, ...geographyRow, ...offlineRow },
+      { ...baseRow, ...geographyRow },
+      baseRow,
+    ]
+
+    let order: Order | null = null
+    let orderError: { code?: string; message?: string } | null = null
+    const seen = new Set<string>()
+    for (const row of insertAttempts) {
+      const key = Object.keys(row).sort().join(',')
+      if (seen.has(key)) continue
+      seen.add(key)
+      const result = await supabaseAdmin.from('orders').insert(row).select().single()
+      order = (result.data as Order | null) ?? null
+      orderError = result.error
+      if (!orderError && order) break
+      if (!isMissingColumn(orderError)) break
+      console.error('createOrder: optional columns missing; retrying with a smaller row', {
+        code: orderError?.code,
+        msg: orderError?.message,
+      })
     }
 
     if (orderError || !order) {
