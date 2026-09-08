@@ -76,7 +76,7 @@ describe('StorefrontChrome', () => {
   })
 
   it('omits the footer when the layout segment is admin even if pathname is empty', () => {
-    mockedUsePathname.mockReturnValue(null)
+    mockedUsePathname.mockReturnValue('')
     mockedUseSelectedLayoutSegment.mockReturnValue('admin')
     render(
       <StorefrontChrome>
