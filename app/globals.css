@@ -164,3 +164,12 @@
   }
 }
 
+/* Admin is a full-viewport app. If storefront chrome ever mounts with it,
+   take the shop footer/header out of layout instead of stacking under the shell. */
+body:has([data-testid="admin-shell"]) [data-testid="site-footer"],
+body:has([data-testid="admin-shell"]) [data-testid="site-header"],
+body:has([data-testid="admin-shell"]) [data-testid="announcement-bar"],
+body:has([data-testid="admin-shell"]) [data-testid="whatsapp-float"] {
+  display: none !important;
+}
+

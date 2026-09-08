@@ -274,6 +274,23 @@ SELECT column_name FROM information_schema.columns WHERE table_name = 'quote_req
 
 ---
 
+### Migration 014: Instagram connection
+**File**: `supabase/migration-014-instagram-connection.sql`
+
+**Purpose**: Single-row table for the owner's Instagram Login access token. Used by `/admin/instagram` (Insights + comment replies). No anon/authenticated access.
+
+**How to apply**:
+1. Open Supabase SQL Editor
+2. Paste `migration-014-instagram-connection.sql`
+3. Click **Run**
+
+**Verification**:
+```sql
+SELECT tablename FROM pg_tables WHERE schemaname = 'public' AND tablename = 'instagram_connection';
+```
+
+---
+
 ## Hard Dependencies Summary
 
 These migrations are **required** for deployed code to function correctly:
