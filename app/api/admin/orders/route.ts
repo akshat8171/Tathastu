@@ -2,8 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { supabaseAdmin } from '@/lib/supabase/admin'
 import { requireAdmin } from '@/lib/auth/admin'
 import { sanitizeSearchTerm } from '@/lib/validation/search'
+import { createOfflineOrderSchema } from '@/lib/validation/offline-order'
+import { createOfflineOrder } from '@/lib/supabase/offline-orders'
+import { isOrderChannel } from '@/lib/offline-orders'
 
 export const dynamic = 'force-dynamic'
+
+function isMissingColumn(error: { code?: string } | null | undefined): boolean {
+  const code = error?.code
+  return code === '42703' || code === 'PGRST204'
+}
 
 export async function GET(request: NextRequest) {
   // AUTHZ: returns all orders with customer PII — admin only.
@@ -13,6 +21,8 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
+    const channelParam = searchParams.get('channel')
+    const channel = channelParam && isOrderChannel(channelParam) ? channelParam : null
     // Sanitize before embedding in a PostgREST .or() filter (injection guard).
     const search = sanitizeSearchTerm(searchParams.get('search'))
 
@@ -25,11 +35,29 @@ export async function GET(request: NextRequest) {
       query = query.eq('status', status)
     }
 
+    if (channel) {
+      query = query.eq('channel', channel)
+    }
+
     if (search) {
       query = query.or(`order_number.ilike.%${search}%,customer_name.ilike.%${search}%`)
     }
 
-    const { data: orders, error } = await query
+    let { data: orders, error } = await query
+
+    if (error && isMissingColumn(error) && channel) {
+      // Migration 015 not applied yet — list still works, channel filter cannot.
+      console.error('Admin orders: channel column missing (run migration-015); listing without channel filter')
+      let fallback = supabaseAdmin
+        .from('orders')
+        .select('*, order_items(product_name, product_image, quantity)')
+        .order('created_at', { ascending: false })
+      if (status && status !== 'all') fallback = fallback.eq('status', status)
+      if (search) {
+        fallback = fallback.or(`order_number.ilike.%${search}%,customer_name.ilike.%${search}%`)
+      }
+      ;({ data: orders, error } = await fallback)
+    }
 
     if (error) {
       console.error('Error fetching orders:', error)
@@ -115,5 +143,32 @@ export async function PATCH(request: NextRequest) {
       { error: 'Internal server error' },
       { status: 500 }
     )
+  }
+}
+
+export async function POST(request: NextRequest) {
+  const auth = await requireAdmin()
+  if (!auth.ok) return auth.response
+
+  try {
+    const body = await request.json()
+    const parsed = createOfflineOrderSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: parsed.error.issues[0]?.message ?? 'Invalid offline order' },
+        { status: 400 }
+      )
+    }
+
+    const { order, error } = await createOfflineOrder(parsed.data)
+    if (error || !order) {
+      console.error('Error creating offline order:', error)
+      return NextResponse.json({ error: 'Failed to create offline order' }, { status: 500 })
+    }
+
+    return NextResponse.json({ order }, { status: 201 })
+  } catch (error) {
+    console.error('Admin offline order create error:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }
