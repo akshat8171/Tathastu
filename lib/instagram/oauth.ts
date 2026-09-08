@@ -1,4 +1,4 @@
-import { randomBytes, timingSafeEqual } from 'crypto'
+import { createHmac, randomBytes, timingSafeEqual } from 'crypto'
 import {
   INSTAGRAM_AUTHORIZE_URL,
   INSTAGRAM_SCOPES,
@@ -15,8 +15,52 @@ export interface ShortLivedToken {
   userId: string
 }
 
-export function createOAuthState(): string {
-  return randomBytes(24).toString('hex')
+export interface OAuthStatePayload {
+  email: string
+  redirectUri: string
+}
+
+function stateSigningKey(): string {
+  return process.env.INSTAGRAM_APP_SECRET?.trim() || process.env.APP_URL || 'ig-oauth-state'
+}
+
+export function createOAuthState(payload?: OAuthStatePayload): string {
+  if (!payload) return randomBytes(24).toString('hex')
+  const body = Buffer.from(
+    JSON.stringify({
+      n: randomBytes(16).toString('hex'),
+      e: payload.email,
+      u: payload.redirectUri,
+      t: Date.now() + 10 * 60 * 1000,
+    })
+  ).toString('base64url')
+  const sig = createHmac('sha256', stateSigningKey()).update(body).digest('base64url')
+  return `${body}.${sig}`
+}
+
+export function parseOAuthState(state: string): OAuthStatePayload | null {
+  const dot = state.lastIndexOf('.')
+  if (dot < 1) return null
+  const body = state.slice(0, dot)
+  const sig = state.slice(dot + 1)
+  const expected = createHmac('sha256', stateSigningKey()).update(body).digest('base64url')
+  const sigBuf = Buffer.from(sig)
+  const expectedBuf = Buffer.from(expected)
+  if (sigBuf.length !== expectedBuf.length || !timingSafeEqual(sigBuf, expectedBuf)) return null
+  try {
+    const parsed = JSON.parse(Buffer.from(body, 'base64url').toString('utf8')) as {
+      e?: unknown
+      u?: unknown
+      t?: unknown
+    }
+    if (typeof parsed.e !== 'string' || typeof parsed.u !== 'string' || typeof parsed.t !== 'number') {
+      return null
+    }
+    if (parsed.t < Date.now()) return null
+    return { email: parsed.e, redirectUri: parsed.u }
+  } catch {
+    return null
+  }
 }
 
 export function isOAuthStateValid(expected: string, received: string): boolean {
@@ -34,8 +78,13 @@ export function buildAuthorizeUrl(input: AuthorizeUrlInput): string {
     response_type: 'code',
     scope: INSTAGRAM_SCOPES.join(','),
     state: input.state,
+    enable_fb_login: '0',
   })
   return `${INSTAGRAM_AUTHORIZE_URL}?${params.toString()}`
+}
+
+export function sanitizeInstagramAuthCode(code: string): string {
+  return code.replace(/#.*$/, '').trim()
 }
 
 export function parseShortLivedToken(payload: unknown): ShortLivedToken | null {

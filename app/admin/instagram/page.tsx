@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { Camera, Link2, MessageCircle, RefreshCw, Unplug } from 'lucide-react'
+import { describeInstagramConnectError } from '@/lib/instagram/connect-errors'
 
 interface StatusPayload {
   configured: boolean
@@ -90,7 +91,8 @@ export default function AdminInstagramPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get('connected') === '1') setNotice('Instagram connected.')
-    if (params.get('error')) setError(params.get('error'))
+    const connectError = describeInstagramConnectError(params.get('error'))
+    if (connectError) setError(connectError)
     async function boot() {
       try {
         setLoading(true)
@@ -235,8 +237,8 @@ export default function AdminInstagramPage() {
         <section className="bg-white rounded-xl border border-gray-200 p-6 space-y-4">
           <h2 className="font-display font-semibold text-lg">2. Connect @tathastukeepsakes</h2>
           <p className="text-sm text-muted">
-            You will sign in with Instagram and grant Insights + comments. Tokens stay on the server (service-role
-            table). Redirect URI must match Meta exactly: {status.redirectUri}
+            Redirect URI must match Meta exactly (copy this into App Dashboard → Instagram → API setup → OAuth redirect URIs):{' '}
+            <code className="text-xs bg-gray-100 px-1 py-0.5 rounded break-all">{status.redirectUri}</code>
           </p>
           <a
             href="/api/admin/instagram/connect"
