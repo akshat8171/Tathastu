@@ -126,7 +126,7 @@ YOU SAVE: ₹1,500/month! 💰
    NEXT_PUBLIC_CASHFREE_APP_ID=your_test_app_id
    CASHFREE_SECRET_KEY=your_test_secret_key
    NEXT_PUBLIC_CASHFREE_ENV=TEST
-   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   APP_URL=http://localhost:3000
    ```
 
 3. **Test It**
