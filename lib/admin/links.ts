@@ -1,8 +1,8 @@
+import { Config } from '@/lib/config'
 import { waLink } from '@/lib/site'
 
 export function getSiteUrl(): string {
-  const raw = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
-  return raw.replace(/\/$/, '')
+  return Config.appUrl
 }
 
 export function orderConfirmationUrl(orderNumber: string): string {

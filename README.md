@@ -93,7 +93,7 @@ Edit `.env.local` — the file has detailed comments for each variable. Key grou
 | Firebase (client) | `NEXT_PUBLIC_FIREBASE_*` (6 vars) | Firebase Console → Project Settings → General → Your apps |
 | Firebase (admin) | `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` | Firebase Console → Service Accounts → Generate new private key |
 | Razorpay | `NEXT_PUBLIC_RAZORPAY_KEY_ID`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET` | Razorpay Dashboard → Settings → API Keys |
-| App | `NEXT_PUBLIC_APP_URL` | `http://localhost:3000` for dev |
+| App | `APP_URL` | `http://localhost:3000` for dev (server-only; not `NEXT_PUBLIC_`) |
 
 ### 3. Set Up Database
 
@@ -225,7 +225,7 @@ Set these in Vercel Dashboard → Project → Settings → Environment Variables
 - `RAZORPAY_KEY_ID`
 - `RAZORPAY_KEY_SECRET`
 - `RAZORPAY_WEBHOOK_SECRET`
-- `NEXT_PUBLIC_APP_URL` (your production URL)
+- `APP_URL` (your production URL; server-only, do not prefix with `NEXT_PUBLIC_`)
 
 > **Note:** The build passes WITHOUT these env vars (lazy-init pattern). They're only needed at runtime for the site to function.
 
