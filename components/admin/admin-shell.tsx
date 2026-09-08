@@ -2,8 +2,8 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Package, Users, LayoutDashboard, LogOut, BarChart3, FileBox, Tags, Home } from 'lucide-react'
-import { useEffect, type ReactNode } from 'react'
+import { Package, Users, LayoutDashboard, LogOut, BarChart3, FileBox, Tags, Home, Camera } from 'lucide-react'
+import type { ReactNode } from 'react'
 
 /**
  * Interactive admin chrome (sidebar + active-nav highlighting).
@@ -23,22 +23,20 @@ const NAV_ITEMS = [
   { href: '/admin/quotes', icon: FileBox, label: 'Quotes' },
   { href: '/admin/customers', icon: Users, label: 'Customers' },
   { href: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
+  { href: '/admin/instagram', icon: Camera, label: 'Instagram' },
 ]
 
 export function AdminShell({ children }: { children: ReactNode }) {
   const pathname = usePathname()
 
-  // Tag the body so global styles can hide the storefront header/footer chrome.
-  useEffect(() => {
-    document.body.classList.add('admin-page')
-    return () => document.body.classList.remove('admin-page')
-  }, [])
-
   const isActive = (href: string, exact?: boolean) =>
     exact ? pathname === href : pathname.startsWith(href)
 
   return (
-    <div className="fixed inset-0 bg-gray-50 flex overflow-hidden">
+    <div
+      className="flex h-dvh min-h-screen bg-gray-50 overflow-hidden"
+      data-testid="admin-shell"
+    >
       {/* Sidebar */}
       <aside className="w-64 bg-ink text-white flex flex-col">
         <div className="p-6 border-b border-ink-soft">
