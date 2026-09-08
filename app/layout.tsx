@@ -1,10 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins, Inter } from 'next/font/google'
 import './globals.css'
-import { Header } from '@/components/layout/header'
-import { Footer } from '@/components/layout/footer'
-import { AnnouncementBar } from '@/components/layout/announcement-bar'
-import { WhatsAppFloat } from '@/components/layout/whatsapp-float'
+import { StorefrontChrome } from '@/components/layout/storefront-chrome'
 import { CartProvider } from '@/components/cart/cart-context'
 import { WishlistProvider } from '@/components/wishlist/wishlist-context'
 import { CheckoutProvider } from '@/components/checkout/checkout-context'
@@ -153,13 +150,9 @@ export default function RootLayout({
         <CartProvider>
           <WishlistProvider>
             <CheckoutProvider>
-              <AnnouncementBar />
-              <Header />
-              <main className="flex-1">
+              <StorefrontChrome>
                 {children}
-              </main>
-              <Footer />
-              <WhatsAppFloat />
+              </StorefrontChrome>
             </CheckoutProvider>
           </WishlistProvider>
         </CartProvider>
