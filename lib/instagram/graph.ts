@@ -43,10 +43,15 @@ async function fetchJson(url: string, init: RequestInit = {}): Promise<unknown> 
   }
 }
 
-function extractGraphError(body: unknown): string | null {
+export function extractGraphError(body: unknown): string | null {
   if (!body || typeof body !== 'object') return null
-  const error = (body as { error?: { message?: string } }).error
-  return error?.message ?? null
+  const row = body as { error_message?: unknown; error?: { message?: string } | string }
+  if (typeof row.error_message === 'string' && row.error_message.trim()) return row.error_message
+  if (typeof row.error === 'string' && row.error.trim()) return row.error
+  if (row.error && typeof row.error === 'object' && typeof row.error.message === 'string') {
+    return row.error.message
+  }
+  return null
 }
 
 export async function graphGet(
