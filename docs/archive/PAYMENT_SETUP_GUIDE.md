@@ -80,7 +80,7 @@ CASHFREE_SECRET_KEY=your_test_secret_key_here
 NEXT_PUBLIC_CASHFREE_ENV=TEST
 
 # Your website URL
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+APP_URL=http://localhost:3000
 ```
 
 **Important:** Replace `your_test_app_id_here` and `your_test_secret_key_here` with your actual Cashfree test credentials!
@@ -349,7 +349,7 @@ CASHFREE_SECRET_KEY=your_production_secret_key
 NEXT_PUBLIC_CASHFREE_ENV=PROD
 
 # Your live website URL
-NEXT_PUBLIC_APP_URL=https://yourdomain.com
+APP_URL=https://yourdomain.com
 ```
 
 4. **Deploy to Production**

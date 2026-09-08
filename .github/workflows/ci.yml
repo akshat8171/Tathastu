@@ -76,5 +76,5 @@ jobs:
           UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL || '' }}
           UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN || '' }}
 
-          # App URL: used in metadata generation.
-          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL || 'http://localhost:3000' }}
+          # App URL: used in metadata generation (server-only, not inlined to the browser).
+          APP_URL: ${{ secrets.APP_URL || 'http://localhost:3000' }}

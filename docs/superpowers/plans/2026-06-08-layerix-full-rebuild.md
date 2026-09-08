@@ -2348,7 +2348,7 @@ RAZORPAY_KEY_SECRET=your_secret_key
 RAZORPAY_WEBHOOK_SECRET=your_webhook_secret
 
 # App
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+APP_URL=http://localhost:3000
 ```
 
 - [ ] **Step 2: Commit**

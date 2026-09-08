@@ -21,7 +21,7 @@ Create `.env.local` file:
 NEXT_PUBLIC_CASHFREE_APP_ID=paste_your_test_app_id
 CASHFREE_SECRET_KEY=paste_your_test_secret_key
 NEXT_PUBLIC_CASHFREE_ENV=TEST
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+APP_URL=http://localhost:3000
 ```
 
 ### 3. Test It
@@ -79,7 +79,7 @@ Example:
    NEXT_PUBLIC_CASHFREE_APP_ID=production_app_id
    CASHFREE_SECRET_KEY=production_secret_key
    NEXT_PUBLIC_CASHFREE_ENV=PROD
-   NEXT_PUBLIC_APP_URL=https://yourdomain.com
+   APP_URL=https://yourdomain.com
    ```
 4. **Deploy!** 🚀
 

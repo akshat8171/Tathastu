@@ -24,7 +24,12 @@ Before clicking Deploy, expand **Environment Variables** and add each of the fol
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase dashboard → Project Settings → API → Project URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase dashboard → Project Settings → API → anon/public key |
 | `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay Dashboard → Settings → API Keys → Key ID |
-| `NEXT_PUBLIC_APP_URL` | Your production URL, e.g. `https://tathastu.vercel.app` |
+
+**Server-only configuration** (not inlined into the browser bundle):
+
+| Name | Where to get it |
+|------|-----------------|
+| `APP_URL` | Your production URL, e.g. `https://www.tathastukeepsakes.in` |
 
 **Secret variables** (server-side only — never exposed to browsers):
 
@@ -60,7 +65,7 @@ All pushes and PRs are also gated by **GitHub Actions CI** (see `.github/workflo
 1. In your Vercel project, go to **Settings → Domains**.
 2. Add your domain (e.g. `tathastu.in`).
 3. Follow the DNS instructions (CNAME or A record) from Vercel.
-4. Update `NEXT_PUBLIC_APP_URL` in your environment variables to match.
+4. Update `APP_URL` in your environment variables to match.
 
 ---
 
@@ -90,7 +95,6 @@ The table in Step 2 above is a **quick-start subset**. Below is the **complete**
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Supabase dashboard → Project Settings → API → Project URL | **Required** |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY` | Supabase anon/public key | Supabase dashboard → Project Settings → API → anon/public key | **Required** |
 | `NEXT_PUBLIC_RAZORPAY_KEY_ID` | Razorpay Key ID (browser) | Razorpay Dashboard → Settings → API Keys | **Required** |
-| `NEXT_PUBLIC_APP_URL` | Your production/preview URL | `https://tathastu.vercel.app` or custom domain | **Required** |
 | `NEXT_PUBLIC_FIREBASE_API_KEY` | Firebase client API key | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
 | `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN` | Firebase auth domain | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
 | `NEXT_PUBLIC_FIREBASE_PROJECT_ID` | Firebase project ID | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
@@ -99,10 +103,11 @@ The table in Step 2 above is a **quick-start subset**. Below is the **complete**
 | `NEXT_PUBLIC_FIREBASE_APP_ID` | Firebase app ID | Firebase console → Project settings → General → Your apps → SDK setup | **Required** |
 | `NEXT_PUBLIC_MOCK_PAYMENT` | E2E test mode (LOCAL ONLY) | Set to `true` for local mock payments; **NEVER set in Vercel** | Optional (dev only) |
 
-### Server-Only Secrets (NO NEXT_PUBLIC_ prefix — never exposed to browsers)
+### Server-Only Variables (NO NEXT_PUBLIC_ prefix — never inlined into browser bundles)
 
 | Variable | Description | Where to get it | Required? |
 |----------|-------------|-----------------|-----------|
+| `APP_URL` | Canonical site origin (not a secret; kept server-side so Next.js does not inline it into the browser) | Production/preview URL, e.g. `https://www.tathastukeepsakes.in` | **Required** |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (bypasses RLS for order writes) | Supabase dashboard → Project Settings → API → service_role (secret) | **Required** |
 | `RAZORPAY_KEY_ID` | Razorpay Key ID (server) | Razorpay Dashboard → Settings → API Keys | **Required** |
 | `RAZORPAY_KEY_SECRET` | Razorpay Key Secret | Razorpay Dashboard → Settings → API Keys | **Required** |

@@ -6,10 +6,8 @@
  * improve Google rich results visibility.
  */
 
+import { Config } from './config'
 import { SITE } from './site'
-
-/** Base URL for the site. Falls back to localhost if NEXT_PUBLIC_APP_URL not set. */
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
 
 /**
  * Organization schema — represents Tathastu Keepsakes as a business entity.
@@ -21,8 +19,8 @@ export function getOrganizationSchema() {
     '@type': 'Organization',
     name: SITE.name,
     description: SITE.tagline,
-    url: BASE_URL,
-    logo: `${BASE_URL}/images/logo/tathastu-keepsakes-logo.svg`,
+    url: Config.appUrl,
+    logo: `${Config.appUrl}/images/logo/tathastu-keepsakes-logo.svg`,
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: SITE.phone,
@@ -56,7 +54,7 @@ export function getLocalBusinessSchema() {
     '@type': 'Store',
     name: SITE.name,
     description: SITE.tagline,
-    url: BASE_URL,
+    url: Config.appUrl,
     telephone: SITE.phone,
     email: SITE.email,
     address: {
@@ -93,12 +91,12 @@ export function getWebSiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: SITE.name,
-    url: BASE_URL,
+    url: Config.appUrl,
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${BASE_URL}/shop?q={search_term_string}`,
+        urlTemplate: `${Config.appUrl}/shop?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
     },
@@ -118,7 +116,7 @@ export function getBreadcrumbSchema(items: Array<{ name: string; url: string }>)
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `${BASE_URL}${item.url}`,
+      item: `${Config.appUrl}${item.url}`,
     })),
   }
 }
@@ -158,14 +156,14 @@ export function getProductSchema(product: {
   rating: number
   reviewCount: number
 }) {
-  const productUrl = `${BASE_URL}/products/${product.id}`
+  const productUrl = `${Config.appUrl}/products/${product.id}`
 
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: product.images.map(img => `${BASE_URL}${img}`),
+    image: product.images.map(img => `${Config.appUrl}${img}`),
     brand: {
       '@type': 'Brand',
       name: SITE.name,

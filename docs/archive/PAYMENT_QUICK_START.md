@@ -18,7 +18,7 @@ Create `.env.local` file in project root:
 NEXT_PUBLIC_CASHFREE_APP_ID=paste_your_test_app_id_here
 CASHFREE_SECRET_KEY=paste_your_test_secret_key_here
 NEXT_PUBLIC_CASHFREE_ENV=TEST
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+APP_URL=http://localhost:3000
 ```
 
 ---
