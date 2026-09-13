@@ -35,6 +35,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Meesho upload kit (copies of locked catalog shots; regenerate from docs/catalog/generated/locked)
+/meesho-image-kit/
+
 # large media / video — never commit heavy binaries to the repo (host on a CDN
 # or object storage instead). Keeps the git history lean and PRs reviewable.
 *.mp4
