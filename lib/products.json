@@ -4485,5 +4485,2299 @@
     ],
     "whyBuy": "One order, the whole family sorted — four personalised keepsakes at the best per-rakhi price.",
     "createdAt": "2026-07-12T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-alphabet-name",
+    "name": "Personalized Alphabet Name Showpiece",
+    "description": "Custom 3D printed alphabet name showpiece for kids rooms, study tables and birthday gifts. Share the letter, name and colour after order. Made from durable PLA plastic in Agra and packed in a Tathastu Keepsakes gift box. Example shown: mint letter with white name.",
+    "price": 849,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/home-decor/home-decor-alphabet-name/01-hero.png",
+      "/images/products/home-decor/home-decor-alphabet-name/02-studio.png",
+      "/images/products/home-decor/home-decor-alphabet-name/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-alphabet-name/04-macro.png",
+      "/images/products/home-decor/home-decor-alphabet-name/05-dimensions.png",
+      "/images/products/home-decor/home-decor-alphabet-name/06-inuse.png",
+      "/images/products/home-decor/home-decor-alphabet-name/07-box.png",
+      "/images/products/home-decor/home-decor-alphabet-name/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Letter and name",
+      "maxLength": 24,
+      "placeholder": "e.g. N / Nitansh"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "20 × 2 × 20 cm",
+      "weight": "~150 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Custom 3D printed alphabet name showpiece for kids rooms, study tables and birthday gifts. Share the letter, name and colour after order. Made from durable PLA plastic in Agra and packed in a Tathastu Keepsakes gift box. Example shown: mint letter with white name.",
+    "keyFeatures": [
+      "Custom letter and name",
+      "Teddy and star details",
+      "Gift-box packed"
+    ],
+    "perfectFor": [
+      "Kids room décor",
+      "Birthday gifts",
+      "Study table",
+      "Name keepsakes"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-desk-pen-holder",
+    "name": "Personalized Desk Pen Holder",
+    "description": "Custom 3D printed name desk pen holder for office, WFH and student desks. Share the letter, name and colour after order. PLA plastic with a side pen cup. Example shown: purple letter with white name.",
+    "price": 599,
+    "originalPrice": 999,
+    "images": [
+      "/images/products/organizers/organizers-desk-pen-holder/01-hero.png",
+      "/images/products/organizers/organizers-desk-pen-holder/02-studio.png",
+      "/images/products/organizers/organizers-desk-pen-holder/03-lifestyle.png",
+      "/images/products/organizers/organizers-desk-pen-holder/04-macro.png",
+      "/images/products/organizers/organizers-desk-pen-holder/05-dimensions.png",
+      "/images/products/organizers/organizers-desk-pen-holder/06-inuse.png",
+      "/images/products/organizers/organizers-desk-pen-holder/07-box.png",
+      "/images/products/organizers/organizers-desk-pen-holder/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Purple",
+      "Mint",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Letter and name",
+      "maxLength": 24,
+      "placeholder": "e.g. A / Annika"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Purple",
+          "Mint",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "13 × 6 × 16 cm",
+      "weight": "~100 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Custom 3D printed name desk pen holder for office, WFH and student desks. Share the letter, name and colour after order. PLA plastic with a side pen cup. Example shown: purple letter with white name.",
+    "keyFeatures": [
+      "Named letter body",
+      "Side pen cup",
+      "Made to order colour"
+    ],
+    "perfectFor": [
+      "WFH desks",
+      "Office gifting",
+      "Student desks",
+      "Name organisers"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-giant-name-pencil",
+    "name": "Personalized Giant Name Pencil",
+    "description": "Giant 3D printed name pencil for kids, teachers and school gifts. Share the name and body colour after order. PLA plastic with raised name, eraser and ferrule detail. Example shown: yellow pencil with white name.",
+    "price": 849,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/organizers/organizers-giant-name-pencil/01-hero.png",
+      "/images/products/organizers/organizers-giant-name-pencil/02-studio.png",
+      "/images/products/organizers/organizers-giant-name-pencil/03-lifestyle.png",
+      "/images/products/organizers/organizers-giant-name-pencil/04-macro.png",
+      "/images/products/organizers/organizers-giant-name-pencil/05-dimensions.png",
+      "/images/products/organizers/organizers-giant-name-pencil/06-inuse.png",
+      "/images/products/organizers/organizers-giant-name-pencil/07-box.png",
+      "/images/products/organizers/organizers-giant-name-pencil/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Yellow",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 16,
+      "placeholder": "e.g. Aarav"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Yellow",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "5 × 5 × 20 cm",
+      "weight": "~150 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Giant 3D printed name pencil for kids, teachers and school gifts. Share the name and body colour after order. PLA plastic with raised name, eraser and ferrule detail. Example shown: yellow pencil with white name.",
+    "keyFeatures": [
+      "Raised name lettering",
+      "Eraser and ferrule detail",
+      "Desk-size pencil"
+    ],
+    "perfectFor": [
+      "Kids desks",
+      "Teacher gifts",
+      "School décor",
+      "Birthday gifts"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-name-pen-stand",
+    "name": "Personalized Name Pen Stand",
+    "description": "Custom 3D printed name pen stand with three compartments for office, study table and gifting. Share the name and colour after order. PLA plastic. Example shown: magenta stand with white bubble-letter name.",
+    "price": 849,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/organizers/organizers-name-pen-stand/01-hero.png",
+      "/images/products/organizers/organizers-name-pen-stand/02-studio.png",
+      "/images/products/organizers/organizers-name-pen-stand/03-lifestyle.png",
+      "/images/products/organizers/organizers-name-pen-stand/04-macro.png",
+      "/images/products/organizers/organizers-name-pen-stand/05-dimensions.png",
+      "/images/products/organizers/organizers-name-pen-stand/06-inuse.png",
+      "/images/products/organizers/organizers-name-pen-stand/07-box.png",
+      "/images/products/organizers/organizers-name-pen-stand/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Pink",
+      "Mint",
+      "Purple",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 16,
+      "placeholder": "e.g. NAVYA"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Pink",
+          "Mint",
+          "Purple",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "20 × 5 × 8 cm",
+      "weight": "~150 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Custom 3D printed name pen stand with three compartments for office, study table and gifting. Share the name and colour after order. PLA plastic. Example shown: magenta stand with white bubble-letter name.",
+    "keyFeatures": [
+      "Three compartments",
+      "Bubble-letter name",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Office desks",
+      "Study tables",
+      "Stationery storage",
+      "Personalised gifts"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-pencil-shape-stand",
+    "name": "Personalized Pencil Shape Pen Stand",
+    "description": "Cute pencil-shaped 3D printed pen stand for kids study tables, school and art supplies. Share the name and colour after order. PLA plastic. Example shown: royal blue cup with raised name.",
+    "price": 499,
+    "originalPrice": 849,
+    "images": [
+      "/images/products/organizers/organizers-pencil-shape-stand/01-hero.png",
+      "/images/products/organizers/organizers-pencil-shape-stand/02-studio.png",
+      "/images/products/organizers/organizers-pencil-shape-stand/03-lifestyle.png",
+      "/images/products/organizers/organizers-pencil-shape-stand/04-macro.png",
+      "/images/products/organizers/organizers-pencil-shape-stand/05-dimensions.png",
+      "/images/products/organizers/organizers-pencil-shape-stand/06-inuse.png",
+      "/images/products/organizers/organizers-pencil-shape-stand/07-box.png",
+      "/images/products/organizers/organizers-pencil-shape-stand/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 16,
+      "placeholder": "e.g. Javier"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "5 × 5 × 16 cm",
+      "weight": "~80 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Cute pencil-shaped 3D printed pen stand for kids study tables, school and art supplies. Share the name and colour after order. PLA plastic. Example shown: royal blue cup with raised name.",
+    "keyFeatures": [
+      "Pencil-cup shape",
+      "Raised name",
+      "Compact footprint"
+    ],
+    "perfectFor": [
+      "Kids study tables",
+      "School gifts",
+      "Art supplies",
+      "Desk organisers"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-sliding-photo-book",
+    "name": "Personalized Sliding Photo Book",
+    "description": "Sliding Instax Mini photo book for anniversary and couple gifts. Fits Instax Mini prints. Share cover colour and message after order. PLA plastic. Example shown: hot pink cover with heart window.",
+    "price": 549,
+    "originalPrice": 949,
+    "images": [
+      "/images/products/home-decor/home-decor-sliding-photo-book/01-hero.png",
+      "/images/products/home-decor/home-decor-sliding-photo-book/02-studio.png",
+      "/images/products/home-decor/home-decor-sliding-photo-book/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-sliding-photo-book/04-macro.png",
+      "/images/products/home-decor/home-decor-sliding-photo-book/05-dimensions.png",
+      "/images/products/home-decor/home-decor-sliding-photo-book/06-inuse.png",
+      "/images/products/home-decor/home-decor-sliding-photo-book/07-box.png",
+      "/images/products/home-decor/home-decor-sliding-photo-book/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Pink",
+      "Mint",
+      "Purple",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Cover message",
+      "maxLength": 40,
+      "placeholder": "e.g. One year down"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Pink",
+          "Mint",
+          "Purple",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "9 × 7 × 3 cm",
+      "weight": "~90 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Sliding Instax Mini photo book for anniversary and couple gifts. Fits Instax Mini prints. Share cover colour and message after order. PLA plastic. Example shown: hot pink cover with heart window.",
+    "keyFeatures": [
+      "Fits Instax Mini",
+      "Sliding pages",
+      "Heart window cover"
+    ],
+    "perfectFor": [
+      "Anniversaries",
+      "Couple gifts",
+      "Instax Mini prints",
+      "Dresser décor"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "pooja-decor-kanhaji",
+    "name": "Glowing Kanhaji Showpiece",
+    "description": "Cute Baby Krishna (Kanhaji) 3D printed showpiece for mandir, festive gifting and home décor. Sitting pose with flute on a round base. PLA plastic. Colour can be customised after order. Example shown: mint green.",
+    "price": 299,
+    "originalPrice": 499,
+    "images": [
+      "/images/products/pooja-decor/pooja-decor-kanhaji/01-hero.png",
+      "/images/products/pooja-decor/pooja-decor-kanhaji/02-studio.png",
+      "/images/products/pooja-decor/pooja-decor-kanhaji/03-lifestyle.png",
+      "/images/products/pooja-decor/pooja-decor-kanhaji/04-macro.png",
+      "/images/products/pooja-decor/pooja-decor-kanhaji/05-dimensions.png",
+      "/images/products/pooja-decor/pooja-decor-kanhaji/06-inuse.png",
+      "/images/products/pooja-decor/pooja-decor-kanhaji/07-box.png",
+      "/images/products/pooja-decor/pooja-decor-kanhaji/08-inhand.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "5 × 4 × 9 cm",
+      "weight": "~40 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Cute Baby Krishna (Kanhaji) 3D printed showpiece for mandir, festive gifting and home décor. Sitting pose with flute on a round base. PLA plastic. Colour can be customised after order. Example shown: mint green.",
+    "keyFeatures": [
+      "Sitting flute pose",
+      "Round display base",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Home mandir",
+      "Festive gifting",
+      "Janmashtami",
+      "Desk blessings"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-instax-magnet",
+    "name": "Personalized Instax Mini Fridge Magnet",
+    "description": "Scalloped Instax Mini fridge magnet photo frame for kitchen memories and gifting. Share colour after order. PLA plastic. Example shown: hot pink.",
+    "price": 249,
+    "originalPrice": 449,
+    "images": [
+      "/images/products/home-decor/home-decor-instax-magnet/01-hero.png",
+      "/images/products/home-decor/home-decor-instax-magnet/02-studio.png",
+      "/images/products/home-decor/home-decor-instax-magnet/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-instax-magnet/04-macro.png",
+      "/images/products/home-decor/home-decor-instax-magnet/05-dimensions.png",
+      "/images/products/home-decor/home-decor-instax-magnet/06-inuse.png",
+      "/images/products/home-decor/home-decor-instax-magnet/07-box.png",
+      "/images/products/home-decor/home-decor-instax-magnet/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Pink",
+      "Mint",
+      "Purple",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Pink",
+          "Mint",
+          "Purple",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "5 × 1 × 9 cm",
+      "weight": "~25 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Scalloped Instax Mini fridge magnet photo frame for kitchen memories and gifting. Share colour after order. PLA plastic. Example shown: hot pink.",
+    "keyFeatures": [
+      "Scalloped frame",
+      "Fridge magnet back",
+      "Fits Instax Mini"
+    ],
+    "perfectFor": [
+      "Kitchen fridge",
+      "Memory gifting",
+      "Instax Mini prints",
+      "Small keepsakes"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-couple-initials",
+    "name": "Personalized Couple Initials Heart Sign",
+    "description": "Large 3D printed couple initials sign with heart overlay, names and date. Share two initials, two names, date and colour after order. PLA plastic. Example shown: burnt orange letters with white heart.",
+    "price": 1099,
+    "originalPrice": 1899,
+    "images": [
+      "/images/products/home-decor/home-decor-couple-initials/01-hero.png",
+      "/images/products/home-decor/home-decor-couple-initials/02-studio.png",
+      "/images/products/home-decor/home-decor-couple-initials/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-couple-initials/04-macro.png",
+      "/images/products/home-decor/home-decor-couple-initials/05-dimensions.png",
+      "/images/products/home-decor/home-decor-couple-initials/06-inuse.png",
+      "/images/products/home-decor/home-decor-couple-initials/07-box.png",
+      "/images/products/home-decor/home-decor-couple-initials/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Orange",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Initials, names and date",
+      "maxLength": 48,
+      "placeholder": "e.g. A S / Abhay Shivi / 29/06/2020"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Orange",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "32 × 3 × 22 cm",
+      "weight": "~200 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Large 3D printed couple initials sign with heart overlay, names and date. Share two initials, two names, date and colour after order. PLA plastic. Example shown: burnt orange letters with white heart.",
+    "keyFeatures": [
+      "Two initials + heart",
+      "Names and date",
+      "Shelf-size statement piece"
+    ],
+    "perfectFor": [
+      "Anniversaries",
+      "Weddings",
+      "Bedroom dresser",
+      "Couple gifts"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-photo-rotator",
+    "name": "Personalized Photo Rotator",
+    "description": "Two-window photo rotator with flower knob for desk, rakhi and sister gifts. Share colour after order. PLA plastic. Example shown: mint with white frames.",
+    "price": 499,
+    "originalPrice": 849,
+    "images": [
+      "/images/products/home-decor/home-decor-photo-rotator/01-hero.png",
+      "/images/products/home-decor/home-decor-photo-rotator/02-studio.png",
+      "/images/products/home-decor/home-decor-photo-rotator/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-photo-rotator/04-macro.png",
+      "/images/products/home-decor/home-decor-photo-rotator/05-dimensions.png",
+      "/images/products/home-decor/home-decor-photo-rotator/06-inuse.png",
+      "/images/products/home-decor/home-decor-photo-rotator/07-box.png",
+      "/images/products/home-decor/home-decor-photo-rotator/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "10 × 10 × 3 cm",
+      "weight": "~80 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Two-window photo rotator with flower knob for desk, rakhi and sister gifts. Share colour after order. PLA plastic. Example shown: mint with white frames.",
+    "keyFeatures": [
+      "Turning flower knob",
+      "Two photo windows",
+      "Desk footprint"
+    ],
+    "perfectFor": [
+      "Sister gifts",
+      "Desk décor",
+      "Rakhi gifting",
+      "Two-photo display"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-butterfly-name",
+    "name": "Personalized Butterfly Name Sign",
+    "description": "Layered butterfly outline name sign for bedroom shelves and name gifts. Share the name and colours after order. PLA plastic. Example shown: yellow over pink wings with white cursive name.",
+    "price": 849,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/home-decor/home-decor-butterfly-name/01-hero.png",
+      "/images/products/home-decor/home-decor-butterfly-name/02-studio.png",
+      "/images/products/home-decor/home-decor-butterfly-name/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-butterfly-name/04-macro.png",
+      "/images/products/home-decor/home-decor-butterfly-name/05-dimensions.png",
+      "/images/products/home-decor/home-decor-butterfly-name/06-inuse.png",
+      "/images/products/home-decor/home-decor-butterfly-name/07-box.png",
+      "/images/products/home-decor/home-decor-butterfly-name/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multicolor",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 18,
+      "placeholder": "e.g. Dhwani"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multicolor",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "25 × 3 × 20 cm",
+      "weight": "~150 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Layered butterfly outline name sign for bedroom shelves and name gifts. Share the name and colours after order. PLA plastic. Example shown: yellow over pink wings with white cursive name.",
+    "keyFeatures": [
+      "Layered butterfly wings",
+      "Cursive name",
+      "Shelf display"
+    ],
+    "perfectFor": [
+      "Bedroom shelves",
+      "Name gifts",
+      "Kids rooms",
+      "Dressers"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-couple-name",
+    "name": "Personalized Couple Name Sign",
+    "description": "3D printed couple name sign with heart, for anniversary and shelf display. Share two names and colours after order. PLA plastic. Example shown: white names over red backing with red heart.",
+    "price": 699,
+    "originalPrice": 1199,
+    "images": [
+      "/images/products/home-decor/home-decor-couple-name/01-hero.png",
+      "/images/products/home-decor/home-decor-couple-name/02-studio.png",
+      "/images/products/home-decor/home-decor-couple-name/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-couple-name/04-macro.png",
+      "/images/products/home-decor/home-decor-couple-name/05-dimensions.png",
+      "/images/products/home-decor/home-decor-couple-name/06-inuse.png",
+      "/images/products/home-decor/home-decor-couple-name/07-box.png",
+      "/images/products/home-decor/home-decor-couple-name/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Red",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names",
+      "maxLength": 32,
+      "placeholder": "e.g. Rohit / Shweta"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Red",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "25 × 2 × 15 cm",
+      "weight": "~120 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "3D printed couple name sign with heart, for anniversary and shelf display. Share two names and colours after order. PLA plastic. Example shown: white names over red backing with red heart.",
+    "keyFeatures": [
+      "Stacked couple names",
+      "Heart motif",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Anniversaries",
+      "Living-room shelves",
+      "Weddings",
+      "Couple gifts"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-wall-key-holder",
+    "name": "Personalized Wall Key Holder",
+    "description": "Wall-mounted 3D printed name key holder with shelves, pegs and hanging slots. Share the name and colour after order. PLA plastic. Example shown: cream body with brown script name.",
+    "price": 1299,
+    "originalPrice": 2199,
+    "images": [
+      "/images/products/organizers/organizers-wall-key-holder/01-hero.png",
+      "/images/products/organizers/organizers-wall-key-holder/02-studio.png",
+      "/images/products/organizers/organizers-wall-key-holder/03-lifestyle.png",
+      "/images/products/organizers/organizers-wall-key-holder/04-macro.png",
+      "/images/products/organizers/organizers-wall-key-holder/05-dimensions.png",
+      "/images/products/organizers/organizers-wall-key-holder/06-inuse.png",
+      "/images/products/organizers/organizers-wall-key-holder/07-box.png",
+      "/images/products/organizers/organizers-wall-key-holder/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Beige",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 18,
+      "placeholder": "e.g. Natanus"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Beige",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "22 × 8 × 25 cm",
+      "weight": "~250 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Wall-mounted 3D printed name key holder with shelves, pegs and hanging slots. Share the name and colour after order. PLA plastic. Example shown: cream body with brown script name.",
+    "keyFeatures": [
+      "Named header",
+      "Pegs and hanging slots",
+      "Small shelf"
+    ],
+    "perfectFor": [
+      "Entryway walls",
+      "Housewarming gifts",
+      "Kids rooms",
+      "Key storage"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-seashell-jewelry-dish",
+    "name": "Seashell Nautilus Jewelry Dish",
+    "description": "Nautilus seashell jewellery and trinket dish for dresser or bathroom. Share colour after order. PLA plastic. Example shown: mint green spiral dish.",
+    "price": 499,
+    "originalPrice": 849,
+    "images": [
+      "/images/products/organizers/organizers-seashell-jewelry-dish/01-hero.png",
+      "/images/products/organizers/organizers-seashell-jewelry-dish/02-studio.png",
+      "/images/products/organizers/organizers-seashell-jewelry-dish/03-lifestyle.png",
+      "/images/products/organizers/organizers-seashell-jewelry-dish/04-macro.png",
+      "/images/products/organizers/organizers-seashell-jewelry-dish/05-dimensions.png",
+      "/images/products/organizers/organizers-seashell-jewelry-dish/06-inuse.png",
+      "/images/products/organizers/organizers-seashell-jewelry-dish/07-box.png",
+      "/images/products/organizers/organizers-seashell-jewelry-dish/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "14 × 10 × 5 cm",
+      "weight": "~80 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Nautilus seashell jewellery and trinket dish for dresser or bathroom. Share colour after order. PLA plastic. Example shown: mint green spiral dish.",
+    "keyFeatures": [
+      "Spiral nautilus form",
+      "Open trinket tray",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Vanity trays",
+      "Rings and earrings",
+      "Bathroom counters",
+      "Bedside"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-mermaid-vase",
+    "name": "Mermaid Gown Flower Vase",
+    "description": "Gown-shaped 3D printed flower vase for table décor and gifting. Share colour after order. PLA plastic. Example shown: mint mermaid-gown silhouette.",
+    "price": 849,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/home-decor/home-decor-mermaid-vase/01-hero.png",
+      "/images/products/home-decor/home-decor-mermaid-vase/02-studio.png",
+      "/images/products/home-decor/home-decor-mermaid-vase/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-mermaid-vase/04-macro.png",
+      "/images/products/home-decor/home-decor-mermaid-vase/05-dimensions.png",
+      "/images/products/home-decor/home-decor-mermaid-vase/06-inuse.png",
+      "/images/products/home-decor/home-decor-mermaid-vase/07-box.png",
+      "/images/products/home-decor/home-decor-mermaid-vase/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "8 × 8 × 22 cm",
+      "weight": "~150 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Gown-shaped 3D printed flower vase for table décor and gifting. Share colour after order. PLA plastic. Example shown: mint mermaid-gown silhouette.",
+    "keyFeatures": [
+      "Gown silhouette",
+      "Ruffled train base",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Table flowers",
+      "Dresser décor",
+      "Gifting",
+      "Dried stems"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-kids-door-nameplate",
+    "name": "Personalized Kids Room Door Nameplate",
+    "description": "Kids bedroom door nameplate. Share the child's name and colour after order. PLA plastic with hanging holes. Example shown: purple plaque with white Myra's Room lettering.",
+    "price": 399,
+    "originalPrice": 699,
+    "images": [
+      "/images/products/home-decor/home-decor-kids-door-nameplate/01-hero.png",
+      "/images/products/home-decor/home-decor-kids-door-nameplate/02-studio.png",
+      "/images/products/home-decor/home-decor-kids-door-nameplate/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-kids-door-nameplate/04-macro.png",
+      "/images/products/home-decor/home-decor-kids-door-nameplate/05-dimensions.png",
+      "/images/products/home-decor/home-decor-kids-door-nameplate/06-inuse.png",
+      "/images/products/home-decor/home-decor-kids-door-nameplate/07-box.png",
+      "/images/products/home-decor/home-decor-kids-door-nameplate/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Purple",
+      "Mint",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Child's name",
+      "maxLength": 16,
+      "placeholder": "e.g. Myra"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Purple",
+          "Mint",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "18 × 1 × 14 cm",
+      "weight": "~60 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Kids bedroom door nameplate. Share the child's name and colour after order. PLA plastic with hanging holes. Example shown: purple plaque with white Myra's Room lettering.",
+    "keyFeatures": [
+      "Hanging holes",
+      "Floral script plaque",
+      "Custom child's name"
+    ],
+    "perfectFor": [
+      "Kids bedroom doors",
+      "Nurseries",
+      "Name gifts",
+      "Room décor"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-bow-jewelry-basket",
+    "name": "Bow Handle Jewelry Basket",
+    "description": "Bow-handle 3D printed jewellery basket for dresser storage and gifting. Share colour after order. PLA plastic. Example shown: peach bow basket.",
+    "price": 699,
+    "originalPrice": 1199,
+    "images": [
+      "/images/products/organizers/organizers-bow-jewelry-basket/01-hero.png",
+      "/images/products/organizers/organizers-bow-jewelry-basket/02-studio.png",
+      "/images/products/organizers/organizers-bow-jewelry-basket/03-lifestyle.png",
+      "/images/products/organizers/organizers-bow-jewelry-basket/04-macro.png",
+      "/images/products/organizers/organizers-bow-jewelry-basket/05-dimensions.png",
+      "/images/products/organizers/organizers-bow-jewelry-basket/06-inuse.png",
+      "/images/products/organizers/organizers-bow-jewelry-basket/07-box.png",
+      "/images/products/organizers/organizers-bow-jewelry-basket/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Orange",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Orange",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "12 × 8 × 14 cm",
+      "weight": "~120 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Bow-handle 3D printed jewellery basket for dresser storage and gifting. Share colour after order. PLA plastic. Example shown: peach bow basket.",
+    "keyFeatures": [
+      "Twisted bow handle",
+      "Open oval bowl",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Vanity storage",
+      "Jewellery gifting",
+      "Dressers",
+      "Trinkets"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-name-perfume-tray",
+    "name": "Personalized Name Perfume Tray",
+    "description": "Named perfume and vanity tray with rolled ends. Share the name and colour after order. PLA plastic. Example shown: royal blue tray with white raised name.",
+    "price": 549,
+    "originalPrice": 949,
+    "images": [
+      "/images/products/organizers/organizers-name-perfume-tray/01-hero.png",
+      "/images/products/organizers/organizers-name-perfume-tray/02-studio.png",
+      "/images/products/organizers/organizers-name-perfume-tray/03-lifestyle.png",
+      "/images/products/organizers/organizers-name-perfume-tray/04-macro.png",
+      "/images/products/organizers/organizers-name-perfume-tray/05-dimensions.png",
+      "/images/products/organizers/organizers-name-perfume-tray/06-inuse.png",
+      "/images/products/organizers/organizers-name-perfume-tray/07-box.png",
+      "/images/products/organizers/organizers-name-perfume-tray/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name to print",
+      "maxLength": 16,
+      "placeholder": "e.g. PRAGYA"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "16 × 10 × 4 cm",
+      "weight": "~90 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Named perfume and vanity tray with rolled ends. Share the name and colour after order. PLA plastic. Example shown: royal blue tray with white raised name.",
+    "keyFeatures": [
+      "Raised name",
+      "Rolled bow ends",
+      "Vanity tray well"
+    ],
+    "perfectFor": [
+      "Vanity tables",
+      "Perfume display",
+      "Dresser gifts",
+      "Jewellery trays"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-couple-miniature",
+    "name": "Personalized Couple Miniature",
+    "description": "Custom couple miniature on a named base for anniversary and wedding gifts. Share photos, outfits and the base name after order. PLA plastic, painted finish. Example shown is a sample couple style.",
+    "price": 899,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/home-decor/home-decor-couple-miniature/01-hero.png",
+      "/images/products/home-decor/home-decor-couple-miniature/02-studio.png",
+      "/images/products/home-decor/home-decor-couple-miniature/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-couple-miniature/04-macro.png",
+      "/images/products/home-decor/home-decor-couple-miniature/05-dimensions.png",
+      "/images/products/home-decor/home-decor-couple-miniature/06-inuse.png",
+      "/images/products/home-decor/home-decor-couple-miniature/07-box.png",
+      "/images/products/home-decor/home-decor-couple-miniature/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multicolor",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Names / base text",
+      "maxLength": 24,
+      "placeholder": "e.g. #Sahani"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multicolor",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "8 × 6 × 14 cm",
+      "weight": "~80 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Custom couple miniature on a named base for anniversary and wedding gifts. Share photos, outfits and the base name after order. PLA plastic, painted finish. Example shown is a sample couple style.",
+    "keyFeatures": [
+      "Made from your photos",
+      "Named display base",
+      "Painted finish"
+    ],
+    "perfectFor": [
+      "Anniversaries",
+      "Weddings",
+      "Shelf display",
+      "Couple gifts"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-twisted-loop",
+    "name": "Abstract Twisted Loop Sculpture",
+    "description": "Abstract twisted-loop 3D printed sculpture for modern shelf décor. Share colour after order. PLA plastic. Example shown: matte grey.",
+    "price": 599,
+    "originalPrice": 999,
+    "images": [
+      "/images/products/home-decor/home-decor-twisted-loop/01-hero.png",
+      "/images/products/home-decor/home-decor-twisted-loop/02-studio.png",
+      "/images/products/home-decor/home-decor-twisted-loop/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-twisted-loop/04-macro.png",
+      "/images/products/home-decor/home-decor-twisted-loop/05-dimensions.png",
+      "/images/products/home-decor/home-decor-twisted-loop/06-inuse.png",
+      "/images/products/home-decor/home-decor-twisted-loop/07-box.png",
+      "/images/products/home-decor/home-decor-twisted-loop/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Grey",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Grey",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "12 × 6 × 12 cm",
+      "weight": "~100 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Abstract twisted-loop 3D printed sculpture for modern shelf décor. Share colour after order. PLA plastic. Example shown: matte grey.",
+    "keyFeatures": [
+      "Interlocking loops",
+      "Matte sculpture finish",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Modern shelves",
+      "Study desks",
+      "Couple gifts",
+      "Minimal décor"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-child-car",
+    "name": "Personalized Child Car Miniature",
+    "description": "Custom child-on-car miniature with personalised number-plate text. Share the child's look, dress, plate text and car colour after order. PLA plastic, painted finish. Generic sedan body, made to order.",
+    "price": 899,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/home-decor/home-decor-child-car/01-hero.png",
+      "/images/products/home-decor/home-decor-child-car/02-studio.png",
+      "/images/products/home-decor/home-decor-child-car/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-child-car/04-macro.png",
+      "/images/products/home-decor/home-decor-child-car/05-dimensions.png",
+      "/images/products/home-decor/home-decor-child-car/06-inuse.png",
+      "/images/products/home-decor/home-decor-child-car/07-box.png",
+      "/images/products/home-decor/home-decor-child-car/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Silver",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Number-plate text",
+      "maxLength": 16,
+      "placeholder": "e.g. BIG SISTER"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Silver",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "12 × 6 × 10 cm",
+      "weight": "~80 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Custom child-on-car miniature with personalised number-plate text. Share the child's look, dress, plate text and car colour after order. PLA plastic, painted finish. Generic sedan body, made to order.",
+    "keyFeatures": [
+      "Personalised plate text",
+      "Painted finish",
+      "Made from your photo"
+    ],
+    "perfectFor": [
+      "Kids rooms",
+      "Birthday gifts",
+      "Sibling gifts",
+      "Desk display"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-first-year-board",
+    "name": "Personalized First Year Photo Board",
+    "description": "First-year milestone photo board with twelve monthly windows. Share the baby's name and colour after order. PLA plastic. Example shown: blue arched board with white name.",
+    "price": 999,
+    "originalPrice": 1699,
+    "images": [
+      "/images/products/home-decor/home-decor-first-year-board/01-hero.png",
+      "/images/products/home-decor/home-decor-first-year-board/02-studio.png",
+      "/images/products/home-decor/home-decor-first-year-board/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-first-year-board/04-macro.png",
+      "/images/products/home-decor/home-decor-first-year-board/05-dimensions.png",
+      "/images/products/home-decor/home-decor-first-year-board/06-inuse.png",
+      "/images/products/home-decor/home-decor-first-year-board/07-box.png",
+      "/images/products/home-decor/home-decor-first-year-board/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Baby's name",
+      "maxLength": 16,
+      "placeholder": "e.g. Ahaan"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "25 × 2 × 28 cm",
+      "weight": "~180 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "First-year milestone photo board with twelve monthly windows. Share the baby's name and colour after order. PLA plastic. Example shown: blue arched board with white name.",
+    "keyFeatures": [
+      "Twelve month windows",
+      "Custom baby name",
+      "Arched wall board"
+    ],
+    "perfectFor": [
+      "Nurseries",
+      "First birthdays",
+      "Newborn gifts",
+      "Memory walls"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-sitar-plaque",
+    "name": "Personalized Sitar Name Plaque",
+    "description": "Sitar academy style name plaque for music schools and gifts. Share the Hindi or English name text and colour after order. PLA plastic on a stand. Example shown: brown circular plaque with sitar motif.",
+    "price": 849,
+    "originalPrice": 1499,
+    "images": [
+      "/images/products/home-decor/home-decor-sitar-plaque/01-hero.png",
+      "/images/products/home-decor/home-decor-sitar-plaque/02-studio.png",
+      "/images/products/home-decor/home-decor-sitar-plaque/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-sitar-plaque/04-macro.png",
+      "/images/products/home-decor/home-decor-sitar-plaque/05-dimensions.png",
+      "/images/products/home-decor/home-decor-sitar-plaque/06-inuse.png",
+      "/images/products/home-decor/home-decor-sitar-plaque/07-box.png",
+      "/images/products/home-decor/home-decor-sitar-plaque/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Brown",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name or academy text",
+      "maxLength": 40,
+      "placeholder": "e.g. Janki Sangeet Sansthan"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Brown",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "18 × 4 × 18 cm",
+      "weight": "~150 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Sitar academy style name plaque for music schools and gifts. Share the Hindi or English name text and colour after order. PLA plastic on a stand. Example shown: brown circular plaque with sitar motif.",
+    "keyFeatures": [
+      "Sitar relief",
+      "Stand included",
+      "Hindi or English text"
+    ],
+    "perfectFor": [
+      "Music schools",
+      "Teacher gifts",
+      "Awards",
+      "Shelf display"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "pooja-decor-aham-brahmasmi",
+    "name": "Aham Brahmasmi Wall Sign",
+    "description": "Sanskrit Aham Brahmasmi 3D printed shelf sign for home and pooja décor. Share colour after order. PLA plastic. Example shown: terracotta orange.",
+    "price": 449,
+    "originalPrice": 799,
+    "images": [
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/01-hero.png",
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/02-studio.png",
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/03-lifestyle.png",
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/04-macro.png",
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/05-dimensions.png",
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/06-inuse.png",
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/07-box.png",
+      "/images/products/pooja-decor/pooja-decor-aham-brahmasmi/08-inhand.png"
+    ],
+    "category": "pooja-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Orange",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Orange",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "18 × 2 × 10 cm",
+      "weight": "~70 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Sanskrit Aham Brahmasmi 3D printed shelf sign for home and pooja décor. Share colour after order. PLA plastic. Example shown: terracotta orange.",
+    "keyFeatures": [
+      "Devanagari lettering",
+      "Shelf standing sign",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Pooja shelves",
+      "Study desks",
+      "Spiritual gifts",
+      "Home décor"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-umbrella-lady",
+    "name": "Lady with Umbrella Showpiece",
+    "description": "Filigree lady-with-umbrella 3D printed showpiece for shelf décor. Share colours after order. PLA plastic. Example shown: cream silhouette with sage inlay.",
+    "price": 549,
+    "originalPrice": 949,
+    "images": [
+      "/images/products/home-decor/home-decor-umbrella-lady/01-hero.png",
+      "/images/products/home-decor/home-decor-umbrella-lady/02-studio.png",
+      "/images/products/home-decor/home-decor-umbrella-lady/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-umbrella-lady/04-macro.png",
+      "/images/products/home-decor/home-decor-umbrella-lady/05-dimensions.png",
+      "/images/products/home-decor/home-decor-umbrella-lady/06-inuse.png",
+      "/images/products/home-decor/home-decor-umbrella-lady/07-box.png",
+      "/images/products/home-decor/home-decor-umbrella-lady/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Beige",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": null,
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Beige",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "8 × 4 × 22 cm",
+      "weight": "~90 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Filigree lady-with-umbrella 3D printed showpiece for shelf décor. Share colours after order. PLA plastic. Example shown: cream silhouette with sage inlay.",
+    "keyFeatures": [
+      "Filigree umbrella",
+      "Sage vine inlay",
+      "Round display base"
+    ],
+    "perfectFor": [
+      "Shelf décor",
+      "Dressers",
+      "Gifting",
+      "Living rooms"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "organizers-office-name-sign",
+    "name": "Personalized Office Name Pen Stand",
+    "description": "Office desk name pen stand with compartments. Share the company or person name and colour after order. PLA plastic. Example shown: royal blue with white raised letters.",
+    "price": 699,
+    "originalPrice": 1199,
+    "images": [
+      "/images/products/organizers/organizers-office-name-sign/01-hero.png",
+      "/images/products/organizers/organizers-office-name-sign/02-studio.png",
+      "/images/products/organizers/organizers-office-name-sign/03-lifestyle.png",
+      "/images/products/organizers/organizers-office-name-sign/04-macro.png",
+      "/images/products/organizers/organizers-office-name-sign/05-dimensions.png",
+      "/images/products/organizers/organizers-office-name-sign/06-inuse.png",
+      "/images/products/organizers/organizers-office-name-sign/07-box.png",
+      "/images/products/organizers/organizers-office-name-sign/08-inhand.png"
+    ],
+    "category": "organizers",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey",
+      "Custom"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Company or person name",
+      "maxLength": 32,
+      "placeholder": "e.g. DR Enterprises"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "20 × 8 × 8 cm",
+      "weight": "~120 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Office desk name pen stand with compartments. Share the company or person name and colour after order. PLA plastic. Example shown: royal blue with white raised letters.",
+    "keyFeatures": [
+      "Raised name letters",
+      "Desk compartments",
+      "Colour customisable"
+    ],
+    "perfectFor": [
+      "Office desks",
+      "Reception",
+      "Cabin name display",
+      "Corporate gifts"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-bilingual-name",
+    "name": "Personalized Bilingual Name Sign",
+    "description": "Bilingual 3D printed name sign (script plus English). Share both name spellings and colours after order. PLA plastic. Example shown: mint Arabic overlay with black English script.",
+    "price": 449,
+    "originalPrice": 799,
+    "images": [
+      "/images/products/home-decor/home-decor-bilingual-name/01-hero.png",
+      "/images/products/home-decor/home-decor-bilingual-name/02-studio.png",
+      "/images/products/home-decor/home-decor-bilingual-name/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-bilingual-name/04-macro.png",
+      "/images/products/home-decor/home-decor-bilingual-name/05-dimensions.png",
+      "/images/products/home-decor/home-decor-bilingual-name/06-inuse.png",
+      "/images/products/home-decor/home-decor-bilingual-name/07-box.png",
+      "/images/products/home-decor/home-decor-bilingual-name/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Multicolor",
+      "Mint",
+      "Purple",
+      "Pink",
+      "Blue",
+      "Yellow",
+      "Orange",
+      "Cream",
+      "Grey"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Name in both scripts",
+      "maxLength": 24,
+      "placeholder": "e.g. Ali"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Multicolor",
+          "Mint",
+          "Purple",
+          "Pink",
+          "Blue",
+          "Yellow",
+          "Orange",
+          "Cream",
+          "Grey"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "18 × 2 × 10 cm",
+      "weight": "~70 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Premium multi-colour PLA",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour can be customised after order",
+      "Studio-photographed listing photos"
+    ],
+    "about": "Bilingual 3D printed name sign (script plus English). Share both name spellings and colours after order. PLA plastic. Example shown: mint Arabic overlay with black English script.",
+    "keyFeatures": [
+      "Two-script lettering",
+      "Shelf standing sign",
+      "Custom names"
+    ],
+    "perfectFor": [
+      "Name gifts",
+      "Shelves",
+      "Desks",
+      "Personalised décor"
+    ],
+    "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
+    "createdAt": "2026-09-15T00:00:00.000Z"
   }
 ]

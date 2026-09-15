@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { SITE } from '@/lib/site'
 
 const shopLinks = [
+  { href: '/products?category=home-decor', label: 'Home Decor' },
   { href: '/products?category=pooja-decor', label: 'Pooja & Decor' },
   { href: '/products?category=keyrings', label: 'Keyrings & Bag Tags' },
   { href: '/products?category=lamps', label: 'Lamps & Lighting' },

@@ -19,7 +19,7 @@ const navItems: NavItem[] = [
   { href: '/rakhi', label: 'Rakhi', badge: 'new' },
   { href: '/products?category=pooja-decor', label: 'Pooja & Decor' },
   { href: '/products?category=keyrings', label: 'Keyrings', badge: 'new' },
-  { href: '/products?category=lamps', label: 'Home Decor' },
+  { href: '/products?category=home-decor', label: 'Home Decor', badge: 'new' },
   { href: '/products?category=organizers', label: 'Workspace' },
   { href: '/products?category=gaming', label: 'Gaming' },
   { href: '/customize', label: 'Customise Now' },

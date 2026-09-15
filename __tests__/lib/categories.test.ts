@@ -18,8 +18,8 @@ describe('categories taxonomy', () => {
       expect(categories.length).toBeGreaterThan(0)
     })
 
-    it('contains exactly 8 entries (7 product categories + 1 CTA)', () => {
-      expect(categories).toHaveLength(8)
+    it('contains exactly 9 entries (8 product categories + 1 CTA)', () => {
+      expect(categories).toHaveLength(9)
     })
 
     it('every category has required fields', () => {
@@ -51,8 +51,9 @@ describe('categories taxonomy', () => {
       })
     })
 
-    it('contains the three product-backed slugs: lamps, organizers, planters', () => {
+    it('contains the product-backed slugs including home-decor', () => {
       const slugs = categories.map((c) => c.slug)
+      expect(slugs).toContain('home-decor')
       expect(slugs).toContain('lamps')
       expect(slugs).toContain('organizers')
       expect(slugs).toContain('planters')
@@ -119,9 +120,9 @@ describe('categories taxonomy', () => {
   })
 
   describe('getProductCategories()', () => {
-    it('returns only the 7 product-backed categories (no CTA)', () => {
+    it('returns only the 8 product-backed categories (no CTA)', () => {
       const productCats = getProductCategories()
-      expect(productCats).toHaveLength(7)
+      expect(productCats).toHaveLength(8)
     })
 
     it('does NOT include the customise CTA category', () => {
@@ -130,9 +131,10 @@ describe('categories taxonomy', () => {
       expect(customise).toBeUndefined()
     })
 
-    it('includes lamps, organizers, and planters', () => {
+    it('includes home-decor, lamps, organizers, and planters', () => {
       const productCats = getProductCategories()
       const slugs = productCats.map((c) => c.slug)
+      expect(slugs).toContain('home-decor')
       expect(slugs).toContain('lamps')
       expect(slugs).toContain('organizers')
       expect(slugs).toContain('planters')

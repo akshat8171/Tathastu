@@ -19,13 +19,18 @@ import { InstagramReels }      from '@/components/homepage/instagram-reels'
 import { NewsletterForm }      from '@/components/layout/newsletter-form'
 import { getWebSiteSchema } from '@/lib/schema'
 import { getCatalogProducts, getHomepageSettings } from '@/lib/catalog/store'
+import { applyPhotoshootHomepageDefaults } from '@/lib/catalog/homepage'
 import type { ProductCardData } from '@/components/ui'
 
 export const revalidate = 60
 
 export default async function HomePage() {
   const webSiteSchema = getWebSiteSchema()
-  const [products, settings] = await Promise.all([getCatalogProducts(), getHomepageSettings()])
+  const [products, storedSettings] = await Promise.all([getCatalogProducts(), getHomepageSettings()])
+  const settings = applyPhotoshootHomepageDefaults(
+    storedSettings,
+    products.map((product) => product.id)
+  )
   const { sections } = settings
 
   const minPriceByCategory: Record<string, number> = {}

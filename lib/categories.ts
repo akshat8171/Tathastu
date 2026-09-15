@@ -24,6 +24,15 @@ export interface Category {
 
 export const categories: Category[] = [
   {
+    slug: 'home-decor',
+    name: 'home-decor',
+    displayName: 'Home Decor',
+    description:
+      'Personalised name signs, photo gifts, miniatures and shelf pieces — studio-photographed and printed to order.',
+    image: '/images/3dps/categories/home-decor.png',
+    route: '/products?category=home-decor',
+  },
+  {
     slug: 'pooja-decor',
     name: 'pooja-decor',
     displayName: 'Pooja & Decor',

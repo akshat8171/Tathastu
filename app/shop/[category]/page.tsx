@@ -52,9 +52,11 @@ export async function generateMetadata({
 
   // SEO-optimized keywords per category
   const categoryKeywords: Record<string, string[]> = {
+    'home-decor': ['3D printed home decor India', 'personalised name signs', 'custom photo gifts', '3D printed showpiece'],
     keyrings: ['3D printed keychains India', 'custom keychain online', 'personalised keyring buy', '3D keychain gifts'],
     lamps: ['3D printed lamps India', 'custom lamp buy', 'designer lamps online', '3D lighting decor'],
     organisers: ['3D printed desk organiser', 'custom organiser India', 'desk accessories buy', '3D office decor'],
+    organizers: ['3D printed desk organiser', 'custom organiser India', 'desk accessories buy', '3D office decor'],
     planters: ['3D printed planters India', 'custom planters buy', 'designer plant pots', '3D garden decor'],
   }
 

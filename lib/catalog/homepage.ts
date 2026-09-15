@@ -71,7 +71,7 @@ export function mergeHomepageSettings(raw: unknown): HomepageSettings {
     heroSlides: heroRaw
       .slice(0, 6)
       .map((slide, index) => mergeHeroSlide(slide, defaults.heroSlides[index] ?? defaults.heroSlides[0])),
-    bestSellerIds: asStringList(row.bestSellerIds, 16),
+    bestSellerIds: asStringList(row.bestSellerIds, 32),
     promo: {
       enabled: typeof promoRaw.enabled === 'boolean' ? promoRaw.enabled : defaults.promo.enabled,
       headline: asString(promoRaw.headline, defaults.promo.headline).slice(0, 120),
@@ -79,5 +79,30 @@ export function mergeHomepageSettings(raw: unknown): HomepageSettings {
       code: asString(promoRaw.code, defaults.promo.code).slice(0, 32).toUpperCase(),
     },
     categoryRails: mergeRails(row.categoryRails),
+  }
+}
+
+const PHOTOSHOOT_FEATURE_ID = 'home-decor-alphabet-name'
+
+/**
+ * If the photoshoot catalog is live but CMS still has the old homepage row,
+ * use the code defaults for hero / best sellers / rails. Once CMS already
+ * features a photoshoot SKU, leave the saved settings alone.
+ */
+export function applyPhotoshootHomepageDefaults(
+  settings: HomepageSettings,
+  catalogIds: Iterable<string>
+): HomepageSettings {
+  const ids = catalogIds instanceof Set ? catalogIds : new Set(catalogIds)
+  if (!ids.has(PHOTOSHOOT_FEATURE_ID)) return settings
+  const alreadyFeatured =
+    settings.bestSellerIds.includes(PHOTOSHOOT_FEATURE_ID) ||
+    settings.heroSlides.some((slide) => slide.productIds.includes(PHOTOSHOOT_FEATURE_ID))
+  if (alreadyFeatured) return settings
+  return {
+    ...settings,
+    heroSlides: DEFAULT_HOMEPAGE_SETTINGS.heroSlides,
+    bestSellerIds: DEFAULT_HOMEPAGE_SETTINGS.bestSellerIds,
+    categoryRails: DEFAULT_HOMEPAGE_SETTINGS.categoryRails,
   }
 }

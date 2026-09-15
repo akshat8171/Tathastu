@@ -4,7 +4,7 @@
 
 import { slugifyCatalogId, isValidCatalogId } from '@/lib/catalog/slug'
 import { mergeCatalog, listCatalogForAdmin } from '@/lib/catalog/merge'
-import { mergeHomepageSettings } from '@/lib/catalog/homepage'
+import { mergeHomepageSettings, applyPhotoshootHomepageDefaults } from '@/lib/catalog/homepage'
 import { normalizeCatalogPayload } from '@/lib/catalog/validate'
 import { DEFAULT_HOMEPAGE_SETTINGS } from '@/lib/catalog/homepage-defaults'
 import type { CatalogProduct } from '@/lib/catalog/types'
@@ -119,5 +119,41 @@ describe('mergeHomepageSettings', () => {
     })
     expect(merged.sections.instagram).toBe(false)
     expect(merged.sections.hero).toBe(true)
+  })
+})
+
+describe('applyPhotoshootHomepageDefaults', () => {
+  it('keeps CMS settings when the photoshoot SKU is not in the catalog', () => {
+    const stored = mergeHomepageSettings({
+      heroSlides: DEFAULT_HOMEPAGE_SETTINGS.heroSlides.slice(3, 6),
+      bestSellerIds: ['keyrings-name'],
+    })
+    const next = applyPhotoshootHomepageDefaults(stored, ['keyrings-name'])
+    expect(next.bestSellerIds).toEqual(['keyrings-name'])
+    expect(next.heroSlides[0]?.eyebrow).toBe('Pooja & Decor')
+  })
+
+  it('uses code defaults when the photoshoot catalog is live but CMS is stale', () => {
+    const stored = mergeHomepageSettings({
+      heroSlides: DEFAULT_HOMEPAGE_SETTINGS.heroSlides.slice(3, 6),
+      bestSellerIds: ['keyrings-name'],
+    })
+    const next = applyPhotoshootHomepageDefaults(stored, ['home-decor-alphabet-name'])
+    expect(next.bestSellerIds).toEqual(DEFAULT_HOMEPAGE_SETTINGS.bestSellerIds)
+    expect(next.heroSlides[0]?.eyebrow).toBe('Personalized Home Decor')
+  })
+
+  it('leaves CMS settings alone once a photoshoot SKU is already featured', () => {
+    const stored = mergeHomepageSettings({
+      heroSlides: [
+        {
+          ...DEFAULT_HOMEPAGE_SETTINGS.heroSlides[0],
+          productIds: ['home-decor-alphabet-name'],
+        },
+      ],
+      bestSellerIds: ['home-decor-alphabet-name'],
+    })
+    const next = applyPhotoshootHomepageDefaults(stored, ['home-decor-alphabet-name'])
+    expect(next).toBe(stored)
   })
 })

@@ -2,12 +2,13 @@
  * @jest-environment node
  *
  * Data integrity contract for lib/products.json.
- * These tests guard the shape of all 24 products so that components,
+ * These tests guard the shape of all catalog products so that components,
  * the pricing helper, and the cart can rely on it.
  */
 
 import products from '@/lib/products.json'
 import { categories } from '@/lib/categories'
+import { DEFAULT_HOMEPAGE_SETTINGS } from '@/lib/catalog/homepage-defaults'
 
 // Build the set of valid category slugs from the canonical taxonomy
 const validCategorySlugs = new Set(categories.map((c) => c.slug))
@@ -31,8 +32,8 @@ describe('lib/products.json — data integrity', () => {
     expect(catalog.length).toBeGreaterThan(0)
   })
 
-  it('contains exactly 66 products', () => {
-    expect(catalog).toHaveLength(66)
+  it('contains exactly 93 products', () => {
+    expect(catalog).toHaveLength(93)
   })
 
   describe('every product has required fields', () => {
@@ -119,16 +120,20 @@ describe('lib/products.json — data integrity', () => {
       expect(catalog.filter((p) => p.category === 'lamps')).toHaveLength(8)
     })
 
-    it('has 8 organizers', () => {
-      expect(catalog.filter((p) => p.category === 'organizers')).toHaveLength(8)
+    it('has 16 home-decor', () => {
+      expect(catalog.filter((p) => p.category === 'home-decor')).toHaveLength(16)
+    })
+
+    it('has 17 organizers', () => {
+      expect(catalog.filter((p) => p.category === 'organizers')).toHaveLength(17)
     })
 
     it('has 8 planters', () => {
       expect(catalog.filter((p) => p.category === 'planters')).toHaveLength(8)
     })
 
-    it('has 9 pooja-decor', () => {
-      expect(catalog.filter((p) => p.category === 'pooja-decor')).toHaveLength(9)
+    it('has 11 pooja-decor', () => {
+      expect(catalog.filter((p) => p.category === 'pooja-decor')).toHaveLength(11)
     })
 
     it('has 14 keyrings', () => {
@@ -167,6 +172,22 @@ describe('lib/products.json — data integrity', () => {
         })
       })
       expect(violations).toHaveLength(0)
+    })
+  })
+
+  describe('homepage featured SKUs', () => {
+    const ids = new Set(catalog.map((p) => p.id))
+
+    it('every best-seller id exists in the catalog', () => {
+      const missing = DEFAULT_HOMEPAGE_SETTINGS.bestSellerIds.filter((id) => !ids.has(id))
+      expect(missing).toEqual([])
+    })
+
+    it('every hero scroller product id exists in the catalog', () => {
+      const missing = DEFAULT_HOMEPAGE_SETTINGS.heroSlides
+        .flatMap((slide) => slide.productIds)
+        .filter((id) => !ids.has(id))
+      expect(missing).toEqual([])
     })
   })
 })
