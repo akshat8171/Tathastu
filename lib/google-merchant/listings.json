@@ -1,0 +1,164 @@
+[
+  {
+    "offerId": "TK-P01-FS-GRN",
+    "productId": "home-decor-alphabet-name",
+    "ageGroup": "kids",
+    "productType": "Name Showpiece"
+  },
+  {
+    "offerId": "TK-P02-FS-PRP",
+    "productId": "organizers-desk-pen-holder",
+    "ageGroup": "adult",
+    "productType": "Pen Holder"
+  },
+  {
+    "offerId": "TK-P03-FS-YEL",
+    "productId": "organizers-giant-name-pencil",
+    "ageGroup": "kids",
+    "productType": "Pencil Holder"
+  },
+  {
+    "offerId": "TK-P04-FS-PNK",
+    "productId": "organizers-name-pen-stand",
+    "ageGroup": "adult",
+    "productType": "Desk Organizer"
+  },
+  {
+    "offerId": "TK-P05-FS-BLU",
+    "productId": "organizers-pencil-shape-stand",
+    "ageGroup": "kids",
+    "productType": "Pen Holder"
+  },
+  {
+    "offerId": "TK-P06-FS-PNK",
+    "productId": "home-decor-sliding-photo-book",
+    "ageGroup": "adult",
+    "productType": "Photo Frame"
+  },
+  {
+    "offerId": "TK-P07-FS-GRN",
+    "productId": "pooja-decor-kanhaji",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P08-FS-PNK",
+    "productId": "home-decor-instax-magnet",
+    "ageGroup": "adult",
+    "productType": "Fridge Magnet"
+  },
+  {
+    "offerId": "TK-P09-FS-ORG",
+    "productId": "home-decor-couple-initials",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P10-FS-GRN",
+    "productId": "home-decor-photo-rotator",
+    "ageGroup": "adult",
+    "productType": "Photo Frame"
+  },
+  {
+    "offerId": "TK-P11-FS-MLT",
+    "productId": "home-decor-butterfly-name",
+    "ageGroup": "kids",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P12-FS-RED",
+    "productId": "home-decor-couple-name",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P13-FS-BGE",
+    "productId": "organizers-wall-key-holder",
+    "ageGroup": "adult",
+    "productType": "Key Holder"
+  },
+  {
+    "offerId": "TK-P14-FS-GRN",
+    "productId": "organizers-seashell-jewelry-dish",
+    "ageGroup": "adult",
+    "productType": "Jewelry Dish"
+  },
+  {
+    "offerId": "TK-P15-FS-GRN",
+    "productId": "home-decor-mermaid-vase",
+    "ageGroup": "adult",
+    "productType": "Vase"
+  },
+  {
+    "offerId": "TK-P16-FS-PRP",
+    "productId": "home-decor-kids-door-nameplate",
+    "ageGroup": "kids",
+    "productType": "Nameplate"
+  },
+  {
+    "offerId": "TK-P17-FS-ORG",
+    "productId": "organizers-bow-jewelry-basket",
+    "ageGroup": "adult",
+    "productType": "Jewelry Basket"
+  },
+  {
+    "offerId": "TK-P18-FS-BLU",
+    "productId": "organizers-name-perfume-tray",
+    "ageGroup": "adult",
+    "productType": "Tray"
+  },
+  {
+    "offerId": "TK-P19-FS-MLT",
+    "productId": "home-decor-couple-miniature",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P20-FS-GRY",
+    "productId": "home-decor-twisted-loop",
+    "ageGroup": "adult",
+    "productType": "Sculpture"
+  },
+  {
+    "offerId": "TK-P21-FS-SLV",
+    "productId": "home-decor-child-car",
+    "ageGroup": "kids",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P22-FS-BLU",
+    "productId": "home-decor-first-year-board",
+    "ageGroup": "infant",
+    "productType": "Photo Frame"
+  },
+  {
+    "offerId": "TK-P23-FS-BRN",
+    "productId": "home-decor-sitar-plaque",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P24-FS-ORG",
+    "productId": "pooja-decor-aham-brahmasmi",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P25-FS-BGE",
+    "productId": "home-decor-umbrella-lady",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P26-FS-BLU",
+    "productId": "organizers-office-name-sign",
+    "ageGroup": "adult",
+    "productType": "Pen Holder"
+  },
+  {
+    "offerId": "TK-P27-FS-MLT",
+    "productId": "home-decor-bilingual-name",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  }
+]

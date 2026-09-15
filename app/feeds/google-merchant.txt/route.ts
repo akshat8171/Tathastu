@@ -1,16 +1,8 @@
-import { buildGoogleMerchantTsv } from '@/lib/google-merchant/feed'
+import { googleMerchantTsvResponse } from '@/lib/google-merchant/load-feed'
 
 /**
- * Google Merchant Center tab-delimited product feed.
- *
- * Use this if Merchant Center is set to TXT/TSV instead of XML.
+ * Google Merchant Center tab-delimited product feed, built from the live catalog.
  */
-export function GET(): Response {
-  return new Response(buildGoogleMerchantTsv(), {
-    status: 200,
-    headers: {
-      'Content-Type': 'text/tab-separated-values; charset=utf-8',
-      'Cache-Control': 'public, max-age=300, s-maxage=300',
-    },
-  })
+export async function GET(): Promise<Response> {
+  return googleMerchantTsvResponse()
 }

@@ -1,5 +1,3 @@
-import merchantProductsJson from './products.json'
-
 export interface MerchantProduct {
   id: string
   title: string
@@ -54,8 +52,6 @@ const TSV_COLUMNS: Array<keyof MerchantProduct> = [
   'age_group',
   'is_bundle',
 ]
-
-export const merchantProducts = merchantProductsJson as MerchantProduct[]
 
 export function escapeXml(value: string): string {
   return value
@@ -147,9 +143,7 @@ function xmlItem(product: MerchantProduct): string {
   )
 }
 
-export function buildGoogleMerchantXml(
-  products: MerchantProduct[] = merchantProducts,
-): string {
+export function buildGoogleMerchantXml(products: MerchantProduct[]): string {
   return (
     `<?xml version="1.0" encoding="UTF-8"?>\n` +
     `<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">\n` +
@@ -170,9 +164,7 @@ function tsvCell(value: string): string {
   return value
 }
 
-export function buildGoogleMerchantTsv(
-  products: MerchantProduct[] = merchantProducts,
-): string {
+export function buildGoogleMerchantTsv(products: MerchantProduct[]): string {
   const header = TSV_COLUMNS.join('\t')
   const lines = products.map((product) =>
     TSV_COLUMNS.map((column) => tsvCell(product[column] ?? '')).join('\t'),

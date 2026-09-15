@@ -11,7 +11,8 @@
     "lint": "echo 'Lint skipped — ESLint 9 flat-config migration pending (next@16 dropped next lint)'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "merchant:check": "jest --testPathPatterns=google-merchant --ci"
   },
   "dependencies": {
     "@google/genai": "^2.13.0",
