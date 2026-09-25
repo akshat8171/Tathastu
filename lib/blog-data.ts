@@ -9,6 +9,7 @@
 import { festivalPosts } from './blog-posts-festivals'
 import { giftingPosts } from './blog-posts-gifting'
 import { customPosts } from './blog-posts-custom'
+import { trendingPosts } from './blog-posts-trending'
 
 export type BlogCategory = 'services' | 'products' | 'guides' | 'brand'
 
@@ -3124,11 +3125,11 @@ const corePosts: BlogPost[] = [
 ]
 
 /**
- * Master blog list — core posts plus imported festival, gifting and custom
- * posts. Festival/seasonal content is ordered first so timely posts surface at
- * the top of the /blog listing and related-posts widgets.
+ * Master blog list. Trending product posts are first so new buying guides
+ * surface at the top of /blog, then festival, gifting, custom, and core posts.
  */
 export const blogPosts: BlogPost[] = [
+  ...trendingPosts,
   ...festivalPosts,
   ...giftingPosts,
   ...customPosts,
