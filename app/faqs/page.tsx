@@ -44,10 +44,9 @@ const faqGroups: FaqGroup[] = [
         question: 'What payment methods do you accept?',
         answer: (
           <p>
-            We accept all major payment methods via <strong>Razorpay</strong>: credit cards,
-            debit cards, UPI (GPay, PhonePe, Paytm), net banking, and popular digital wallets. We
-            also offer <strong>Cash on Delivery (COD)</strong> for eligible orders. COD
-            availability depends on your PIN code and order value.
+            We accept prepaid payments via <strong>Razorpay</strong>: credit cards, debit cards,
+            UPI (GPay, PhonePe, Paytm), net banking, and popular digital wallets. Cash on
+            delivery is not available.
           </p>
         ),
       },
@@ -197,8 +196,7 @@ const faqGroups: FaqGroup[] = [
         answer: (
           <p>
             Shipping is <strong>FREE on all orders above ₹{FREE_SHIPPING_THRESHOLD}</strong>. A
-            flat shipping fee of <strong>₹{SHIPPING_FEE}</strong> applies to orders below that
-            threshold. COD orders may have an additional nominal COD handling fee shown at checkout.
+            flat shipping fee of <strong>₹{SHIPPING_FEE}</strong> applies to orders of ₹{FREE_SHIPPING_THRESHOLD} or less.
           </p>
         ),
       },
@@ -212,16 +210,6 @@ const faqGroups: FaqGroup[] = [
               My Account → Track Order
             </Link>
             .
-          </p>
-        ),
-      },
-      {
-        question: 'Is Cash on Delivery (COD) available?',
-        answer: (
-          <p>
-            Yes! COD is available for most PIN codes across India. Availability and any COD
-            handling fee are shown at checkout. COD is not available for orders above ₹5,000 or
-            certain remote areas.
           </p>
         ),
       },
@@ -295,8 +283,8 @@ const faqGroups: FaqGroup[] = [
         answer: (
           <p>
             Approved refunds are processed back to your original payment method via Razorpay
-            within <strong>5–10 business days</strong> for cards/UPI and 3–7 business days for
-            other methods. COD refunds are processed via bank transfer. See the full timeline in
+            within <strong>5–10 business days</strong> for cards and UPI, and 3–7 business days
+            for other prepaid methods. See the full timeline in
             our{' '}
             <Link href="/refund-and-returns-policy" className="text-brand hover:underline">
               Refund &amp; Returns Policy

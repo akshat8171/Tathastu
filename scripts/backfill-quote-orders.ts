@@ -81,7 +81,7 @@ async function main(): Promise<void> {
         tax: 0,
         shipping: 0,
         total: price,
-        payment_method: 'cod',
+        payment_method: 'razorpay',
         payment_status: 'pending',
         status: 'pending',
         notes: quoteOrderNotes(quote.id, quote.type, quote.description),

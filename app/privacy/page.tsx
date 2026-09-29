@@ -55,7 +55,7 @@ export default function PrivacyPage() {
               </li>
               <li>
                 <strong>Order History:</strong> items ordered, quantities, prices, order status,
-                and payment method (Prepaid via Razorpay or Cash on Delivery).
+                and payment method (prepaid via Razorpay).
               </li>
               <li>
                 <strong>Payment Information:</strong> we do <em>not</em> store your card details or

@@ -5,7 +5,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from './cart-context'
 import { Button } from '@/components/ui/button'
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
+import {
+  amountUntilFreeShipping,
+  freeShippingProgressPercent,
+  qualifiesForFreeShipping,
+  shippingForSubtotal,
+} from '@/lib/pricing'
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat('en-IN', {
@@ -39,9 +44,10 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   }
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
-  const remaining = FREE_SHIPPING_THRESHOLD - subtotal
-  const freeShippingPct = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100))
+  const shipping = shippingForSubtotal(subtotal)
+  const remaining = amountUntilFreeShipping(subtotal)
+  const freeShippingPct = freeShippingProgressPercent(subtotal)
+  const hasFreeShipping = qualifiesForFreeShipping(subtotal)
 
   return (
     <>
@@ -87,7 +93,7 @@ export function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
         {/* Free-delivery progress */}
         {cartItems.length > 0 && (
           <div className="px-5 py-3 bg-surface border-b border-gray-100">
-            {subtotal >= FREE_SHIPPING_THRESHOLD ? (
+            {hasFreeShipping ? (
               <p className="text-xs font-sans font-semibold text-brand text-center">
                 🎉 You&apos;ve unlocked FREE delivery!
               </p>

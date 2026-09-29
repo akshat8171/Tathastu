@@ -79,8 +79,8 @@ export default function ShippingPolicyPage() {
               </table>
             </div>
             <p className="mt-3 text-sm text-muted">
-              Shipping charges are calculated at checkout based on your order total before discounts.
-              COD (Cash on Delivery) orders may attract an additional nominal COD handling fee.
+              Shipping charges are calculated at checkout from the merchandise total before discounts.
+              Delivery is free only when that total is above ₹{FREE_SHIPPING_THRESHOLD}.
             </p>
           </section>
 
@@ -211,8 +211,8 @@ export default function ShippingPolicyPage() {
                 will apply.
               </li>
               <li>
-                For COD orders returned to us due to non-acceptance, the product cost will not be
-                refunded; only prepaid orders are eligible for a refund in such circumstances.
+                If an order is returned because it was refused, a refund of the product cost follows
+                our refund policy.
               </li>
             </ul>
           </section>
@@ -262,13 +262,11 @@ export default function ShippingPolicyPage() {
           {/* Section 10 */}
           <section>
             <h2 className="font-display font-bold text-ink text-xl sm:text-2xl mb-3">
-              10. COD Availability
+              10. Payment
             </h2>
             <p>
-              Cash on Delivery (COD) is available for most PIN codes across India. Availability is
-              shown at checkout. COD is <em>not available</em> for orders above ₹5,000 or for
-              certain remote PIN codes. A nominal COD handling fee may apply and will be shown
-              before you confirm the order.
+              All orders are prepaid through Razorpay (UPI, cards, net banking, or wallets).
+              Cash on delivery is not available.
             </p>
           </section>
 

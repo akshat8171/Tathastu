@@ -114,7 +114,7 @@ export function Footer() {
                 <svg className="w-4 h-4 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8l1 8a2 2 0 002 2h8a2 2 0 002-2l1-8" />
                 </svg>
-                Pan-India delivery · COD available
+                Pan-India delivery · Prepaid orders only
               </span>
               <span className="flex items-center gap-2">
                 <svg className="w-4 h-4 text-brand shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -238,8 +238,6 @@ export function Footer() {
               <span className="bg-white/10 rounded px-2 py-0.5 text-white/60 font-display font-bold text-[10px] tracking-wide">UPI</span>
               {/* Cards */}
               <span className="bg-white/10 rounded px-2 py-0.5 text-white/60 font-display font-bold text-[10px] tracking-wide">CARD</span>
-              {/* COD */}
-              <span className="bg-white/10 rounded px-2 py-0.5 text-white/60 font-display font-bold text-[10px] tracking-wide">COD</span>
             </span>
           </div>
         </div>

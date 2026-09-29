@@ -1,4 +1,5 @@
 import { DEFAULT_HOMEPAGE_SETTINGS } from './homepage-defaults'
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
 import type {
   CategoryRailConfig,
   HeroSlide,
@@ -75,11 +76,19 @@ export function mergeHomepageSettings(raw: unknown): HomepageSettings {
     promo: {
       enabled: typeof promoRaw.enabled === 'boolean' ? promoRaw.enabled : defaults.promo.enabled,
       headline: asString(promoRaw.headline, defaults.promo.headline).slice(0, 120),
-      subcopy: asString(promoRaw.subcopy, defaults.promo.subcopy).slice(0, 200),
+      subcopy: withCurrentFreeShippingCopy(asString(promoRaw.subcopy, defaults.promo.subcopy)).slice(0, 200),
       code: asString(promoRaw.code, defaults.promo.code).slice(0, 32).toUpperCase(),
     },
     categoryRails: mergeRails(row.categoryRails),
   }
+}
+
+/** Older promo copy advertised free shipping over ₹199. Keep saved CMS text, but correct that figure. */
+function withCurrentFreeShippingCopy(subcopy: string): string {
+  return subcopy.replace(
+    /free shipping on orders over ₹199/gi,
+    `Free shipping on orders above ₹${FREE_SHIPPING_THRESHOLD}`
+  )
 }
 
 const PHOTOSHOOT_FEATURE_ID = 'home-decor-alphabet-name'

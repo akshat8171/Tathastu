@@ -44,7 +44,7 @@ function getStepIndex(status: string): number {
   return map[status] ?? 0
 }
 
-function OrderTimeline({ status }: { status: string }) {
+function OrderTimeline({ status, paymentStatus }: { status: string; paymentStatus: string }) {
   if (status === 'cancelled') {
     return (
       <div className="flex items-center gap-3 bg-red-50 border border-red-200 rounded-xl px-5 py-4">
@@ -62,8 +62,9 @@ function OrderTimeline({ status }: { status: string }) {
   }
 
   const currentIndex = getStepIndex(status)
-  // For COD / pending orders, show "placed" as the first completed step
-  const effectiveIndex = status === 'pending' ? 0 : currentIndex
+  // Unpaid orders stay on "placed" until Razorpay marks the payment paid.
+  const effectiveIndex =
+    status === 'pending' || (status === 'paid' && paymentStatus !== 'paid') ? 0 : currentIndex
 
   return (
     <div className="relative" aria-label="Order status timeline">
@@ -157,10 +158,9 @@ export default async function OrderConfirmationPage({ params }: Props) {
   // Fetch tracking status (mock when TRACKING_PROVIDER unset)
   const tracking = await getTrackingStatus(order)
 
-  // COD detection: payment_method may be 'cod' from the DB even though the
-  // TypeScript union doesn't list it yet — cast to string for the comparison.
-  const isCod =
-    (order.payment_method as string) === 'cod' || order.payment_status !== 'paid'
+  // Older orders may still be cash on delivery. New checkout is prepaid only.
+  const isCod = (order.payment_method as string) === 'cod' && order.payment_status !== 'paid'
+  const awaitingPayment = !isCod && order.payment_status !== 'paid' && order.status !== 'cancelled'
 
   return (
     <main className="container-page py-16">
@@ -171,15 +171,15 @@ export default async function OrderConfirmationPage({ params }: Props) {
             className={`w-20 h-20 rounded-full flex items-center justify-center ${
               order.status === 'cancelled'
                 ? 'bg-red-100'
-                : isCod ? 'bg-amber-100' : 'bg-brand/10'
+                : isCod || awaitingPayment ? 'bg-amber-100' : 'bg-brand/10'
             }`}
           >
             {order.status === 'cancelled' ? (
               <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18 18 6M6 6l12 12" />
               </svg>
-            ) : isCod ? (
-              /* Truck / delivery icon for COD */
+            ) : isCod || awaitingPayment ? (
+              /* Pending payment — legacy COD or unpaid prepaid */
               <svg
                 className="w-10 h-10 text-amber-600"
                 fill="none"
@@ -229,6 +229,17 @@ export default async function OrderConfirmationPage({ params }: Props) {
                 ready to pay on delivery.
               </p>
             </>
+          ) : awaitingPayment ? (
+            <>
+              <h1 className="text-3xl font-display font-bold text-ink mb-2">
+                Payment pending
+              </h1>
+              <p className="text-muted font-sans">
+                This order is saved. Complete online payment of{' '}
+                <span className="font-semibold text-ink">{fmt.format(order.total)}</span>{' '}
+                to confirm it.
+              </p>
+            </>
           ) : (
             <>
               <h1 className="text-3xl font-display font-bold text-ink mb-2">
@@ -260,7 +271,7 @@ export default async function OrderConfirmationPage({ params }: Props) {
         {/* ── Order Status Timeline ────────────────────────────────────────── */}
         <div className="card p-6 mb-4">
           <h2 className="font-display font-semibold text-ink mb-5">Order Status</h2>
-          <OrderTimeline status={order.status} />
+          <OrderTimeline status={order.status} paymentStatus={order.payment_status} />
 
           {/* Tracking info when available */}
           {tracking.trackingNumber && (
@@ -372,7 +383,9 @@ export default async function OrderConfirmationPage({ params }: Props) {
               <span className="text-ink">
                 {isCod
                   ? "Order confirmed — we'll start printing right away."
-                  : 'Payment confirmed — your order is secured.'}
+                  : awaitingPayment
+                    ? 'Complete payment and we will start printing.'
+                    : 'Payment confirmed — your order is secured.'}
               </span>
             </li>
             <li className="flex items-start gap-3">

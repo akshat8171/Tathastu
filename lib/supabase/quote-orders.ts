@@ -11,6 +11,7 @@ import {
   quoteCustomerPhone,
   quoteOrderNotes,
 } from './quote-order-notes'
+import { shippingForSubtotal } from '@/lib/pricing'
 
 export type EnsureQuoteOrderResult = {
   ok: boolean
@@ -101,6 +102,7 @@ export async function ensureOrderForQuote(quoteId: string): Promise<EnsureQuoteO
       })
     : null
   const price = Number(quote.quoted_price) || 0
+  const shipping = price > 0 ? shippingForSubtotal(price) : 0
 
   const { order, error } = await createOrder({
     customer_name: quote.name,
@@ -116,8 +118,9 @@ export async function ensureOrderForQuote(quoteId: string): Promise<EnsureQuoteO
       },
     ],
     subtotal: price,
-    total: price,
-    payment_method: 'cod',
+    shipping,
+    total: price + shipping,
+    payment_method: 'razorpay',
     notes: quoteOrderNotes(quote.id, quote.type, quote.description),
   })
 

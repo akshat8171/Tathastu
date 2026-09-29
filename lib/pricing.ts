@@ -7,12 +7,38 @@
 
 import productsData from '@/lib/products.json'
 
-// ── Shipping constants (FROZEN CONTRACT §2) ──────────────────────────────────
-/** Orders with subtotal ABOVE this threshold qualify for free shipping. */
-export const FREE_SHIPPING_THRESHOLD = 199 // was 999 — reference parity
+// ── Shipping constants ───────────────────────────────────────────────────────
+/** Free delivery applies only when the merchandise subtotal is above this amount. */
+export const FREE_SHIPPING_THRESHOLD = 1500
 
-/** Flat shipping fee in rupees when subtotal does not qualify for free shipping. */
+/** Flat shipping fee in rupees when the subtotal does not qualify for free delivery. */
 export const SHIPPING_FEE = 99
+
+/** True when the merchandise subtotal qualifies for free delivery. */
+export function qualifiesForFreeShipping(subtotal: number): boolean {
+  return subtotal > FREE_SHIPPING_THRESHOLD
+}
+
+/** Shipping charge for a merchandise subtotal. Discount does not change this. */
+export function shippingForSubtotal(subtotal: number): number {
+  return qualifiesForFreeShipping(subtotal) ? 0 : SHIPPING_FEE
+}
+
+/**
+ * Rupees still needed before delivery is free.
+ * The rule is strict: ₹1500 still pays shipping; ₹1501 does not.
+ */
+export function amountUntilFreeShipping(subtotal: number): number {
+  if (qualifiesForFreeShipping(subtotal)) return 0
+  return FREE_SHIPPING_THRESHOLD - subtotal + 1
+}
+
+/** Progress toward free delivery, complete only once the order is above the threshold. */
+export function freeShippingProgressPercent(subtotal: number): number {
+  if (subtotal <= 0) return 0
+  const goal = FREE_SHIPPING_THRESHOLD + 1
+  return Math.min(100, Math.round((subtotal / goal) * 100))
+}
 
 interface ProductRecord {
   id: string
@@ -57,7 +83,7 @@ export interface RepriceError {
  * rows from admin) and recomputes order totals.
  *
  * Returns { ok: false, unknownId } if any product_id is not found.
- * Shipping rule: FREE when subtotal > FREE_SHIPPING_THRESHOLD, else SHIPPING_FEE.
+ * Shipping rule: FREE when subtotal is above FREE_SHIPPING_THRESHOLD, else SHIPPING_FEE.
  *
  * `extraProducts` overlays/extends the JSON map so admin-created SKUs can
  * check out. JSON-only tests keep calling this with one argument.
@@ -93,7 +119,7 @@ export function repriceItems(
   }
 
   const subtotal = pricedItems.reduce((sum, i) => sum + i.serverPrice * i.quantity, 0)
-  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
+  const shipping = shippingForSubtotal(subtotal)
   const total = subtotal + shipping
 
   return { ok: true, items: pricedItems, subtotal, shipping, total, discount: 0, couponCode: null }

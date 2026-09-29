@@ -9,7 +9,13 @@ jest.mock('@/lib/products.json', () => [
   { id: 'organizers-organizer1', price: 1899 },
 ])
 
-import { repriceItems, applyDiscount } from '@/lib/pricing'
+import {
+  repriceItems,
+  applyDiscount,
+  shippingForSubtotal,
+  amountUntilFreeShipping,
+  SHIPPING_FEE,
+} from '@/lib/pricing'
 
 describe('repriceItems', () => {
   it('returns server-authoritative price, ignoring client price', () => {
@@ -33,9 +39,9 @@ describe('repriceItems', () => {
     expect(result.subtotal).toBe(4598 + 1899) // 6497
   })
 
-  it('applies free shipping when subtotal > 999', () => {
+  it('applies free shipping when subtotal is above ₹1500', () => {
     const result = repriceItems([
-      { product_id: 'lamps-lamp1', product_name: 'Lamp', quantity: 1 }, // 2299 > 999
+      { product_id: 'lamps-lamp1', product_name: 'Lamp', quantity: 1 }, // 2299
     ])
 
     expect(result.ok).toBe(true)
@@ -44,20 +50,26 @@ describe('repriceItems', () => {
     expect(result.total).toBe(result.subtotal)
   })
 
-  it('applies ₹99 shipping when subtotal <= 999', () => {
-    // This scenario doesn't happen with current products (all > 999) but we
-    // can test the boundary by mocking a cheap product.  Since we can't change
-    // the mock inside a test, we verify the formula with an organizer at quantity
-    // that stays ≤ 999. organizer1 = 1899 which is > 999, so we rely on the
-    // formula test through the boundary check only.
-    //
-    // Verify: subtotal=2299 > 999 → shipping=0 (not 99)
-    const result = repriceItems([
-      { product_id: 'lamps-lamp1', product_name: 'Lamp', quantity: 1 },
-    ])
-    expect(result.ok).toBe(true)
-    if (!result.ok) return
-    expect(result.shipping).toBe(0) // because 2299 > 999
+  it('charges shipping at ₹1500 and waives it above ₹1500', () => {
+    const atThreshold = repriceItems(
+      [{ product_id: 'small-piece', product_name: 'Small', quantity: 1 }],
+      [{ id: 'small-piece', price: 1500 }]
+    )
+    const above = repriceItems(
+      [{ product_id: 'small-piece', product_name: 'Small', quantity: 1 }],
+      [{ id: 'small-piece', price: 1501 }]
+    )
+
+    expect(atThreshold.ok).toBe(true)
+    expect(above.ok).toBe(true)
+    if (!atThreshold.ok || !above.ok) return
+    expect(atThreshold.shipping).toBe(SHIPPING_FEE)
+    expect(atThreshold.total).toBe(1500 + SHIPPING_FEE)
+    expect(above.shipping).toBe(0)
+    expect(above.total).toBe(1501)
+    expect(amountUntilFreeShipping(1500)).toBe(1)
+    expect(amountUntilFreeShipping(1499)).toBe(2)
+    expect(shippingForSubtotal(1501)).toBe(0)
   })
 
   it('returns error for unknown product_id', () => {

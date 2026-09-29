@@ -4,7 +4,9 @@ import { requireAdmin } from '@/lib/auth/admin'
 import { sanitizeSearchTerm } from '@/lib/validation/search'
 import { createOfflineOrderSchema } from '@/lib/validation/offline-order'
 import { createOfflineOrder } from '@/lib/supabase/offline-orders'
+import { getOrderItems, repriceCustomOrderItems } from '@/lib/supabase/orders'
 import { isOrderChannel } from '@/lib/offline-orders'
+import { isCustomQuoteOrder, parseConfirmedUnitPrice } from '@/lib/admin/custom-order-price'
 
 export const dynamic = 'force-dynamic'
 
@@ -100,7 +102,7 @@ export async function PATCH(request: NextRequest) {
 
   try {
     const body = await request.json()
-    const { orderId, status, trackingNumber } = body
+    const { orderId, status, trackingNumber, confirmedPrice } = body
 
     if (!orderId || !status) {
       return NextResponse.json(
@@ -109,7 +111,59 @@ export async function PATCH(request: NextRequest) {
       )
     }
 
-    const updateData: any = { status }
+    const priceWasSent = confirmedPrice !== undefined && confirmedPrice !== null && confirmedPrice !== ''
+    const parsedPrice = priceWasSent ? parseConfirmedUnitPrice(confirmedPrice) : null
+    if (priceWasSent && parsedPrice === null) {
+      return NextResponse.json({ error: 'Enter a valid price in rupees.' }, { status: 400 })
+    }
+
+    const updateData: Record<string, unknown> = { status }
+
+    if (parsedPrice !== null || status === 'paid') {
+      const { data: existing, error: loadError } = await supabaseAdmin
+        .from('orders')
+        .select('id, notes, total, discount, tax')
+        .eq('id', orderId)
+        .single()
+
+      if (loadError || !existing) {
+        return NextResponse.json({ error: 'Order not found' }, { status: 404 })
+      }
+
+      const items = await getOrderItems(orderId)
+      const customOrder = isCustomQuoteOrder(
+        existing.notes as string | null,
+        items.map((item) => item.product_name)
+      )
+
+      if (status === 'paid' && customOrder && parsedPrice === null && Number(existing.total) <= 0) {
+        return NextResponse.json(
+          { error: 'Enter the confirmed price before marking this custom order confirmed.' },
+          { status: 400 }
+        )
+      }
+
+      if (parsedPrice !== null) {
+        if (!customOrder) {
+          return NextResponse.json(
+            { error: 'Price can only be updated on a custom order.' },
+            { status: 400 }
+          )
+        }
+        const repriced = await repriceCustomOrderItems(items, parsedPrice, {
+          notes: existing.notes as string | null,
+          discount: Number(existing.discount) || 0,
+          tax: Number(existing.tax) || 0,
+        })
+        if (!repriced.ok) {
+          return NextResponse.json({ error: repriced.error }, { status: 400 })
+        }
+        updateData.subtotal = repriced.subtotal
+        updateData.discount = repriced.discount
+        updateData.shipping = repriced.shipping
+        updateData.total = repriced.total
+      }
+    }
 
     if (status === 'shipped' && trackingNumber) {
       updateData.tracking_number = trackingNumber

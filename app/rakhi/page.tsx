@@ -14,6 +14,7 @@
  */
 
 import type { Metadata } from 'next'
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ProductCard } from '@/components/ui/product-card'
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   // lean so the primary keyword phrase survives Google's ~60-char SERP cut.
   title: 'Personalised Rakhi Online — 3D-Printed Rakhi to Keychain',
   description:
-    'Personalised rakhi that becomes a keychain keepsake. Name, photo, gaming, cricket & superhero rakhi, 3D-printed to order. From ₹259, COD & PAN-India delivery.',
+    'Personalised rakhi that becomes a keychain keepsake. Name, photo, gaming, cricket & superhero rakhi, 3D-printed to order. From ₹259, prepaid, with PAN-India delivery.',
   keywords: [
     'customised rakhi online',
     'customized rakhi',
@@ -106,9 +107,9 @@ const FAQS: Array<{ question: string; answer: string }> = [
       'Absolutely — that is our favourite kind of order. Share your idea, sketch or reference on our Customise page or WhatsApp us, and our Agra design team will 3D-print a one-of-a-kind rakhi keepsake just for you.',
   },
   {
-    question: 'How much does a customised rakhi cost and do you offer COD?',
+    question: 'How much does a customised rakhi cost?',
     answer:
-      'Customised single rakhi start at ₹259, with value sets like the Bhaiya Bhabhi (set of 2) and Family Rakhi (set of 4) offering a lower price per rakhi. We offer Cash on Delivery and tracked, insured PAN-India shipping, with free shipping on orders over ₹199.',
+      `Customised single rakhi start at ₹259, with value sets like the Bhaiya Bhabhi (set of 2) and Family Rakhi (set of 4) offering a lower price per rakhi. Payment is online via Razorpay. Tracked PAN-India shipping is free on orders above ₹${FREE_SHIPPING_THRESHOLD}.`,
   },
   {
     question: 'How long does delivery take?',
@@ -203,7 +204,7 @@ export default async function RakhiLandingPage() {
               {/* Trust chips */}
               <div className="flex flex-wrap gap-4 mt-6 text-xs text-white/90 font-sans">
                 <span>✓ Becomes a keychain</span>
-                <span>✓ COD available</span>
+                <span>✓ Pay online</span>
                 <span>✓ PAN-India delivery</span>
                 <span>✓ Made to order in Agra</span>
               </div>
@@ -396,7 +397,7 @@ export default async function RakhiLandingPage() {
             Order Your Customised Rakhi Before 24 August 2026
           </h2>
           <p className="text-white/90 font-sans mb-6 max-w-xl mx-auto">
-            Made to order in Agra, delivered across India in time for Raksha Bandhan. COD available.
+            Made to order in Agra, delivered across India in time for Raksha Bandhan. Pay online at checkout.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <a href="#rakhi-collection" className="btn-primary bg-white text-[#9f1239] hover:bg-white/90">Shop Rakhi Now</a>

@@ -676,7 +676,7 @@ const corePosts: BlogPost[] = [
 <li><strong>No hidden charges</strong> — The quote you receive is the price you pay. Period. We include support material, basic finishing, and packaging in our quoted price.</li>
 <li><strong>Volume discounts for bulk orders</strong> — Ordering 20+ units? You automatically qualify for tiered discounts (up to 25% off). Corporate orders and event batches get even better rates.</li>
 <li><strong>Transparent revisions policy</strong> — If your design needs adjustments after quoting, we will re-quote with full explanation of the cost change.</li>
-<li><strong>PAN India delivery included</strong> — We ship across India. Delivery charges are clearly mentioned upfront (free shipping on orders above &#8377;999).</li>
+<li><strong>PAN India delivery included</strong> — We ship across India. Delivery charges are clearly mentioned upfront (free shipping on orders above &#8377;1500).</li>
 </ul>
 
 <h2>Tips to Reduce Your 3D Printing Cost</h2>
@@ -741,7 +741,7 @@ const corePosts: BlogPost[] = [
 <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
 <h3 itemprop="name">Do you deliver across India?</h3>
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-<p itemprop="text">Absolutely. Tathastu Keepsakes ships PAN India — from metros to tier-2 and tier-3 cities. We offer free shipping on orders above &#8377;999. All orders are securely packaged to ensure your 3D prints arrive in perfect condition.</p>
+<p itemprop="text">Absolutely. Tathastu Keepsakes ships PAN India — from metros to tier-2 and tier-3 cities. We offer free shipping on orders above &#8377;1500. All orders are securely packaged to ensure your 3D prints arrive in perfect condition.</p>
 </div>
 </div>
 
@@ -1125,7 +1125,7 @@ const corePosts: BlogPost[] = [
 <li><strong>Logo keychains (per unit, bulk):</strong> &#8377;149 &#8211; &#8377;349</li>
 </ul>
 
-<p>Free shipping on orders above &#8377;499. For orders below that, a nominal delivery charge of &#8377;49-99 applies depending on location.</p>
+<p>Free shipping on orders above &#8377;1500. Orders of &#8377;1500 or less pay a flat &#8377;99 delivery charge.</p>
 
 <h2>Frequently Asked Questions</h2>
 
@@ -1169,7 +1169,7 @@ const corePosts: BlogPost[] = [
 <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
 <h3 itemprop="name">Do you ship across India?</h3>
 <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-<p itemprop="text">Yes. Tathastu Keepsakes delivers PAN India — every pin code, every city. Free shipping on orders above &#8377;499. All shipments include tracking so you can follow your order.</p>
+<p itemprop="text">Yes. Tathastu Keepsakes delivers PAN India — every pin code, every city. Free shipping on orders above &#8377;1500. All shipments include tracking so you can follow your order.</p>
 </div>
 </div>
 
@@ -1184,7 +1184,7 @@ const corePosts: BlogPost[] = [
 <a href="https://wa.me/919154892790" style="display:inline-block; padding: 1rem 2rem; background:#16a34a; color:#fff; border-radius:0.5rem; text-decoration:none; font-weight:bold;">WhatsApp Us Your Idea</a>
 </p>
 
-<p style="text-align:center;"><em>Starting from just &#8377;199. Free shipping above &#8377;499. Bulk discounts available.</em></p>
+<p style="text-align:center;"><em>Starting from just &#8377;199. Free shipping above &#8377;1500. Bulk discounts available.</em></p>
 
 <p class="tagline"><strong>Tathastu Keepsakes</strong> — Custom 3D Printed Keychains &amp; Nameplates, Made in Agra, Delivered PAN India.</p>
 
@@ -1763,7 +1763,7 @@ const corePosts: BlogPost[] = [
 </tbody>
 </table>
 
-<p><em>All prices include photo optimisation, 3D printing, quality checking, and packaging. Shipping charges: Free above &#8377;699. Below &#8377;699: nominal &#8377;49-99 delivery charge.</em></p>
+<p><em>All prices include photo optimisation, 3D printing, quality checking, and packaging. Shipping charges: Free above &#8377;1500. Orders of &#8377;1500 or less: &#8377;99 delivery charge.</em></p>
 
 <h2>Perfect Occasions for Photo Lithophanes</h2>
 
@@ -1974,7 +1974,7 @@ const corePosts: BlogPost[] = [
 <li><strong>Express delivery available</strong> — Need it faster? We offer priority production and express shipping for time-sensitive orders. Just let us know your deadline.</li>
 <li><strong>Tracking provided</strong> — Every shipment comes with a tracking number shared via WhatsApp. You can follow your package from our workshop to your doorstep.</li>
 <li><strong>Protective packaging</strong> — Bubble wrap, foam inserts, rigid boxes. We pack like the item is irreplaceable — because to you, it might be.</li>
-<li><strong>Free shipping on orders above Rs 999</strong> — For smaller orders, a nominal delivery charge of Rs 49-99 applies depending on your location.</li>
+<li><strong>Free shipping on orders above Rs 1500</strong> — Orders of Rs 1500 or less pay a flat Rs 99 delivery charge.</li>
 <li><strong>Damage guarantee</strong> — In the rare event that something arrives damaged despite our careful packaging, we reprint and reship at zero cost. No arguments, no excuses.</li>
 </ul>
 
@@ -2962,7 +2962,7 @@ const corePosts: BlogPost[] = [
     slug: 'personalised-name-photo-rakhi',
     title: 'Personalised Rakhi Online — Name Rakhi, Photo Rakhi & Secret Message Rakhi',
     description:
-      'Buy personalised rakhi online for Raksha Bandhan 2026. Add a name, gamertag, favourite photo or a hidden secret message to a 3D-printed rakhi that becomes a keychain keepsake. From Rs 259, COD & PAN India delivery.',
+      'Buy personalised rakhi online for Raksha Bandhan 2026. Add a name, gamertag, favourite photo or a hidden secret message to a 3D-printed rakhi that becomes a keychain keepsake. From Rs 259, with PAN India delivery.',
     keywords:
       'personalised rakhi, name rakhi, photo rakhi online, secret message rakhi, custom rakhi with name, customised rakhi online, personalised rakhi for brother',
     category: 'products',

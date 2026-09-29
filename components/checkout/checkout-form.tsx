@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Spinner } from '@/components/ui/spinner'
 import { useRouter } from 'next/navigation'
 import { RazorpayPaymentResult } from '@/lib/razorpay'
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
+import { shippingForSubtotal } from '@/lib/pricing'
 import { trackBeginCheckout, trackPurchase } from '@/lib/analytics'
 
 function formatINR(amount: number): string {
@@ -57,8 +57,6 @@ interface PrefillResponse {
   addresses: SavedAddress[]
 }
 
-type PaymentMethod = 'razorpay' | 'cod'
-
 // ── CheckoutForm ──────────────────────────────────────────────────────────────
 export function CheckoutForm() {
   const { items, clearCart } = useCart()
@@ -81,21 +79,15 @@ export function CheckoutForm() {
     pincode: '',
   })
 
-  // ── Payment method ───────────────────────────────────────────────────────
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('razorpay')
-
   // ── Checkout step ────────────────────────────────────────────────────────
   const [step, setStep] = useState<'details' | 'payment'>('details')
-
-  // ── COD submission state ─────────────────────────────────────────────────
-  const [codSubmitting, setCodSubmitting] = useState(false)
   const [orderError, setOrderError] = useState<string | null>(null)
 
   // ── Totals ────────────────────────────────────────────────────────────────
   // appliedCoupon is shared with OrderSummary via CheckoutProvider so the
   // discount charged here (and via Razorpay) matches what the summary shows.
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_FEE
+  const shipping = shippingForSubtotal(subtotal)
   const discount = appliedCoupon?.discount ?? 0
   const total = Math.max(0, subtotal - discount + shipping)
   const couponCode = appliedCoupon?.code
@@ -238,51 +230,6 @@ export function CheckoutForm() {
       router.push(`/order-confirmation/${data.orderNumber}`)
     } else {
       setOrderError(data.error ?? 'Something went wrong. Please try again.')
-    }
-  }
-
-  // ── COD place-order handler ────────────────────────────────────────────────
-  async function handleCodSubmit() {
-    setOrderError(null)
-    setCodSubmitting(true)
-    try {
-      const res = await fetch('/api/orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          customer: {
-            name: form.name,
-            phone: form.phone,
-            email: form.email,
-            address: form.address,
-            city: form.city,
-            state: form.state,
-            pincode: form.pincode,
-          },
-          items: buildOrderItems(),
-          payment_method: 'cod' as const,
-          couponCode,
-        }),
-      })
-      const data = await res.json()
-      if (data.success) {
-        trackPurchase({
-          orderNumber: data.orderNumber ?? '',
-          value: total,
-          itemCount: items.reduce((n, i) => n + i.quantity, 0),
-          paymentMethod: 'cod',
-          coupon: couponCode || null,
-          discount,
-        })
-        clearCart()
-        router.push(`/order-confirmation/${data.orderNumber}`)
-      } else {
-        setOrderError(data.error ?? 'Something went wrong. Please try again.')
-      }
-    } catch {
-      setOrderError('Network error. Please check your connection and try again.')
-    } finally {
-      setCodSubmitting(false)
     }
   }
 
@@ -553,63 +500,14 @@ export function CheckoutForm() {
         </div>
       </div>
 
-      {/* Payment method selector */}
-      <SectionCard title="Payment Method">
-        <div className="space-y-3">
-          {/* Pay Online */}
-          <label
-            className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-colors ${
-              paymentMethod === 'razorpay'
-                ? 'border-brand bg-brand/5'
-                : 'border-gray-200 hover:border-brand/40'
-            }`}
-          >
-            <input
-              type="radio"
-              name="payment-method"
-              value="razorpay"
-              checked={paymentMethod === 'razorpay'}
-              onChange={() => setPaymentMethod('razorpay')}
-              className="mt-0.5 accent-brand flex-shrink-0"
-            />
-            <div>
-              <p className="text-sm font-display font-semibold text-ink">
-                Pay Online
-              </p>
-              <p className="text-xs text-muted font-sans mt-0.5">
-                UPI, Credit/Debit Cards, Netbanking, Wallets — via Razorpay
-              </p>
-            </div>
-          </label>
-
-          {/* Cash on Delivery */}
-          <label
-            className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-colors ${
-              paymentMethod === 'cod'
-                ? 'border-brand bg-brand/5'
-                : 'border-gray-200 hover:border-brand/40'
-            }`}
-          >
-            <input
-              type="radio"
-              name="payment-method"
-              value="cod"
-              checked={paymentMethod === 'cod'}
-              onChange={() => setPaymentMethod('cod')}
-              className="mt-0.5 accent-brand flex-shrink-0"
-            />
-            <div>
-              <p className="text-sm font-display font-semibold text-ink">
-                Cash on Delivery
-              </p>
-              <p className="text-xs text-muted font-sans mt-0.5">
-                Pay in cash when your order arrives
-              </p>
-            </div>
-          </label>
+      <SectionCard title="Payment">
+        <div className="rounded-xl border border-brand bg-brand/5 p-4">
+          <p className="text-sm font-display font-semibold text-ink">Pay online</p>
+          <p className="text-xs text-muted font-sans mt-0.5">
+            UPI, credit/debit cards, netbanking, and wallets — via Razorpay
+          </p>
         </div>
 
-        {/* Error message */}
         {orderError && (
           <p className="mt-4 text-sm text-red-600 font-sans bg-red-50 rounded-lg px-4 py-3">
             {orderError}
@@ -617,31 +515,14 @@ export function CheckoutForm() {
         )}
 
         <div className="mt-5">
-          {paymentMethod === 'razorpay' ? (
-            <RazorpayCheckout
-              amount={total}
-              customerName={form.name}
-              customerPhone={form.phone}
-              customerEmail={form.email}
-              onPaymentSuccess={handlePaymentSuccess}
-              onPaymentError={() => setOrderError('Payment failed. Please try again.')}
-            />
-          ) : (
-            <button
-              onClick={handleCodSubmit}
-              disabled={codSubmitting}
-              className="btn-primary w-full text-lg disabled:opacity-50 flex items-center justify-center gap-2"
-            >
-              {codSubmitting ? (
-                <>
-                  <Spinner size="sm" className="text-white" label="Placing order" />
-                  Placing Order…
-                </>
-              ) : (
-                `Place Order — ${formatINR(total)}`
-              )}
-            </button>
-          )}
+          <RazorpayCheckout
+            amount={total}
+            customerName={form.name}
+            customerPhone={form.phone}
+            customerEmail={form.email}
+            onPaymentSuccess={handlePaymentSuccess}
+            onPaymentError={() => setOrderError('Payment failed. Please try again.')}
+          />
         </div>
       </SectionCard>
     </div>

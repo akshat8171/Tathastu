@@ -10,9 +10,13 @@ import { Spinner } from '@/components/ui/spinner'
 import { SectionHeading } from '@/components/ui/section-heading'
 import { ProductCard } from '@/components/ui/product-card'
 import { useCatalogProducts } from '@/lib/catalog/use-catalog-products'
-import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
-
-const SHIPPING_COST = SHIPPING_FEE
+import {
+  FREE_SHIPPING_THRESHOLD,
+  amountUntilFreeShipping,
+  freeShippingProgressPercent,
+  qualifiesForFreeShipping,
+  shippingForSubtotal,
+} from '@/lib/pricing'
 
 function formatINR(amount: number): string {
   return new Intl.NumberFormat('en-IN', {
@@ -24,12 +28,12 @@ function formatINR(amount: number): string {
 
 // ── Free Delivery Progress Bar ────────────────────────────────────────────────
 function FreeDeliveryBar({ subtotal }: { subtotal: number }) {
-  const pct = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100))
-  const remaining = FREE_SHIPPING_THRESHOLD - subtotal
+  const pct = freeShippingProgressPercent(subtotal)
+  const remaining = amountUntilFreeShipping(subtotal)
 
   return (
     <div className="bg-surface rounded-2xl p-4 mb-6 border border-gray-100">
-      {subtotal >= FREE_SHIPPING_THRESHOLD ? (
+      {qualifiesForFreeShipping(subtotal) ? (
         <p className="text-sm font-display font-semibold text-brand text-center">
           🎉 Hooray! You&apos;ve unlocked FREE delivery!
         </p>
@@ -346,7 +350,7 @@ export default function CartPage() {
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const discount = appliedCoupon?.discount ?? 0
-  const shipping = subtotal > FREE_SHIPPING_THRESHOLD ? 0 : SHIPPING_COST
+  const shipping = shippingForSubtotal(subtotal)
   const total = Math.max(0, subtotal - discount + shipping)
 
   const cartItemIds = items.map(i => i.id)

@@ -142,7 +142,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
   promo: {
     enabled: true,
     headline: '20% OFF your first order',
-    subcopy: 'One-time use · Min order ₹199 · Free shipping on orders over ₹199',
+    subcopy: 'One-time use · Min order ₹199 · Free shipping on orders above ₹1500',
     code: 'FIRST20',
   },
   categoryRails: [

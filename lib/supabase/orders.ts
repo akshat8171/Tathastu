@@ -2,6 +2,8 @@ import { supabaseAdmin } from './admin'
 import type { Order, OrderItem } from './client'
 import { toE164 } from '@/lib/auth/identifier'
 import { escapeLike } from './account'
+import { quoteIdFromNotes } from './quote-order-notes'
+import { totalsForConfirmedUnitPrice } from '@/lib/admin/custom-order-price'
 
 /**
  * Resolve catalog slugs (e.g. "lamps-lamp1") to the products-table UUID primary
@@ -380,6 +382,63 @@ export async function updateOrderStatus(
   }
 
   return true
+}
+
+/**
+ * Set the selling price on a custom-quote order and return the new totals.
+ * Shipping follows the store rule: free only when the merchandise subtotal is above ₹1500.
+ */
+export async function repriceCustomOrderItems(
+  items: OrderItem[],
+  unitPrice: number,
+  order: { notes?: string | null; discount?: number; tax?: number }
+): Promise<
+  | { ok: true; subtotal: number; shipping: number; discount: number; total: number }
+  | { ok: false; error: string }
+> {
+  const targets = items.length === 1
+    ? items
+    : items.filter((item) => /^custom\b/i.test(item.product_name))
+  if (targets.length === 0) {
+    return { ok: false, error: 'No custom item to reprice' }
+  }
+
+  for (const item of targets) {
+    const lineSubtotal = unitPrice * item.quantity
+    const { error } = await supabaseAdmin
+      .from('order_items')
+      .update({ price: unitPrice, subtotal: lineSubtotal })
+      .eq('id', item.id)
+    if (error) {
+      console.error('Error updating custom item price:', error)
+      return { ok: false, error: 'Could not update the item price' }
+    }
+  }
+
+  const otherSubtotal = items
+    .filter((item) => !targets.some((target) => target.id === item.id))
+    .reduce((sum, item) => sum + Number(item.subtotal || 0), 0)
+  const quantity = targets.reduce((sum, item) => sum + item.quantity, 0)
+  const totals = totalsForConfirmedUnitPrice({
+    unitPrice,
+    quantity,
+    discount: Number(order.discount) || 0,
+    tax: Number(order.tax) || 0,
+    otherSubtotal,
+  })
+
+  const quoteId = quoteIdFromNotes(order.notes)
+  if (quoteId) {
+    const { error } = await supabaseAdmin
+      .from('quote_requests')
+      .update({ quoted_price: unitPrice })
+      .eq('id', quoteId)
+    if (error && !isMissingColumn(error)) {
+      console.error('Error saving quoted price:', error)
+    }
+  }
+
+  return { ok: true, ...totals }
 }
 
 /**

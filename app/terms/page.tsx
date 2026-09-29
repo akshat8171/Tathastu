@@ -164,8 +164,7 @@ export default function TermsPage() {
                 {SITE.name} does not store your card details.
               </li>
               <li>
-                <strong>Cash on Delivery (COD)</strong> is available for eligible orders. A
-                nominal COD handling fee may apply and will be displayed at checkout.
+                Cash on delivery is not available. Every order is paid online before we print it.
               </li>
               <li>
                 Prices are subject to change without notice; the price applicable to your order is

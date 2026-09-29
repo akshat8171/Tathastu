@@ -92,7 +92,7 @@ describe('POST /api/orders', () => {
           quantity: 1,
         },
       ],
-      payment_method: 'cod',
+      payment_method: 'razorpay',
     })
 
     const res = await POST(req)
@@ -112,7 +112,7 @@ describe('POST /api/orders', () => {
     const req = makeRequest({
       customer: VALID_CUSTOMER,
       items: [{ product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 }],
-      payment_method: 'cod',
+      payment_method: 'razorpay',
     })
 
     const res = await POST(req)
@@ -165,6 +165,18 @@ describe('POST /api/orders', () => {
         payment_status: 'failed',
       })
     )
+  })
+
+  it('rejects cash on delivery', async () => {
+    const req = makeRequest({
+      customer: VALID_CUSTOMER,
+      items: [{ product_id: 'lamps-lamp1', product_name: 'Lamp', price: 2299, quantity: 1 }],
+      payment_method: 'cod',
+    })
+
+    const res = await POST(req)
+    expect(res.status).toBe(400)
+    expect(mockCreateOrder).not.toHaveBeenCalled()
   })
 
   it('SECURITY: leaves order pending when amount does not match', async () => {

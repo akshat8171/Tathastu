@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   // The root layout applies the `%s | Tathastu Keepsakes` title template, so the
   // brand is intentionally omitted here — appending it would double it in the SERP.
   title: `Buy 3D Printed Gifts Online India | Shop Custom 3D Prints`,
-  description: `Shop 3D printed gifts online India - custom keychains, lamps, home decor, desk organisers & personalised gifts. Buy 3D printed items with PAN India delivery. Premium 3D printing products from Agra. COD available.`,
+  description: `Shop 3D printed gifts online India - custom keychains, lamps, home decor, desk organisers & personalised gifts. Buy 3D printed items with PAN India delivery. Premium 3D printing products from Agra. Prepaid checkout.`,
   keywords: [
     'buy 3D printed gifts online India',
     'shop 3D prints India',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 
 // ── Trust chips shown in the hero band ──────────────────────────────────────
 const TRUST_CHIPS = [
-  { icon: 'cod',      label: 'COD Available' },
+  { icon: 'pay',      label: 'Prepaid only' },
   { icon: 'india',    label: 'Pan-India Delivery' },
   { icon: 'custom',   label: 'Made to Order' },
   { icon: 'quality',  label: '100% Original' },
@@ -261,7 +261,7 @@ function TrustChip({ label, icon }: { label: string; icon: string }) {
 
 function TrustIcon({ slug }: { slug: string }) {
   switch (slug) {
-    case 'cod':
+    case 'pay':
       return (
         <svg className="w-3.5 h-3.5 text-brand flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />

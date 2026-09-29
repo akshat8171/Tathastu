@@ -89,7 +89,7 @@ export const createOrderSchema = z.object({
   subtotal: z.number().optional(),
   shipping: z.number().optional(),
   total: z.number().optional(),
-  payment_method: z.enum(['razorpay', 'cashfree', 'cod']).optional().default('razorpay'),
+  payment_method: z.enum(['razorpay', 'cashfree']).optional().default('razorpay'),
   couponCode: z.string().trim().max(50).optional(),
   payment: paymentSchema,
 })

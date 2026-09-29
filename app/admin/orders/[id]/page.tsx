@@ -13,6 +13,8 @@ import {
   customerTrackingWhatsAppText,
 } from '@/lib/admin/links'
 import { channelBadgeClass, paymentPendingAmount } from '@/lib/offline-orders'
+import { isCustomQuoteOrder, parseConfirmedUnitPrice } from '@/lib/admin/custom-order-price'
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
 
 interface OrderItem {
   id: string
@@ -77,6 +79,7 @@ export default function AdminOrderDetailPage() {
   const [updating, setUpdating] = useState(false)
   const [newStatus, setNewStatus] = useState('')
   const [trackingNumber, setTrackingNumber] = useState('')
+  const [confirmedPrice, setConfirmedPrice] = useState('')
 
   useEffect(() => {
     fetchOrderDetails()
@@ -93,10 +96,17 @@ export default function AdminOrderDetailPage() {
       if (!response.ok) throw new Error('Failed to fetch order')
 
       const data = await response.json()
+      const loadedItems = (data.items ?? []) as OrderItem[]
       setOrder(data.order)
-      setItems(data.items)
+      setItems(loadedItems)
       setNewStatus(data.order.status)
       setTrackingNumber(data.order.tracking_number || '')
+      const customOrder = isCustomQuoteOrder(
+        data.order.notes,
+        loadedItems.map((item) => item.product_name)
+      )
+      const unit = Math.round(Number(loadedItems[0]?.price) || 0)
+      setConfirmedPrice(customOrder && unit > 0 ? String(unit) : '')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load order')
     } finally {
@@ -105,7 +115,17 @@ export default function AdminOrderDetailPage() {
   }
 
   const handleUpdateStatus = async () => {
-    if (!order || newStatus === order.status) return
+    if (!order) return
+    const customOrder = isCustomQuoteOrder(order.notes, items.map((item) => item.product_name))
+    const confirmingCustom = customOrder && newStatus === 'paid'
+    const parsedPrice = confirmingCustom ? parseConfirmedUnitPrice(confirmedPrice) : null
+    if (confirmingCustom && parsedPrice === null) {
+      alert('Enter the confirmed price in rupees before marking this custom order confirmed.')
+      return
+    }
+    const currentUnit = Math.round(Number(items[0]?.price) || 0)
+    const priceChanged = confirmingCustom && parsedPrice !== null && parsedPrice !== currentUnit
+    if (newStatus === order.status && !priceChanged) return
 
     try {
       setUpdating(true)
@@ -116,13 +136,17 @@ export default function AdminOrderDetailPage() {
           orderId: order.id,
           status: newStatus,
           trackingNumber: trackingNumber || undefined,
+          confirmedPrice: confirmingCustom ? parsedPrice : undefined,
         }),
       })
 
-      if (!response.ok) throw new Error('Failed to update order')
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || 'Failed to update order')
+      }
 
       await fetchOrderDetails()
-      alert('Order status updated successfully!')
+      alert(confirmingCustom ? 'Order confirmed and price saved.' : 'Order status updated successfully!')
     } catch (err) {
       alert(err instanceof Error ? err.message : 'Failed to update order')
     } finally {
@@ -199,6 +223,13 @@ export default function AdminOrderDetailPage() {
       </div>
     )
   }
+
+  const customOrder = isCustomQuoteOrder(order.notes, items.map((item) => item.product_name))
+  const confirmingCustom = customOrder && newStatus === 'paid'
+  const parsedConfirmedPrice = confirmingCustom ? parseConfirmedUnitPrice(confirmedPrice) : null
+  const currentUnitPrice = Math.round(Number(items[0]?.price) || 0)
+  const priceChanged = confirmingCustom && parsedConfirmedPrice !== null && parsedConfirmedPrice !== currentUnitPrice
+  const statusChanged = newStatus !== order.status
 
   return (
     <div className="space-y-6">
@@ -430,13 +461,35 @@ export default function AdminOrderDetailPage() {
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand"
                 >
                   <option value="pending">Pending</option>
-                  <option value="paid">Paid</option>
+                  <option value="paid">{customOrder ? 'Order confirmed' : 'Paid'}</option>
                   <option value="processing">Processing</option>
                   <option value="shipped">Shipped</option>
                   <option value="delivered">Delivered</option>
                   <option value="cancelled">Cancelled</option>
                 </select>
               </div>
+
+              {confirmingCustom && (
+                <div>
+                  <label htmlFor="confirmed-price" className="block text-sm font-medium text-ink mb-2">
+                    Confirmed price (₹)
+                  </label>
+                  <input
+                    id="confirmed-price"
+                    type="number"
+                    min={1}
+                    step={1}
+                    inputMode="numeric"
+                    value={confirmedPrice}
+                    onChange={(e) => setConfirmedPrice(e.target.value)}
+                    placeholder="Enter the price for one piece"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand"
+                  />
+                  <p className="text-xs text-muted mt-2">
+                    Price for one piece. Delivery is free only on orders above ₹{FREE_SHIPPING_THRESHOLD}.
+                  </p>
+                </div>
+              )}
 
               {newStatus === 'shipped' && (
                 <div>
@@ -453,10 +506,10 @@ export default function AdminOrderDetailPage() {
 
               <button
                 onClick={handleUpdateStatus}
-                disabled={updating || newStatus === order.status}
+                disabled={updating || (!statusChanged && !priceChanged) || (confirmingCustom && parsedConfirmedPrice === null)}
                 className="w-full bg-brand text-white py-2 rounded-lg font-medium hover:bg-brand-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {updating ? 'Updating...' : 'Update Status'}
+                {updating ? 'Updating...' : confirmingCustom ? 'Confirm order' : 'Update Status'}
               </button>
             </div>
           </div>
@@ -470,7 +523,9 @@ export default function AdminOrderDetailPage() {
                   {getStatusIcon(order.status)}
                 </div>
                 <div>
-                  <p className="font-medium text-ink capitalize">{order.status}</p>
+                  <p className="font-medium text-ink capitalize">
+                    {customOrder && order.status === 'paid' ? 'Order confirmed' : order.status}
+                  </p>
                   <p className="text-sm text-muted">Current Status</p>
                 </div>
               </div>

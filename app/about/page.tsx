@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { SectionHeading } from '@/components/ui'
 import { Button } from '@/components/ui'
 import { SITE } from '@/lib/site'
+import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
 
 export const metadata: Metadata = {
   // This title already opens with the brand, so we opt out of the root layout's
@@ -221,7 +222,7 @@ export default function AboutPage() {
                 {
                   emoji: '🌍',
                   title: 'Shipped Across India',
-                  body: 'Pan-India delivery to every state and union territory. Free shipping on orders above ₹199. Sustainable packaging — less waste, same great unboxing.',
+                  body: `Pan-India delivery to every state and union territory. Free shipping on orders above ₹${FREE_SHIPPING_THRESHOLD}. Sustainable packaging — less waste, same great unboxing.`,
                   href: '/shipping-policy',
                   cta: 'Shipping Details',
                 },
