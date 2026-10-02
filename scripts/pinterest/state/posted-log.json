@@ -1,4 +1,14 @@
 {
   "version": 1,
-  "posts": []
+  "posts": [
+    {
+      "productId": "lamps-lamp5",
+      "pinId": "1141873680556091850",
+      "boardId": "1141873749212482546",
+      "boardName": "Modern Home Decor",
+      "title": "Illuminate Your Space: Modern Minimalist Table Lamp",
+      "link": "https://www.tathastukeepsakes.in/products/lamps-lamp5",
+      "postedAt": "2026-10-02T10:01:29.143Z"
+    }
+  ]
 }
