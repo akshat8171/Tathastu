@@ -172,3 +172,81 @@ body:has([data-testid="admin-shell"]) [data-testid="announcement-bar"],
 body:has([data-testid="admin-shell"]) [data-testid="whatsapp-float"] {
   display: none !important;
 }
+
+/* ── Tathastu Tower (exhibition game) ─────────────────────────────────────── */
+.btn-tower {
+  display: block;
+  width: 100%;
+  border-radius: 9999px;
+  background: #0e7a66;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #fff;
+  box-shadow: 0 10px 30px -10px rgba(14, 122, 102, 0.9);
+  transition: transform 120ms ease, background-color 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn-tower:active { transform: scale(0.98); }
+.btn-tower:hover { background: #0b6e5c; }
+.btn-tower-ghost {
+  display: block;
+  width: 100%;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.875rem 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+@keyframes tower-toast {
+  0% { opacity: 0; transform: translateY(8px) scale(0.9); }
+  20% { opacity: 1; transform: translateY(0) scale(1.08); }
+  70% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-10px) scale(1); }
+}
+.animate-toast { animation: tower-toast 900ms ease-out forwards; }
+@keyframes tower-pop {
+  0% { opacity: 0; transform: scale(1.6); }
+  30% { opacity: 1; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.animate-ping-once { animation: tower-pop 700ms ease-out forwards; }
+@keyframes tower-confetti {
+  0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate3d(var(--drift, 0px), 110vh, 0) rotate(720deg); opacity: 1; }
+}
+.tower-confetti {
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 18px;
+  border-radius: 2px;
+  animation: tower-confetti linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-toast, .animate-ping-once, .tower-confetti { animation-duration: 1ms; animation-iteration-count: 1; }
+}
+
+/* Tathastu Tower host console buttons */
+.btn-admin {
+  border-radius: 9999px;
+  background: #0e7a66;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+}
+.btn-admin:hover { background: #0b6e5c; }
+.btn-admin:disabled, .btn-admin-ghost:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-admin-ghost {
+  border-radius: 9999px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #16182b;
+}
