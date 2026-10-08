@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   trailingSlash: false,
+  // `npm run dev` only: let phones on the same Wi-Fi load the dev server, e.g.
+  // DEV_ORIGINS=192.168.1.10 npm run dev -- -H 0.0.0.0 (comma-separated). No effect in production.
+  allowedDevOrigins: (process.env.DEV_ORIGINS || '').split(',').map((origin) => origin.trim()).filter(Boolean),
   // Keep firebase-admin (and its jose/jwks-rsa chain) outside the Turbopack
   // bundle. Bundling them triggers ERR_REQUIRE_ESM on Vercel and crashes
   // /api/orders (COD + post-payment order create) with a 500 HTML error page.

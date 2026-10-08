@@ -1,10 +1,18 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { TOWER_HANDLE, TOWER_INSTAGRAM_URL } from '@/lib/tower/constants'
-import type { FollowCheckMode, PlayerView, PublicBoard, RunResult, RunTicket } from '@/lib/tower/types'
+import { NAME_MAX_LENGTH, PROGRESS_INTERVAL_MS, TOWER_HANDLE, TOWER_INSTAGRAM_URL } from '@/lib/tower/constants'
+import type { PlayerView, PublicBoard, RunResult } from '@/lib/tower/types'
 import { TowerCanvas, type DropEvent } from '@/components/tower/tower-canvas'
-import { TOKEN_HEADER, callApi, callApiWithRetry, storage, useBoard, useWakeLock } from '@/components/tower/client-api'
+import {
+  TOKEN_HEADER,
+  callApi,
+  callApiWithRetry,
+  storage,
+  useBoard,
+  useServerOffset,
+  useWakeLock,
+} from '@/components/tower/client-api'
 import {
   buzz,
   isTowerMuted,
@@ -19,45 +27,50 @@ import {
 const KEY_TOKEN = 'tower:token'
 const KEY_FOLLOWED = 'tower:followed'
 const KEY_PENDING = 'tower:pending'
-const KEY_PASS = 'tower:pass'
 const KEY_MUTED = 'tower:muted'
+/** A latecomer (or a phone that reloaded mid-round) gets this long to get ready. */
+const LATE_COUNTDOWN_MS = 3_000
 
-type Screen = 'boot' | 'follow' | 'register' | 'home' | 'countdown' | 'playing' | 'saving' | 'result'
+type Screen = 'boot' | 'follow' | 'register' | 'home' | 'lobby' | 'ready' | 'countdown' | 'playing' | 'saving'
 
 interface Pending {
   runId: string
   intervals: number[]
 }
 
-interface PlayerAppProps {
-  followCheck: FollowCheckMode
+interface Game {
+  runId: string
+  seed: number
+  roundId: number
+  roundNumber: number
 }
 
-export function PlayerApp({ followCheck }: PlayerAppProps) {
+export function PlayerApp() {
   const [screen, setScreen] = useState<Screen>('boot')
   const [token, setToken] = useState<string | null>(null)
   const [player, setPlayer] = useState<PlayerView | null>(null)
-  const [run, setRun] = useState<RunTicket | null>(null)
+  const [game, setGame] = useState<Game | null>(null)
+  const [goAtLocal, setGoAtLocal] = useState(0)
   const [result, setResult] = useState<RunResult | null>(null)
-  const [previousBest, setPreviousBest] = useState<number | null>(null)
   const [error, setError] = useState('')
-  const [busy, setBusy] = useState(false)
   const [muted, setMuted] = useState(false)
+  const offset = useServerOffset()
+  const offsetRef = useRef(offset)
+  offsetRef.current = offset
 
   const signOut = useCallback(() => {
     storage.remove(KEY_TOKEN)
     storage.remove(KEY_FOLLOWED)
     storage.remove(KEY_PENDING)
-    storage.remove(KEY_PASS)
     setToken(null)
     setPlayer(null)
-    setRun(null)
+    setGame(null)
     setResult(null)
     setError('')
     setScreen('follow')
   }, [])
 
-  /** "Next player" on a shared phone: release the handle on the server so its owner can sign in again later. */
+  /** "Next player" on a shared phone: release the number on the server so its owner can sign in again later. */
   const handOver = useCallback(() => {
     const saved = storage.get(KEY_TOKEN)
     if (saved) {
@@ -67,6 +80,24 @@ export function PlayerApp({ followCheck }: PlayerAppProps) {
     }
     signOut()
   }, [signOut])
+
+  /** Decide which screen a player belongs on, from what the server says about their current round. */
+  const route = useCallback((view: PlayerView) => {
+    setPlayer(view)
+    const current = view.current
+    const round = view.round
+    if (!current || !round || current.roundId !== round.id || current.status !== 'playing') {
+      setScreen('home')
+      return
+    }
+    setGame({ runId: current.runId, seed: current.seed, roundId: current.roundId, roundNumber: current.number })
+    if (round.status === 'lobby') {
+      setScreen('lobby')
+      return
+    }
+    // The round is on (or over) and this game has not been played yet.
+    setScreen('ready')
+  }, [])
 
   const submitPending = useCallback(
     async (activeToken: string, pending: Pending) => {
@@ -81,7 +112,7 @@ export function PlayerApp({ followCheck }: PlayerAppProps) {
         storage.remove(KEY_PENDING)
         setResult(reply.data.result)
         setPlayer(reply.data.player)
-        setScreen('result')
+        setScreen('home')
         return
       }
       if (reply.status >= 400 && reply.status < 500) {
@@ -103,6 +134,16 @@ export function PlayerApp({ followCheck }: PlayerAppProps) {
     [signOut]
   )
 
+  const refresh = useCallback(
+    async (activeToken: string) => {
+      const reply = await callApi<{ player: PlayerView }>('/api/tower/me', { token: activeToken })
+      if (reply.ok) route(reply.data.player)
+      else if (reply.status === 401) signOut()
+      return reply
+    },
+    [route, signOut]
+  )
+
   // Boot: restore the player on this phone and finish any game that was cut off by a reload.
   useEffect(() => {
     setMuted(storage.get(KEY_MUTED) === '1')
@@ -114,67 +155,59 @@ export function PlayerApp({ followCheck }: PlayerAppProps) {
     }
     setToken(saved)
     const pending = readPending()
-    if (pending) {
+    if (pending && pending.intervals.length > 0) {
       void submitPending(saved, pending)
       return
     }
     void (async () => {
-      const reply = await callApi<{ player: PlayerView }>('/api/tower/me', { token: saved })
-      if (reply.ok) {
-        setPlayer(reply.data.player)
-        setScreen('home')
-      } else if (reply.status === 401) {
-        signOut()
-      } else {
+      const reply = await refresh(saved)
+      if (!reply.ok && reply.status !== 401) {
         setError(reply.error)
         setScreen('home')
       }
     })()
-  }, [signOut, submitPending])
+  }, [refresh, submitPending])
 
-  const signedIn = useCallback((nextToken: string, view: PlayerView) => {
-    storage.set(KEY_TOKEN, nextToken)
-    setToken(nextToken)
-    setPlayer(view)
-    setError('')
-    setScreen('home')
+  const signedIn = useCallback(
+    (nextToken: string, view: PlayerView) => {
+      storage.set(KEY_TOKEN, nextToken)
+      setToken(nextToken)
+      setError('')
+      route(view)
+    },
+    [route]
+  )
+
+  const joined = useCallback(
+    (view: PlayerView) => {
+      setResult(null)
+      setError('')
+      route(view)
+    },
+    [route]
+  )
+
+  /** Count down to a server instant, or give a latecomer a short countdown of their own. */
+  const beginCountdown = useCallback((goAtServer: number | null) => {
+    const target = goAtServer === null ? 0 : goAtServer - offsetRef.current
+    setGoAtLocal(target > Date.now() + 500 ? target : Date.now() + LATE_COUNTDOWN_MS)
+    setScreen('countdown')
   }, [])
 
-  const startGame = useCallback(async () => {
-    if (!token || busy) return
-    unlockTowerAudio()
-    setBusy(true)
-    setError('')
-    // One key per tap of Play: retries of this request return the same run, never a second try.
-    const startKey = newStartKey()
-    const reply = await callApiWithRetry<{ run: RunTicket; player: PlayerView }>(
-      '/api/tower/run/start',
-      { method: 'POST', token, body: { startKey } },
-      3
-    )
-    setBusy(false)
-    if (!reply.ok) {
-      if (reply.status === 401) signOut()
-      setError(reply.error)
-      return
-    }
-    setPreviousBest(reply.data.player.best?.score ?? null)
-    setPlayer(reply.data.player)
-    setRun(reply.data.run)
-    setResult(null)
-    storage.set(KEY_PENDING, JSON.stringify({ runId: reply.data.run.runId, intervals: [] } satisfies Pending))
-    setScreen('countdown')
-  }, [token, busy, signOut])
+  const startPlaying = useCallback(() => {
+    if (game) storage.set(KEY_PENDING, JSON.stringify({ runId: game.runId, intervals: [] } satisfies Pending))
+    setScreen('playing')
+  }, [game])
 
   const finishGame = useCallback(
     (intervals: number[]) => {
-      if (!token || !run) return
-      const pending: Pending = { runId: run.runId, intervals }
+      if (!token || !game) return
+      const pending: Pending = { runId: game.runId, intervals }
       storage.set(KEY_PENDING, JSON.stringify(pending))
       // Let the last slab tumble before the score card slides in.
       window.setTimeout(() => void submitPending(token, pending), 900)
     },
-    [token, run, submitPending]
+    [token, game, submitPending]
   )
 
   const toggleMute = () => {
@@ -184,13 +217,13 @@ export function PlayerApp({ followCheck }: PlayerAppProps) {
     storage.set(KEY_MUTED, next ? '1' : '0')
   }
 
-  useWakeLock(screen === 'countdown' || screen === 'playing')
+  useWakeLock(screen === 'lobby' || screen === 'countdown' || screen === 'playing')
 
-  if (screen === 'countdown' && run) {
-    return <Countdown onDone={() => setScreen('playing')} />
+  if (screen === 'countdown' && game) {
+    return <Countdown goAtLocal={goAtLocal} roundNumber={game.roundNumber} onDone={startPlaying} />
   }
-  if (screen === 'playing' && run) {
-    return <PlayingScreen run={run} onGameOver={finishGame} muted={muted} onToggleMute={toggleMute} />
+  if (screen === 'playing' && game && token) {
+    return <PlayingScreen game={game} token={token} onGameOver={finishGame} muted={muted} onToggleMute={toggleMute} />
   }
 
   return (
@@ -203,20 +236,35 @@ export function PlayerApp({ followCheck }: PlayerAppProps) {
           </p>
         )}
         {screen === 'boot' && <p className="mt-16 text-center text-white/60">Loading…</p>}
-        {screen === 'follow' &&
-          (followCheck === 'instagram' ? (
-            <InstagramGate onSignedIn={signedIn} />
-          ) : (
-            <FollowStep onNext={() => setScreen('register')} />
-          ))}
+        {screen === 'follow' && <FollowStep onNext={() => setScreen('register')} />}
         {screen === 'register' && <RegisterStep onSignedIn={signedIn} onBack={() => setScreen('follow')} />}
-        {screen === 'home' && player && (
-          <HomeScreen player={player} busy={busy} onPlay={() => void startGame()} onNextPlayer={handOver} />
+        {screen === 'home' && player && token && (
+          <HomeScreen player={player} token={token} result={result} onJoined={joined} onNextPlayer={handOver} />
         )}
         {screen === 'home' && !player && (
           <button type="button" onClick={() => window.location.reload()} className="btn-tower mt-10">
             Try again
           </button>
+        )}
+        {screen === 'lobby' && player && game && token && (
+          <LobbyScreen
+            player={player}
+            game={game}
+            onStart={beginCountdown}
+            onRoundGone={() => {
+              setError('The host closed that round. Enter the new code when it is called.')
+              void refresh(token)
+            }}
+          />
+        )}
+        {screen === 'ready' && game && (
+          <ReadyScreen
+            roundNumber={game.roundNumber}
+            onGo={() => {
+              unlockTowerAudio()
+              beginCountdown(null)
+            }}
+          />
         )}
         {screen === 'saving' && (
           <SavingScreen
@@ -225,16 +273,6 @@ export function PlayerApp({ followCheck }: PlayerAppProps) {
               const pending = readPending()
               if (token && pending) void submitPending(token, pending)
             }}
-          />
-        )}
-        {screen === 'result' && result && player && (
-          <ResultScreen
-            result={result}
-            player={player}
-            previousBest={previousBest}
-            busy={busy}
-            onPlay={() => void startGame()}
-            onNextPlayer={handOver}
           />
         )}
       </div>
@@ -275,7 +313,7 @@ function FollowStep({ onNext }: { onNext: () => void }) {
       <StepBadge step={1} />
       <h2 className="text-white mt-3 font-display text-3xl font-bold leading-tight">Follow us to unlock the game</h2>
       <p className="mt-3 text-white/75">
-        Stack the tallest tower and win a 3D-printed keepsake. The top score at the end of the day wins.
+        Stack the tallest tower and win a 3D-printed keepsake. Everyone plays together when the host says go!
       </p>
       <a
         href={TOWER_INSTAGRAM_URL}
@@ -295,11 +333,9 @@ function FollowStep({ onNext }: { onNext: () => void }) {
         disabled={!opened}
         className="btn-tower mt-4 disabled:cursor-not-allowed disabled:opacity-40"
       >
-        {opened ? "I'm following — let's play" : 'Follow first, then come back here'}
+        {opened ? "I'm following — next" : 'Follow first, then come back here'}
       </button>
-      <p className="mt-4 text-center text-sm text-white/50">
-        We check the winner&apos;s follow before handing over the prize.
-      </p>
+      <p className="mt-4 text-center text-sm text-white/50">We check the winner&apos;s follow before handing over the prize.</p>
     </section>
   )
 }
@@ -311,18 +347,20 @@ function RegisterStep({
   onSignedIn: (token: string, player: PlayerView) => void
   onBack: () => void
 }) {
-  const [handle, setHandle] = useState('')
   const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [optIn, setOptIn] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
 
   async function submit() {
     if (busy) return
+    unlockTowerAudio()
     setBusy(true)
     setError('')
     const reply = await callApiWithRetry<{ token: string; player: PlayerView }>(
       '/api/tower/register',
-      { method: 'POST', body: { handle, displayName: name } },
+      { method: 'POST', body: { name, phone, marketingOptIn: optIn } },
       3
     )
     setBusy(false)
@@ -332,6 +370,9 @@ function RegisterStep({
     }
     onSignedIn(reply.data.token, reply.data.player)
   }
+
+  const digits = phone.replace(/\D/g, '')
+  const ready = name.trim().length >= 2 && digits.length >= 10
 
   return (
     <form
@@ -343,40 +384,57 @@ function RegisterStep({
     >
       <StepBadge step={2} />
       <h2 className="text-white mt-3 font-display text-3xl font-bold leading-tight">Who&apos;s playing?</h2>
-      <p className="mt-2 text-white/70">Use the Instagram account that follows us — that&apos;s how we find the winner.</p>
-      <label htmlFor="tower-handle" className="mt-6 block text-sm font-medium text-white/80">
-        Instagram username
-      </label>
-      <div className="mt-2 flex items-center rounded-2xl border border-white/20 bg-white/5 px-4 focus-within:border-brand-300">
-        <span className="text-xl text-white/50">@</span>
-        <input
-          id="tower-handle"
-          value={handle}
-          onChange={(event) => setHandle(event.target.value.replace(/^@+/, ''))}
-          autoCapitalize="none"
-          autoCorrect="off"
-          autoComplete="username"
-          spellCheck={false}
-          inputMode="email"
-          maxLength={60}
-          required
-          placeholder="yourname"
-          className="w-full bg-transparent px-2 py-4 text-xl outline-none placeholder:text-white/30"
-        />
-      </div>
-      <label htmlFor="tower-name" className="mt-4 block text-sm font-medium text-white/80">
-        First name <span className="text-white/40">(optional, for the big screen)</span>
+      <p className="mt-2 text-white/70">Your name goes on the big screen. We WhatsApp the winner.</p>
+
+      <label htmlFor="tower-name" className="mt-6 block text-sm font-medium text-white/80">
+        Your name
       </label>
       <input
         id="tower-name"
         value={name}
         onChange={(event) => setName(event.target.value)}
-        maxLength={40}
+        maxLength={NAME_MAX_LENGTH}
         autoComplete="given-name"
-        className="mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-xl outline-none focus:border-brand-300"
+        autoCapitalize="words"
+        required
+        placeholder="Priya"
+        className="mt-2 w-full rounded-2xl border border-white/20 bg-white/5 px-4 py-4 text-xl outline-none placeholder:text-white/30 focus:border-brand-300"
       />
+
+      <label htmlFor="tower-phone" className="mt-4 block text-sm font-medium text-white/80">
+        WhatsApp number
+      </label>
+      <div className="mt-2 flex items-center rounded-2xl border border-white/20 bg-white/5 px-4 focus-within:border-brand-300">
+        <span className="text-xl text-white/50">+91</span>
+        <input
+          id="tower-phone"
+          value={phone}
+          onChange={(event) => setPhone(event.target.value.replace(/[^\d+ -]/g, '').slice(0, 18))}
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel-national"
+          required
+          placeholder="98765 43210"
+          className="w-full bg-transparent px-2 py-4 text-xl tracking-wide outline-none placeholder:text-white/30"
+        />
+      </div>
+
+      <label className="mt-4 flex items-start gap-3 text-sm text-white/75">
+        <input
+          type="checkbox"
+          checked={optIn}
+          onChange={(event) => setOptIn(event.target.checked)}
+          className="mt-0.5 h-5 w-5 shrink-0 accent-brand-300"
+        />
+        Also send me Tathastu Keepsakes offers on WhatsApp
+      </label>
+      <p className="mt-3 text-xs text-white/45">
+        We use your number to contact you if you win{optIn ? ' and for offers you asked for' : ''}. It never shows on
+        the screen.
+      </p>
+
       {error && <p className="mt-3 text-amber-200">{error}</p>}
-      <button type="submit" disabled={busy || !handle.trim()} className="btn-tower mt-6 disabled:opacity-50">
+      <button type="submit" disabled={busy || !ready} className="btn-tower mt-6 disabled:opacity-50">
         {busy ? 'Saving…' : 'Continue'}
       </button>
       <button type="button" onClick={onBack} className="mt-3 w-full py-2 text-sm text-white/60 underline">
@@ -386,148 +444,124 @@ function RegisterStep({
   )
 }
 
-/** Verified mode: reuses the Layer Rush play-pass webhook, which asks Instagram whether this account follows us. */
-function InstagramGate({ onSignedIn }: { onSignedIn: (token: string, player: PlayerView) => void }) {
-  const [pass, setPass] = useState<{ ticket: string; dmUrl: string; message: string } | null>(null)
-  const [status, setStatus] = useState<'pending' | 'verified' | 'rejected'>('pending')
-  const [reason, setReason] = useState('')
+/** Enter the code the host reads out. The game only starts after this. */
+function CodeEntry({ token, onJoined }: { token: string; onJoined: (player: PlayerView) => void }) {
+  const [code, setCode] = useState('')
+  const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
-  const signingIn = useRef(false)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const openPass = useCallback(async () => {
+  async function submit(value: string) {
+    if (busy || value.length !== 4) return
+    unlockTowerAudio()
+    setBusy(true)
     setError('')
-    setReason('')
-    setStatus('pending')
-    const reply = await callApiWithRetry<{ ticket: string; dmUrl: string; message: string }>(
-      '/api/play/ticket',
-      { method: 'POST' },
+    const reply = await callApiWithRetry<{ player: PlayerView }>(
+      '/api/tower/join',
+      { method: 'POST', token, body: { code: value } },
       3
     )
+    setBusy(false)
     if (!reply.ok) {
       setError(reply.error)
+      setCode('')
+      buzz(80)
+      inputRef.current?.focus()
       return
     }
-    storage.set(KEY_PASS, JSON.stringify(reply.data))
-    setPass(reply.data)
-  }, [])
-
-  useEffect(() => {
-    const saved = storage.get(KEY_PASS)
-    if (saved) {
-      try {
-        setPass(JSON.parse(saved))
-        return
-      } catch {
-        storage.remove(KEY_PASS)
-      }
-    }
-    void openPass()
-  }, [openPass])
-
-  useEffect(() => {
-    if (!pass) return
-    let cancelled = false
-    const check = async () => {
-      if (document.visibilityState === 'hidden' || signingIn.current) return
-      const reply = await callApi<{ status: 'pending' | 'verified' | 'rejected'; rejectionReason: string | null }>(
-        `/api/play/ticket?ticket=${encodeURIComponent(pass.ticket)}`
-      )
-      if (cancelled || !reply.ok) return
-      setStatus(reply.data.status)
-      setReason(reply.data.rejectionReason ?? '')
-      if (reply.data.status !== 'verified' || signingIn.current) return
-      signingIn.current = true
-      const registered = await callApiWithRetry<{ token: string; player: PlayerView }>(
-        '/api/tower/register',
-        { method: 'POST', body: { passId: pass.ticket } },
-        3
-      )
-      signingIn.current = false
-      if (cancelled) return
-      if (registered.ok) {
-        storage.remove(KEY_PASS)
-        onSignedIn(registered.data.token, registered.data.player)
-      } else {
-        setError(registered.error)
-      }
-    }
-    void check()
-    const timer = window.setInterval(() => void check(), 2_500)
-    document.addEventListener('visibilitychange', check)
-    return () => {
-      cancelled = true
-      window.clearInterval(timer)
-      document.removeEventListener('visibilitychange', check)
-    }
-  }, [pass, onSignedIn])
+    buzz(20)
+    onJoined(reply.data.player)
+  }
 
   return (
-    <section className="mt-8 space-y-4">
-      <StepBadge step={1} />
-      <h2 className="text-white font-display text-3xl font-bold leading-tight">Follow us to unlock the game</h2>
-      <a
-        href={TOWER_INSTAGRAM_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex items-center justify-center gap-3 rounded-full bg-gradient-to-r from-[#f58529] via-[#dd2a7b] to-[#8134af] py-4 text-lg font-semibold"
-      >
-        <InstagramGlyph /> 1. Follow @{TOWER_HANDLE}
-      </a>
-      <p className="text-white/75">2. Then send us this message from the same account so Instagram can confirm it:</p>
-      <p className="rounded-2xl bg-white/10 py-4 text-center font-display text-3xl tracking-wider">
-        {pass?.message ?? 'Opening…'}
+    <form
+      className="mt-6 rounded-3xl bg-white/10 p-5 text-center"
+      onSubmit={(event) => {
+        event.preventDefault()
+        void submit(code)
+      }}
+    >
+      <StepBadge step={3} />
+      <label htmlFor="tower-code" className="mt-3 block font-display text-2xl font-bold">
+        Enter the game code
+      </label>
+      <p className="mt-1 text-sm text-white/65">The host will call it out when the next round opens.</p>
+      <input
+        ref={inputRef}
+        id="tower-code"
+        value={code}
+        onChange={(event) => {
+          const next = event.target.value.replace(/\D/g, '').slice(0, 4)
+          setCode(next)
+          if (next.length === 4) void submit(next)
+        }}
+        inputMode="numeric"
+        pattern="[0-9]*"
+        autoComplete="one-time-code"
+        maxLength={4}
+        placeholder="••••"
+        aria-describedby="tower-code-error"
+        className="mx-auto mt-4 block w-52 rounded-2xl border-2 border-white/25 bg-ink/60 py-4 text-center font-display text-5xl tracking-[0.4em] outline-none placeholder:text-white/25 focus:border-amber-300"
+      />
+      <p id="tower-code-error" role="alert" className="mt-3 min-h-[1.5rem] text-amber-200">
+        {error}
       </p>
-      <a href={pass?.dmUrl ?? TOWER_INSTAGRAM_URL} className="btn-tower block text-center">
-        Send the message
-      </a>
-      {status === 'pending' && <p className="text-center text-white/60">Waiting for Instagram to confirm…</p>}
-      {status === 'rejected' && (
-        <div className="space-y-3 text-center">
-          <p className="text-amber-200">{reason || 'That account does not follow us yet.'}</p>
-          <button type="button" className="underline" onClick={() => void openPass()}>
-            Get a new code
-          </button>
-        </div>
-      )}
-      {error && <p className="text-amber-200">{error}</p>}
-    </section>
+      <button type="submit" disabled={busy || code.length !== 4} className="btn-tower mt-1 disabled:opacity-50">
+        {busy ? 'Joining…' : 'Join the round'}
+      </button>
+    </form>
   )
 }
 
 function HomeScreen({
   player,
-  busy,
-  onPlay,
+  token,
+  result,
+  onJoined,
   onNextPlayer,
 }: {
   player: PlayerView
-  busy: boolean
-  onPlay: () => void
+  token: string
+  result: RunResult | null
+  onJoined: (player: PlayerView) => void
   onNextPlayer: () => void
 }) {
-  const { board } = useBoard(6_000)
+  const { board } = useBoard(3_000)
   const event = board?.event ?? player.event
+  const round = board?.round ?? player.round
   const open = event.status === 'open'
-  const canPlay = open && player.attemptsLeft > 0 && !player.disqualified
+  const canJoin = open && player.attemptsLeft > 0 && !player.disqualified
+  const thisRound = player.current && round && player.current.roundId === round.id ? player.current : null
+  const roundOpen = round && round.status !== 'ended' && !thisRound
 
   return (
-    <section className="mt-8">
-      <p className="text-white/60">Playing as</p>
-      <p className="font-display text-3xl font-bold">@{player.handle}</p>
+    <section className="mt-6">
+      {result && thisRound && <RoundResult result={result} player={player} board={board} />}
+      {!result && (
+        <>
+          <p className="text-white/60">Playing as</p>
+          <p className="font-display text-3xl font-bold">{player.name}</p>
+          <p className="text-sm text-white/45">{player.phoneHint}</p>
+        </>
+      )}
+
       <div className="mt-5 grid grid-cols-3 gap-3 text-center">
-        <Stat label="Tries left" value={`${player.attemptsLeft}/${player.attemptsAllowed}`} />
+        <Stat label="Rounds left" value={`${player.attemptsLeft}/${player.attemptsAllowed}`} />
         <Stat label="Best" value={player.best ? String(player.best.score) : '—'} />
-        <Stat label="Rank" value={player.rank ? `#${player.rank}` : '—'} />
+        <Stat label="Today" value={player.rank ? `#${player.rank}` : '—'} />
       </div>
 
       {event.winner && <WinnerBanner board={board} />}
 
-      {canPlay ? (
+      {canJoin ? (
         <>
-          <button type="button" onClick={onPlay} disabled={busy} className="btn-tower mt-8 py-6 text-2xl disabled:opacity-60">
-            {busy ? 'Starting…' : player.best ? 'Play again' : 'Play'}
-          </button>
-          <HowToPlay />
+          {roundOpen && (
+            <p className="mt-6 animate-pulse rounded-2xl bg-amber-300/20 px-4 py-3 text-center font-semibold text-amber-100">
+              Round {round.number} is open — enter the code!
+            </p>
+          )}
+          <CodeEntry token={token} onJoined={onJoined} />
+          {!player.best && <HowToPlay />}
         </>
       ) : (
         <p className="mt-8 rounded-2xl bg-white/10 p-4 text-lg">
@@ -535,62 +569,98 @@ function HomeScreen({
             ? 'Entries are closed. Stay close — the winner is announced at the stall!'
             : player.disqualified
               ? 'Please speak to the stall team.'
-              : 'All your tries are used. Your best score is on the board — good luck!'}
+              : 'You have played all your rounds. Your best score is on the board — good luck!'}
         </p>
       )}
 
-      <MiniBoard board={board} you={player.handle} />
+      <MiniBoard board={board} />
       <button type="button" onClick={onNextPlayer} className="mt-6 w-full py-3 text-sm text-white/60 underline">
-        Not @{player.handle}? Next player
+        Not {player.name}? Next player
       </button>
     </section>
   )
 }
 
-function ResultScreen({
-  result,
-  player,
-  previousBest,
-  busy,
-  onPlay,
-  onNextPlayer,
-}: {
-  result: RunResult
-  player: PlayerView
-  previousBest: number | null
-  busy: boolean
-  onPlay: () => void
-  onNextPlayer: () => void
-}) {
-  const { board } = useBoard(6_000)
-  const newBest = previousBest === null || result.score > previousBest
-  const canPlay = player.event.status === 'open' && player.attemptsLeft > 0 && !player.disqualified
-
+function RoundResult({ result, player, board }: { result: RunResult; player: PlayerView; board: PublicBoard | null }) {
+  const current = player.current
+  const newBest = !player.best || result.score >= player.best.score
+  const inRound = board?.round && current && board.round.id === current.roundId ? board.round.joined : null
   return (
-    <section className="mt-8 text-center">
-      <p className="text-lg text-white/60">{newBest ? '🎉 New personal best!' : 'Nice run!'}</p>
+    <div className="text-center">
+      <p className="text-lg text-white/60">{newBest ? '🎉 Your best yet!' : 'Nice stacking!'}</p>
       <p className="mt-1 font-display text-7xl font-bold">{result.score}</p>
       <p className="mt-2 text-white/70">
         {result.layers} layers · {result.perfects} perfect · best streak {result.bestCombo}
       </p>
-      <div className="mt-6 grid grid-cols-3 gap-3">
-        <Stat label="Your best" value={player.best ? String(player.best.score) : String(result.score)} />
-        <Stat label="Rank" value={player.rank ? `#${player.rank}` : '—'} />
-        <Stat label="Tries left" value={String(player.attemptsLeft)} />
-      </div>
-      {canPlay ? (
-        <button type="button" onClick={onPlay} disabled={busy} className="btn-tower mt-8 py-5 text-xl disabled:opacity-60">
-          {busy ? 'Starting…' : `Play again (${player.attemptsLeft} left)`}
-        </button>
-      ) : (
-        <p className="mt-8 rounded-2xl bg-white/10 p-4">
-          That&apos;s all your tries. Watch the stall screen — the winner is announced at the end!
+      {current?.rank && (
+        <p className="mt-3 inline-block rounded-full bg-brand/40 px-4 py-1.5 font-semibold">
+          #{current.rank}
+          {inRound ? ` of ${inRound}` : ''} in round {current.number}
         </p>
       )}
-      <MiniBoard board={board} you={player.handle} />
-      <button type="button" onClick={onNextPlayer} className="btn-tower-ghost mt-6">
-        Next player
+      <p className="mt-2 text-sm text-white/50">Watch the big screen for the podium!</p>
+    </div>
+  )
+}
+
+function LobbyScreen({
+  player,
+  game,
+  onStart,
+  onRoundGone,
+}: {
+  player: PlayerView
+  game: Game
+  onStart: (goAtServer: number | null) => void
+  onRoundGone: () => void
+}) {
+  const { board } = useBoard(1_500)
+  const started = useRef(false)
+  const round = board?.round
+
+  useEffect(() => {
+    if (!round || started.current) return
+    if (round.id !== game.roundId) {
+      started.current = true
+      onRoundGone()
+      return
+    }
+    if (round.status === 'playing' || round.status === 'ended') {
+      started.current = true
+      onStart(round.goAt)
+    }
+  }, [round, game.roundId, onStart, onRoundGone])
+
+  const names = board?.roundRows.map((row) => row.name) ?? []
+
+  return (
+    <section className="mt-10 text-center">
+      <p className="text-6xl">✅</p>
+      <h2 className="text-white mt-4 font-display text-3xl font-bold">You&apos;re in, {player.name}!</h2>
+      <p className="mt-2 text-lg text-white/75">Look for your name on the big screen.</p>
+      <div className="mx-auto mt-8 h-12 w-12 animate-spin rounded-full border-4 border-white/20 border-t-amber-300" />
+      <p className="mt-4 text-white/70">Waiting for the host to start round {game.roundNumber}…</p>
+      <p className="mt-1 text-sm text-white/50">Keep this screen open. Turn your sound on!</p>
+      {names.length > 0 && (
+        <div className="mt-8 rounded-2xl bg-white/5 p-4">
+          <p className="text-xs uppercase tracking-widest text-white/50">{round?.joined ?? names.length} players in</p>
+          <p className="mt-2 text-sm leading-relaxed text-white/70">{names.slice(0, 30).join(' · ')}</p>
+        </div>
+      )}
+      <HowToPlay />
+    </section>
+  )
+}
+
+function ReadyScreen({ roundNumber, onGo }: { roundNumber: number; onGo: () => void }) {
+  return (
+    <section className="mt-16 text-center">
+      <h2 className="text-white font-display text-4xl font-bold">Round {roundNumber} is on!</h2>
+      <p className="mt-3 text-lg text-white/75">Your tower is waiting. Tap when you&apos;re ready.</p>
+      <button type="button" onClick={onGo} className="btn-tower mt-10 py-6 text-2xl">
+        Start my game
       </button>
+      <HowToPlay />
     </section>
   )
 }
@@ -611,36 +681,51 @@ function SavingScreen({ stuck, onRetry }: { stuck: boolean; onRetry: () => void 
 
 // ------------------------------------------------------------------ game
 
-function Countdown({ onDone }: { onDone: () => void }) {
-  const [count, setCount] = useState(3)
+function Countdown({ goAtLocal, roundNumber, onDone }: { goAtLocal: number; roundNumber: number; onDone: () => void }) {
+  const [left, setLeft] = useState(() => Math.max(0, Math.ceil((goAtLocal - Date.now()) / 1000)))
   const doneRef = useRef(onDone)
   doneRef.current = onDone
+
   useEffect(() => {
-    playTick()
-    if (count === 0) {
-      doneRef.current()
-      return
+    let last = -1
+    let finished = false
+    const tick = () => {
+      const remaining = Math.max(0, Math.ceil((goAtLocal - Date.now()) / 1000))
+      if (remaining !== last) {
+        last = remaining
+        setLeft(remaining)
+        if (remaining <= 3) playTick()
+      }
+      if (remaining === 0 && !finished) {
+        finished = true
+        doneRef.current()
+      }
     }
-    const timer = window.setTimeout(() => setCount((value) => value - 1), 750)
-    return () => window.clearTimeout(timer)
-  }, [count])
+    tick()
+    const timer = window.setInterval(tick, 100)
+    return () => window.clearInterval(timer)
+  }, [goAtLocal])
+
   return (
     <main className="fixed inset-0 flex flex-col items-center justify-center bg-ink text-white">
-      <p className="text-white/60">Tap anywhere to drop</p>
-      <p key={count} className="mt-4 animate-ping-once font-display text-[9rem] font-bold leading-none">
-        {count || 'GO'}
+      <p className="text-lg uppercase tracking-[0.3em] text-amber-200">Round {roundNumber}</p>
+      <p className="mt-2 text-white/60">Tap anywhere to drop</p>
+      <p key={left} className="mt-4 animate-ping-once font-display text-[9rem] font-bold leading-none">
+        {left || 'GO'}
       </p>
     </main>
   )
 }
 
 function PlayingScreen({
-  run,
+  game,
+  token,
   onGameOver,
   muted,
   onToggleMute,
 }: {
-  run: RunTicket
+  game: Game
+  token: string
   onGameOver: (intervals: number[]) => void
   muted: boolean
   onToggleMute: () => void
@@ -650,12 +735,36 @@ function PlayingScreen({
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null)
   const [over, setOver] = useState(false)
   const toastId = useRef(0)
+  const lastSent = useRef(0)
+  const latest = useRef({ score: 0, layers: 0 })
+
+  /** Fire-and-forget live score for the big screen. Never blocks or retries — the game must not lag. */
+  const sendProgress = useCallback(
+    (force = false) => {
+      const now = Date.now()
+      if (!force && now - lastSent.current < PROGRESS_INTERVAL_MS) return
+      lastSent.current = now
+      void fetch('/api/tower/run/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', [TOKEN_HEADER]: token },
+        body: JSON.stringify({ runId: game.runId, ...latest.current }),
+        keepalive: true,
+      }).catch(() => undefined)
+    },
+    [game.runId, token]
+  )
+
+  useEffect(() => {
+    const timer = window.setInterval(() => sendProgress(), PROGRESS_INTERVAL_MS)
+    return () => window.clearInterval(timer)
+  }, [sendProgress])
 
   const handleDrop = useCallback(
     (event: DropEvent) => {
-      storage.set(KEY_PENDING, JSON.stringify({ runId: run.runId, intervals: event.intervals } satisfies Pending))
+      storage.set(KEY_PENDING, JSON.stringify({ runId: game.runId, intervals: event.intervals } satisfies Pending))
       setScore(event.score)
       setLayers(event.layers)
+      latest.current = { score: event.score, layers: event.layers }
       if (event.outcome.kind === 'perfect') {
         playPerfect(event.combo)
         buzz(15)
@@ -669,7 +778,7 @@ function PlayingScreen({
         buzz(120)
       }
     },
-    [run.runId]
+    [game.runId]
   )
 
   const handleOver = useCallback(
@@ -682,13 +791,7 @@ function PlayingScreen({
 
   return (
     <main className="fixed inset-0 overflow-hidden overscroll-none bg-ink text-white">
-      <TowerCanvas
-        seed={run.seed}
-        mode="play"
-        onDrop={handleDrop}
-        onGameOver={handleOver}
-        className="absolute inset-0"
-      />
+      <TowerCanvas seed={game.seed} mode="play" onDrop={handleDrop} onGameOver={handleOver} className="absolute inset-0" />
       <div className="pointer-events-none absolute inset-x-0 top-0 flex flex-col items-center pt-[max(1.5rem,env(safe-area-inset-top))]">
         <p className="font-display text-6xl font-bold tabular-nums drop-shadow">{score}</p>
         <p className="text-sm text-white/70">{layers} layers</p>
@@ -726,7 +829,7 @@ function PlayingScreen({
 function StepBadge({ step }: { step: number }) {
   return (
     <p className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-brand-200">
-      Step {step} of 2
+      Step {step} of 3
     </p>
   )
 }
@@ -742,11 +845,11 @@ function Stat({ label, value }: { label: string; value: string }) {
 
 function HowToPlay() {
   return (
-    <ul className="mt-6 space-y-2 text-white/75">
+    <ul className="mt-6 space-y-2 text-left text-white/75">
       <li>👆 Tap anywhere to drop the sliding slab.</li>
       <li>🎯 Line it up — anything hanging over gets sliced off.</li>
       <li>✨ Perfect drops score bonus points and grow your slab back.</li>
-      <li>🏆 Your best try counts. Top score at the end wins!</li>
+      <li>🏆 Everyone in the round stacks the same tower. Top score today wins!</li>
     </ul>
   )
 }
@@ -758,25 +861,23 @@ function WinnerBanner({ board }: { board: PublicBoard | null }) {
     <div className="mt-6 rounded-2xl bg-gradient-to-r from-amber-300 to-amber-500 p-4 text-ink">
       <p className="text-sm font-semibold uppercase tracking-wider">Winner</p>
       <p className="font-display text-2xl font-bold">
-        @{winner.handle} · {winner.score}
+        {winner.name} · {winner.score}
       </p>
     </div>
   )
 }
 
-function MiniBoard({ board, you }: { board: PublicBoard | null; you: string }) {
+function MiniBoard({ board }: { board: PublicBoard | null }) {
   if (!board || board.top.length === 0) return null
   return (
     <section className="mt-8 rounded-2xl bg-white/5 p-4 text-left">
-      <h3 className="text-sm font-semibold uppercase tracking-wider text-white/60">Leaderboard</h3>
+      <h3 className="text-sm font-semibold uppercase tracking-wider text-white/60">Today&apos;s top stackers</h3>
       <ol className="mt-3 space-y-2">
         {board.top.slice(0, 5).map((row) => (
-          <li
-            key={row.handle}
-            className={`flex items-center justify-between rounded-xl px-3 py-2 ${row.handle === you ? 'bg-brand/40' : ''}`}
-          >
+          <li key={`${row.rank}-${row.name}`} className="flex items-center justify-between rounded-xl px-3 py-2">
             <span className="truncate">
-              <span className="mr-2 text-white/50">#{row.rank}</span>@{row.handle}
+              <span className="mr-2 text-white/50">#{row.rank}</span>
+              {row.name}
             </span>
             <span className="font-display font-bold tabular-nums">{row.score}</span>
           </li>
@@ -809,13 +910,4 @@ function readPending(): Pending | null {
   } catch {
     return null
   }
-}
-
-function newStartKey(): string {
-  try {
-    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return crypto.randomUUID()
-  } catch {
-    // Older Safari or an insecure origin — fall through.
-  }
-  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`
 }

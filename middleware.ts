@@ -75,7 +75,10 @@ export async function middleware(request: NextRequest) {
   // A signed-in user has no reason to see /login or /signup.
   // Admin allowlist (verified email) always goes to /admin; everyone else
   // to /account. Firebase phone sessions have no verified email → /account.
-  if ((pathname === '/login' || pathname === '/signup') && isAuthenticated) {
+  // Exception: /admin sends a signed-in NON-admin here with switch=admin so they
+  // can sign in with the admin account instead — don't bounce them to /account.
+  const switchingToAdmin = request.nextUrl.searchParams.get('switch') === 'admin'
+  if ((pathname === '/login' || pathname === '/signup') && isAuthenticated && !switchingToAdmin) {
     const url = request.nextUrl.clone()
     const isAdmin =
       Boolean(user?.email) &&

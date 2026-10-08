@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { PublicBoard } from '@/lib/tower/types'
 
 export const TOKEN_HEADER = 'x-tower-token'
@@ -89,6 +89,45 @@ export function useBoard(intervalMs: number, enabled = true): { board: PublicBoa
   }, [intervalMs, enabled])
 
   return { board, error }
+}
+
+/**
+ * Milliseconds to add to Date.now() to get server time. Measured against /api/tower/clock
+ * (never cached) using the fastest of a few round trips, so every phone and the big screen
+ * count down to the same instant.
+ */
+export function useServerOffset(): number {
+  const [offset, setOffset] = useState(0)
+  const best = useRef<{ rtt: number; offset: number } | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    const sample = async () => {
+      const sentAt = Date.now()
+      const reply = await callApi<{ serverNow: number }>('/api/tower/clock', { timeoutMs: 5_000 })
+      const receivedAt = Date.now()
+      if (cancelled || !reply.ok) return
+      const rtt = receivedAt - sentAt
+      const measured = reply.data.serverNow - (sentAt + rtt / 2)
+      if (!best.current || rtt <= best.current.rtt * 1.5) {
+        best.current = { rtt: Math.min(rtt, best.current?.rtt ?? rtt), offset: measured }
+        setOffset(Math.round(measured))
+      }
+    }
+    void (async () => {
+      for (let index = 0; index < 3 && !cancelled; index += 1) await sample()
+    })()
+    const timer = window.setInterval(() => {
+      best.current = null
+      void sample()
+    }, 60_000)
+    return () => {
+      cancelled = true
+      window.clearInterval(timer)
+    }
+  }, [])
+
+  return offset
 }
 
 /** Keeps the screen awake (game in progress, or the stall monitor). Silently does nothing if unsupported. */

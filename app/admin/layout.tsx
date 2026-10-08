@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import { redirect, notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { getCurrentUser } from '@/lib/auth/session'
-import { isAdminUser } from '@/lib/auth/admin'
+import { getAdminUser } from '@/lib/auth/admin'
 import { AdminShell } from '@/components/admin/admin-shell'
 
 /**
@@ -13,9 +13,11 @@ import { AdminShell } from '@/components/admin/admin-shell'
  *
  *   - NOT signed in            → redirect to /login (the owner can sign in and
  *                                come back). `next` returns them here after.
- *   - Signed in, NOT an admin  → 404. A logged-in customer poking at /admin
- *                                gets the same response as a non-existent page,
- *                                so the admin surface never confirms it exists.
+ *   - Signed in, NOT an admin  → back to /login with `switch=admin`, which
+ *                                tells them this account has no admin access and
+ *                                lets them sign in with the admin account. (It
+ *                                used to 404, which left the owner stuck when an
+ *                                old customer/phone login was still active.)
  *
  * The allowlist + verified-email check lives in lib/auth/admin.ts; this layout
  * only decides redirect-vs-hide. The API routes still call requireAdmin()
@@ -32,14 +34,11 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const user = await getCurrentUser()
+  const admin = await getAdminUser()
 
-  if (!user) {
-    redirect('/login?next=/admin')
-  }
-
-  if (!isAdminUser(user)) {
-    notFound()
+  if (!admin) {
+    const user = await getCurrentUser()
+    redirect(user ? '/login?next=/admin&switch=admin' : '/login?next=/admin')
   }
 
   return <AdminShell>{children}</AdminShell>

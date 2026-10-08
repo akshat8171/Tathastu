@@ -1,11 +1,16 @@
 /** Shapes shared by the API routes and the browser. No server imports here. */
 
-export type FollowCheckMode = 'honor' | 'instagram'
 export type EventStatus = 'open' | 'closed'
+export type RoundStatus = 'lobby' | 'playing' | 'ended'
+/**
+ * What the big screen shows. `countdown` and `results` are derived: countdown is the gap
+ * between the host pressing Start and the first drop, results is an ended round (or a
+ * playing round where everyone has finished).
+ */
+export type RoundPhase = 'lobby' | 'countdown' | 'playing' | 'results'
 
 export interface PublicWinner {
-  handle: string
-  displayName: string | null
+  name: string
   score: number
   layers: number
   perfects: number
@@ -20,47 +25,71 @@ export interface PublicEvent {
   announcedAt: number | null
 }
 
+export interface PublicRound {
+  id: number
+  number: number
+  status: RoundStatus
+  phase: RoundPhase
+  /** Server time (ms) of the first drop. Null while the round is in its lobby. */
+  goAt: number | null
+  /** Only filled in when the host chose to show the code on the big screen. */
+  code: string | null
+  joined: number
+  finished: number
+}
+
 export interface BoardRow {
   rank: number
-  handle: string
-  displayName: string | null
+  name: string
   score: number
   layers: number
   perfects: number
 }
 
-export interface RecentRun {
-  handle: string
+/** One player in the current round, for the lobby and the live race on the big screen. */
+export interface RoundRow {
+  name: string
+  /** Final score once finished, otherwise the live score the phone last reported. */
   score: number
   layers: number
-  finishedAt: number
+  done: boolean
 }
 
 export interface PublicBoard {
   serverNow: number
   event: PublicEvent | null
+  round: PublicRound | null
+  /** Current round, best first (lobby: in join order). */
+  roundRows: RoundRow[]
+  /** Best score per player across the whole event. */
   top: BoardRow[]
   players: number
   games: number
-  playingNow: number
-  recent: RecentRun[]
+}
+
+export interface PlayerRoundState {
+  roundId: number
+  number: number
+  runId: string
+  seed: number
+  status: 'playing' | 'finished' | 'rejected'
+  score: number | null
+  rank: number | null
 }
 
 export interface PlayerView {
-  handle: string
-  displayName: string | null
+  name: string
+  /** Masked, e.g. +91 98•••••210, so the phone can confirm who is signed in. */
+  phoneHint: string
   attemptsAllowed: number
   attemptsLeft: number
   best: { score: number; layers: number; perfects: number } | null
   rank: number | null
   disqualified: boolean
   event: PublicEvent
-}
-
-export interface RunTicket {
-  runId: string
-  seed: number
-  attempt: number
+  round: PublicRound | null
+  /** This player's game in the current round, once they have entered its code. */
+  current: PlayerRoundState | null
 }
 
 export interface RunResult {
@@ -72,9 +101,9 @@ export interface RunResult {
 
 export interface AdminPlayerRow {
   id: string
-  handle: string
-  displayName: string | null
-  followCheck: FollowCheckMode
+  name: string
+  phone: string
+  marketingOptIn: boolean
   disqualified: boolean
   bonusAttempts: number
   attemptsUsed: number
@@ -89,8 +118,9 @@ export interface AdminPlayerRow {
 
 export interface AdminRunRow {
   id: string
-  handle: string
-  attempt: number
+  playerId: string
+  name: string
+  round: number | null
   status: 'playing' | 'finished' | 'rejected'
   score: number | null
   layers: number | null
@@ -101,10 +131,16 @@ export interface AdminRunRow {
   suspicious: boolean
 }
 
+export interface AdminRound extends PublicRound {
+  /** The real code, always visible to the host. */
+  secretCode: string
+  showCode: boolean
+}
+
 export interface AdminSnapshot {
   serverNow: number
-  followCheck: FollowCheckMode
   event: PublicEvent | null
+  round: AdminRound | null
   pastEvents: PublicEvent[]
   players: AdminPlayerRow[]
   runs: AdminRunRow[]

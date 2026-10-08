@@ -240,6 +240,8 @@ body:has([data-testid="admin-shell"]) [data-testid="whatsapp-float"] {
   color: #fff;
 }
 .btn-admin:hover { background: #0b6e5c; }
+.btn-admin-gold { background: #f59e0b; }
+.btn-admin-gold:hover { background: #d97706; }
 .btn-admin:disabled, .btn-admin-ghost:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-admin-ghost {
   border-radius: 9999px;

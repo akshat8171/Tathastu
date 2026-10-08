@@ -38,17 +38,24 @@ export const POINTS_PER_LAYER = 10
 export const PERFECT_BONUS = 10
 export const MAX_COMBO_MULTIPLIER = 5
 
-/** Default number of tries each player gets per event. Best score counts. */
+/** Default number of rounds each player may play per event. Their best score counts. */
 export const DEFAULT_ATTEMPTS = 3
 /** A run must be submitted within this long of starting. */
 export const RUN_SUBMIT_WINDOW_MS = 30 * 60_000
 /** Allowance for clock jitter and network delay when checking tap timings. */
 export const RUN_CLOCK_SLACK_MS = 5_000
 
-export const HANDLE_PATTERN = /^[a-z0-9._]{1,30}$/
-
 /** Taps closer than this to the slab spawning are ignored (double taps, a second finger). */
 export const MIN_TAP_GAP_MS = 150
 /** Runs at least this tall where nearly every drop was perfect get flagged for the host to check. */
 export const SUSPICIOUS_MIN_LAYERS = 15
 export const SUSPICIOUS_PERFECT_RATE = 0.75
+
+/** Game codes are this many digits. The host reads it out; players type it in to join a round. */
+export const ROUND_CODE_LENGTH = 4
+/** Gap between the host pressing Start and the first drop, so every phone counts down together. */
+export const ROUND_COUNTDOWN_MS = 6_000
+/** Phones send their live score to the big screen at most this often while playing. */
+export const PROGRESS_INTERVAL_MS = 2_000
+/** Names on the big screen are kept short, Kahoot-style. */
+export const NAME_MAX_LENGTH = 20

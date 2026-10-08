@@ -15,6 +15,19 @@ export function respond<T extends object>(result: ApiResult<T>): NextResponse {
   return NextResponse.json(body, { headers })
 }
 
+/**
+ * Same as respond(), but lets the CDN serve the answer for a second. Used for the public
+ * board that every phone and the big screen poll, so a crowd of 100 costs ~1 request/s.
+ * Never put anything player-specific in a response sent through here.
+ */
+export function respondShared<T extends object>(result: ApiResult<T>): NextResponse {
+  if (!result.ok) return respond(result)
+  const { ok: _ok, ...body } = result as { ok: true } & T
+  return NextResponse.json(body, {
+    headers: { 'Cache-Control': 'public, max-age=0, s-maxage=1, stale-while-revalidate=1' },
+  })
+}
+
 export async function readJson(request: NextRequest): Promise<unknown> {
   return request.json().catch(() => null)
 }

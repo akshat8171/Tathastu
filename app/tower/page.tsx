@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import { PlayerApp } from '@/components/tower/player-app'
-import { getFollowCheckMode } from '@/lib/tower/service'
-
-export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Tathastu Tower',
@@ -14,5 +11,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: '#16182B' }
 
 export default function TowerPage() {
-  return <PlayerApp followCheck={getFollowCheckMode()} />
+  return <PlayerApp />
 }

@@ -43,6 +43,21 @@ export function LoginForm() {
       ? 'Google sign-in could not be completed. Please try again.'
       : ''
 
+  // Set by app/admin/layout.tsx when a signed-in account isn't on the admin list.
+  const switchingToAdmin = searchParams.get('switch') === 'admin'
+  const [signingOut, setSigningOut] = useState(false)
+
+  async function signOutEverywhere() {
+    setSigningOut(true)
+    // Clear the email/Google session AND any old phone (Firebase) session.
+    await Promise.allSettled([
+      supabase.auth.signOut({ scope: 'local' }),
+      fetch('/auth/signout', { method: 'POST' }),
+      fetch('/api/auth/firebase-session', { method: 'DELETE' }),
+    ])
+    window.location.href = `/login?next=${encodeURIComponent(next)}`
+  }
+
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
     setError('')
@@ -89,6 +104,23 @@ export function LoginForm() {
         <p className="text-red-600 text-sm font-sans bg-red-50 border border-red-200 rounded-lg px-4 py-3">
           {oauthError}
         </p>
+      )}
+
+      {switchingToAdmin && (
+        <div className="text-sm font-sans bg-amber-50 border border-amber-200 text-amber-900 rounded-lg px-4 py-3 space-y-2">
+          <p>
+            You&apos;re signed in, but this account doesn&apos;t have admin access. Sign in below with the store&apos;s admin
+            account (use <b>Continue with Google</b> if that&apos;s how it was set up).
+          </p>
+          <button
+            type="button"
+            onClick={() => void signOutEverywhere()}
+            disabled={signingOut}
+            className="font-semibold underline"
+          >
+            {signingOut ? 'Signing out…' : 'Sign out of the current account first'}
+          </button>
+        </div>
       )}
 
       {/* Google */}
