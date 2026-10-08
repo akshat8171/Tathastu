@@ -127,7 +127,7 @@ export function TowerHostConsole({ apiBase = '/api/admin/tower' }: { apiBase?: s
             onEnd={() =>
               void act(
                 { action: 'end-round' },
-                stillPlaying > 0 ? `${stillPlaying} player(s) are still stacking. End the round now? Their games will not count.` : undefined
+                stillPlaying > 0 ? `${stillPlaying} player(s) are still stacking. End the round now? The podium shows straight away; their games still count on the overall leaderboard when they finish.` : undefined
               )
             }
             onShowCode={(show) => void act({ action: 'show-code', show })}

@@ -221,7 +221,8 @@ export async function submitRun(input: {
   // start stacking during the countdown.
   const round = run.roundId ? await loadRound(run.roundId) : null
   const goAtMs = round?.goAt ? Date.parse(round.goAt) : null
-  if (round && goAtMs === null) {
+  // Before GO the game is refused but NOT used up, so a phone with a bad clock keeps its turn.
+  if (round && (goAtMs === null || goAtMs > Date.now())) {
     return { ok: false, error: 'The round has not started yet.', status: 409 }
   }
   const startedAtMs = Math.max(Date.parse(run.startedAt), goAtMs ?? 0)
