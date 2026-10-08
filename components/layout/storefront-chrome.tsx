@@ -31,7 +31,7 @@ export function isAdminSegment(segment: string | null): boolean {
 function isPlayStagePath(pathname: string | null): boolean {
   if (!pathname) return false
   const normalized = pathname.replace(/\/+$/, '') || '/'
-  return normalized === '/play' || normalized.startsWith('/play/')
+  return ['/play', '/tower'].some((root) => normalized === root || normalized.startsWith(`${root}/`))
 }
 
 export function StorefrontChrome({ children }: { children: React.ReactNode }) {
@@ -42,6 +42,7 @@ export function StorefrontChrome({ children }: { children: React.ReactNode }) {
     isAdminSegment(segment) ||
     isAdminPath(pathname) ||
     segment === 'play' ||
+    segment === 'tower' ||
     isPlayStagePath(pathname)
   ) {
     return <>{children}</>
