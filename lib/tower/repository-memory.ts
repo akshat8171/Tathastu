@@ -277,21 +277,28 @@ export const listAllRuns: typeof Db.listAllRuns = async (eventId) =>
 export const countRuns: typeof Db.countRuns = async (eventId, status) =>
   store.runs.filter((row) => row.eventId === eventId && row.status === status).length
 
-export const listRoundRuns: typeof Db.listRoundRuns = async (roundId) => {
+function withPlayer(rows: StoredRun[]) {
   const players = new Map(store.players.map((player) => [player.id, player]))
-  return store.runs
-    .filter((row) => row.roundId === roundId)
-    .sort((a, b) => a.startedAt.localeCompare(b.startedAt))
-    .map((row) => {
-      const player = players.get(row.playerId)
-      return {
-        ...publicRun(row),
-        name: player?.name ?? 'Player',
-        phone: player?.phone ?? '',
-        disqualified: player?.disqualified ?? false,
-      }
-    })
+  return rows.map((row) => {
+    const player = players.get(row.playerId)
+    return {
+      ...publicRun(row),
+      name: player?.name ?? 'Player',
+      phone: player?.phone ?? '',
+      disqualified: player?.disqualified ?? false,
+    }
+  })
 }
+
+export const listRoundRuns: typeof Db.listRoundRuns = async (roundId) =>
+  withPlayer(store.runs.filter((row) => row.roundId === roundId).sort((a, b) => a.startedAt.localeCompare(b.startedAt)))
+
+export const listEventResults: typeof Db.listEventResults = async (eventId) =>
+  withPlayer(
+    store.runs
+      .filter((row) => row.eventId === eventId && row.status === 'finished' && row.roundId !== null)
+      .sort((a, b) => (a.finishedAt ?? '').localeCompare(b.finishedAt ?? ''))
+  )
 
 // ---------------------------------------------------------------- leaderboard (mirrors the tower_leaderboard view)
 

@@ -9,6 +9,7 @@ import {
   MAX_LAYERS,
   PERFECT_BONUS,
   POINTS_PER_LAYER,
+  ROUND_END_GRACE_MS,
   RUN_SUBMIT_WINDOW_MS,
   TRAVEL,
 } from '@/lib/tower/constants'
@@ -28,6 +29,9 @@ import {
   checkRunTiming,
   clampIntervals,
   compareRuns,
+  countsForRound,
+  roundStandings,
+  roundWinner,
   cleanPlayerName,
   isSuspiciousRun,
   maskPhone,
@@ -286,5 +290,54 @@ describe('Tathastu Tower rules', () => {
     // A bot that taps the computed centre every time is caught.
     const bot = replayRun(7, Array.from({ length: 60 }, (_, index) => centredInterval(index + 1)))
     expect(isSuspiciousRun(bot)).toBe(true)
+  })
+})
+
+describe('Tathastu Tower round winners', () => {
+  const ended = Date.parse('2026-10-08T12:00:00.000Z')
+  const at = (offsetMs: number) => new Date(ended + offsetMs).toISOString()
+  const game = (playerId: string, score: number, perfects: number, finishedOffsetMs: number, extra = {}) => ({
+    playerId,
+    status: 'finished' as const,
+    score,
+    perfects,
+    finishedAt: at(finishedOffsetMs),
+    ...extra,
+  })
+
+  it('picks exactly one winner: top score, then more perfect drops, then who finished first', () => {
+    const runs = [
+      game('a', 900, 10, -9_000),
+      game('b', 1_200, 20, -8_000),
+      game('c', 1_200, 22, -5_000),
+      game('d', 1_200, 22, -7_000),
+    ]
+    expect(roundWinner(runs, ended)?.playerId).toBe('d')
+    expect(roundStandings(runs, ended).map((run) => run.playerId)).toEqual(['d', 'c', 'b', 'a'])
+  })
+
+  it('does not let a game that finished after the round ended win it', () => {
+    const runs = [game('early', 500, 5, -1_000), game('late', 2_000, 30, ROUND_END_GRACE_MS + 1)]
+    expect(roundWinner(runs, ended)?.playerId).toBe('early')
+    expect(countsForRound(runs[1], ended)).toBe(false)
+    // ...but a game landing within the grace (same moment as End round) still counts.
+    expect(countsForRound(game('photo-finish', 2_000, 30, ROUND_END_GRACE_MS - 1), ended)).toBe(true)
+    // A round that is still running counts every finished game.
+    expect(roundWinner(runs, null)?.playerId).toBe('late')
+  })
+
+  it('skips hidden players, unfinished and rejected games, so the next best wins', () => {
+    const runs = [
+      game('cheat', 5_000, 50, -100, { disqualified: true }),
+      { ...game('rejected', 4_000, 40, -100), status: 'rejected' as const },
+      { ...game('still-playing', 0, 0, 0), status: 'playing' as const, score: null, finishedAt: null },
+      game('honest', 300, 3, -100),
+    ]
+    expect(roundWinner(runs, ended)?.playerId).toBe('honest')
+  })
+
+  it('has no winner when nobody scored', () => {
+    expect(roundWinner([game('a', 0, 0, -100), game('b', 0, 0, -50)], ended)).toBeNull()
+    expect(roundWinner([], ended)).toBeNull()
   })
 })

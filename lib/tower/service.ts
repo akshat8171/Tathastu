@@ -13,6 +13,7 @@ import {
   insertRound,
   insertRun,
   listAllRuns,
+  listEventResults,
   listPlayerRuns,
   listPlayers,
   listRoundRuns,
@@ -52,12 +53,15 @@ import {
   normalizeRoundCode,
   plausibleProgress,
   roundPhase,
+  roundStandings,
+  roundWinner,
   screenNames,
   whatsappDigits,
 } from '@/lib/tower/rules'
 import type {
   AdminPlayerRow,
   AdminRound,
+  AdminRoundWinner,
   AdminRunRow,
   AdminSnapshot,
   ApiResult,
@@ -67,6 +71,7 @@ import type {
   PublicBoard,
   PublicEvent,
   PublicRound,
+  PublicRoundWinner,
   RoundRow as PublicRoundRow,
   RunResult,
 } from '@/lib/tower/types'
@@ -229,6 +234,7 @@ export async function submitRun(input: {
   const timingError = checkRunTiming({ intervalsMs, startedAtMs, nowMs: Date.now() })
   if (timingError) {
     await finishRun(run.id, { status: 'rejected', intervalsMs, reason: timingError })
+    if (round) await endRoundIfEveryoneFinished(round)
     invalidateBoard()
     return { ok: false, error: timingError, status: 422 }
   }
@@ -247,6 +253,7 @@ export async function submitRun(input: {
     ? await finishRun(run.id, { status: 'rejected', reason: 'Finished after the winner was announced.', ...stats })
     : await finishRun(run.id, { status: 'finished', ...stats })
   if (!saved.ok) return { ok: false, error: saved.error, status: 500 }
+  if (round && saved.updated) await endRoundIfEveryoneFinished(round)
   invalidateBoard()
 
   if (!saved.updated) {
@@ -303,30 +310,45 @@ export async function loadBoard(): Promise<ApiResult<{ board: PublicBoard }>> {
   if (!latest.ok) return { ok: false, error: latest.error, status: 503 }
   const event = latest.event
   if (!event) {
-    const board: PublicBoard = { serverNow: now, event: null, round: null, roundRows: [], top: [], players: 0, games: 0 }
+    const board: PublicBoard = {
+      serverNow: now,
+      event: null,
+      round: null,
+      roundRows: [],
+      top: [],
+      roundWinners: [],
+      players: 0,
+      games: 0,
+    }
     return { ok: true, board }
   }
 
   const round = await loadLatestRound(event.id)
-  const [leaders, players, games, roundRuns] = await Promise.all([
+  const [leaders, players, games, roundRuns, rounds, results] = await Promise.all([
     loadLeaders(event.id, BOARD_SIZE),
     countPlayers(event.id),
     countRuns(event.id, 'finished'),
     round ? listRoundRuns(round.id) : Promise.resolve([] as RoundRunRow[]),
+    listRounds(event.id),
+    listEventResults(event.id),
   ])
 
   const visible = roundRuns.filter((run) => !run.disqualified && run.rejectReason !== ROUND_CANCELLED)
+  const current = round ? describeRound(round, event, visible, now) : null
+  const winners = winnersByRound(rounds, results, round && current ? { round, winner: current.winner, phase: current.phase } : null)
   const labels = screenNames([
     ...leaders.map((row) => ({ id: row.playerId, name: row.name, phone: row.phone })),
     ...visible.map((run) => ({ id: run.playerId, name: run.name, phone: run.phone })),
+    ...winners.map(({ run }) => ({ id: run.playerId, name: run.name, phone: run.phone })),
   ].filter((row, index, all) => all.findIndex((other) => other.id === row.id) === index))
-  const publicRound = round ? toPublicRound(round, event, visible, now) : null
+  const label = (run: { playerId: string; name: string }) => labels.get(run.playerId) ?? run.name
+  const publicRound = round && current ? withWinner(current.round, current.winner, label) : null
 
   const board: PublicBoard = {
     serverNow: now,
     event: publicEvent(event, leaders.find((row) => row.playerId === event.winnerPlayerId) ?? null),
     round: publicRound,
-    roundRows: roundRowsFor(visible, publicRound?.phase ?? 'lobby', labels).slice(0, ROUND_ROWS),
+    roundRows: round ? roundRowsFor(visible, round, publicRound?.phase ?? 'lobby', labels).slice(0, ROUND_ROWS) : [],
     top: leaders.map(
       (row, index): BoardRow => ({
         rank: index + 1,
@@ -336,6 +358,7 @@ export async function loadBoard(): Promise<ApiResult<{ board: PublicBoard }>> {
         perfects: row.perfects,
       })
     ),
+    roundWinners: winners.map(({ number, run }) => publicRoundWinner(number, run, label)),
     players,
     games,
   }
@@ -356,6 +379,7 @@ export async function adminSnapshot(): Promise<ApiResult<{ snapshot: AdminSnapsh
     event: event ? publicEvent(event, null) : null,
     round: null,
     pastEvents: events.filter((row) => row.id !== event?.id).map((row) => publicEvent(row, null)),
+    roundWinners: [],
     players: [],
     runs: [],
   }
@@ -369,19 +393,42 @@ export async function adminSnapshot(): Promise<ApiResult<{ snapshot: AdminSnapsh
     listRounds(event.id),
   ])
   const round = rounds[rounds.length - 1] ?? null
+  const byPlayer = new Map(players.map((player) => [player.id, player]))
+  const names = new Map(players.map((player) => [player.id, player.name]))
+  const entries = allRuns.map((run) => ({
+    ...run,
+    name: names.get(run.playerId) ?? 'Player',
+    phone: byPlayer.get(run.playerId)?.phone ?? '',
+    disqualified: byPlayer.get(run.playerId)?.disqualified === true,
+  }))
+  let current: { round: RoundRow; winner: RoundRunRow | null; phase: PublicRound['phase'] } | null = null
   if (round) {
-    const roundRuns = allRuns.filter((run) => run.roundId === round.id)
-    const hidden = new Set(players.filter((player) => player.disqualified).map((player) => player.id))
-    const visible = roundRuns.filter((run) => !hidden.has(run.playerId) && run.rejectReason !== ROUND_CANCELLED)
+    const visible = entries.filter(
+      (run) => run.roundId === round.id && !run.disqualified && run.rejectReason !== ROUND_CANCELLED
+    )
+    const described = describeRound(round, event, visible, now)
+    current = { round, winner: described.winner, phase: described.phase }
     snapshot.round = {
-      ...toPublicRound(round, event, visible, now),
+      ...withWinner(described.round, described.winner, (run) => names.get(run.playerId) ?? '?'),
       code: round.code,
       secretCode: round.code,
       showCode: event.showCode,
     } satisfies AdminRound
   }
+  const winners = winnersByRound(rounds, entries, current)
+  const wins = new Map<string, number>()
+  for (const { run } of winners) wins.set(run.playerId, (wins.get(run.playerId) ?? 0) + 1)
+  snapshot.roundWinners = winners.map(
+    ({ number, run }): AdminRoundWinner => ({
+      ...publicRoundWinner(number, run, (row) => row.name),
+      playerId: run.playerId,
+      phone: run.phone,
+      marketingOptIn: byPlayer.get(run.playerId)?.marketingOptIn === true,
+      suspicious: isSuspiciousRun(run),
+      wins: wins.get(run.playerId) ?? 0,
+    })
+  )
 
-  const names = new Map(players.map((player) => [player.id, player.name]))
   const roundNumbers = new Map(rounds.map((row) => [row.id, row.number]))
   const used = new Map<string, number>()
   for (const run of allRuns) {
@@ -517,10 +564,14 @@ export async function runAdminAction(input: AdminAction): Promise<ApiResult<{ me
       const closed = await closeRound(round)
       if (!closed.ok) return { ok: false, error: closed.error }
       outcome = { ok: true }
-      message =
-        round.status === 'lobby'
-          ? `Round ${round.number} closed before it started — nobody used up a turn.`
-          : `Round ${round.number} is over. The podium is on the big screen.`
+      if (round.status === 'lobby') {
+        message = `Round ${round.number} closed before it started — nobody used up a turn.`
+      } else {
+        const winner = roundWinner(await listRoundRuns(round.id), Date.now())
+        message = winner
+          ? `Round ${round.number} is over. Winner: ${winner.name} with ${winner.score}. The podium is on the big screen.`
+          : `Round ${round.number} is over — nobody scored, so no winner this round.`
+      }
       break
     }
     case 'announce': {
@@ -594,6 +645,13 @@ export async function exportEventCsv(eventId?: number): Promise<ApiResult<{ file
   const [players, runs, rounds] = await Promise.all([listPlayers(event.id), listAllRuns(event.id), listRounds(event.id)])
   const byId = new Map(players.map((player) => [player.id, player]))
   const roundNumbers = new Map(rounds.map((row) => [row.id, row.number]))
+  const winningRuns = new Set(
+    winnersByRound(
+      rounds,
+      runs.map((run) => ({ ...run, name: '', phone: '', disqualified: byId.get(run.playerId)?.disqualified === true })),
+      null
+    ).map(({ run }) => run.id)
+  )
   const header = [
     'name',
     'whatsapp',
@@ -602,6 +660,7 @@ export async function exportEventCsv(eventId?: number): Promise<ApiResult<{ file
     'hidden',
     'round',
     'status',
+    'round_winner',
     'score',
     'layers',
     'perfects',
@@ -622,6 +681,7 @@ export async function exportEventCsv(eventId?: number): Promise<ApiResult<{ file
         player?.disqualified ? 'yes' : 'no',
         run.roundId ? (roundNumbers.get(run.roundId) ?? '') : '',
         run.status,
+        winningRuns.has(run.id) ? 'yes' : '',
         run.score ?? '',
         run.layers ?? '',
         run.perfects ?? '',
@@ -674,32 +734,107 @@ function usedTurns(runs: RunRow[]): number {
   return runs.filter((run) => run.rejectReason !== ROUND_CANCELLED).length
 }
 
-function toPublicRound(
+type RoundGame = RunRow & { name: string; phone: string; disqualified: boolean }
+
+/**
+ * Ends a running round as soon as every player in it has finished, so its winner is fixed:
+ * nobody can join late and overtake once the podium is on the big screen.
+ */
+async function endRoundIfEveryoneFinished(round: RoundRow): Promise<void> {
+  if (round.status !== 'playing') return
+  try {
+    const runs = (await listRoundRuns(round.id)).filter(
+      (run) => !run.disqualified && run.rejectReason !== ROUND_CANCELLED
+    )
+    if (runs.length === 0 || runs.some((run) => run.status === 'playing')) return
+    await updateRound(round.id, ['playing'], { status: 'ended', endedAt: new Date().toISOString() })
+  } catch (error) {
+    // Best effort: the host can always press End round. Never fail the player's submission.
+    console.warn('[tower] could not auto-end round', round.id, error)
+  }
+}
+
+function endedAtMs(round: RoundRow): number | null {
+  return round.endedAt ? Date.parse(round.endedAt) : null
+}
+
+/** A round as the big screen sees it, plus its winner once it shows results. */
+function describeRound<T extends RoundGame>(
   round: RoundRow,
   event: EventRow,
-  runs: { status: RunRow['status'] }[],
+  runs: T[],
   now: number
-): PublicRound {
+): { round: PublicRound; winner: T | null; phase: PublicRound['phase'] } {
   const goAt = round.goAt ? Date.parse(round.goAt) : null
   const joined = runs.length
   const finished = runs.filter((run) => run.status !== 'playing').length
+  const phase = roundPhase({ status: round.status, goAtMs: goAt, nowMs: now, joined, finished })
+  const winner = phase === 'results' ? roundWinner(runs, endedAtMs(round)) : null
   return {
-    id: round.id,
-    number: round.number,
-    status: round.status,
-    phase: roundPhase({ status: round.status, goAtMs: goAt, nowMs: now, joined, finished }),
-    goAt,
-    code: event.showCode && round.status !== 'ended' ? round.code : null,
-    joined,
-    finished,
+    round: {
+      id: round.id,
+      number: round.number,
+      status: round.status,
+      phase,
+      goAt,
+      code: event.showCode && round.status !== 'ended' ? round.code : null,
+      joined,
+      finished,
+      winner: null,
+    },
+    winner,
+    phase,
   }
+}
+
+function withWinner<T extends RoundGame>(
+  round: PublicRound,
+  winner: T | null,
+  label: (run: T) => string
+): PublicRound {
+  return { ...round, winner: winner ? publicRoundWinner(round.number, winner, label) : null }
+}
+
+function publicRoundWinner<T extends RoundGame>(number: number, run: T, label: (run: T) => string): PublicRoundWinner {
+  return { round: number, name: label(run), score: run.score ?? 0, layers: run.layers ?? 0, perfects: run.perfects ?? 0 }
+}
+
+/**
+ * The single winner of every round that has finished, latest round first. The current round
+ * is passed in separately because it may be showing results before it is marked ended.
+ */
+function winnersByRound<T extends RoundGame>(
+  rounds: RoundRow[],
+  results: T[],
+  current: { round: RoundRow; winner: T | null; phase: PublicRound['phase'] } | null
+): { number: number; run: T }[] {
+  const byRound = new Map<number, T[]>()
+  for (const run of results) {
+    if (run.roundId === null) continue
+    const list = byRound.get(run.roundId) ?? []
+    list.push(run)
+    byRound.set(run.roundId, list)
+  }
+  const winners: { number: number; run: T }[] = []
+  for (const round of [...rounds].sort((left, right) => right.number - left.number)) {
+    if (current && round.id === current.round.id) {
+      if (current.phase === 'results' && current.winner) winners.push({ number: round.number, run: current.winner })
+      continue
+    }
+    if (round.status !== 'ended') continue
+    const winner = roundWinner(byRound.get(round.id) ?? [], endedAtMs(round))
+    if (winner) winners.push({ number: round.number, run: winner })
+  }
+  return winners
 }
 
 function roundRowsFor(
   runs: RoundRunRow[],
+  round: RoundRow,
   phase: PublicRound['phase'],
   labels: Map<string, string>
 ): PublicRoundRow[] {
+  const counted = new Set(roundStandings(runs, endedAtMs(round)).map((run) => run.id))
   const rows = runs.map((run) => {
     const done = run.status !== 'playing'
     return {
@@ -707,13 +842,22 @@ function roundRowsFor(
       score: done ? (run.score ?? 0) : (run.progressScore ?? 0),
       layers: done ? (run.layers ?? 0) : (run.progressLayers ?? 0),
       done,
+      late: done && !counted.has(run.id),
       perfects: run.perfects ?? 0,
+      finishedAtMs: run.finishedAt ? Date.parse(run.finishedAt) : Infinity,
     }
   })
   if (phase !== 'lobby') {
-    rows.sort((left, right) => right.score - left.score || right.perfects - left.perfects)
+    // Same order as the winner: score, then perfect drops, then who finished first.
+    rows.sort(
+      (left, right) =>
+        Number(left.late) - Number(right.late) ||
+        right.score - left.score ||
+        right.perfects - left.perfects ||
+        left.finishedAtMs - right.finishedAtMs
+    )
   }
-  return rows.map(({ perfects: _perfects, ...row }) => row)
+  return rows.map(({ perfects: _perfects, finishedAtMs: _finishedAtMs, ...row }) => row)
 }
 
 async function openEvent(): Promise<{ ok: true; event: EventRow } | { ok: false; error: string; status: number }> {
@@ -772,17 +916,11 @@ async function viewPlayer(
   if (round) {
     const roundRuns = await listRoundRuns(round.id)
     const visible = roundRuns.filter((run) => !run.disqualified && run.rejectReason !== ROUND_CANCELLED)
-    publicRound = toPublicRound(round, event, visible, Date.now())
+    const described = describeRound(round, event, visible, Date.now())
+    publicRound = withWinner(described.round, described.winner, (run) => run.name)
     if (mine) {
-      const roundRank =
-        mine.status === 'finished'
-          ? visible.filter(
-              (run) =>
-                run.status === 'finished' &&
-                ((run.score ?? 0) > (mine.score ?? 0) ||
-                  ((run.score ?? 0) === (mine.score ?? 0) && (run.perfects ?? 0) > (mine.perfects ?? 0)))
-            ).length + 1
-          : null
+      const position = roundStandings(visible, endedAtMs(round)).findIndex((run) => run.id === mine.id)
+      const counted = position >= 0 && !player.disqualified
       current = {
         roundId: round.id,
         number: round.number,
@@ -790,7 +928,9 @@ async function viewPlayer(
         seed: mine.seed,
         status: mine.status,
         score: mine.score,
-        rank: player.disqualified ? null : roundRank,
+        rank: counted ? position + 1 : null,
+        won: counted && described.winner?.id === mine.id,
+        late: mine.status === 'finished' && !counted && !player.disqualified,
       }
     }
   }

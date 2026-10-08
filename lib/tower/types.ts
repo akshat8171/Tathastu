@@ -16,6 +16,15 @@ export interface PublicWinner {
   perfects: number
 }
 
+/** The one winner of a round. */
+export interface PublicRoundWinner {
+  round: number
+  name: string
+  score: number
+  layers: number
+  perfects: number
+}
+
 export interface PublicEvent {
   id: number
   name: string
@@ -36,6 +45,8 @@ export interface PublicRound {
   code: string | null
   joined: number
   finished: number
+  /** Set once the round shows its results. */
+  winner: PublicRoundWinner | null
 }
 
 export interface BoardRow {
@@ -53,6 +64,8 @@ export interface RoundRow {
   score: number
   layers: number
   done: boolean
+  /** Finished after the round ended: still on the day's leaderboard, but not on this podium. */
+  late: boolean
 }
 
 export interface PublicBoard {
@@ -63,6 +76,8 @@ export interface PublicBoard {
   roundRows: RoundRow[]
   /** Best score per player across the whole event. */
   top: BoardRow[]
+  /** One winner per finished round, latest round first. */
+  roundWinners: PublicRoundWinner[]
   players: number
   games: number
 }
@@ -75,6 +90,10 @@ export interface PlayerRoundState {
   status: 'playing' | 'finished' | 'rejected'
   score: number | null
   rank: number | null
+  /** This player won the round (only once the round shows its results). */
+  won: boolean
+  /** Finished after the round ended, so it counts for the day but not this round. */
+  late: boolean
 }
 
 export interface PlayerView {
@@ -137,10 +156,21 @@ export interface AdminRound extends PublicRound {
   showCode: boolean
 }
 
+export interface AdminRoundWinner extends PublicRoundWinner {
+  playerId: string
+  phone: string
+  marketingOptIn: boolean
+  suspicious: boolean
+  /** Rounds this player has won so far today (they may win more than one). */
+  wins: number
+}
+
 export interface AdminSnapshot {
   serverNow: number
   event: PublicEvent | null
   round: AdminRound | null
+  /** One winner per finished round, latest round first. */
+  roundWinners: AdminRoundWinner[]
   pastEvents: PublicEvent[]
   players: AdminPlayerRow[]
   runs: AdminRunRow[]

@@ -56,6 +56,7 @@ export const {
   listAllRuns,
   countRuns,
   listRoundRuns,
+  listEventResults,
   loadLeaders,
   loadAllLeaders,
   countLeadersAbove,

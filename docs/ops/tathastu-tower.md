@@ -3,7 +3,8 @@
 A Kahoot-style stacking game for the stall. The crowd scans one QR code and follows @tathastukeepsakes. Each person
 enters a name and WhatsApp number, then waits. When the host reads out the round's 4-digit code, everyone types it in.
 The big screen fills with names, the host presses **Start**, and every phone counts down together and plays the same
-tower. Live race bars show on the TV, then the podium, and at the end of the day the winner is revealed.
+tower. Live race bars show on the TV, then the podium and **the round's one winner**. Every round has its own winner
+(and prize); an optional "champion of the day" can be announced at the end.
 
 | Where | What |
 | --- | --- |
@@ -33,11 +34,22 @@ tower. Live race bars show on the TV, then the podium, and at the end of the day
    the screen can join.
 4. Names pop up on the TV as people join. When enough are in, press **▶ Start**. Every phone and the TV count down
    6 seconds together, then everyone stacks the same tower.
-5. The TV shows live race bars. When everyone has finished (or you press **■ End round**), the podium is revealed
-   3rd → 2nd → 1st.
-6. Repeat from step 3. A new code is generated each round, so last round's code never works again.
-7. At the end of the day, check the leader follows @tathastukeepsakes, then press **🏆 Announce winner**. The TV plays
-   the winner reveal, and you can WhatsApp them from the players table.
+5. The TV shows live race bars. When everyone has finished, the round **closes by itself** (or press **■ End round**
+   if someone wandered off). The podium is revealed 3rd → 2nd → 1st, then **"Round N winner"**. The winner's phone
+   says "You won round N! Come to the stall".
+6. Check the winner follows @tathastukeepsakes and hand over the prize. Their WhatsApp number is in the
+   **🏆 Round winners** table. If they don't follow, press **Hide** and the next-best player becomes that round's winner.
+7. Repeat from step 3. A new code is generated each round, so last round's code never works again.
+8. Optional, at the end of the day: **🏆 Announce champion of the day** reveals the best score across all rounds.
+
+### How a round winner is decided
+
+- Exactly one winner per round: the highest score. A tie goes to more perfect drops, then to whoever finished first.
+- The round winner is fixed when the round ends. A game that finishes more than 2 seconds after **End round** is still
+  saved and counts towards that player's best score of the day, but it cannot win (or reach the podium of) that round.
+- Once a round has closed nobody can join it, so a latecomer can't overtake the winner.
+- A round that never started, or where nobody scored, has no winner.
+- The same person can win more than one round. The Round winners table flags "won 2 rounds" so you can decide.
 
 Ending a round that never started (still in the lobby) does not use up anyone's turn.
 
@@ -49,7 +61,8 @@ Ending a round that never started (still in the lobby) does not use up anyone's 
   signed in on one phone at a time. "Next player" on the phone does this too.)
 - **Hide**: removes a player from the TV and the leaderboard (rude name, did not follow, cheating).
 - **⚠ check**: almost every drop was perfect, which may be scripted. Watch them play before announcing.
-- **Download CSV**: every player and game, with names, WhatsApp numbers, wa.me links, opt-in, and scores.
+- **Download CSV**: every player and game, with names, WhatsApp numbers, wa.me links, opt-in, scores, and a
+  `round_winner` column marking each round's winning game.
 
 Phone numbers never appear on the TV or in any public API. The TV shows names only. Two players with the same name get
 the last two digits of their number added (e.g. "Priya ·10").

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { DEFAULT_ATTEMPTS, TOWER_HANDLE } from '@/lib/tower/constants'
 import { whatsappDigits } from '@/lib/tower/rules'
-import type { AdminRound, AdminRunRow, AdminSnapshot } from '@/lib/tower/types'
+import type { AdminRound, AdminRoundWinner, AdminRunRow, AdminSnapshot } from '@/lib/tower/types'
 import { callApi } from '@/components/tower/client-api'
 import { QrCode } from '@/components/tower/qr-code'
 
@@ -127,7 +127,7 @@ export function TowerHostConsole({ apiBase = '/api/admin/tower' }: { apiBase?: s
             onEnd={() =>
               void act(
                 { action: 'end-round' },
-                stillPlaying > 0 ? `${stillPlaying} player(s) are still stacking. End the round now? The podium shows straight away; their games still count on the overall leaderboard when they finish.` : undefined
+                stillPlaying > 0 ? `${stillPlaying} player(s) are still stacking. End the round now? The winner is decided now — their games can't win this round, but still count towards their best score today.` : undefined
               )
             }
             onShowCode={(show) => void act({ action: 'show-code', show })}
@@ -144,6 +144,19 @@ export function TowerHostConsole({ apiBase = '/api/admin/tower' }: { apiBase?: s
 
       {event && round && <RoundTable round={round} runs={roundRuns} />}
 
+      {event && (snapshot?.roundWinners.length ?? 0) > 0 && (
+        <RoundWinnersTable
+          winners={snapshot?.roundWinners ?? []}
+          busy={busy}
+          onHide={(winner) =>
+            void act(
+              { action: 'disqualify', playerId: winner.playerId, disqualified: true },
+              `Hide ${winner.name}? They leave the TV and the leaderboard, and the next-best player becomes the winner of every round ${winner.name} won.`
+            )
+          }
+        />
+      )}
+
       {event && (
         <section className="space-y-5 rounded-2xl border border-gray-200 bg-white p-5">
           <div className="flex flex-wrap items-center gap-3">
@@ -157,7 +170,7 @@ export function TowerHostConsole({ apiBase = '/api/admin/tower' }: { apiBase?: s
             </span>
             {event.winner && (
               <span className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
-                Winner announced: {event.winner.name}
+                Champion announced: {event.winner.name}
               </span>
             )}
           </div>
@@ -181,7 +194,7 @@ export function TowerHostConsole({ apiBase = '/api/admin/tower' }: { apiBase?: s
                     leader?.bestSuspicious
                       ? `⚠ ${leader.name}'s best run has almost every drop perfect — it may be scripted. Watch them play first.`
                       : '',
-                    `Announce ${leader ? `${leader.name} (${leader.bestScore})` : 'the top score'} as today's winner? This also closes entries. Check they follow @${TOWER_HANDLE} first.`,
+                    `Announce ${leader ? `${leader.name} (${leader.bestScore})` : 'the top score'} as the champion of the day (best score across all rounds)? This also closes entries. Check they follow @${TOWER_HANDLE} first.`,
                   ]
                     .filter(Boolean)
                     .join('\n\n')
@@ -189,7 +202,7 @@ export function TowerHostConsole({ apiBase = '/api/admin/tower' }: { apiBase?: s
               }
               className="btn-admin btn-admin-gold"
             >
-              🏆 Announce winner
+              🏆 Announce champion of the day
             </button>
             {event.winner && (
               <button type="button" disabled={busy} onClick={() => void act({ action: 'unannounce' })} className="btn-admin-ghost">
@@ -212,9 +225,10 @@ export function TowerHostConsole({ apiBase = '/api/admin/tower' }: { apiBase?: s
             />
           </div>
           <p className="text-sm text-ink-soft">
-            Each round: <b>New round</b> → read the code out → wait for names on the TV → <b>Start</b> → podium shows when
-            everyone finishes (or press <b>End round</b>). At the end of the day: check the leader follows @{TOWER_HANDLE} →{' '}
-            <b>Announce winner</b>. If they don&apos;t follow, hide them and announce again.
+            Each round: <b>New round</b> → read the code out → wait for names on the TV → <b>Start</b>. When everyone
+            finishes (or you press <b>End round</b>) the round closes and its <b>one winner</b> is on the TV — check they
+            follow @{TOWER_HANDLE}{' '}and hand over the prize. If they don&apos;t follow, hide them and the next-best player
+            wins that round. Optional, at the end of the day: <b>Announce champion of the day</b> (best score overall).
           </p>
         </section>
       )}
@@ -378,9 +392,9 @@ function RoundPanel({
       ? 'Lobby — players are joining'
       : round.status === 'playing'
         ? round.phase === 'results'
-          ? 'Everyone finished — podium on screen'
+          ? 'Everyone finished — winner on screen'
           : 'Playing'
-        : 'Ended — podium on screen'
+        : 'Ended — winner on screen'
 
   return (
     <section className="rounded-2xl border border-gray-200 bg-white p-5 text-ink">
@@ -397,6 +411,13 @@ function RoundPanel({
           ) : (
             <p className="mt-2 text-lg">
               {eventOpen ? 'Gather the crowd, then open a round to get a code.' : 'Entries are closed. Reopen them to play more rounds.'}
+            </p>
+          )}
+          {round?.phase === 'results' && (
+            <p className="mt-3 inline-block rounded-xl bg-amber-100 px-4 py-2 text-lg font-semibold text-amber-900">
+              {round.winner
+                ? `🏆 Round ${round.number} winner: ${round.winner.name} · ${round.winner.score}`
+                : `Round ${round.number}: no winner — nobody scored.`}
             </p>
           )}
         </div>
@@ -440,6 +461,77 @@ function RoundPanel({
           ? 'The code is on the TV — anyone who can see the screen can join.'
           : 'The code is hidden from the TV, so only people at the stall who hear you can join.'}
       </p>
+    </section>
+  )
+}
+
+function RoundWinnersTable({
+  winners,
+  busy,
+  onHide,
+}: {
+  winners: AdminRoundWinner[]
+  busy: boolean
+  onHide: (winner: AdminRoundWinner) => void
+}) {
+  return (
+    <section className="rounded-2xl border border-amber-200 bg-amber-50/40 p-5">
+      <h2 className="font-semibold text-ink">🏆 Round winners ({winners.length})</h2>
+      <p className="mt-1 text-sm text-ink-soft">One winner per round. Check they follow before handing over the prize.</p>
+      <div className="mt-4 overflow-x-auto">
+        <table className="w-full min-w-[620px] text-left text-sm">
+          <thead className="text-xs uppercase text-ink-soft">
+            <tr>
+              <th className="py-2">Round</th>
+              <th>Winner</th>
+              <th>WhatsApp</th>
+              <th>Score</th>
+              <th>Layers</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {winners.map((winner) => (
+              <tr key={winner.round} className="border-t border-amber-100">
+                <td className="py-2 font-semibold">{winner.round}</td>
+                <td>
+                  {winner.name}
+                  {winner.wins > 1 && (
+                    <span className="ml-2 rounded-full bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-900">
+                      won {winner.wins} rounds
+                    </span>
+                  )}
+                </td>
+                <td>
+                  <a
+                    href={`https://wa.me/${whatsappDigits(winner.phone)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand underline tabular-nums"
+                  >
+                    {winner.phone}
+                  </a>
+                  {winner.marketingOptIn && <span className="ml-1 text-xs text-ink-soft">offers ✅</span>}
+                </td>
+                <td className="tabular-nums">
+                  {winner.score}
+                  {winner.suspicious && (
+                    <span className="ml-1 text-amber-600" title="Almost every drop perfect — watch them play">
+                      ⚠ check
+                    </span>
+                  )}
+                </td>
+                <td className="tabular-nums">{winner.layers}</td>
+                <td className="text-right">
+                  <button type="button" disabled={busy} onClick={() => onHide(winner)} className="text-xs text-red-700 underline">
+                    Hide
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </section>
   )
 }
