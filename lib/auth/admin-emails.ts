@@ -9,7 +9,8 @@
  * var, and the fallback address would otherwise ship in the browser bundle.
  */
 
-const FALLBACK_ADMIN_EMAILS = ['tathastukeepsakes@gmail.com']
+/** The store owner. Always an admin, so a typo in ADMIN_EMAILS can never lock them out. */
+const OWNER_ADMIN_EMAILS = ['tathastukeepsakes@gmail.com']
 
 export function normalizeAdminEmail(email: string): string {
   return email.trim().toLowerCase()
@@ -20,8 +21,8 @@ export function getAdminEmails(): string[] {
   const source = raw
     ? raw.split(',').map((s) => s.trim()).filter(Boolean)
     : []
-  const list = source.length > 0 ? source : FALLBACK_ADMIN_EMAILS
-  return list.map(normalizeAdminEmail)
+  // ADMIN_EMAILS adds people (staff, a partner); it never removes the owner.
+  return [...new Set([...OWNER_ADMIN_EMAILS, ...source].map(normalizeAdminEmail))]
 }
 
 export function isAllowlistedAdminEmail(email: string | null | undefined): boolean {

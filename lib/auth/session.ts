@@ -81,7 +81,16 @@ export async function getCurrentUser(): Promise<AppUser | null> {
     }
   }
 
-  // 2) Supabase email+password session
+  // 2) Supabase email+password / Google session
+  return getSupabaseUser()
+}
+
+/**
+ * The Supabase (email/password or Google) session on its own, ignoring any phone
+ * session. Admin checks use this too: a browser can hold an old phone login AND the
+ * owner's Google login at once, and the phone one must not hide the admin.
+ */
+export async function getSupabaseUser(): Promise<AppUser | null> {
   try {
     const supabase = await createSupabaseServer()
     const {

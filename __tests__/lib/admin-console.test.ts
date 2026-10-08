@@ -42,6 +42,14 @@ describe('isAllowlistedAdminEmail', () => {
     expect(isAllowlistedAdminEmail('customer@example.com')).toBe(false)
   })
 
+  it('keeps the owner as admin when ADMIN_EMAILS lists other people', () => {
+    process.env.ADMIN_EMAILS = 'staff@example.com, Partner@Example.com'
+    expect(isAllowlistedAdminEmail('tathastukeepsakes@gmail.com')).toBe(true)
+    expect(isAllowlistedAdminEmail('staff@example.com')).toBe(true)
+    expect(isAllowlistedAdminEmail('partner@example.com')).toBe(true)
+    expect(isAllowlistedAdminEmail('customer@example.com')).toBe(false)
+  })
+
   it('is case-insensitive', () => {
     delete process.env.ADMIN_EMAILS
     expect(normalizeAdminEmail('  Owner@X.com ')).toBe('owner@x.com')

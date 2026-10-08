@@ -1,7 +1,7 @@
 import 'server-only'
 
 import { NextResponse } from 'next/server'
-import { getCurrentUser, type AppUser } from '@/lib/auth/session'
+import { getCurrentUser, getSupabaseUser, type AppUser } from '@/lib/auth/session'
 import { isAllowlistedAdminEmail } from '@/lib/auth/admin-emails'
 
 /**
@@ -58,7 +58,14 @@ export function isAdminUser(user: AppUser | null): boolean {
  */
 export async function getAdminUser(): Promise<AppUser | null> {
   const user = await getCurrentUser()
-  return isAdminUser(user) ? user : null
+  if (isAdminUser(user)) return user
+  // getCurrentUser prefers a phone (Firebase) session. If the owner also signed in
+  // with Google/email in this browser, that session must still count.
+  if (user?.provider === 'firebase') {
+    const emailUser = await getSupabaseUser()
+    if (isAdminUser(emailUser)) return emailUser
+  }
+  return null
 }
 
 /**

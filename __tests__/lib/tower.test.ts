@@ -28,8 +28,16 @@ import {
   checkRunTiming,
   clampIntervals,
   compareRuns,
+  cleanPlayerName,
   isSuspiciousRun,
-  normalizeHandle,
+  maskPhone,
+  newRoundCode,
+  normalizePhone,
+  normalizeRoundCode,
+  plausibleProgress,
+  roundPhase,
+  screenNames,
+  whatsappDigits,
 } from '@/lib/tower/rules'
 
 /** First moment the sliding slab sits exactly over the one below it. */
@@ -142,13 +150,86 @@ describe('Tathastu Tower engine', () => {
 })
 
 describe('Tathastu Tower rules', () => {
-  it('cleans up Instagram handles', () => {
-    expect(normalizeHandle('@Tathastu.Keepsakes ')).toBe('tathastu.keepsakes')
-    expect(normalizeHandle('https://www.instagram.com/some_one/?hl=en')).toBe('some_one')
-    expect(normalizeHandle('has space')).toBeNull()
-    expect(normalizeHandle('')).toBeNull()
-    expect(normalizeHandle('.dot')).toBeNull()
-    expect(normalizeHandle('a'.repeat(31))).toBeNull()
+  it('turns what visitors type into a WhatsApp number', () => {
+    expect(normalizePhone('98765 43210')).toBe('+919876543210')
+    expect(normalizePhone('098765-43210')).toBe('+919876543210')
+    expect(normalizePhone('919876543210')).toBe('+919876543210')
+    expect(normalizePhone('+91 98765 43210')).toBe('+919876543210')
+    expect(normalizePhone('0091 9876543210')).toBe('+919876543210')
+    expect(normalizePhone('+1 (415) 555-0123')).toBe('+14155550123')
+    expect(normalizePhone('12345 67890')).toBeNull() // Indian mobiles start 6-9
+    expect(normalizePhone('+91 12345 67890')).toBeNull()
+    expect(normalizePhone('98765')).toBeNull()
+    expect(normalizePhone('')).toBeNull()
+    expect(normalizePhone('+1234567890123456')).toBeNull()
+  })
+
+  it('masks numbers for the phone and builds wa.me links', () => {
+    expect(maskPhone('+919876543210')).toBe('+91 98•••••210')
+    expect(maskPhone('+14155550123')).toBe('+1 41•••••123')
+    expect(whatsappDigits('+91 98765 43210')).toBe('919876543210')
+  })
+
+  it('cleans names for the big screen', () => {
+    expect(cleanPlayerName('  Priya   Sharma ')).toEqual({ ok: true, name: 'Priya Sharma' })
+    expect(cleanPlayerName('राहुल')).toEqual({ ok: true, name: 'राहुल' })
+    expect(cleanPlayerName("D'Souza-2")).toEqual({ ok: true, name: "D'Souza-2" })
+    expect(cleanPlayerName('A').ok).toBe(false)
+    expect(cleanPlayerName('a'.repeat(21)).ok).toBe(false)
+    expect(cleanPlayerName('1234').ok).toBe(false)
+    expect(cleanPlayerName('www.spam.com').ok).toBe(false)
+    expect(cleanPlayerName('<b>hi</b>')).toEqual({ ok: true, name: 'bhib' })
+  })
+
+  it('blocks rude names without blocking real ones', () => {
+    for (const rude of ['Fuck you', 'FUCKER', 'sh1t', 'MC', 'bc boy', 'Ch00tiya', 'chutiya', 'Lund', 'b1tch']) {
+      expect(cleanPlayerName(rude).ok).toBe(false)
+    }
+    for (const real of ['Kshitij', 'Ashit', 'Randip', 'Mcintosh', 'Abc', 'Dickson', 'Shital', 'Sakshi']) {
+      expect(cleanPlayerName(real)).toEqual({ ok: true, name: real })
+    }
+  })
+
+  it('reads round codes and avoids repeats and easy ones', () => {
+    expect(normalizeRoundCode(' 48 21 ')).toBe('4821')
+    expect(normalizeRoundCode('482')).toBeNull()
+    expect(normalizeRoundCode('48a1')).toBeNull()
+    const sequence = [0.4821, 0.5678, 0.3907]
+    // 4821 was last round's code and 5678 is too easy to guess.
+    expect(newRoundCode('4821', () => sequence.shift() ?? 0.9)).toBe('3907')
+    expect(newRoundCode(null, () => 0.1111)).not.toBe('1111')
+    expect(newRoundCode('7391', () => 0)).toMatch(/^\d{4}$/)
+    expect(newRoundCode('7391', () => 0)).not.toBe('7391')
+    for (let index = 0; index < 200; index += 1) expect(newRoundCode(null)).toMatch(/^\d{4}$/)
+  })
+
+  it('derives the big-screen phase of a round', () => {
+    const base = { goAtMs: 10_000, joined: 3, finished: 0 }
+    expect(roundPhase({ ...base, status: 'lobby', goAtMs: null, nowMs: 0 })).toBe('lobby')
+    expect(roundPhase({ ...base, status: 'playing', nowMs: 9_000 })).toBe('countdown')
+    expect(roundPhase({ ...base, status: 'playing', nowMs: 11_000 })).toBe('playing')
+    expect(roundPhase({ ...base, status: 'playing', nowMs: 11_000, finished: 3 })).toBe('results')
+    expect(roundPhase({ ...base, status: 'playing', nowMs: 11_000, joined: 0 })).toBe('playing')
+    expect(roundPhase({ ...base, status: 'ended', nowMs: 0 })).toBe('results')
+  })
+
+  it('caps live progress at what is physically possible', () => {
+    expect(plausibleProgress({ layers: 500, score: 99_999, elapsedMs: 0 }).layers).toBeLessThanOrEqual(1)
+    const honest = plausibleProgress({ layers: 10, score: 120, elapsedMs: 20_000 })
+    expect(honest).toEqual({ layers: 10, score: 120 })
+    expect(plausibleProgress({ layers: -4, score: -1, elapsedMs: 5_000 })).toEqual({ layers: 0, score: 0 })
+    expect(plausibleProgress({ layers: 10, score: 1e9, elapsedMs: 60_000 }).score).toBeLessThan(1e9)
+  })
+
+  it('tells players with the same name apart on the screen', () => {
+    const labels = screenNames([
+      { id: 'a', name: 'Priya', phone: '+919876543210' },
+      { id: 'b', name: 'priya', phone: '+919811111177' },
+      { id: 'c', name: 'Rahul', phone: '+919822222222' },
+    ])
+    expect(labels.get('a')).toBe('Priya ·10')
+    expect(labels.get('b')).toBe('priya ·77')
+    expect(labels.get('c')).toBe('Rahul')
   })
 
   it('rejects runs whose timings do not add up', () => {
