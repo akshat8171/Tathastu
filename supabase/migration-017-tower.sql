@@ -33,12 +33,15 @@ CREATE TABLE IF NOT EXISTS tower_players (
   display_name         text,
   follow_check         text        NOT NULL CHECK (follow_check IN ('honor', 'instagram')),
   play_pass_id         text,
-  token_hash           text        NOT NULL,
+  -- NULL = signed out ("Next player" / host "Reset phone"), so the handle can sign in again.
+  token_hash           text,
   bonus_attempts       integer     NOT NULL DEFAULT 0,
   disqualified         boolean     NOT NULL DEFAULT false,
   created_at           timestamptz NOT NULL DEFAULT now(),
   UNIQUE (event_id, ig_handle)
 );
+-- Earlier drafts of this file had token_hash NOT NULL; signing out needs it nullable.
+ALTER TABLE tower_players ALTER COLUMN token_hash DROP NOT NULL;
 
 CREATE TABLE IF NOT EXISTS tower_runs (
   id                   uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -97,8 +100,9 @@ GRANT ALL ON TABLE tower_runs TO service_role;
 GRANT USAGE, SELECT ON SEQUENCE tower_events_id_seq TO service_role;
 
 -- Each player's single best finished run. Same ordering as lib/tower/rules.ts.
-CREATE OR REPLACE VIEW tower_leaderboard
-WITH (security_invoker = true) AS
+-- Browser roles are revoked below, so the view is private either way; security_invoker
+-- (Postgres 15+) is applied afterwards only where supported, so this file also runs on PG 14.
+CREATE OR REPLACE VIEW tower_leaderboard AS
 SELECT DISTINCT ON (r.player_id)
   r.event_id,
   r.player_id,
@@ -115,6 +119,13 @@ FROM tower_runs r
 JOIN tower_players p ON p.id = r.player_id
 WHERE r.status = 'finished'
 ORDER BY r.player_id, r.score DESC, r.perfects DESC, r.finished_at ASC;
+
+DO $$
+BEGIN
+  IF current_setting('server_version_num')::int >= 150000 THEN
+    EXECUTE 'ALTER VIEW tower_leaderboard SET (security_invoker = true)';
+  END IF;
+END $$;
 
 REVOKE ALL ON TABLE tower_leaderboard FROM anon, authenticated;
 GRANT SELECT ON TABLE tower_leaderboard TO service_role;

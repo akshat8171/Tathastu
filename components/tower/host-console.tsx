@@ -136,7 +136,7 @@ export function TowerHostConsole() {
                       .join('\n\n')
                   )
                 }
-                className="btn-admin bg-amber-500 text-white hover:bg-amber-600"
+                className="btn-admin btn-admin-gold"
               >
                 🏆 Announce winner
               </button>
@@ -152,7 +152,7 @@ export function TowerHostConsole() {
               />
             </div>
             <p className="text-sm text-ink-soft">
-              Flow: close entries → let the last player finish → check the leader follows @{TOWER_HANDLE} (tap their handle) →
+              Flow: close entries → let the last player finish → check the leader follows @{TOWER_HANDLE}{' '}(tap their handle) →
               announce. If they don&apos;t follow, disqualify them and announce again.
             </p>
           </section>
