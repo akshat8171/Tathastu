@@ -28,11 +28,22 @@ export function isAdminSegment(segment: string | null): boolean {
   return segment === 'admin'
 }
 
+function isPlayStagePath(pathname: string | null): boolean {
+  if (!pathname) return false
+  const normalized = pathname.replace(/\/+$/, '') || '/'
+  return normalized === '/play' || normalized.startsWith('/play/')
+}
+
 export function StorefrontChrome({ children }: { children: React.ReactNode }) {
   const segment = useSelectedLayoutSegment()
   const pathname = usePathname()
 
-  if (isAdminSegment(segment) || isAdminPath(pathname)) {
+  if (
+    isAdminSegment(segment) ||
+    isAdminPath(pathname) ||
+    segment === 'play' ||
+    isPlayStagePath(pathname)
+  ) {
     return <>{children}</>
   }
 

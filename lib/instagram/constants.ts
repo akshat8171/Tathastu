@@ -9,6 +9,8 @@ export const INSTAGRAM_SCOPES = [
   'instagram_business_basic',
   'instagram_business_manage_insights',
   'instagram_business_manage_comments',
+  // Required so the play webhook can read is_user_follow_business after a DM.
+  'instagram_business_manage_messages',
 ] as const
 
 export const INSTAGRAM_FETCH_TIMEOUT_MS = 15_000
