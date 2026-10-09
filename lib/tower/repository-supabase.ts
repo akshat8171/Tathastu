@@ -521,16 +521,40 @@ export async function listRoundRuns(roundId: number): Promise<RoundRunRow[]> {
     .order('started_at', { ascending: true })
     .limit(500)
   if (error) readFailed(error, 'the round')
-  return (data ?? []).map((row) => {
-    const joined = (row as { tower_players?: PlayerJoin | PlayerJoin[] }).tower_players
-    const player = Array.isArray(joined) ? joined[0] : joined
-    return {
-      ...mapRun(row),
-      name: player?.display_name ?? 'Player',
-      phone: player?.phone ?? '',
-      disqualified: player?.disqualified === true,
-    }
-  })
+  return ((data ?? []) as Row[]).map(withPlayer)
+}
+
+/**
+ * Every finished game played in a round this event, with the player's name — enough to work
+ * out each round's winner. No tap timings, so it stays light enough for the public board.
+ */
+export async function listEventResults(eventId: number): Promise<RoundRunRow[]> {
+  const rows: Row[] = []
+  for (let from = 0; from < 100_000; from += PAGE) {
+    const { data, error } = await supabaseAdmin
+      .from('tower_runs')
+      .select(`${RUN_COLUMNS}, tower_players!inner(display_name, phone, disqualified)`)
+      .eq('event_id', eventId)
+      .eq('status', 'finished')
+      .not('round_id', 'is', null)
+      .order('finished_at', { ascending: true })
+      .range(from, from + PAGE - 1)
+    if (error) readFailed(error, 'the round results')
+    rows.push(...((data ?? []) as Row[]))
+    if (!data || data.length < PAGE) break
+  }
+  return rows.map(withPlayer)
+}
+
+function withPlayer(row: Row): RoundRunRow {
+  const joined = (row as { tower_players?: PlayerJoin | PlayerJoin[] }).tower_players
+  const player = Array.isArray(joined) ? joined[0] : joined
+  return {
+    ...mapRun(row),
+    name: player?.display_name ?? 'Player',
+    phone: player?.phone ?? '',
+    disqualified: player?.disqualified === true,
+  }
 }
 
 type PlayerJoin = { display_name?: string | null; phone?: string | null; disqualified?: boolean }

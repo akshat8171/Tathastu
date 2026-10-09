@@ -59,3 +59,9 @@ export const ROUND_COUNTDOWN_MS = 6_000
 export const PROGRESS_INTERVAL_MS = 2_000
 /** Names on the big screen are kept short, Kahoot-style. */
 export const NAME_MAX_LENGTH = 20
+/**
+ * A game that lands within this long after a round ends still counts for that round's
+ * winner, so a drop that finishes as the host taps End round (or clocks a few ms apart)
+ * is not lost. Anything later only counts towards the player's best score of the day.
+ */
+export const ROUND_END_GRACE_MS = 2_000

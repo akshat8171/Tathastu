@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { TOWER_HANDLE } from '@/lib/tower/constants'
 import { roundPhase } from '@/lib/tower/rules'
-import type { PublicBoard, PublicRound, PublicWinner, RoundPhase, RoundRow } from '@/lib/tower/types'
+import type { PublicBoard, PublicRound, PublicRoundWinner, PublicWinner, RoundPhase, RoundRow } from '@/lib/tower/types'
 import { TowerCanvas } from '@/components/tower/tower-canvas'
 import { QrCode } from '@/components/tower/qr-code'
 import { useBoard, useServerOffset, useWakeLock } from '@/components/tower/client-api'
@@ -11,7 +11,8 @@ import { playFanfare, playTick, unlockTowerAudio } from '@/components/tower/towe
 
 /**
  * Kahoot-style big screen for the stall TV. Open /tower/screen and press F11.
- * lobby (QR + names joining) → countdown → live race → podium, then the winner reveal.
+ * lobby (QR + names joining) → countdown → live race → podium + the round's winner.
+ * Every round has exactly one winner; the optional end-of-day champion reveal sits on top.
  */
 export function StallScreen() {
   const { board, error } = useBoard(1_000)
@@ -107,7 +108,7 @@ function IdleView({ board }: { board: PublicBoard | null }) {
         <div className="pointer-events-none absolute inset-x-0 top-0 p-8">
           <Brand />
           <p className="mt-3 max-w-md text-xl text-white/80">
-            Stack the tallest tower. Everyone plays together — top score wins a 3D-printed keepsake.
+            Stack the tallest tower. Everyone plays together — the top score in every round wins a 3D-printed keepsake.
           </p>
         </div>
         <div className="absolute bottom-8 left-8">
@@ -116,8 +117,19 @@ function IdleView({ board }: { board: PublicBoard | null }) {
       </section>
       <section className="flex flex-col bg-black/30 p-8 pt-20">
         <p className="text-sm uppercase tracking-widest text-white/50">{board?.event?.name ?? 'Leaderboard'}</p>
-        <h2 className="text-white font-display text-4xl font-bold">Top stackers</h2>
-        <Leaderboard rows={board?.top ?? []} />
+        {board && board.roundWinners.length > 0 ? (
+          <>
+            <h2 className="text-white font-display text-4xl font-bold">Round winners</h2>
+            <RoundWinners winners={board.roundWinners.slice(0, 6)} />
+            <h3 className="mt-8 text-white font-display text-2xl font-bold">Top stackers today</h3>
+            <Leaderboard rows={board.top.slice(0, 5)} compact />
+          </>
+        ) : (
+          <>
+            <h2 className="text-white font-display text-4xl font-bold">Top stackers</h2>
+            <Leaderboard rows={board?.top ?? []} />
+          </>
+        )}
         <Stats board={board} />
         <p className="mt-6 rounded-2xl bg-white/5 p-4 text-center text-2xl text-white/80">
           {!board?.event
@@ -235,8 +247,11 @@ function RaceBar({ row, place, top }: { row: RoundRow; place: number; top: numbe
 
 /** Podium revealed third → second → first, like the end of a Kahoot. */
 function ResultsView({ board, round, soundOn }: { board: PublicBoard | null; round: PublicRound; soundOn: boolean }) {
-  const rows = board?.roundRows.filter((row) => row.done) ?? []
+  // Only games that count for this round: a game finished after the round ended is on the
+  // day's leaderboard but cannot take a podium place (or the win) from those who finished in time.
+  const rows = board?.roundRows.filter((row) => row.done && !row.late) ?? []
   const podium = rows.slice(0, 3)
+  const winner = round.winner
   const [shown, setShown] = useState(0)
 
   useEffect(() => {
@@ -262,8 +277,21 @@ function ResultsView({ board, round, soundOn }: { board: PublicBoard | null; rou
       <section className="flex flex-col">
         <Brand small />
         <p className="mt-3 text-3xl font-semibold text-amber-200">Round {round.number} results</p>
-        {podium.length === 0 ? (
-          <p className="mt-16 text-3xl text-white/60">No finished games this round.</p>
+        {winner && (
+          <div
+            className={`mt-6 self-start rounded-3xl bg-gradient-to-r from-amber-300 to-amber-500 px-8 py-5 text-ink shadow-2xl transition-all duration-700 ${
+              shown >= 3 ? 'opacity-100' : 'translate-y-4 opacity-0'
+            }`}
+          >
+            <p className="text-lg font-bold uppercase tracking-[0.3em]">🏆 Round {round.number} winner</p>
+            <p className="break-words font-display text-6xl font-bold">{winner.name}</p>
+            <p className="mt-1 text-xl font-semibold">
+              {winner.score} points · {winner.layers} layers · come to the stall for your prize!
+            </p>
+          </div>
+        )}
+        {podium.length === 0 || !winner ? (
+          <p className="mt-16 text-3xl text-white/60">No winner this round — nobody scored.</p>
         ) : (
           <div className="mt-auto flex items-end justify-center gap-6 pb-4">
             {slots.map(({ place, height, tone }) => {
@@ -291,9 +319,9 @@ function ResultsView({ board, round, soundOn }: { board: PublicBoard | null; rou
         {shown >= 3 && podium.length > 0 && <Confetti count={40} />}
       </section>
       <section className="flex flex-col rounded-3xl bg-black/30 p-6">
-        <p className="text-sm uppercase tracking-widest text-white/50">Overall today</p>
-        <h2 className="text-white font-display text-3xl font-bold">Top stackers</h2>
-        <Leaderboard rows={board?.top.slice(0, 8) ?? []} compact />
+        <p className="text-sm uppercase tracking-widest text-white/50">Today</p>
+        <h2 className="text-white font-display text-3xl font-bold">Round winners</h2>
+        <RoundWinners winners={(board?.roundWinners ?? []).slice(0, 8)} />
         <p className="mt-auto pt-6 text-center text-xl text-white/70">Next round soon — scan the QR to join!</p>
       </section>
     </div>
@@ -323,6 +351,23 @@ function Leaderboard({ rows, compact = false }: { rows: PublicBoard['top']; comp
             <span className="block font-display text-3xl font-bold tabular-nums">{row.score}</span>
             {!compact && <span className="block text-xs text-white/50">{row.layers} layers</span>}
           </span>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+function RoundWinners({ winners }: { winners: PublicRoundWinner[] }) {
+  if (winners.length === 0) {
+    return <p className="mt-6 text-2xl text-white/60">The first round winner appears here.</p>
+  }
+  return (
+    <ol className="mt-5 space-y-1.5">
+      {winners.map((winner) => (
+        <li key={winner.round} className="flex items-center gap-4 rounded-2xl bg-white/5 px-5 py-2">
+          <span className="w-24 text-sm font-semibold uppercase tracking-widest text-amber-200">Round {winner.round}</span>
+          <span className="min-w-0 flex-1 truncate text-2xl font-semibold">🏆 {winner.name}</span>
+          <span className="font-display text-3xl font-bold tabular-nums">{winner.score}</span>
         </li>
       ))}
     </ol>
@@ -387,7 +432,7 @@ function WinnerReveal({ winner, soundOn }: { winner: PublicWinner; soundOn: bool
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-hidden bg-ink/95 text-center">
       <Confetti count={70} />
       <div className="relative px-6">
-        <p className="text-3xl font-semibold uppercase tracking-[0.4em] text-amber-200">🏆 Today&apos;s winner 🏆</p>
+        <p className="text-3xl font-semibold uppercase tracking-[0.4em] text-amber-200">🏆 Champion of the day 🏆</p>
         <p className="mt-6 break-words font-display text-7xl font-bold md:text-9xl">{winner.name}</p>
         <p className="mt-8 font-display text-6xl font-bold text-brand-200 tabular-nums">{winner.score}</p>
         <p className="mt-2 text-xl text-white/70">

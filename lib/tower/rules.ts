@@ -7,6 +7,7 @@ import {
   PERFECT_BONUS,
   POINTS_PER_LAYER,
   ROUND_CODE_LENGTH,
+  ROUND_END_GRACE_MS,
   RUN_CLOCK_SLACK_MS,
   RUN_SUBMIT_WINDOW_MS,
   SUSPICIOUS_MIN_LAYERS,
@@ -217,6 +218,45 @@ export function bestPerPlayer<T extends RankedRun>(runs: readonly T[]): T[] {
     if (!current || compareRuns(run, current) < 0) best.set(run.playerId, run)
   }
   return Array.from(best.values()).sort(compareRuns)
+}
+
+// ---------------------------------------------------------------- round winners
+
+export interface RoundEntry {
+  playerId: string
+  status: 'playing' | 'finished' | 'rejected'
+  score: number | null
+  perfects: number | null
+  finishedAt: string | null
+  disqualified?: boolean
+}
+
+/**
+ * True when a finished game counts for its round: not hidden, and it landed before the
+ * round ended (plus a short grace). A game that finishes later still counts for the day.
+ */
+export function countsForRound(run: RoundEntry, endedAtMs: number | null): boolean {
+  if (run.status !== 'finished' || run.score === null || run.disqualified) return false
+  if (endedAtMs === null || run.finishedAt === null) return true
+  return Date.parse(run.finishedAt) <= endedAtMs + ROUND_END_GRACE_MS
+}
+
+/** The games that count for a round, best first (same tie-break as the day's leaderboard). */
+export function roundStandings<T extends RoundEntry>(runs: readonly T[], endedAtMs: number | null): T[] {
+  const ranked = runs.filter((run) => countsForRound(run, endedAtMs))
+  const key = (run: T): RankedRun => ({
+    playerId: run.playerId,
+    score: run.score ?? 0,
+    perfects: run.perfects ?? 0,
+    finishedAtMs: run.finishedAt ? Date.parse(run.finishedAt) : 0,
+  })
+  return ranked.sort((left, right) => compareRuns(key(left), key(right)))
+}
+
+/** Exactly one winner per round: the top game that counts. Nobody wins with 0 points. */
+export function roundWinner<T extends RoundEntry>(runs: readonly T[], endedAtMs: number | null): T | null {
+  const [top] = roundStandings(runs, endedAtMs)
+  return top && (top.score ?? 0) > 0 ? top : null
 }
 
 /** Number of rounds a player may still join this event. */

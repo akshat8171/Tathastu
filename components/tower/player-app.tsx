@@ -239,7 +239,14 @@ export function PlayerApp() {
         {screen === 'follow' && <FollowStep onNext={() => setScreen('register')} />}
         {screen === 'register' && <RegisterStep onSignedIn={signedIn} onBack={() => setScreen('follow')} />}
         {screen === 'home' && player && token && (
-          <HomeScreen player={player} token={token} result={result} onJoined={joined} onNextPlayer={handOver} />
+          <HomeScreen
+            player={player}
+            token={token}
+            result={result}
+            onJoined={joined}
+            onUpdated={setPlayer}
+            onNextPlayer={handOver}
+          />
         )}
         {screen === 'home' && !player && (
           <button type="button" onClick={() => window.location.reload()} className="btn-tower mt-10">
@@ -384,7 +391,7 @@ function RegisterStep({
     >
       <StepBadge step={2} />
       <h2 className="text-white mt-3 font-display text-3xl font-bold leading-tight">Who&apos;s playing?</h2>
-      <p className="mt-2 text-white/70">Your name goes on the big screen. We WhatsApp the winner.</p>
+      <p className="mt-2 text-white/70">Your name goes on the big screen. We WhatsApp every round's winner.</p>
 
       <label htmlFor="tower-name" className="mt-6 block text-sm font-medium text-white/80">
         Your name
@@ -518,12 +525,14 @@ function HomeScreen({
   token,
   result,
   onJoined,
+  onUpdated,
   onNextPlayer,
 }: {
   player: PlayerView
   token: string
   result: RunResult | null
   onJoined: (player: PlayerView) => void
+  onUpdated: (player: PlayerView) => void
   onNextPlayer: () => void
 }) {
   const { board } = useBoard(3_000)
@@ -533,6 +542,20 @@ function HomeScreen({
   const canJoin = open && player.attemptsLeft > 0 && !player.disqualified
   const thisRound = player.current && round && player.current.roundId === round.id ? player.current : null
   const roundOpen = round && round.status !== 'ended' && !thisRound
+
+  // The round's winner is only known once everyone is done, usually after this phone finished.
+  // Ask again when the big screen flips to the podium so "You won!" shows up here too.
+  const resultsFor = thisRound && round?.phase === 'results' ? `${round.id}:${round.winner?.name ?? ''}` : null
+  useEffect(() => {
+    if (!resultsFor) return
+    let cancelled = false
+    void callApi<{ player: PlayerView }>('/api/tower/me', { token }).then((reply) => {
+      if (!cancelled && reply.ok) onUpdated(reply.data.player)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [resultsFor, token, onUpdated])
 
   return (
     <section className="mt-6">
@@ -592,14 +615,38 @@ function RoundResult({ result, player, board }: { result: RunResult; player: Pla
       <p className="mt-2 text-white/70">
         {result.layers} layers · {result.perfects} perfect · best streak {result.bestCombo}
       </p>
-      {current?.rank && (
-        <p className="mt-3 inline-block rounded-full bg-brand/40 px-4 py-1.5 font-semibold">
-          #{current.rank}
-          {inRound ? ` of ${inRound}` : ''} in round {current.number}
+      {current?.won ? (
+        <div className="mt-4 rounded-2xl bg-gradient-to-r from-amber-300 to-amber-500 p-4 text-ink">
+          <p className="font-display text-3xl font-bold">🏆 You won round {current.number}!</p>
+          <p className="mt-1 font-semibold">Come to the stall now to collect your prize.</p>
+        </div>
+      ) : (
+        current?.rank && (
+          <p className="mt-3 inline-block rounded-full bg-brand/40 px-4 py-1.5 font-semibold">
+            #{current.rank}
+            {inRound ? ` of ${inRound}` : ''} in round {current.number}
+          </p>
+        )
+      )}
+      {current?.late && (
+        <p className="mt-3 rounded-2xl bg-white/10 px-4 py-2 text-sm text-white/80">
+          You finished after round {current.number} closed, so this game can&apos;t win the round — it still counts
+          towards your best score today.
         </p>
       )}
+      {!current?.won && <RoundWinnerNote board={board} roundId={current?.roundId ?? null} />}
       <p className="mt-2 text-sm text-white/50">Watch the big screen for the podium!</p>
     </div>
+  )
+}
+
+function RoundWinnerNote({ board, roundId }: { board: PublicBoard | null; roundId: number | null }) {
+  const round = board?.round
+  if (!round || round.id !== roundId || !round.winner) return null
+  return (
+    <p className="mt-3 text-amber-100">
+      🏆 Round {round.number} winner: <span className="font-semibold">{round.winner.name}</span> · {round.winner.score}
+    </p>
   )
 }
 
@@ -849,7 +896,7 @@ function HowToPlay() {
       <li>👆 Tap anywhere to drop the sliding slab.</li>
       <li>🎯 Line it up — anything hanging over gets sliced off.</li>
       <li>✨ Perfect drops score bonus points and grow your slab back.</li>
-      <li>🏆 Everyone in the round stacks the same tower. Top score today wins!</li>
+      <li>🏆 Everyone in the round stacks the same tower. The top score in each round wins a prize!</li>
     </ul>
   )
 }
@@ -859,7 +906,7 @@ function WinnerBanner({ board }: { board: PublicBoard | null }) {
   if (!winner) return null
   return (
     <div className="mt-6 rounded-2xl bg-gradient-to-r from-amber-300 to-amber-500 p-4 text-ink">
-      <p className="text-sm font-semibold uppercase tracking-wider">Winner</p>
+      <p className="text-sm font-semibold uppercase tracking-wider">Champion of the day</p>
       <p className="font-display text-2xl font-bold">
         {winner.name} · {winner.score}
       </p>
