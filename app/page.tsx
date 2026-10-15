@@ -21,8 +21,32 @@ import { getWebSiteSchema } from '@/lib/schema'
 import { getCatalogProducts, getHomepageSettings } from '@/lib/catalog/store'
 import { applyPhotoshootHomepageDefaults } from '@/lib/catalog/homepage'
 import type { ProductCardData } from '@/components/ui'
+import type { HeroSlide } from '@/lib/catalog/types'
 
 export const revalidate = 60
+
+/** Seasonal lead slide. Uses our own catalog photos, not anyone else's. */
+const DIWALI_SLIDE: HeroSlide = {
+  eyebrow: 'Diwali at home',
+  headline: 'Light the',
+  highlight: 'house.',
+  subcopy:
+    'Lakshmi and Ganesha, a mandir piece, a warm lamp, and a dual-name plank for the people you are gifting. Printed in Agra. Diwali is 8 November — order this week if it has to arrive before the puja.',
+  ctaLabel: 'Shop Diwali decor',
+  ctaHref: '/products?category=pooja-decor',
+  productIds: [
+    'pooja-decor-lakshmi',
+    'pooja-decor-ganesha',
+    'pooja-decor-kanhaji',
+    'pooja-decor-temple',
+    'lamps-lunar-night',
+    'lamps-glow-arc',
+    'home-decor-dual-name-plank',
+    'home-decor-dual-name-plank-light',
+  ],
+}
+
+const DIWALI_LEAD_IDS = DIWALI_SLIDE.productIds
 
 export default async function HomePage() {
   const webSiteSchema = getWebSiteSchema()
@@ -41,12 +65,28 @@ export default async function HomePage() {
     }
   }
 
-  const bestSellers = settings.bestSellerIds
+  const bestSellerOrder = [
+    ...DIWALI_LEAD_IDS,
+    ...settings.bestSellerIds.filter((id) => !DIWALI_LEAD_IDS.includes(id)),
+  ]
+  const bestSellers = bestSellerOrder
     .map((id) => products.find((product) => product.id === id))
     .filter((product): product is (typeof products)[number] => Boolean(product))
 
+  const heroSlides =
+    settings.heroSlides[0]?.eyebrow === DIWALI_SLIDE.eyebrow
+      ? settings.heroSlides
+      : [DIWALI_SLIDE, ...settings.heroSlides]
+
   const rails = settings.categoryRails.map((rail) => ({
     ...rail,
+    title: rail.slug === 'pooja-decor' ? 'Diwali pooja' : rail.title,
+    subtitle:
+      rail.slug === 'pooja-decor'
+        ? 'Lakshmi, Ganesha and mandir pieces for the November puja.'
+        : rail.slug === 'home-decor'
+          ? 'Name planks and shelf pieces to gift with the sweets.'
+          : rail.subtitle,
     products: products.filter((product) => product.category === rail.slug).slice(0, 10) as ProductCardData[],
   }))
 
@@ -58,19 +98,25 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
       />
 
-      {sections.hero && <HeroCarousel slides={settings.heroSlides} products={products} />}
+      {sections.hero && <HeroCarousel slides={heroSlides} products={products} />}
 
       {sections.categories && <CategoryIcons minPriceByCategory={minPriceByCategory} />}
 
       {sections.promo && settings.promo.enabled && (
         <PromoStrip
-          headline={settings.promo.headline}
-          subcopy={settings.promo.subcopy}
+          headline="Diwali gifting · 20% off your first order"
+          subcopy="One-time code · Printed in Agra · Free shipping on orders above ₹1500"
           code={settings.promo.code}
         />
       )}
 
-      {sections.bestSellers && <BestSellers products={bestSellers} />}
+      {sections.bestSellers && (
+        <BestSellers
+          products={bestSellers}
+          title="For the Diwali home"
+          subtitle="Idols, lamps and dual-name planks from our own workshop. The plank is already ₹100 under the usual desk-plank rate."
+        />
+      )}
 
       {sections.trust && <TrustBand />}
 
