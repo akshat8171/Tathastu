@@ -376,4 +376,95 @@ export const trendingPosts: BlogPost[] = [
     readTime: '7 min read',
     coverImage: '/images/blog/planters.svg',
   },
+  {
+    slug: 'dual-name-plank-couple-gift-india',
+    title: 'Dual Name Plank: Couple Name Signs, Photo Frames and Lighted Sets (India)',
+    description:
+      'Buy a dual name plank in India — two names on one 3D-printed sign, a photo frame, a lighted base, or a soulmate set with a rose and heart. Made to order in Agra by Tathastu Keepsakes, from ₹499.',
+    keywords:
+      'dual name plank, couple name sign India, personalised name plank, dual name photo frame, soulmate gift set, lighted name plank, 3D printed couple gift',
+    category: 'products',
+    content: `<article class="prose prose-lg max-w-none">
+  <p style="font-size:1.2rem;color:#334155;">A <strong>dual name plank</strong> from Tathastu Keepsakes is a freestanding 3D-printed sign with two names and a small heart. The plain plank is <strong>₹499</strong>. A lighted base, a photo frame, a three-piece soulmate set, and a cased premium plank are on the same page. We print them in Agra after you send the names, and ship them across India.</p>
+
+  <div style="background:#fffbeb;border-left:4px solid #f59e0b;padding:1rem 1.25rem;border-radius:0 0.5rem 0.5rem 0;margin:1.5rem 0;">
+    <p style="margin:0;"><strong>Heat, stated plainly:</strong> These pieces are PLA. PLA softens around 55–60°C. The lighted planks are shelf lights, not car-dashboard lights. A closed car in the Indian sun gets hotter than the plastic can take.</p>
+  </div>
+
+  <h2>Which dual name piece to order</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
+      <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">Desk plank</h3>
+      <p style="margin:0;color:#475569;font-size:0.95rem;">Two names and a heart, no light. The <a href="/products/home-decor-dual-name-plank">Dual Name Plank</a> is ₹499.</p>
+    </div>
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
+      <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">With a photo</h3>
+      <p style="margin:0;color:#475569;font-size:0.95rem;">A standing frame plus the two names on the base. The <a href="/products/home-decor-dual-name-photo-frame">Dual Name Photo Frame</a> is ₹1,899. Send the photo on WhatsApp after checkout.</p>
+    </div>
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
+      <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">Lighted plank</h3>
+      <p style="margin:0;color:#475569;font-size:0.95rem;">Warm light in the base, cell packed in the box. The <a href="/products/home-decor-dual-name-plank-light">Dual Name Plank with Light</a> is ₹798.</p>
+    </div>
+    <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
+      <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">Gift set</h3>
+      <p style="margin:0;color:#475569;font-size:0.95rem;">Plank, rose, and heart charm. The <a href="/products/home-decor-soulmate-combo">Soulmate Combo</a> is ₹649, or <a href="/products/home-decor-soulmate-combo-light">with light</a> at ₹899.</p>
+    </div>
+  </div>
+
+  <h2>Price guide</h2>
+  <table>
+    <thead>
+      <tr><th>Piece</th><th>Price</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Dual Name Plank</td><td>₹499</td></tr>
+      <tr><td>Soulmate Combo</td><td>₹649</td></tr>
+      <tr><td>Dual Name Plank with Light</td><td>₹798</td></tr>
+      <tr><td>Soulmate Combo with Light</td><td>₹899</td></tr>
+      <tr><td>Premium Dual Name Plank</td><td>₹1,399</td></tr>
+      <tr><td>Dual Name Photo Frame</td><td>₹1,899</td></tr>
+    </tbody>
+  </table>
+  <p>Each selling price is ₹100 under the rate these styles usually list at. The <a href="/products/home-decor-premium-dual-name-plank">Premium Dual Name Plank</a> sits in a clear case, with one name reading from the left and the other from the right. If you want a single name instead, the <a href="/products/home-decor-couple-name">couple name sign</a> and the <a href="/blog/custom-3d-printed-keychains-nameplates">nameplate guide</a> cover the other shapes.</p>
+
+  <h2>How the names get on the plank</h2>
+  <ol>
+    <li>Pick the colour at checkout and type both names in the box.</li>
+    <li>For the photo frame, send the picture on WhatsApp after the order. A clear, well-lit photo is enough.</li>
+    <li>We print in Agra and dispatch in 2–4 days. Up to 10 letters per name fits the standard plank; longer names need a wider quote.</li>
+  </ol>
+
+  <h2>Frequently asked questions</h2>
+  <div itemscope itemtype="https://schema.org/FAQPage">
+    <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 itemprop="name">What is a dual name plank?</h3>
+      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">It is a small freestanding sign printed with two names and a heart. Ours start at ₹499, in the colour you pick, made to order in Agra.</p>
+      </div>
+    </div>
+    <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 itemprop="name">Can I add a light?</h3>
+      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">Yes. The Dual Name Plank with Light is ₹798, and the Soulmate Combo with Light is ₹899. The cell is packed with the order. Use it on a shelf, not in a hot car.</p>
+      </div>
+    </div>
+    <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+      <h3 itemprop="name">Do you print a photo with the two names?</h3>
+      <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+        <p itemprop="text">The Dual Name Photo Frame is ₹1,899. Order it, then send the photo and confirm the two names on WhatsApp. We print the frame and the name base together.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#e6f4f1;border:2px solid #8ecec5;padding:2rem;border-radius:0.75rem;margin:2.5rem 0;text-align:center;">
+    <p style="font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;color:#073f34;">Two names, one plank</p>
+    <p style="margin-bottom:1.5rem;color:#334155;">From ₹499. Printed in Agra and shipped across India.</p>
+    <a href="/products/home-decor-dual-name-plank" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop the Dual Name Plank</a>
+    <a href="https://wa.me/919154892790" style="display:inline-block;padding:0.875rem 1.75rem;background:#16a34a;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">WhatsApp +91 91548 92790</a>
+  </div>
+</article>`,
+    date: '2026-10-14',
+    readTime: '6 min read',
+    coverImage: '/images/blog/dual-name-plank.svg',
+  },
 ]

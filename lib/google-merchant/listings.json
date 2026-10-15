@@ -160,5 +160,41 @@
     "productId": "home-decor-bilingual-name",
     "ageGroup": "adult",
     "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P28-FS-NVY",
+    "productId": "home-decor-dual-name-plank",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P29-FS-GLD",
+    "productId": "home-decor-dual-name-photo-frame",
+    "ageGroup": "adult",
+    "productType": "Photo Frame"
+  },
+  {
+    "offerId": "TK-P30-FS-BLK",
+    "productId": "home-decor-dual-name-plank-light",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P31-FS-PNK",
+    "productId": "home-decor-soulmate-combo",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P32-FS-BLU",
+    "productId": "home-decor-soulmate-combo-light",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P33-FS-GLD",
+    "productId": "home-decor-premium-dual-name-plank",
+    "ageGroup": "adult",
+    "productType": "Name Sign"
   }
 ]

@@ -43,6 +43,8 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       ctaLabel: 'See Name Gifts',
       ctaHref: '/products?category=home-decor',
       productIds: [
+        'home-decor-dual-name-plank',
+        'home-decor-premium-dual-name-plank',
         'home-decor-kids-door-nameplate',
         'home-decor-couple-miniature',
         'home-decor-twisted-loop',
@@ -119,6 +121,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
     'home-decor-sliding-photo-book',
     'home-decor-butterfly-name',
     'organizers-name-pen-stand',
+    'home-decor-dual-name-plank',
     'home-decor-couple-name',
     'organizers-wall-key-holder',
     'home-decor-photo-rotator',
