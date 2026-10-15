@@ -6779,5 +6779,513 @@
     ],
     "whyBuy": "This is the exact piece from our photoshoot — printed fresh to order in Agra so you get the same detail, not a stock replica.",
     "createdAt": "2026-09-15T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-dual-name-plank",
+    "name": "Dual Name Plank",
+    "description": "Freestanding dual name plank for a shelf or desk. Share both names after order; we print them on a white base with a small red heart between the names. Up to 10 letters per name. PLA plastic. Example shown: cobalt blue AARAV and MEERA.",
+    "price": 499,
+    "originalPrice": 1500,
+    "images": [
+      "/images/products/home-decor/home-decor-dual-name-plank/01-hero.png",
+      "/images/products/home-decor/home-decor-dual-name-plank/02-studio.png",
+      "/images/products/home-decor/home-decor-dual-name-plank/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-dual-name-plank/04-macro.png",
+      "/images/products/home-decor/home-decor-dual-name-plank/05-dimensions.png",
+      "/images/products/home-decor/home-decor-dual-name-plank/06-inuse.png",
+      "/images/products/home-decor/home-decor-dual-name-plank/07-box.png",
+      "/images/products/home-decor/home-decor-dual-name-plank/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Gold",
+      "Purple",
+      "Yellow",
+      "Baby Pink",
+      "White",
+      "Black",
+      "Sky Blue",
+      "Red",
+      "Green"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names",
+      "maxLength": 24,
+      "placeholder": "e.g. AARAV / MEERA"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Gold",
+          "Purple",
+          "Yellow",
+          "Baby Pink",
+          "White",
+          "Black",
+          "Sky Blue",
+          "Red",
+          "Green"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "20 × 5 × 4 cm",
+      "weight": "~80 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Two names on one piece",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour chosen at checkout",
+      "Studio listing photos of the example names"
+    ],
+    "about": "Freestanding dual name plank for a shelf or desk. Share both names after order; we print them on a white base with a small red heart between the names. Up to 10 letters per name. PLA plastic. Example shown: cobalt blue AARAV and MEERA.",
+    "keyFeatures": [
+      "Two names, one plank",
+      "Heart between the lines",
+      "Freestanding base"
+    ],
+    "perfectFor": [
+      "Anniversaries",
+      "Weddings",
+      "Desk gifts",
+      "Couple shelves"
+    ],
+    "whyBuy": "Two names on one shelf plank, printed in Agra and packed ready to gift.",
+    "createdAt": "2026-10-14T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-dual-name-photo-frame",
+    "name": "Dual Name Photo Frame",
+    "description": "Standing LED photo frame with two photo windows and a dual-name base. Send the photo on WhatsApp after you order, plus the two names. PLA frame, adapter included. Example shown: white frame, gold RIYA and KABIR.",
+    "price": 1899,
+    "originalPrice": 2599,
+    "images": [
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/01-hero.png",
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/02-studio.png",
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/04-macro.png",
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/05-dimensions.png",
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/06-inuse.png",
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/07-box.png",
+      "/images/products/home-decor/home-decor-dual-name-photo-frame/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Gold",
+      "Red",
+      "Yellow",
+      "Sky Blue",
+      "Purple",
+      "Baby Pink",
+      "White"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names",
+      "maxLength": 24,
+      "placeholder": "e.g. KABIR / ANAYA"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Gold",
+          "Red",
+          "Yellow",
+          "Sky Blue",
+          "Purple",
+          "Baby Pink",
+          "White"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "29 × 16 × 4 cm",
+      "weight": "~220 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Two names on one piece",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour chosen at checkout",
+      "Studio listing photos of the example names"
+    ],
+    "about": "Standing LED photo frame with two photo windows and a dual-name base. Send the photo on WhatsApp after you order, plus the two names. PLA frame, adapter included. Example shown: white frame, gold RIYA and KABIR.",
+    "keyFeatures": [
+      "Photo window",
+      "Dual-name base",
+      "Stands on a table"
+    ],
+    "perfectFor": [
+      "Couple gifts",
+      "Bedside tables",
+      "Anniversaries",
+      "Family photos"
+    ],
+    "whyBuy": "A lighted photo frame with both names on the base, printed in Agra.",
+    "createdAt": "2026-10-14T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-dual-name-plank-light",
+    "name": "Dual Name Plank with Light",
+    "description": "Dual name plank on a slim warm LED base. Share both names after order. A cell is packed in the box. Shelf use only — PLA softens in a closed hot car. Up to 10 letters per name. Example shown: cobalt blue ANIKA and DEV.",
+    "price": 798,
+    "originalPrice": 1500,
+    "images": [
+      "/images/products/home-decor/home-decor-dual-name-plank-light/01-hero.png",
+      "/images/products/home-decor/home-decor-dual-name-plank-light/02-studio.png",
+      "/images/products/home-decor/home-decor-dual-name-plank-light/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-dual-name-plank-light/04-macro.png",
+      "/images/products/home-decor/home-decor-dual-name-plank-light/05-dimensions.png",
+      "/images/products/home-decor/home-decor-dual-name-plank-light/06-inuse.png",
+      "/images/products/home-decor/home-decor-dual-name-plank-light/07-box.png",
+      "/images/products/home-decor/home-decor-dual-name-plank-light/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Gold",
+      "Yellow",
+      "Black",
+      "Red",
+      "Sky Blue"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names",
+      "maxLength": 24,
+      "placeholder": "e.g. RIYA / ARJUN"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Gold",
+          "Yellow",
+          "Black",
+          "Red",
+          "Sky Blue"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "20 × 5 × 6.5 cm",
+      "weight": "~110 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Two names on one piece",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour chosen at checkout",
+      "Studio listing photos of the example names"
+    ],
+    "about": "Dual name plank on a slim warm LED base. Share both names after order. A cell is packed in the box. Shelf use only — PLA softens in a closed hot car. Up to 10 letters per name. Example shown: cobalt blue ANIKA and DEV.",
+    "keyFeatures": [
+      "Two names",
+      "Warm base light",
+      "Cell packed with the order"
+    ],
+    "perfectFor": [
+      "Evening shelves",
+      "Anniversary gifts",
+      "Bedside",
+      "Couple desks"
+    ],
+    "whyBuy": "The same two-name plank with a warm light in the base, cell included.",
+    "createdAt": "2026-10-14T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-soulmate-combo",
+    "name": "Soulmate Combo",
+    "description": "Three-piece couple set: a dual name plank, a small rose, and a heart keychain. Share both names after order. PLA plastic, packed as one gift. Example shown: blue ISHA and NEEL, red rose, red heart charm.",
+    "price": 649,
+    "originalPrice": 1500,
+    "images": [
+      "/images/products/home-decor/home-decor-soulmate-combo/01-hero.png",
+      "/images/products/home-decor/home-decor-soulmate-combo/02-studio.png",
+      "/images/products/home-decor/home-decor-soulmate-combo/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-soulmate-combo/04-macro.png",
+      "/images/products/home-decor/home-decor-soulmate-combo/05-dimensions.png",
+      "/images/products/home-decor/home-decor-soulmate-combo/06-inuse.png",
+      "/images/products/home-decor/home-decor-soulmate-combo/07-box.png",
+      "/images/products/home-decor/home-decor-soulmate-combo/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Yellow",
+      "Black",
+      "White",
+      "Baby Pink",
+      "Gold",
+      "Sky Blue",
+      "Red"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names",
+      "maxLength": 24,
+      "placeholder": "e.g. NEHA / DEV"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Yellow",
+          "Black",
+          "White",
+          "Baby Pink",
+          "Gold",
+          "Sky Blue",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "20 × 5 × 4 cm plank, plus rose and charm",
+      "weight": "~140 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Two names on one piece",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour chosen at checkout",
+      "Studio listing photos of the example names"
+    ],
+    "about": "Three-piece couple set: a dual name plank, a small rose, and a heart keychain. Share both names after order. PLA plastic, packed as one gift. Example shown: blue ISHA and NEEL, red rose, red heart charm.",
+    "keyFeatures": [
+      "Name plank",
+      "Rose",
+      "Heart charm"
+    ],
+    "perfectFor": [
+      "Anniversaries",
+      "Valentine gifts",
+      "Proposal keepsakes",
+      "Long-distance gifts"
+    ],
+    "whyBuy": "Plank, rose, and heart charm in one gift box, printed in Agra.",
+    "createdAt": "2026-10-14T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-soulmate-combo-light",
+    "name": "Soulmate Combo with Light",
+    "description": "Soulmate set with a warm light in the name plank, plus a rose and a heart keychain. Share both names after order. Cell is packed in the box. Shelf use only — PLA softens in strong heat. Example shown: glowing plank ISHA and NEEL, red rose, red heart charm.",
+    "price": 899,
+    "originalPrice": 2000,
+    "images": [
+      "/images/products/home-decor/home-decor-soulmate-combo-light/01-hero.png",
+      "/images/products/home-decor/home-decor-soulmate-combo-light/02-studio.png",
+      "/images/products/home-decor/home-decor-soulmate-combo-light/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-soulmate-combo-light/04-macro.png",
+      "/images/products/home-decor/home-decor-soulmate-combo-light/05-dimensions.png",
+      "/images/products/home-decor/home-decor-soulmate-combo-light/06-inuse.png",
+      "/images/products/home-decor/home-decor-soulmate-combo-light/07-box.png",
+      "/images/products/home-decor/home-decor-soulmate-combo-light/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Blue",
+      "Yellow",
+      "Black",
+      "White",
+      "Baby Pink",
+      "Gold",
+      "Sky Blue",
+      "Red"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names",
+      "maxLength": 24,
+      "placeholder": "e.g. SARA / VIVAAN"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Yellow",
+          "Black",
+          "White",
+          "Baby Pink",
+          "Gold",
+          "Sky Blue",
+          "Red"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "20 × 5 × 6.5 cm plank, plus rose and charm",
+      "weight": "~160 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Two names on one piece",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour chosen at checkout",
+      "Studio listing photos of the example names"
+    ],
+    "about": "Soulmate set with a warm light in the name plank, plus a rose and a heart keychain. Share both names after order. Cell is packed in the box. Shelf use only — PLA softens in strong heat. Example shown: glowing plank ISHA and NEEL, red rose, red heart charm.",
+    "keyFeatures": [
+      "Lighted name plank",
+      "Rose",
+      "Heart charm"
+    ],
+    "perfectFor": [
+      "Evening gifts",
+      "Anniversaries",
+      "Date-night keepsakes",
+      "Couple shelves"
+    ],
+    "whyBuy": "The three-piece set with a lighted name plank, cell included.",
+    "createdAt": "2026-10-14T00:00:00.000Z"
+  },
+  {
+    "id": "home-decor-premium-dual-name-plank",
+    "name": "Premium Dual Name Plank",
+    "description": "Dual name plank in a clear case with a warm LED, rechargeable cell, and USB-C charging. One name reads from the left and the other from the right, each ending in a small heart. Share both names and a short front line after order. Example shown: AARAV and MEERA, front line Always.",
+    "price": 1399,
+    "originalPrice": 2499,
+    "images": [
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/01-hero.png",
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/02-studio.png",
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/03-lifestyle.png",
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/04-macro.png",
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/05-dimensions.png",
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/06-inuse.png",
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/07-box.png",
+      "/images/products/home-decor/home-decor-premium-dual-name-plank/08-inhand.png"
+    ],
+    "category": "home-decor",
+    "rating": 5,
+    "reviewCount": 0,
+    "badge": "New Arrival",
+    "labelType": "new",
+    "isSoldOut": false,
+    "careGuide": "Wipe gently with a soft, dry cloth. Avoid harsh chemicals and prolonged direct sunlight to keep colours vivid.",
+    "shippingInfo": "Made to order and dispatched in 2–4 days. Free shipping on orders over ₹199. Tracked & insured pan-India delivery.",
+    "colors": [
+      "Purple",
+      "Gold",
+      "Yellow",
+      "Blue",
+      "Sky Blue",
+      "Red",
+      "White",
+      "Pink"
+    ],
+    "customizable": true,
+    "customText": {
+      "label": "Two names",
+      "maxLength": 24,
+      "placeholder": "e.g. ISHAN / MYRA"
+    },
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Purple",
+          "Gold",
+          "Yellow",
+          "Blue",
+          "Sky Blue",
+          "Red",
+          "White",
+          "Pink"
+        ]
+      }
+    ],
+    "specs": {
+      "material": "PLA / PLA+",
+      "printTech": "Multi-colour FDM",
+      "finish": "Matte",
+      "origin": "Made in India",
+      "dimensions": "18 × 6 × 12 cm",
+      "weight": "~200 g"
+    },
+    "benefits": [
+      "Printed to order in Agra, India",
+      "Two names on one piece",
+      "Packed in a Tathastu Keepsakes gift box",
+      "Colour chosen at checkout",
+      "Studio listing photos of the example names"
+    ],
+    "about": "Dual name plank in a clear case with a warm LED, rechargeable cell, and USB-C charging. One name reads from the left and the other from the right, each ending in a small heart. Share both names and a short front line after order. Example shown: AARAV and MEERA, front line Always.",
+    "keyFeatures": [
+      "Clear display case",
+      "Names from both sides",
+      "Heart between the names"
+    ],
+    "perfectFor": [
+      "Wedding gifts",
+      "Living-room consoles",
+      "Anniversaries",
+      "Premium couple gifts"
+    ],
+    "whyBuy": "A cased, rechargeable name light — two names, one from each side.",
+    "createdAt": "2026-10-14T00:00:00.000Z"
   }
 ]

@@ -32,8 +32,8 @@ describe('lib/products.json — data integrity', () => {
     expect(catalog.length).toBeGreaterThan(0)
   })
 
-  it('contains exactly 93 products', () => {
-    expect(catalog).toHaveLength(93)
+  it('contains exactly 99 products', () => {
+    expect(catalog).toHaveLength(99)
   })
 
   describe('every product has required fields', () => {
@@ -120,8 +120,8 @@ describe('lib/products.json — data integrity', () => {
       expect(catalog.filter((p) => p.category === 'lamps')).toHaveLength(8)
     })
 
-    it('has 16 home-decor', () => {
-      expect(catalog.filter((p) => p.category === 'home-decor')).toHaveLength(16)
+    it('has 22 home-decor', () => {
+      expect(catalog.filter((p) => p.category === 'home-decor')).toHaveLength(22)
     })
 
     it('has 17 organizers', () => {
