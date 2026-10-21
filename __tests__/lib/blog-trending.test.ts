@@ -63,8 +63,8 @@ describe('trending blog posts', () => {
     expect(dashIdols?.content).toContain(
       `/products/${product('pooja-decor-dashboard-shiva').id}`,
     )
-    expect(product('pooja-decor-dashboard-shiva').price).toBe(699)
-    expect(product('pooja-decor-dashboard-laxmi-ganesh').price).toBe(2049)
-    expect(product('pooja-decor-dashboard-shiva-nandi').price).toBe(2799)
+    expect(product('pooja-decor-dashboard-shiva').price).toBe(799)
+    expect(product('pooja-decor-dashboard-laxmi-ganesh').price).toBe(2149)
+    expect(product('pooja-decor-dashboard-shiva-nandi').price).toBe(2899)
   })
 })
