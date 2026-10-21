@@ -2,6 +2,7 @@ import { getBlogPost, blogPosts } from '@/lib/blog-data'
 import products from '@/lib/products.json'
 
 const TRENDING_SLUGS = [
+  'car-dashboard-god-idols-india',
   'customised-car-dashboard-3d-printed-india',
   '3d-printed-moon-lamp-india',
   '3d-printed-desk-organizer-india',
@@ -19,8 +20,8 @@ function product(id: string): CatalogProduct {
 }
 
 describe('trending blog posts', () => {
-  it('lists the four new posts first', () => {
-    expect(blogPosts.slice(0, 4).map((post) => post.slug)).toEqual([...TRENDING_SLUGS])
+  it('lists the five new posts first', () => {
+    expect(blogPosts.slice(0, 5).map((post) => post.slug)).toEqual([...TRENDING_SLUGS])
   })
 
   it.each(TRENDING_SLUGS)('%s answers in the opening line and includes FAQ markup', (slug) => {
@@ -38,6 +39,7 @@ describe('trending blog posts', () => {
     const desk = getBlogPost('3d-printed-desk-organizer-india')
     const planter = getBlogPost('3d-printed-planters-india')
     const dash = getBlogPost('customised-car-dashboard-3d-printed-india')
+    const dashIdols = getBlogPost('car-dashboard-god-idols-india')
 
     expect(moon?.content).toContain(`/products/${product('lamps-lunar-night').id}`)
     expect(moon?.content).toContain('₹1,699')
@@ -57,5 +59,12 @@ describe('trending blog posts', () => {
     expect(product('pooja-decor-ganesha').price).toBe(899)
     expect(product('pooja-decor-trishul').price).toBe(699)
     expect(product('pooja-decor-temple').price).toBe(1499)
+
+    expect(dashIdols?.content).toContain(
+      `/products/${product('pooja-decor-dashboard-shiva').id}`,
+    )
+    expect(product('pooja-decor-dashboard-shiva').price).toBe(699)
+    expect(product('pooja-decor-dashboard-laxmi-ganesh').price).toBe(2049)
+    expect(product('pooja-decor-dashboard-shiva-nandi').price).toBe(2799)
   })
 })

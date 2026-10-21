@@ -13,11 +13,12 @@ import type { CatalogProduct } from '@/lib/catalog/types'
 const catalogProducts = catalog as CatalogProduct[]
 
 describe('Google Merchant Center feed', () => {
-  it('enrolls 33 photoshoot SKUs that exist on the catalog', () => {
-    expect(merchantListings).toHaveLength(33)
+  it('enrolls 42 photoshoot SKUs that exist on the catalog', () => {
+    expect(merchantListings).toHaveLength(42)
     expect(merchantListings[0].offerId).toBe('TK-P01-FS-GRN')
     expect(merchantListings[26].offerId).toBe('TK-P27-FS-MLT')
     expect(merchantListings[32].offerId).toBe('TK-P33-FS-GLD')
+    expect(merchantListings[41].offerId).toBe('TK-P42-FS-MLT')
   })
 
   it('escapes XML special characters', () => {
@@ -67,7 +68,7 @@ describe('Google Merchant Center feed', () => {
     expect(doc.querySelector('parsererror')).toBeNull()
 
     const items = [...doc.querySelectorAll('item')]
-    expect(items).toHaveLength(33)
+    expect(items).toHaveLength(42)
     expect(items[0].getElementsByTagName('g:id')[0]?.textContent).toBe(
       'TK-P01-FS-GRN',
     )
@@ -81,7 +82,7 @@ describe('Google Merchant Center feed', () => {
     const lines = tsv.trimEnd().split('\n')
     expect(lines[0]).toContain('id\ttitle\tdescription')
     expect(lines[0]).toContain('is_bundle')
-    expect(lines).toHaveLength(34)
+    expect(lines).toHaveLength(43)
     expect(lines[1].startsWith('TK-P01-FS-GRN\t')).toBe(true)
     expect(lines.some((line) => line.includes('.xls'))).toBe(false)
   })

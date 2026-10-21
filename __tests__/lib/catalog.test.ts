@@ -32,8 +32,8 @@ describe('lib/products.json — data integrity', () => {
     expect(catalog.length).toBeGreaterThan(0)
   })
 
-  it('contains exactly 99 products', () => {
-    expect(catalog).toHaveLength(99)
+  it('contains exactly 108 products', () => {
+    expect(catalog).toHaveLength(108)
   })
 
   describe('every product has required fields', () => {
@@ -132,8 +132,8 @@ describe('lib/products.json — data integrity', () => {
       expect(catalog.filter((p) => p.category === 'planters')).toHaveLength(8)
     })
 
-    it('has 11 pooja-decor', () => {
-      expect(catalog.filter((p) => p.category === 'pooja-decor')).toHaveLength(11)
+    it('has 20 pooja-decor', () => {
+      expect(catalog.filter((p) => p.category === 'pooja-decor')).toHaveLength(20)
     })
 
     it('has 14 keyrings', () => {

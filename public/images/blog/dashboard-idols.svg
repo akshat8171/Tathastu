@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="gDashIdols" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0E7A66"/>
+      <stop offset="100%" style="stop-color:#073F34"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#gDashIdols)"/>
+  <circle cx="140" cy="120" r="100" fill="rgba(255,255,255,0.10)"/>
+  <circle cx="1080" cy="520" r="140" fill="rgba(255,255,255,0.08)"/>
+  <g transform="translate(600,240)" fill="none" stroke="rgba(255,255,255,0.95)" stroke-width="9" stroke-linejoin="round">
+    <path d="M-200,80 L-160,-10 L-60,-40 L60,-40 L160,-10 L200,80 Z" fill="rgba(255,255,255,0.10)"/>
+    <ellipse cx="-90" cy="-55" rx="28" ry="40" fill="rgba(255,255,255,0.92)" stroke="none"/>
+    <ellipse cx="0" cy="-70" rx="32" ry="48" fill="rgba(255,255,255,0.95)" stroke="none"/>
+    <ellipse cx="90" cy="-55" rx="28" ry="40" fill="rgba(255,255,255,0.92)" stroke="none"/>
+    <rect x="-18" y="-130" width="36" height="28" rx="6" fill="rgba(255,255,255,0.85)" stroke="none"/>
+  </g>
+  <text x="600" y="460" font-family="Arial, sans-serif" font-size="46" font-weight="bold" fill="#ffffff" text-anchor="middle">Car Dashboard God Idols</text>
+  <text x="600" y="514" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.92)" text-anchor="middle">Shiva · Ganesha · Krishna · Hanuman · Laxmi</text>
+  <text x="600" y="572" font-family="Arial, sans-serif" font-size="24" fill="#ffffff" text-anchor="middle">Tathastu Keepsakes · Agra</text>
+</svg>

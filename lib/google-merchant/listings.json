@@ -196,5 +196,59 @@
     "productId": "home-decor-premium-dual-name-plank",
     "ageGroup": "adult",
     "productType": "Name Sign"
+  },
+  {
+    "offerId": "TK-P34-FS-MLT",
+    "productId": "pooja-decor-dashboard-shiva",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P35-FS-MLT",
+    "productId": "pooja-decor-dashboard-baby-shiva",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P36-FS-MLT",
+    "productId": "pooja-decor-dashboard-shiva-nandi",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P37-FS-MLT",
+    "productId": "pooja-decor-dashboard-ganesha",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P38-FS-MLT",
+    "productId": "pooja-decor-dashboard-bal-ganesha",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P39-FS-MLT",
+    "productId": "pooja-decor-dashboard-krishna-flute",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P40-FS-MLT",
+    "productId": "pooja-decor-dashboard-krishna-bust",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P41-FS-MLT",
+    "productId": "pooja-decor-dashboard-hanuman",
+    "ageGroup": "adult",
+    "productType": "Figurine"
+  },
+  {
+    "offerId": "TK-P42-FS-MLT",
+    "productId": "pooja-decor-dashboard-laxmi-ganesh",
+    "ageGroup": "adult",
+    "productType": "Figurine"
   }
 ]
