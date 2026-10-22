@@ -8,6 +8,19 @@ const nextConfig = {
   // bundle. Bundling them triggers ERR_REQUIRE_ESM on Vercel and crashes
   // /api/orders (COD + post-payment order create) with a 500 HTML error page.
   serverExternalPackages: ['firebase-admin', 'jose', 'jwks-rsa'],
+  // /api/products used to readdir() public/images/products — NFT then packed
+  // ~250MB+ of PNGs into the serverless zip and failed the 250MB limit.
+  // Catalog API reads lib/products.json now; keep images out of every function.
+  outputFileTracingExcludes: {
+    '*': [
+      './public/images/products/**',
+      './docs/catalog/generated/**',
+      './docs/catalog/pages/**',
+      './docs/catalog/research/**',
+      './pinterest-pins/**',
+      './meesho-image-kit/**',
+    ],
+  },
   // Inline small CSS files (<25KB) to eliminate render-blocking stylesheet requests
   experimental: {
     optimizeCss: true,
