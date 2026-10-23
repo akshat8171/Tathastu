@@ -34,7 +34,7 @@ const products: ProductCardData[] = [
   {
     id: 'pooja-decor-dashboard-baby-shiva',
     name: 'Baby Shiva Car Dashboard Idol',
-    price: 1399,
+    price: 850,
     images: ['/images/products/pooja-decor/pooja-decor-dashboard-baby-shiva/01-hero.png'],
     category: 'pooja-decor',
     rating: 5,
@@ -43,7 +43,7 @@ const products: ProductCardData[] = [
   {
     id: 'pooja-decor-dashboard-ganesha',
     name: 'Lord Ganesha Car Dashboard Idol',
-    price: 1199,
+    price: 850,
     images: ['/images/products/pooja-decor/pooja-decor-dashboard-ganesha/01-hero.png'],
     category: 'pooja-decor',
     rating: 5,

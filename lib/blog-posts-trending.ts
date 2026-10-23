@@ -14,12 +14,12 @@ export const trendingPosts: BlogPost[] = [
     slug: 'car-dashboard-god-idols-india',
     title: 'Car Dashboard God Idols in India: Shiva, Ganesha, Krishna, Hanuman & Laxmi (PLA)',
     description:
-      'Buy 3D printed car dashboard God idols in India — Shiva, Baby Shiva, Ganesha, Krishna, Hanuman and Laxmi Ganesh. Flat base, size options, printed in Agra by Tathastu Keepsakes from ₹799.',
+      'Buy 3D printed car dashboard God idols in India — Shiva, Baby Shiva, Ganesha, Krishna, Hanuman and Laxmi Ganesh. Flat base, size options, printed in Agra by Tathastu Keepsakes from ₹850.',
     keywords:
       'car dashboard god idol, dashboard Ganesha, dashboard Shiva idol, Krishna car murti, Hanuman dashboard idol, Laxmi Ganesh idol, 3D printed dashboard idol India',
     category: 'products',
     content: `<article class="prose prose-lg max-w-none">
-  <p style="font-size:1.2rem;color:#334155;">A <strong>car dashboard God idol</strong> from Tathastu Keepsakes is a compact PLA murti with a flat base — Shiva, Ganesha, Krishna, Hanuman, or Laxmi Ganesh — printed to order in Agra. Ready pieces in this set start at <strong>₹799</strong> and ship PAN India. Pick 4 inch or 5 inch (Nandi goes up to 8 inch) at checkout.</p>
+  <p style="font-size:1.2rem;color:#334155;">A <strong>car dashboard God idol</strong> from Tathastu Keepsakes is a compact PLA murti with a flat base — Shiva, Ganesha, Krishna, Hanuman, or Laxmi Ganesh — printed to order in Agra. Single idols are <strong>₹850</strong>; big and dual idols (Shiva on Nandi, Laxmi Ganesh pair) are <strong>₹1,150</strong>. Ship PAN India. Pick 4 inch or 5 inch (Nandi goes up to 8 inch) at checkout.</p>
 
   <div style="background:#fffbeb;border-left:4px solid #f59e0b;padding:1rem 1.25rem;border-radius:0 0.5rem 0.5rem 0;margin:1.5rem 0;">
     <p style="margin:0;"><strong>Heat, stated plainly:</strong> These idols are PLA. PLA softens around 55–60°C. A closed car in Indian sun can get hotter than that, so keep the piece shaded on the dash. Decorative idols only — ask for PETG if you need a rigid mount.</p>
@@ -29,19 +29,19 @@ export const trendingPosts: BlogPost[] = [
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin:1.5rem 0;">
     <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
       <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">Lord Shiva</h3>
-      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-shiva">Dashboard Shiva</a> from ₹799 · 4–5 inch. <a href="/products/pooja-decor-dashboard-baby-shiva">Baby Shiva</a> ₹1,399. <a href="/products/pooja-decor-dashboard-shiva-nandi">Shiva on Nandi</a> ₹2,899 (5–8 inch).</p>
+      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-shiva">Dashboard Shiva</a> ₹850 · 4–5 inch. <a href="/products/pooja-decor-dashboard-baby-shiva">Baby Shiva</a> ₹850. <a href="/products/pooja-decor-dashboard-shiva-nandi">Shiva on Nandi</a> ₹1,150 (5–8 inch).</p>
     </div>
     <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
       <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">Ganesha</h3>
-      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-ganesha">Lord Ganesha</a> and <a href="/products/pooja-decor-dashboard-bal-ganesha">Bal Ganesha</a> — both ₹1,199 · 4–5 inch.</p>
+      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-ganesha">Lord Ganesha</a> and <a href="/products/pooja-decor-dashboard-bal-ganesha">Bal Ganesha</a> — both ₹850 · 4–5 inch.</p>
     </div>
     <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
       <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">Krishna</h3>
-      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-krishna-flute">Krishna with flute</a> ₹1,199 · <a href="/products/pooja-decor-dashboard-krishna-bust">Krishna bust</a> ₹999.</p>
+      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-krishna-flute">Krishna with flute</a> and <a href="/products/pooja-decor-dashboard-krishna-bust">Krishna bust</a> — both ₹850.</p>
     </div>
     <div style="background:#f8fafc;border:1px solid #e2e8f0;padding:1.25rem;border-radius:0.5rem;">
       <h3 style="margin:0 0 0.5rem;font-size:1.05rem;">Hanuman &amp; Laxmi Ganesh</h3>
-      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-hanuman">Bal Hanuman</a> ₹1,499 · <a href="/products/pooja-decor-dashboard-laxmi-ganesh">Laxmi Ganesh pair</a> ₹2,149.</p>
+      <p style="margin:0;color:#475569;font-size:0.95rem;"><a href="/products/pooja-decor-dashboard-hanuman">Bal Hanuman</a> ₹850 · <a href="/products/pooja-decor-dashboard-laxmi-ganesh">Laxmi Ganesh pair</a> ₹1,150.</p>
     </div>
   </div>
 
@@ -51,13 +51,9 @@ export const trendingPosts: BlogPost[] = [
       <tr><th>Idol</th><th>Price</th><th>Sizes</th></tr>
     </thead>
     <tbody>
-      <tr><td>Lord Shiva</td><td>₹799</td><td>4 Inch, 5 Inch</td></tr>
-      <tr><td>Krishna bust</td><td>₹999</td><td>4 Inch, 5 Inch</td></tr>
-      <tr><td>Ganesha / Bal Ganesha / Krishna flute</td><td>₹1,199</td><td>4 Inch, 5 Inch</td></tr>
-      <tr><td>Baby Shiva</td><td>₹1,399</td><td>4 Inch, 5 Inch</td></tr>
-      <tr><td>Bal Hanuman</td><td>₹1,499</td><td>4 Inch, 5 Inch</td></tr>
-      <tr><td>Laxmi Ganesh pair</td><td>₹2,149</td><td>4 Inch, 5 Inch</td></tr>
-      <tr><td>Shiva on Nandi</td><td>₹2,899</td><td>5 Inch, 6 Inch, 8 Inch</td></tr>
+      <tr><td>Single idols (Shiva, Baby Shiva, Ganesha, Bal Ganesha, Krishna flute, Krishna bust, Bal Hanuman)</td><td>₹850</td><td>4 Inch, 5 Inch</td></tr>
+      <tr><td>Laxmi Ganesh pair (dual)</td><td>₹1,150</td><td>4 Inch, 5 Inch</td></tr>
+      <tr><td>Shiva on Nandi (big)</td><td>₹1,150</td><td>5 Inch, 6 Inch, 8 Inch</td></tr>
     </tbody>
   </table>
   <p>Shop the full set under <a href="/products?category=pooja-decor">Pooja &amp; Decor</a>. For temples and name pieces, see our <a href="/blog/customised-car-dashboard-3d-printed-india">customised dashboard guide</a>.</p>
@@ -67,7 +63,7 @@ export const trendingPosts: BlogPost[] = [
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
       <h3 itemprop="name">Where can I buy car dashboard God idols in India?</h3>
       <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
-        <p itemprop="text">Tathastu Keepsakes prints Shiva, Ganesha, Krishna, Hanuman, and Laxmi Ganesh dashboard idols in Agra and ships PAN India. Prices in this set start at ₹799.</p>
+        <p itemprop="text">Tathastu Keepsakes prints Shiva, Ganesha, Krishna, Hanuman, and Laxmi Ganesh dashboard idols in Agra and ships PAN India. Single idols are ₹850; big and dual idols are ₹1,150.</p>
       </div>
     </div>
     <div itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
@@ -110,7 +106,7 @@ export const trendingPosts: BlogPost[] = [
       'customised car dashboard, 3D printed car dashboard idol, car dashboard Ganesha, dashboard temple miniature, personalised car dashboard accessories India, car dashboard decor',
     category: 'products',
     content: `<article class="prose prose-lg max-w-none">
-  <p style="font-size:1.2rem;color:#334155;">A <strong>customised car dashboard</strong> piece from Tathastu Keepsakes is a small 3D-printed idol, temple miniature, or name plate made to sit flat on the dash. Ready designs start at <strong>₹799</strong> and ship PAN India from our workshop in Agra. For a pose, deity, or name you cannot find in a shop, send a photo on WhatsApp and we quote within 24 hours.</p>
+  <p style="font-size:1.2rem;color:#334155;">A <strong>customised car dashboard</strong> piece from Tathastu Keepsakes is a small 3D-printed idol, temple miniature, or name plate made to sit flat on the dash. Ready dashboard idols start at <strong>₹850</strong> and ship PAN India from our workshop in Agra. For a pose, deity, or name you cannot find in a shop, send a photo on WhatsApp and we quote within 24 hours.</p>
 
   <div style="background:#fffbeb;border-left:4px solid #f59e0b;padding:1rem 1.25rem;border-radius:0 0.5rem 0.5rem 0;margin:1.5rem 0;">
     <p style="margin:0;"><strong>Heat, stated plainly:</strong> These pieces are printed in PLA. PLA softens around 55–60°C. A closed car parked in the Indian sun can get hotter than that, so keep the piece out of direct sun on the dash, and do not use PLA for a clip, vent mount, or phone holder that has to stay rigid. Decorative idols and temple miniatures are what we recommend for the dashboard. If you need a functional bracket, ask us to print it in PETG.</p>
