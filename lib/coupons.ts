@@ -49,6 +49,32 @@ export function normalizeCouponCode(raw: string): string {
 }
 
 /**
+ * Codes that are first-order-only even when the DB column
+ * `is_first_order_only` is missing (older schemas). Keep in sync with
+ * schema.sql seed + migration-018.
+ */
+const FIRST_ORDER_ONLY_FALLBACK_CODES = new Set(['FIRST20'])
+
+const COUPON_SELECT_WITH_FIRST_ORDER =
+  'code, discount_type, discount_value, min_order_amount, max_discount_amount, usage_limit, usage_count, valid_from, valid_until, is_active, is_first_order_only'
+
+const COUPON_SELECT_WITHOUT_FIRST_ORDER =
+  'code, discount_type, discount_value, min_order_amount, max_discount_amount, usage_limit, usage_count, valid_from, valid_until, is_active'
+
+function isMissingFirstOrderColumnError(error: { code?: string; message?: string } | null): boolean {
+  if (!error) return false
+  if (error.code === '42703') return true
+  return /is_first_order_only/i.test(error.message ?? '')
+}
+
+/** True when this coupon must only apply on a customer's first order. */
+export function isFirstOrderOnlyCoupon(row: Pick<CouponRow, 'code' | 'is_first_order_only'>): boolean {
+  if (row.is_first_order_only === true) return true
+  if (row.is_first_order_only === false) return false
+  return FIRST_ORDER_ONLY_FALLBACK_CODES.has(normalizeCouponCode(row.code))
+}
+
+/**
  * Check whether a given customer has any prior orders. Returns true when the
  * customer has NO prior orders (so they qualify for a first-order coupon).
  * Degrades gracefully to `true` (allow) when the table is missing or DB errors
@@ -145,14 +171,23 @@ export async function validateCoupon(
 
   let row: CouponRow | null = null
   try {
-    const { data, error } = await supabaseAdmin
+    // Prefer the full column set; fall back when production has not yet applied
+    // migration-018 (missing is_first_order_only). That missing column used to
+    // hard-fail every coupon validate with "Could not validate coupon".
+    let { data, error } = await supabaseAdmin
       .from('coupons')
-      .select(
-        'code, discount_type, discount_value, min_order_amount, max_discount_amount, usage_limit, usage_count, valid_from, valid_until, is_active, is_first_order_only'
-      )
+      .select(COUPON_SELECT_WITH_FIRST_ORDER)
       // case-insensitive exact match so "save10" matches "SAVE10"
       .ilike('code', code)
       .maybeSingle()
+
+    if (error && isMissingFirstOrderColumnError(error)) {
+      ;({ data, error } = await supabaseAdmin
+        .from('coupons')
+        .select(COUPON_SELECT_WITHOUT_FIRST_ORDER)
+        .ilike('code', code)
+        .maybeSingle())
+    }
 
     if (error) {
       console.error('validateCoupon: DB error', error)
@@ -170,12 +205,12 @@ export async function validateCoupon(
 
   // ── First-order gating ────────────────────────────────────────────────────
   // Enforce that the coupon is only redeemable on the customer's first order.
-  // If is_first_order_only is true but no customerId is provided (guest, or the
-  // advisory validate path before a customer row exists), we treat them as
-  // eligible since we cannot verify order history. The authoritative re-check
-  // happens on the money path (/api/orders), which resolves the real
-  // customers.id via upsertCustomerByPhone before calling this again.
-  if (row.is_first_order_only) {
+  // If first-order-only but no customerId is provided (guest, or the advisory
+  // validate path before a customer row exists), we treat them as eligible
+  // since we cannot verify order history. The authoritative re-check happens
+  // on the money path (/api/orders), which resolves the real customers.id via
+  // upsertCustomerByPhone before calling this again.
+  if (isFirstOrderOnlyCoupon(row)) {
     if (customerId) {
       const firstOrder = await isFirstOrder(customerId)
       if (!firstOrder) {

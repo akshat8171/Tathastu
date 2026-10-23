@@ -1,7 +1,12 @@
 /**
  * @jest-environment node
  */
-import { computeCouponDiscount, normalizeCouponCode, type CouponRow } from '@/lib/coupons'
+import {
+  computeCouponDiscount,
+  isFirstOrderOnlyCoupon,
+  normalizeCouponCode,
+  type CouponRow,
+} from '@/lib/coupons'
 
 // A baseline valid percentage coupon; tests override fields as needed.
 function coupon(overrides: Partial<CouponRow> = {}): CouponRow {
@@ -28,6 +33,22 @@ describe('normalizeCouponCode', () => {
   })
   it('handles null/undefined', () => {
     expect(normalizeCouponCode(undefined as unknown as string)).toBe('')
+  })
+})
+
+describe('isFirstOrderOnlyCoupon', () => {
+  it('honours the DB flag when present', () => {
+    expect(isFirstOrderOnlyCoupon({ code: 'ANY', is_first_order_only: true })).toBe(true)
+    expect(isFirstOrderOnlyCoupon({ code: 'FIRST20', is_first_order_only: false })).toBe(false)
+  })
+
+  it('treats FIRST20 as first-order-only when the column is missing', () => {
+    expect(isFirstOrderOnlyCoupon({ code: 'FIRST20' })).toBe(true)
+    expect(isFirstOrderOnlyCoupon({ code: 'first20', is_first_order_only: null })).toBe(true)
+  })
+
+  it('does not treat unrelated codes as first-order-only by default', () => {
+    expect(isFirstOrderOnlyCoupon({ code: 'RAKHI2026' })).toBe(false)
   })
 })
 
