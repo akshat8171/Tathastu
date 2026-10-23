@@ -1,4 +1,5 @@
 import type { HomepageSettings } from './types'
+import { DIWALI_DASHBOARD_IDOL_ID_LIST } from './diwali-dashboard-idols'
 
 export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
   sections: {
@@ -83,15 +84,8 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       ctaLabel: 'Shop Pooja & Decor',
       ctaHref: '/products?category=pooja-decor',
       productIds: [
+        ...DIWALI_DASHBOARD_IDOL_ID_LIST,
         'pooja-decor-dashboard-shiva',
-        'pooja-decor-dashboard-baby-shiva',
-        'pooja-decor-dashboard-shiva-nandi',
-        'pooja-decor-dashboard-ganesha',
-        'pooja-decor-dashboard-bal-ganesha',
-        'pooja-decor-dashboard-krishna-flute',
-        'pooja-decor-dashboard-krishna-bust',
-        'pooja-decor-dashboard-hanuman',
-        'pooja-decor-dashboard-laxmi-ganesh',
         'pooja-decor-kanhaji',
         'pooja-decor-aham-brahmasmi',
         'pooja-decor-ganesha',
@@ -122,6 +116,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
     },
   ],
   bestSellerIds: [
+    ...DIWALI_DASHBOARD_IDOL_ID_LIST,
     'home-decor-alphabet-name',
     'organizers-desk-pen-holder',
     'pooja-decor-kanhaji',

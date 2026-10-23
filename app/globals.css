@@ -97,6 +97,14 @@
     background: linear-gradient(135deg, #4C2A86 0%, #3730A3 100%);
   }
 
+  /* ── Diwali dashboard-idols landing banner (brand teal + warm amber) ── */
+  .diwali-idols-banner {
+    @apply w-full text-white;
+    background:
+      radial-gradient(ellipse 80% 120% at 10% -20%, rgba(251, 191, 36, 0.22), transparent 55%),
+      linear-gradient(135deg, #073f34 0%, #0E7A66 48%, #095748 100%);
+  }
+
   /* ── Consistent page container ── */
   .container-page {
     @apply max-w-7xl mx-auto px-5 sm:px-6 lg:px-8;

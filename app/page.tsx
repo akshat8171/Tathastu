@@ -7,6 +7,7 @@
  */
 
 import { HeroCarousel }        from '@/components/homepage/hero-carousel'
+import { DiwaliIdolsBanner }   from '@/components/homepage/diwali-idols-banner'
 import { CategoryIcons }       from '@/components/homepage/category-icons'
 import { PromoStrip }          from '@/components/homepage/promo-strip'
 import { BestSellers }         from '@/components/homepage/best-sellers'
@@ -20,33 +21,25 @@ import { NewsletterForm }      from '@/components/layout/newsletter-form'
 import { getWebSiteSchema } from '@/lib/schema'
 import { getCatalogProducts, getHomepageSettings } from '@/lib/catalog/store'
 import { applyPhotoshootHomepageDefaults } from '@/lib/catalog/homepage'
+import { DIWALI_DASHBOARD_IDOL_ID_LIST } from '@/lib/catalog/diwali-dashboard-idols'
 import type { ProductCardData } from '@/components/ui'
 import type { HeroSlide } from '@/lib/catalog/types'
 
 export const revalidate = 60
 
-/** Seasonal lead slide. Uses our own catalog photos, not anyone else's. */
+/** Seasonal lead slide — studio photography of the Diwali dashboard idol set. */
 const DIWALI_SLIDE: HeroSlide = {
-  eyebrow: 'Diwali at home',
-  headline: 'Light the',
-  highlight: 'house.',
+  eyebrow: 'Diwali dashboard idols',
+  headline: 'Bless the',
+  highlight: 'drive.',
   subcopy:
-    'Lakshmi and Ganesha, a mandir piece, a warm lamp, and a dual-name plank for the people you are gifting. Printed in Agra. Diwali is 8 November — order this week if it has to arrive before the puja.',
-  ctaLabel: 'Shop Diwali decor',
+    'This Diwali, order these car dashboard idols from Tathastu Keepsakes — Baby Shiva, Shiva on Nandi, Ganesha, Krishna, Hanuman and Laxmi Ganesh. Flat base, printed in Agra. Diwali is 8 November.',
+  ctaLabel: 'Shop dashboard idols',
   ctaHref: '/products?category=pooja-decor',
-  productIds: [
-    'pooja-decor-lakshmi',
-    'pooja-decor-ganesha',
-    'pooja-decor-kanhaji',
-    'pooja-decor-temple',
-    'lamps-lunar-night',
-    'lamps-glow-arc',
-    'home-decor-dual-name-plank',
-    'home-decor-dual-name-plank-light',
-  ],
+  productIds: DIWALI_DASHBOARD_IDOL_ID_LIST,
 }
 
-const DIWALI_LEAD_IDS = DIWALI_SLIDE.productIds
+const DIWALI_LEAD_IDS = DIWALI_DASHBOARD_IDOL_ID_LIST
 
 export default async function HomePage() {
   const webSiteSchema = getWebSiteSchema()
@@ -65,13 +58,11 @@ export default async function HomePage() {
     }
   }
 
-  const bestSellerOrder = [
-    ...DIWALI_LEAD_IDS,
-    ...settings.bestSellerIds.filter((id) => !DIWALI_LEAD_IDS.includes(id)),
-  ]
-  const bestSellers = bestSellerOrder
+  const diwaliIdols = DIWALI_LEAD_IDS
     .map((id) => products.find((product) => product.id === id))
-    .filter((product): product is (typeof products)[number] => Boolean(product))
+    .filter((product): product is (typeof products)[number] => Boolean(product)) as ProductCardData[]
+
+  const bestSellers = diwaliIdols
 
   const heroSlides =
     settings.heroSlides[0]?.eyebrow === DIWALI_SLIDE.eyebrow
@@ -83,7 +74,7 @@ export default async function HomePage() {
     title: rail.slug === 'pooja-decor' ? 'Diwali pooja' : rail.title,
     subtitle:
       rail.slug === 'pooja-decor'
-        ? 'Lakshmi, Ganesha and mandir pieces for the November puja.'
+        ? 'Car dashboard idols and mandir pieces for the November puja.'
         : rail.slug === 'home-decor'
           ? 'Name planks and shelf pieces to gift with the sweets.'
           : rail.subtitle,
@@ -100,6 +91,8 @@ export default async function HomePage() {
 
       {sections.hero && <HeroCarousel slides={heroSlides} products={products} />}
 
+      <DiwaliIdolsBanner products={diwaliIdols} />
+
       {sections.categories && <CategoryIcons minPriceByCategory={minPriceByCategory} />}
 
       {sections.promo && settings.promo.enabled && (
@@ -113,8 +106,8 @@ export default async function HomePage() {
       {sections.bestSellers && (
         <BestSellers
           products={bestSellers}
-          title="For the Diwali home"
-          subtitle="Idols, lamps and dual-name planks from our own workshop. The plank is already ₹100 under the usual desk-plank rate."
+          title="Top & Best Selling"
+          subtitle="Studio-shot car dashboard idols for Diwali — the same eight from the banner, ready to gift."
         />
       )}
 
