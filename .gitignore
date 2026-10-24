@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# local CAD / Python tooling
+.venv-cad/
+
 # testing
 /coverage
 
