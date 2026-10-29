@@ -309,7 +309,7 @@ export default async function RakhiLandingPage() {
               {Number.isFinite(fromPrice) ? fromPrice : 259}
             </p>
           </div>
-          <Link href="/products?category=rakhi" className="text-sm text-brand font-display font-semibold hover:underline">
+          <Link href="/rakhi" className="text-sm text-brand font-display font-semibold hover:underline">
             View all in shop →
           </Link>
         </div>

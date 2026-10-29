@@ -8,6 +8,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE } from '@/lib/site'
+import { getCollectionPageSchema } from '@/lib/schema'
 import { blogPosts, type BlogCategory } from '@/lib/blog-data'
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export const metadata: Metadata = {
     url: '/blog',
     locale: 'en_IN',
   },
+  alternates: { canonical: '/blog' },
 }
 
 const categoryStyles: Record<BlogCategory, string> = {
@@ -59,8 +61,22 @@ function formatDate(dateStr: string): string {
 }
 
 export default function BlogPage() {
+  const collectionSchema = getCollectionPageSchema({
+    name: `${SITE.name} Blog`,
+    description: 'Guides and ideas on 3D printing, custom gifts, and keepsakes from Agra.',
+    urlPath: '/blog',
+    items: blogPosts.slice(0, 40).map((post) => ({
+      name: post.title,
+      urlPath: `/blog/${post.slug}`,
+    })),
+  })
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       {/* Page header */}
       <header className="mb-10">
         <h1 className="text-3xl sm:text-4xl font-bold text-ink">

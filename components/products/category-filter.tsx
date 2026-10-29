@@ -334,7 +334,7 @@ export function CategoryFilter({
         {categories.map((cat) => (
           <Link
             key={cat.slug}
-            href={`/products?category=${cat.slug}`}
+            href={cat.route ?? `/shop/${cat.slug}`}
             className={`flex-shrink-0 px-4 py-1.5 rounded-pill text-sm font-medium transition-colors border ${
               activeSlug === cat.slug
                 ? 'bg-brand text-white border-brand'

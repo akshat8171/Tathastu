@@ -20,7 +20,8 @@ export function getOrganizationSchema() {
     name: SITE.name,
     description: SITE.tagline,
     url: Config.appUrl,
-    logo: `${Config.appUrl}/images/logo/tathastu-keepsakes-logo.svg`,
+    // Prefer raster logo for Google Organization eligibility (SVG often ignored).
+    logo: `${Config.appUrl}/images/logo/tk-mark-512.png`,
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: SITE.phone,
@@ -31,8 +32,10 @@ export function getOrganizationSchema() {
     },
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'Agra Workshop',
       addressLocality: 'Agra',
       addressRegion: 'Uttar Pradesh',
+      postalCode: '282001',
       addressCountry: 'IN',
     },
     sameAs: [SITE.instagram, SITE.facebook, SITE.whatsapp],
@@ -41,6 +44,12 @@ export function getOrganizationSchema() {
       name: 'India',
     },
     priceRange: '₹199 - ₹9999',
+    founder: {
+      '@type': 'Person',
+      name: 'Akshat Garg',
+      jobTitle: 'Founder',
+      worksFor: { '@type': 'Organization', name: SITE.name },
+    },
   }
 }
 
@@ -57,10 +66,14 @@ export function getLocalBusinessSchema() {
     url: Config.appUrl,
     telephone: SITE.phone,
     email: SITE.email,
+    image: `${Config.appUrl}/images/logo/tk-mark-512.png`,
+    logo: `${Config.appUrl}/images/logo/tk-mark-512.png`,
     address: {
       '@type': 'PostalAddress',
+      streetAddress: 'Agra Workshop',
       addressLocality: 'Agra',
       addressRegion: 'Uttar Pradesh',
+      postalCode: '282001',
       addressCountry: 'IN',
     },
     geo: {
@@ -84,7 +97,7 @@ export function getLocalBusinessSchema() {
 
 /**
  * WebSite schema with SearchAction — enables Google sitelinks search box.
- * Use on homepage.
+ * Use on homepage. Points at /products?q= (primary catalog; /shop redirects).
  */
 export function getWebSiteSchema() {
   return {
@@ -96,9 +109,56 @@ export function getWebSiteSchema() {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${Config.appUrl}/shop?q={search_term_string}`,
+        urlTemplate: `${Config.appUrl}/products?q={search_term_string}`,
       },
       'query-input': 'required name=search_term_string',
+    },
+  }
+}
+
+/** Founder Person schema — E-E-A-T signal for About. */
+export function getFounderPersonSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Akshat Garg',
+    jobTitle: 'Founder',
+    worksFor: {
+      '@type': 'Organization',
+      name: SITE.name,
+      url: Config.appUrl,
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Agra',
+      addressRegion: 'Uttar Pradesh',
+      addressCountry: 'IN',
+    },
+    url: `${Config.appUrl}/about`,
+  }
+}
+
+/** CollectionPage / ItemList for catalog & blog indexes. */
+export function getCollectionPageSchema(opts: {
+  name: string
+  description: string
+  urlPath: string
+  items: Array<{ name: string; urlPath: string }>
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: opts.name,
+    description: opts.description,
+    url: `${Config.appUrl}${opts.urlPath}`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: opts.items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: `${Config.appUrl}${item.urlPath}`,
+      })),
     },
   }
 }
@@ -158,7 +218,7 @@ export function getProductSchema(product: {
 }) {
   const productUrl = `${Config.appUrl}/products/${product.id}`
 
-  return {
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
@@ -184,12 +244,19 @@ export function getProductSchema(product: {
         name: SITE.name,
       },
     },
-    aggregateRating: {
+  }
+
+  // Google rejects AggregateRating when reviewCount is 0 (and a 5★ with zero
+  // reviews is also a trust/spam signal). Only emit when we have real reviews.
+  if (product.reviewCount > 0) {
+    schema.aggregateRating = {
       '@type': 'AggregateRating',
       ratingValue: product.rating,
       reviewCount: product.reviewCount,
       bestRating: 5,
       worstRating: 1,
-    },
+    }
   }
+
+  return schema
 }

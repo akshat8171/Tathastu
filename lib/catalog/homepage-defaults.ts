@@ -23,7 +23,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       subcopy:
         'Studio-shot name signs, photo gifts and shelf pieces — made to order in Agra and packed ready to gift.',
       ctaLabel: 'Shop Home Decor',
-      ctaHref: '/products?category=home-decor',
+      ctaHref: '/shop/home-decor',
       productIds: [
         'home-decor-alphabet-name',
         'home-decor-sliding-photo-book',
@@ -42,7 +42,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       subcopy:
         'Door nameplates, couple miniatures, first-year boards and bilingual signs — personalised after you order.',
       ctaLabel: 'See Name Gifts',
-      ctaHref: '/products?category=home-decor',
+      ctaHref: '/shop/home-decor',
       productIds: [
         'home-decor-dual-name-plank',
         'home-decor-premium-dual-name-plank',
@@ -63,7 +63,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       subcopy:
         'Named pen stands, giant pencils, jewellery dishes and wall key holders — colour and text customisable.',
       ctaLabel: 'Shop Workspace',
-      ctaHref: '/products?category=organizers',
+      ctaHref: '/shop/organizers',
       productIds: [
         'organizers-desk-pen-holder',
         'organizers-giant-name-pencil',
@@ -82,7 +82,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       subcopy:
         'Intricately detailed idols, diya stands and pooja essentials crafted for your sacred space.',
       ctaLabel: 'Shop Pooja & Decor',
-      ctaHref: '/products?category=pooja-decor',
+      ctaHref: '/shop/pooja-decor',
       productIds: [
         ...DIWALI_DASHBOARD_IDOL_ID_LIST,
         'pooja-decor-dashboard-shiva',
@@ -101,7 +101,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       subcopy:
         'Name keyrings and bag tags printed in vivid multi-colour — the perfect little everyday statement.',
       ctaLabel: 'Shop Keyrings',
-      ctaHref: '/products?category=keyrings',
+      ctaHref: '/shop/keyrings',
       productIds: ['keyrings-name', 'keyrings-puppy', 'keyrings-tennis', 'keyrings-shiva'],
     },
     {
@@ -111,7 +111,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
       subcopy:
         'Collectible 3D-printed pieces for fans and gamers — crisp detail, bold colour, endless personality.',
       ctaLabel: 'Shop Gaming',
-      ctaHref: '/products?category=gaming',
+      ctaHref: '/shop/gaming',
       productIds: ['gaming-shield', 'gaming-gamepad', 'gaming-toad', 'gaming-question'],
     },
   ],

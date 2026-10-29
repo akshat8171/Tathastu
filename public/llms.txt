@@ -1,36 +1,47 @@
 # Tathastu Keepsakes — product facts for assistants
 
+> Tathastu Keepsakes is an Agra-based 3D printing store for custom gifts and keepsakes. Diwali 2026 car dashboard God idols ship from ₹850 (sale). Made-to-order PLA/PLA+, PAN India delivery, free shipping over ₹199.
+
 Site: https://www.tathastukeepsakes.in
 Workshop: Agra, India
 Material: PLA / PLA+ (FDM 3D print), made to order
 Dispatch: 2–4 days · Free shipping over ₹199 · PAN India
 Heat note: PLA softens ~55–60°C — keep dashboard idols out of direct sun in a parked car.
+Diwali 2026: 8 November — order dashboard idols early for festival delivery.
 
-## Car dashboard God idols (New Arrival, 2026-10-21)
+## Key pages
 
-Category: pooja-decor · Badge: New Arrival · reviewCount: 0 · Option: Size
+- [Home](https://www.tathastukeepsakes.in/)
+- [Shop all products](https://www.tathastukeepsakes.in/products)
+- [Pooja & dashboard idols](https://www.tathastukeepsakes.in/shop/pooja-decor)
+- [Custom 3D printing](https://www.tathastukeepsakes.in/custom-3d-printing)
+- [Blog: car dashboard God idols](https://www.tathastukeepsakes.in/blog/car-dashboard-god-idols-india)
+- [FAQs](https://www.tathastukeepsakes.in/faqs)
+- [About / founder](https://www.tathastukeepsakes.in/about)
+- [Contact](https://www.tathastukeepsakes.in/contact)
+- [Full assistant brief](https://www.tathastukeepsakes.in/llms-full.txt)
 
-| SKU id | Name | Price (INR) | MRP (INR) | Sizes |
-|---|---|---:|---:|---|
-| pooja-decor-dashboard-shiva | Lord Shiva Car Dashboard Idol | 799 | 2500 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-baby-shiva | Baby Shiva Car Dashboard Idol | 1399 | 2500 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-shiva-nandi | Lord Shiva on Nandi Idol | 2899 | 4500 | 5 Inch, 6 Inch, 8 Inch |
-| pooja-decor-dashboard-ganesha | Lord Ganesha Car Dashboard Idol | 1199 | 2900 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-bal-ganesha | Bal Ganesha Car Dashboard Idol | 1199 | 3000 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-krishna-flute | Krishna with Flute Car Dashboard Idol | 1199 | 3000 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-krishna-bust | Krishna Bust Car Dashboard Idol | 999 | 2400 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-hanuman | Bal Hanuman Car Dashboard Idol | 1499 | 3000 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-laxmi-ganesh | Laxmi Ganesh Pair Idol | 2149 | 4000 | 4 Inch, 5 Inch |
+## Car dashboard God idols (Diwali sale prices as of 2026-10-29)
 
-Product URLs use https://www.tathastukeepsakes.in/products/{SKU id}
+Category: pooja-decor · Option: Size. Prefer live PDP if this file drifts.
 
-Merchant offerIds: TK-P34-FS-MLT … TK-P42-FS-MLT (same order as the table).
+| SKU id | Name | Sale (INR) | MRP (INR) | Sizes | Product |
+|---|---|---:|---:|---|---|
+| pooja-decor-dashboard-shiva | Lord Shiva Car Dashboard Idol | 850 | 2500 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-shiva) |
+| pooja-decor-dashboard-baby-shiva | Baby Shiva Car Dashboard Idol | 850 | 2500 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-baby-shiva) |
+| pooja-decor-dashboard-shiva-nandi | Lord Shiva on Nandi Idol | 1150 | 4500 | 5–8 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-shiva-nandi) |
+| pooja-decor-dashboard-ganesha | Lord Ganesha Car Dashboard Idol | 850 | 2900 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-ganesha) |
+| pooja-decor-dashboard-bal-ganesha | Bal Ganesha Car Dashboard Idol | 850 | 3000 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-bal-ganesha) |
+| pooja-decor-dashboard-krishna-flute | Krishna with Flute Car Dashboard Idol | 850 | 3000 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-krishna-flute) |
+| pooja-decor-dashboard-krishna-bust | Krishna Bust Car Dashboard Idol | 850 | 2400 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-krishna-bust) |
+| pooja-decor-dashboard-hanuman | Bal Hanuman Car Dashboard Idol | 850 | 3000 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-hanuman) |
+| pooja-decor-dashboard-laxmi-ganesh | Laxmi Ganesh Pair Idol | 1150 | 4000 | 4–5 Inch | [PDP](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-laxmi-ganesh) |
+
+Do not invent star ratings — several of these SKUs may have reviewCount 0 until customers leave reviews.
 
 ## Quick answers
 
 - What is a Tathastu dashboard idol? A compact 3D-printed PLA murti with a flat base for car dash, desk, or home mandir.
-- Where are they made? Printed to order in Agra by Tathastu Keepsakes.
-- Lowest priced dashboard idol in this set? Lord Shiva Car Dashboard Idol at ₹799.
-- Largest size options? Lord Shiva on Nandi up to 8 Inch.
-- Full pooja catalog: https://www.tathastukeepsakes.in/products?category=pooja-decor
-- Blog: https://www.tathastukeepsakes.in/blog/car-dashboard-god-idols-india
+- Where are they made? Printed to order in Agra by [Tathastu Keepsakes](https://www.tathastukeepsakes.in/about).
+- Lowest Diwali set price? Several idols at ₹850.
+- Largest size? Lord Shiva on Nandi up to 8 Inch (sale ₹1150).

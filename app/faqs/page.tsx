@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { SITE } from '@/lib/site'
 import { getFAQSchema } from '@/lib/schema'
+import { toSchemaText } from '@/lib/react-plain-text'
 import { FaqAccordion } from '@/components/faq/faq-accordion'
 import type { FaqGroup } from '@/components/faq/faq-accordion'
 import { FREE_SHIPPING_THRESHOLD, SHIPPING_FEE } from '@/lib/pricing'
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
     description: 'All your questions about 3D printing service, custom prints, ordering & shipping answered.',
     type: 'website',
   },
+  alternates: { canonical: '/faqs' },
 }
 
 const faqGroups: FaqGroup[] = [
@@ -339,11 +341,13 @@ const faqGroups: FaqGroup[] = [
 ]
 
 export default function FaqsPage() {
-  // Flatten all FAQs for schema markup (convert React nodes to text)
-  const allFaqs = faqGroups.flatMap(group =>
-    group.items.map(item => ({
+  // Flatten FAQs for FAQPage JSON-LD — extract real answer text from JSX so
+  // Google does not receive stub answers ("Visit the page for full details.").
+  const allFaqs = faqGroups.flatMap((group) =>
+    group.items.map((item) => ({
       question: item.question,
-      answer: typeof item.answer === 'string' ? item.answer : 'Visit the page for full details.',
+      answer:
+        typeof item.answer === 'string' ? item.answer : toSchemaText(item.answer),
     }))
   )
 

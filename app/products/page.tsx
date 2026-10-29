@@ -9,6 +9,7 @@ import { CatalogClient } from './catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
 import { getCatalogProducts } from '@/lib/catalog/store'
 import { SITE } from '@/lib/site'
+import { getCollectionPageSchema } from '@/lib/schema'
 
 export const revalidate = 60
 
@@ -36,6 +37,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
   },
+  alternates: { canonical: '/products' },
 }
 
 // ── Trust chips shown in the hero band ──────────────────────────────────────
@@ -63,12 +65,14 @@ interface CatalogPageProps {
     inStock?: string
     customizable?: string
     sort?: string
+    q?: string
   }>
 }
 
 export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   const params = await searchParams
   const categorySlug = params.category
+  const searchQuery = (params.q ?? '').trim().toLowerCase()
   const activePriceBucket = params.price ?? null
   const activeColors: string[] = params.color
     ? Array.isArray(params.color)
@@ -91,6 +95,15 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     : allProducts
 
   let filtered: FullProductData[] = categoryFiltered
+
+  // SearchAction / sitelinks search box — filter by name or category
+  if (searchQuery) {
+    filtered = filtered.filter(
+      (p) =>
+        p.name.toLowerCase().includes(searchQuery) ||
+        p.category.toLowerCase().includes(searchQuery)
+    )
+  }
 
   // Price bucket filter
   if (activePriceBucket) {
@@ -129,7 +142,22 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     ? activeCategory.description
     : 'Handcrafted 3D-printed home decor, desk accessories, and planters — made in India, shipped pan-India.'
 
+  const collectionSchema = getCollectionPageSchema({
+    name: `${categoryTitle} | ${SITE.name}`,
+    description: categoryDesc,
+    urlPath: '/products',
+    items: filtered.slice(0, 40).map((p) => ({
+      name: p.name,
+      urlPath: `/products/${p.id}`,
+    })),
+  })
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+    />
     <main className="bg-white min-h-screen">
       {/* ── Breadcrumb ───────────────────────────────────────────────────────── */}
       <nav
@@ -245,6 +273,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         </div>
       </div>
     </main>
+    </>
   )
 }
 

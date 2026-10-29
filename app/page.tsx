@@ -6,6 +6,7 @@
  * client-component boundaries: BestSellers, CategoryRails.
  */
 
+import type { Metadata } from 'next'
 import { HeroCarousel }        from '@/components/homepage/hero-carousel'
 import { DiwaliIdolsBanner }   from '@/components/homepage/diwali-idols-banner'
 import { CategoryIcons }       from '@/components/homepage/category-icons'
@@ -27,6 +28,11 @@ import type { HeroSlide } from '@/lib/catalog/types'
 
 export const revalidate = 60
 
+/** Homepage owns the self-referential canonical (removed from root layout). */
+export const metadata: Metadata = {
+  alternates: { canonical: '/' },
+}
+
 /** Seasonal lead slide — studio photography of the Diwali dashboard idol set. */
 const DIWALI_SLIDE: HeroSlide = {
   eyebrow: 'Diwali dashboard idols',
@@ -35,7 +41,7 @@ const DIWALI_SLIDE: HeroSlide = {
   subcopy:
     'This Diwali, order these car dashboard idols from Tathastu Keepsakes — Baby Shiva, Shiva on Nandi, Ganesha, Krishna, Hanuman and Laxmi Ganesh. Flat base, printed in Agra. Diwali is 8 November.',
   ctaLabel: 'Shop dashboard idols',
-  ctaHref: '/products?category=pooja-decor',
+  ctaHref: '/shop/pooja-decor',
   productIds: DIWALI_DASHBOARD_IDOL_ID_LIST,
 }
 

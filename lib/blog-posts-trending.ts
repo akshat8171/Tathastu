@@ -56,7 +56,7 @@ export const trendingPosts: BlogPost[] = [
       <tr><td>Shiva on Nandi (big)</td><td>₹1,150</td><td>5 Inch, 6 Inch, 8 Inch</td></tr>
     </tbody>
   </table>
-  <p>Shop the full set under <a href="/products?category=pooja-decor">Pooja &amp; Decor</a>. For temples and name pieces, see our <a href="/blog/customised-car-dashboard-3d-printed-india">customised dashboard guide</a>.</p>
+  <p>Shop the full set under <a href="/shop/pooja-decor">Pooja &amp; Decor</a>. For temples and name pieces, see our <a href="/blog/customised-car-dashboard-3d-printed-india">customised dashboard guide</a>.</p>
 
   <h2>Frequently Asked Questions</h2>
   <div itemscope itemtype="https://schema.org/FAQPage">
@@ -89,7 +89,7 @@ export const trendingPosts: BlogPost[] = [
   <div style="background:#e6f4f1;border:2px solid #8ecec5;padding:2rem;border-radius:0.75rem;margin:2.5rem 0;text-align:center;">
     <p style="font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;color:#073f34;">Dashboard idols, printed in Agra</p>
     <p style="margin-bottom:1.5rem;color:#334155;">Shiva to Laxmi Ganesh — flat base, size choice, gift-box packed.</p>
-    <a href="/products?category=pooja-decor" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Pooja &amp; Decor</a>
+    <a href="/shop/pooja-decor" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Pooja &amp; Decor</a>
     <a href="https://wa.me/919154892790" style="display:inline-block;padding:0.875rem 1.75rem;background:#16a34a;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">WhatsApp +91 91548 92790</a>
   </div>
 </article>`,
@@ -148,7 +148,7 @@ export const trendingPosts: BlogPost[] = [
       <tr><td>Custom name or number piece</td><td>Quoted in 24 hours</td></tr>
     </tbody>
   </table>
-  <p>Ready designs are in <a href="/products?category=pooja-decor">Pooja &amp; Decor</a>. Custom sizes, gold finish, and a name on the base go through the quote.</p>
+  <p>Ready designs are in <a href="/shop/pooja-decor">Pooja &amp; Decor</a>. Custom sizes, gold finish, and a name on the base go through the quote.</p>
 
   <h2>Frequently Asked Questions</h2>
   <div itemscope itemtype="https://schema.org/FAQPage">
@@ -181,7 +181,7 @@ export const trendingPosts: BlogPost[] = [
   <div style="background:#e6f4f1;border:2px solid #8ecec5;padding:2rem;border-radius:0.75rem;margin:2.5rem 0;text-align:center;">
     <p style="font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;color:#073f34;">A dashboard piece made for your car</p>
     <p style="margin-bottom:1.5rem;color:#334155;">Ready idols and temples, or a name piece printed to order. Delivered PAN India from Agra.</p>
-    <a href="/products?category=pooja-decor" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Pooja &amp; Decor</a>
+    <a href="/shop/pooja-decor" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Pooja &amp; Decor</a>
     <a href="https://wa.me/919154892790" style="display:inline-block;padding:0.875rem 1.75rem;background:#16a34a;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">WhatsApp +91 91548 92790</a>
   </div>
 </article>`,
@@ -231,7 +231,7 @@ export const trendingPosts: BlogPost[] = [
       <tr><td>Custom photo lithophane lamp</td><td>Quoted in 24 hours</td></tr>
     </tbody>
   </table>
-  <p>More table lamps in the same workshop are on the <a href="/products?category=lamps">lamps page</a>, from the Glow Arc Pendant at ₹1,999 upward.</p>
+  <p>More table lamps in the same workshop are on the <a href="/shop/lamps">lamps page</a>, from the Glow Arc Pendant at ₹1,999 upward.</p>
 
   <h2>Who it is for</h2>
   <ul>
@@ -323,7 +323,7 @@ export const trendingPosts: BlogPost[] = [
       <tr><td>Multi-Purpose Desk Organizer</td><td>₹1,899</td></tr>
     </tbody>
   </table>
-  <p>The full range, including tissue caddies and a wall key holder, is under <a href="/products?category=organizers">Desk &amp; Workspace</a>. A set of these also works as a <a href="/blog/corporate-gifting-ideas-custom-3d-printed-india">corporate joining gift</a> when you need the same piece with different names.</p>
+  <p>The full range, including tissue caddies and a wall key holder, is under <a href="/shop/organizers">Desk &amp; Workspace</a>. A set of these also works as a <a href="/blog/corporate-gifting-ideas-custom-3d-printed-india">corporate joining gift</a> when you need the same piece with different names.</p>
 
   <h2>What to tell us for a name piece</h2>
   <ul>
@@ -364,7 +364,7 @@ export const trendingPosts: BlogPost[] = [
   <div style="background:#e6f4f1;border:2px solid #8ecec5;padding:2rem;border-radius:0.75rem;margin:2.5rem 0;text-align:center;">
     <p style="font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;color:#073f34;">A desk that stays tidy, with your name on it</p>
     <p style="margin-bottom:1.5rem;color:#334155;">Pen holders from ₹599. Printed to order, shipped PAN India.</p>
-    <a href="/products?category=organizers" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Desk Organizers</a>
+    <a href="/shop/organizers" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Desk Organizers</a>
     <a href="/bulk-order" style="display:inline-block;padding:0.875rem 1.75rem;background:#0f172a;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Bulk / Corporate</a>
     <a href="https://wa.me/919154892790" style="display:inline-block;padding:0.875rem 1.75rem;background:#16a34a;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">WhatsApp +91 91548 92790</a>
   </div>
@@ -422,7 +422,7 @@ export const trendingPosts: BlogPost[] = [
       <tr><td>Geo Fern Floor Planter</td><td>₹3,499</td></tr>
     </tbody>
   </table>
-  <p>See every shape on the <a href="/products?category=planters">planters page</a>. A small pot plus a <a href="/blog/3d-printed-moon-lamp-india">moon lamp</a> is a simple housewarming pair, and a planter next to a nameplate is covered in the <a href="/blog/housewarming-griha-pravesh-gifts-3d-printed-nameplates">griha pravesh guide</a>.</p>
+  <p>See every shape on the <a href="/shop/planters">planters page</a>. A small pot plus a <a href="/blog/3d-printed-moon-lamp-india">moon lamp</a> is a simple housewarming pair, and a planter next to a nameplate is covered in the <a href="/blog/housewarming-griha-pravesh-gifts-3d-printed-nameplates">griha pravesh guide</a>.</p>
 
   <h2>Frequently Asked Questions</h2>
   <div itemscope itemtype="https://schema.org/FAQPage">
@@ -455,7 +455,7 @@ export const trendingPosts: BlogPost[] = [
   <div style="background:#e6f4f1;border:2px solid #8ecec5;padding:2rem;border-radius:0.75rem;margin:2.5rem 0;text-align:center;">
     <p style="font-size:1.25rem;font-weight:700;margin-bottom:0.5rem;color:#073f34;">Planters printed for the plant you actually have</p>
     <p style="margin-bottom:1.5rem;color:#334155;">From ₹699. Indoor succulents, herbs, and a floor piece when the corner is empty.</p>
-    <a href="/products?category=planters" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Planters</a>
+    <a href="/shop/planters" style="display:inline-block;padding:0.875rem 1.75rem;background:#0E7A66;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">Shop Planters</a>
     <a href="https://wa.me/919154892790" style="display:inline-block;padding:0.875rem 1.75rem;background:#16a34a;color:#fff;border-radius:0.5rem;text-decoration:none;font-weight:700;margin:0.25rem;">WhatsApp +91 91548 92790</a>
   </div>
 </article>`,

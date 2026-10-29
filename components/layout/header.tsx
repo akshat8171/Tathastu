@@ -17,11 +17,11 @@ interface NavItem {
 const navItems: NavItem[] = [
   { href: '/', label: 'Home' },
   { href: '/rakhi', label: 'Rakhi', badge: 'new' },
-  { href: '/products?category=pooja-decor', label: 'Pooja & Decor' },
-  { href: '/products?category=keyrings', label: 'Keyrings', badge: 'new' },
-  { href: '/products?category=home-decor', label: 'Home Decor', badge: 'new' },
-  { href: '/products?category=organizers', label: 'Workspace' },
-  { href: '/products?category=gaming', label: 'Gaming' },
+  { href: '/shop/pooja-decor', label: 'Pooja & Decor' },
+  { href: '/shop/keyrings', label: 'Keyrings', badge: 'new' },
+  { href: '/shop/home-decor', label: 'Home Decor', badge: 'new' },
+  { href: '/shop/organizers', label: 'Workspace' },
+  { href: '/shop/gaming', label: 'Gaming' },
   { href: '/customize', label: 'Customise Now' },
   { href: '/blog', label: 'Blog' },
 ]

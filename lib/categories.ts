@@ -30,7 +30,7 @@ export const categories: Category[] = [
     description:
       'Personalised name signs, photo gifts, miniatures and shelf pieces — studio-photographed and printed to order.',
     image: '/images/3dps/categories/home-decor.png',
-    route: '/products?category=home-decor',
+    route: '/shop/home-decor',
   },
   {
     slug: 'pooja-decor',
@@ -39,7 +39,7 @@ export const categories: Category[] = [
     description:
       'Devotional pieces, beautifully printed — idols, temples, and incense holders crafted to order for your sacred space.',
     image: '/images/3dps/categories/pooja-decor.png',
-    route: '/products?category=pooja-decor',
+    route: '/shop/pooja-decor',
   },
   {
     slug: 'keyrings',
@@ -48,7 +48,7 @@ export const categories: Category[] = [
     description:
       'Personalised, multi-colour and built to last — name keyrings, bag tags, and fun collectible charms.',
     image: '/images/3dps/categories/keyrings.png',
-    route: '/products?category=keyrings',
+    route: '/shop/keyrings',
   },
   {
     slug: 'gaming',
@@ -57,7 +57,7 @@ export const categories: Category[] = [
     description:
       'Collectible 3D-printed pieces for fans and gamers — crisp detail and vibrant colour, made to order.',
     image: '/images/3dps/categories/gaming.png',
-    route: '/products?category=gaming',
+    route: '/shop/gaming',
   },
   {
     slug: 'lamps',
@@ -66,7 +66,7 @@ export const categories: Category[] = [
     description:
       'Handcrafted 3D-printed lamps that cast the perfect glow — from rustic table lamps to sleek minimalist designs.',
     image: '/images/categories/lamps.jpg',
-    route: '/products?category=lamps',
+    route: '/shop/lamps',
   },
   {
     slug: 'organizers',
@@ -75,7 +75,7 @@ export const categories: Category[] = [
     description:
       'Stylish desk organisers, phone stands, and tissue holders that keep your workspace neat and looking great.',
     image: '/images/3dps/categories/workspace.png',
-    route: '/products?category=organizers',
+    route: '/shop/organizers',
   },
   {
     slug: 'planters',
@@ -84,7 +84,7 @@ export const categories: Category[] = [
     description:
       'Unique 3D-printed planters for succulents, herbs, and house plants — stackable, quirky, and space-saving.',
     image: '/images/categories/planter.jpg',
-    route: '/products?category=planters',
+    route: '/shop/planters',
   },
   {
     slug: 'rakhi',
@@ -93,8 +93,7 @@ export const categories: Category[] = [
     description:
       'Customised 3D-printed rakhi for Raksha Bandhan 2026 — gaming console, cricket bat-ball, superhero, cartoon, name, photo and secret-message rakhi. Each one becomes a keychain keepsake you keep forever.',
     image: '/images/rakhi/categories/rakhi.png',
-    // Clean, keyword-rich landing page (SEO hub). The homepage rail honours this
-    // route; the /products?category=rakhi filter view continues to work too.
+    // Clean, keyword-rich landing page (SEO hub). Legacy ?category=rakhi 301s here.
     route: '/rakhi',
   },
   {

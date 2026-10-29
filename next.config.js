@@ -45,6 +45,25 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Consolidate /shop → /products (primary catalog URL)
+      { source: '/shop', destination: '/products', permanent: true },
+      // Legacy query category URLs → path hubs
+      {
+        source: '/products',
+        has: [{ type: 'query', key: 'category', value: 'rakhi' }],
+        destination: '/rakhi',
+        permanent: true,
+      },
+      {
+        source: '/products',
+        has: [{ type: 'query', key: 'category', value: '(?<slug>[a-z0-9-]+)' }],
+        destination: '/shop/:slug',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
@@ -66,6 +85,22 @@ const nextConfig = {
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
           // DNS prefetch control: enable for Google Fonts & CDN resources
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          // CSP Report-Only first — tighten after verifying Razorpay/GA/AdSense/Vercel
+          {
+            key: 'Content-Security-Policy-Report-Only',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://www.googletagmanager.com https://www.google-analytics.com https://pagead2.googlesyndication.com https://va.vercel-scripts.com",
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "img-src 'self' data: blob: https:",
+              "font-src 'self' data: https://fonts.gstatic.com",
+              "connect-src 'self' https: wss:",
+              "frame-src 'self' https://checkout.razorpay.com https://api.razorpay.com https://www.google.com https://googleads.g.doubleclick.net",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self' https://checkout.razorpay.com",
+            ].join('; '),
+          },
         ],
       },
     ]

@@ -4,6 +4,7 @@ import { SectionHeading } from '@/components/ui'
 import { Button } from '@/components/ui'
 import { SITE } from '@/lib/site'
 import { FREE_SHIPPING_THRESHOLD } from '@/lib/pricing'
+import { getFounderPersonSchema, getLocalBusinessSchema } from '@/lib/schema'
 
 export const metadata: Metadata = {
   // This title already opens with the brand, so we opt out of the root layout's
@@ -29,6 +30,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
   },
+  alternates: { canonical: '/about' },
 }
 
 const values = [
@@ -78,7 +80,19 @@ const stats = [
 ]
 
 export default function AboutPage() {
+  const founderSchema = getFounderPersonSchema()
+  const storeSchema = getLocalBusinessSchema()
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(founderSchema) }}
+    />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(storeSchema) }}
+    />
     <main className="bg-white">
       {/* Hero */}
       <section className="bg-gradient-to-br from-violet/10 via-surface to-white py-20 px-4">
@@ -288,5 +302,6 @@ export default function AboutPage() {
         </div>
       </section>
     </main>
+    </>
   )
 }

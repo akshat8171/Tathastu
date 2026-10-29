@@ -119,7 +119,7 @@ export function DiwaliIdolsBanner({ products }: DiwaliIdolsBannerProps) {
                 Hanuman and Laxmi Ganesh. Tap Shop Now for the full product page.
               </p>
               <Link
-                href="/products?category=pooja-decor"
+                href="/shop/pooja-decor"
                 className="font-display text-sm font-semibold text-amber-200 underline-offset-2 hover:underline"
               >
                 Browse all pooja decor

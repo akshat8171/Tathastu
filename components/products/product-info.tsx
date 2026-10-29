@@ -180,13 +180,17 @@ export function ProductInfo({
         </button>
       </div>
 
-      {/* ── Rating summary ────────────────────────────────────────────────────── */}
-      <div className="flex items-center gap-3 flex-wrap">
-        <Rating value={rating} count={reviewCount} />
-        <span className="text-xs text-muted font-sans">
-          Loved by {reviewCount}+ customers
-        </span>
-      </div>
+      {/* ── Rating summary — hide fake social proof when reviewCount is 0 ───── */}
+      {reviewCount > 0 ? (
+        <div className="flex items-center gap-3 flex-wrap">
+          <Rating value={rating} count={reviewCount} />
+          <span className="text-xs text-muted font-sans">
+            Loved by {reviewCount}+ customers
+          </span>
+        </div>
+      ) : (
+        <p className="text-xs text-muted font-sans">New arrival — be the first to review</p>
+      )}
 
       {/* ── Price ─────────────────────────────────────────────────────────────── */}
       <div>

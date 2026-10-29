@@ -72,14 +72,17 @@ export async function generateMetadata({ params }: ProductPageParams): Promise<M
     ? `₹${product.price} (${discount}% Off)`
     : `₹${product.price}`
 
+  // Never claim star ratings in SERP copy when reviewCount is 0 — that mismatches
+  // Product JSON-LD (which omits AggregateRating) and risks rich-result rejection.
+  const ratingPhrase =
+    product.reviewCount > 0 ? `, ${product.rating}★ from ${product.reviewCount} reviews` : ''
+
   return {
     title: `Buy ${product.name} | 3D Printed ${categoryName} Online India | ${priceTag}`,
     // Keep the SERP description within ~160 chars so Google doesn't truncate it.
     // The full product description still renders on-page and in JSON-LD.
-    description: `Buy ${product.name} online — 3D-printed ${categoryName} at ${priceTag}, ${product.rating}★ rated. Custom-made with PAN-India delivery from ${SITE.name}, Agra.`,
-    // Self-referential canonical. Without this, every product page inherits the
-    // root layout's absolute canonical (the homepage), telling Google each PDP
-    // is a duplicate of "/" — which suppresses indexing of all product pages.
+    description: `Buy ${product.name} online — 3D-printed ${categoryName} at ${priceTag}${ratingPhrase}. Custom-made with PAN-India delivery from ${SITE.name}, Agra.`,
+    // Self-referential canonical — required so PDPs are not treated as duplicates.
     alternates: { canonical: `/products/${product.id}` },
     keywords: [
       `buy ${product.name}`,
@@ -146,7 +149,7 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
   ]
 
   const categoryDisplayName = category?.displayName ?? 'Shop'
-  const categoryHref = category?.route ?? `/products?category=${product.category}`
+  const categoryHref = category?.route ?? `/shop/${product.category}`
 
   // JSON-LD schemas
   const productSchema = getProductSchema({
@@ -288,10 +291,10 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
         </div>
       </section>
 
-      {/* ── Aggregate rating + reviews (P1 reviews-coverage) ────────────────── */}
+      {/* ── Reviews — only show aggregate when we have real reviews ─────────── */}
       <section className="py-10" aria-label="Customer reviews">
         <div className="container-page">
-          {/* Always show aggregate — never an empty block */}
+          {aggregateCount > 0 ? (
           <div className="flex items-center gap-4 mb-6">
             <div className="text-4xl font-display font-bold text-ink">{aggregateRating.toFixed(1)}</div>
             <div>
@@ -311,6 +314,11 @@ export default async function ProductDetailPage({ params }: ProductPageParams) {
               <p className="text-sm text-muted font-sans">{aggregateCount.toLocaleString('en-IN')}+ verified reviews</p>
             </div>
           </div>
+          ) : (
+            <p className="text-sm text-muted font-sans mb-6">
+              New product — no customer reviews yet. Order with confidence: made to order in Agra with PAN-India shipping.
+            </p>
+          )}
 
           {/* Detailed review grid when available */}
           {detailedReviews.length > 0 && (

@@ -15,6 +15,8 @@ import { PRICE_BUCKETS } from '@/lib/price-buckets'
 import { CatalogClient } from '../../products/catalog-client'
 import type { ProductCardData } from '@/components/ui/product-card'
 import { getCatalogProducts } from '@/lib/catalog/store'
+import { getCollectionPageSchema, getBreadcrumbSchema } from '@/lib/schema'
+import { SITE } from '@/lib/site'
 
 export const revalidate = 60
 
@@ -78,6 +80,7 @@ export async function generateMetadata({
       type: 'website',
       locale: 'en_IN',
     },
+    alternates: { canonical: cat.route ?? `/shop/${slug}` },
   }
 }
 
@@ -134,8 +137,33 @@ export default async function ShopCategoryPage({
 
   const productCategories = getProductCategories()
   const categoryTitle = `${cat.displayName} — 3D Printed, Made in India`
+  const hubPath = cat.route ?? `/shop/${slug}`
+
+  const collectionSchema = getCollectionPageSchema({
+    name: `${cat.displayName} | ${SITE.name}`,
+    description: cat.description,
+    urlPath: hubPath,
+    items: filtered.slice(0, 40).map((p) => ({
+      name: p.name,
+      urlPath: `/products/${p.id}`,
+    })),
+  })
+  const breadcrumbSchema = getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Shop', url: '/products' },
+    { name: cat.displayName, url: hubPath },
+  ])
 
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+    />
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+    />
     <main className="bg-white min-h-screen">
       {/* ── Breadcrumb ──────────────────────────────────────────────────────── */}
       <nav aria-label="Breadcrumb" className="bg-surface border-b border-gray-100">
@@ -224,5 +252,6 @@ export default async function ShopCategoryPage({
         </div>
       </div>
     </main>
+    </>
   )
 }

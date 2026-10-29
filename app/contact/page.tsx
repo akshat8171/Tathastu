@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
   },
+  alternates: { canonical: '/contact' },
 }
 
 export default function ContactPage() {

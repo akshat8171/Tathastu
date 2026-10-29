@@ -22,7 +22,7 @@ export function CategoryRails({ rails }: CategoryRailsProps) {
             key={rail.slug}
             title={rail.title}
             subtitle={rail.subtitle}
-            viewAllHref={`/products?category=${rail.slug}`}
+            viewAllHref={`/shop/${rail.slug}`}
             products={rail.products}
           />
         ))}

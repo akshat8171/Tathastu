@@ -1,12 +1,67 @@
 # robots.txt for Tathastu Keepsakes
-# Allow all search engines to crawl the site
+# Allow search engines and AI answer crawlers; block private commerce paths.
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /account/
+Disallow: /checkout/
+Disallow: /cart/
 
-# Disallow admin and API routes from crawling
+# Google Search + AI Overviews
+User-agent: Googlebot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /account/
+Disallow: /checkout/
+Disallow: /cart/
+
+# ChatGPT Search (distinct from GPTBot training)
+User-agent: OAI-SearchBot
+Allow: /
+
+# Claude Search
+User-agent: Claude-SearchBot
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /account/
+Disallow: /checkout/
+Disallow: /cart/
+
+# Training crawlers — allowed for GEO brand visibility (Diwali / catalog facts).
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /account/
+Disallow: /checkout/
+Disallow: /cart/
+
+User-agent: ClaudeBot
+Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-# Sitemap location
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
 Sitemap: https://www.tathastukeepsakes.in/sitemap.xml
+# IndexNow key: https://www.tathastukeepsakes.in/904a09f9906241f880e1f6fcf7133d56.txt
+# Assistant facts: https://www.tathastukeepsakes.in/llms.txt

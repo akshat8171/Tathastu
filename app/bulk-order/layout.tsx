@@ -24,6 +24,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: { canonical: '/bulk-order' },
 }
 
 export default function BulkOrderLayout({ children }: { children: React.ReactNode }) {

@@ -3,12 +3,12 @@ import Image from 'next/image'
 import { SITE } from '@/lib/site'
 
 const shopLinks = [
-  { href: '/products?category=home-decor', label: 'Home Decor' },
-  { href: '/products?category=pooja-decor', label: 'Pooja & Decor' },
-  { href: '/products?category=keyrings', label: 'Keyrings & Bag Tags' },
-  { href: '/products?category=lamps', label: 'Lamps & Lighting' },
-  { href: '/products?category=organizers', label: 'Desk & Workspace' },
-  { href: '/products?category=gaming', label: 'Gaming' },
+  { href: '/shop/home-decor', label: 'Home Decor' },
+  { href: '/shop/pooja-decor', label: 'Pooja & Decor' },
+  { href: '/shop/keyrings', label: 'Keyrings & Bag Tags' },
+  { href: '/shop/lamps', label: 'Lamps & Lighting' },
+  { href: '/shop/organizers', label: 'Desk & Workspace' },
+  { href: '/shop/gaming', label: 'Gaming' },
   { href: '/products', label: 'All Products' },
 ]
 

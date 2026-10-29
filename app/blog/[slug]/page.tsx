@@ -12,6 +12,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { SITE } from '@/lib/site'
+import { Config } from '@/lib/config'
 import { getBreadcrumbSchema } from '@/lib/schema'
 import { blogPosts, getBlogPost, getAllSlugs } from '@/lib/blog-data'
 
@@ -75,6 +76,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getBlogPost(slug)
   if (!post) notFound()
 
+  const postUrl = `${Config.appUrl}/blog/${post.slug}`
+  const coverAbsolute = post.coverImage
+    ? post.coverImage.startsWith('http')
+      ? post.coverImage
+      : `${Config.appUrl}${post.coverImage}`
+    : undefined
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -83,20 +91,25 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     datePublished: post.date,
     dateModified: post.date,
     author: {
-      '@type': 'Organization',
-      name: 'Tathastu Keepsakes',
+      '@type': 'Person',
+      name: 'Akshat Garg',
+      jobTitle: 'Founder',
+      url: `${Config.appUrl}/about`,
     },
     publisher: {
       '@type': 'Organization',
       name: SITE.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${Config.appUrl}/images/logo/tk-mark-512.png`,
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `/blog/${post.slug}`,
+      '@id': postUrl,
     },
-    ...(post.coverImage && {
-      image: post.coverImage,
-    }),
+    url: postUrl,
+    ...(coverAbsolute && { image: [coverAbsolute] }),
     keywords: post.keywords,
   }
 

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Poppins, Inter } from 'next/font/google'
 import './globals.css'
 import { StorefrontChrome } from '@/components/layout/storefront-chrome'
@@ -24,6 +24,14 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
 })
+
+/** Single viewport via Metadata API — avoids duplicate <meta name="viewport">. */
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#0E7A66',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.tathastukeepsakes.in'),
@@ -97,9 +105,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {
-    canonical: 'https://www.tathastukeepsakes.in',
-  },
+  // Do NOT set a sitewide canonical here. A root canonical to "/" made every
+  // page without its own alternates.canonical (shop, about, FAQs, blog index,
+  // contact, etc.) look like a homepage duplicate to Google. Each route sets
+  // its own self-referential canonical; the homepage sets it in app/page.tsx.
   verification: {
     other: {
       // Pinterest website claim / domain verification
@@ -118,9 +127,6 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" className={`${poppins.variable} ${inter.variable}`}>
       <head>
-        {/* Viewport for responsive design */}
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
-
         {/* Preconnect for payment gateway */}
         <link rel="dns-prefetch" href="https://checkout.razorpay.com" />
         <link rel="preconnect" href="https://checkout.razorpay.com" />
@@ -131,9 +137,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-
-        {/* Theme color for mobile browsers */}
-        <meta name="theme-color" content="#0E7A66" />
 
         {/* Organization Schema JSON-LD */}
         <script

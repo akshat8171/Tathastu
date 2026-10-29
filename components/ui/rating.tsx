@@ -5,6 +5,9 @@ interface RatingProps {
 }
 
 export function Rating({ value, count, className = '' }: RatingProps) {
+  // Do not render a perfect-looking 5.0 with zero reviews — trust/SEO risk.
+  if (count !== undefined && count <= 0) return null
+
   const fullStars  = Math.floor(value)
   const half       = value - fullStars >= 0.25 && value - fullStars < 0.75
   const emptyStars = 5 - fullStars - (half ? 1 : 0)

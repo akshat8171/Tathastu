@@ -30,12 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'daily',
       priority: 0.9,
     },
-    {
-      url: `${BASE_URL}/shop`,
-      lastModified: currentDate,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
+    // /shop permanently redirects to /products — omit from sitemap
     {
       url: `${BASE_URL}/custom-3d-printing`,
       lastModified: currentDate,
@@ -112,13 +107,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  // Product categories
+  // Path-based category hubs (/shop/{slug} or dedicated routes like /rakhi).
+  // Prefer clean paths over /products?category= — stronger ranking landing URLs.
   const categories = getProductCategories()
   const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
-    url: `${BASE_URL}/products?category=${category.slug}`,
+    url: `${BASE_URL}${category.route ?? `/shop/${category.slug}`}`,
     lastModified: currentDate,
     changeFrequency: 'daily' as const,
-    priority: 0.8,
+    priority: category.slug === 'pooja-decor' || category.slug === 'rakhi' ? 0.9 : 0.8,
   }))
 
   // Individual product detail pages (/products/[id]) — the highest-converting

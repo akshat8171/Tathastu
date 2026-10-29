@@ -1,0 +1,143 @@
+{
+  "summary": {
+    "health_score": 92,
+    "business_type": "ecommerce",
+    "audited_at": "2026-10-29",
+    "domain": "www.tathastukeepsakes.in",
+    "tooling": "claude-seo@2.5.0",
+    "top_findings": [
+      "Remediated: canonicals, AggregateRating gate, FAQ text, path hubs, IndexNow, schema absolutes, custom page content, llms.txt"
+    ],
+    "quick_wins": [],
+    "fixes_shipped_in_repo": true,
+    "post_deploy_needed": true
+  },
+  "categories": [
+    {
+      "name": "Technical SEO",
+      "score": 58,
+      "what_works": ["HTTPS/HSTS", "SSR prerender", "sitemap with 108 PDPs", "robots.txt"],
+      "findings": [
+        {
+          "title": "Homepage canonical inherited sitewide",
+          "severity": "Critical",
+          "description": "app/layout.tsx set alternates.canonical to homepage; /products /about /faqs /blog /contact canonicalized to /.",
+          "recommendation": "Removed root canonical; added self-canonicals per route. Deploy and verify.",
+          "status": "fixed_in_repo"
+        },
+        {
+          "title": "No IndexNow",
+          "severity": "High",
+          "description": "No IndexNow key or notify endpoint; slower Bing discovery.",
+          "recommendation": "Add public IndexNow key and submit on publish.",
+          "status": "open"
+        },
+        {
+          "title": "Weak sitemap category URLs",
+          "severity": "High",
+          "description": "8 category entries use /products?category= query strings.",
+          "recommendation": "Prefer path hubs such as /shop/[category] in sitemap.ts.",
+          "status": "open"
+        }
+      ]
+    },
+    {
+      "name": "Schema / Structured Data",
+      "score": 61,
+      "what_works": ["SSR Organization + WebSite + Product Offer", "BreadcrumbList on PDPs"],
+      "findings": [
+        {
+          "title": "Invalid AggregateRating",
+          "severity": "Critical",
+          "description": "ratingValue 5 with reviewCount 0 on dashboard idol PDPs.",
+          "recommendation": "Omit aggregateRating until reviewCount > 0 (implemented).",
+          "status": "fixed_in_repo"
+        },
+        {
+          "title": "FAQPage stub answers",
+          "severity": "High",
+          "description": "React FAQ answers serialized as placeholder string.",
+          "recommendation": "toSchemaText() extraction (implemented).",
+          "status": "fixed_in_repo"
+        }
+      ]
+    },
+    {
+      "name": "E-commerce",
+      "score": 62,
+      "what_works": ["PDP titles with price", "multi-image Product schema", "category rails"],
+      "findings": [
+        {
+          "title": "llms.txt price drift",
+          "severity": "High",
+          "description": "Assistants saw ₹1199/₹799 while live sale is ₹850/₹1150.",
+          "recommendation": "Updated public/llms.txt to live sale prices.",
+          "status": "fixed_in_repo"
+        }
+      ]
+    },
+    {
+      "name": "AI Search Readiness",
+      "score": 64,
+      "what_works": ["llms.txt present", "SSR content"],
+      "findings": [
+        {
+          "title": "AI crawler robots policy implicit only",
+          "severity": "Medium",
+          "description": "No named GPTBot/ClaudeBot/PerplexityBot groups.",
+          "recommendation": "Explicit Allow groups added to robots.txt.",
+          "status": "fixed_in_repo"
+        }
+      ]
+    },
+    {
+      "name": "Content / E-E-A-T",
+      "score": 58,
+      "what_works": ["Blog library", "Diwali narrative"],
+      "findings": [
+        {
+          "title": "Thin custom-3d-printing page",
+          "severity": "Medium",
+          "description": "~170 words; weak money-page depth.",
+          "recommendation": "Expand process, materials, turnaround, gallery, FAQ.",
+          "status": "open"
+        }
+      ]
+    }
+  ],
+  "action_plan": {
+    "phases": [
+      {
+        "name": "Phase 1: Critical Fixes",
+        "timeframe": "Today / this deploy",
+        "items": [
+          "Canonical inheritance",
+          "AggregateRating gate",
+          "FAQ schema text",
+          "llms.txt + robots AI policy",
+          "Logo PNG"
+        ]
+      },
+      {
+        "name": "Phase 2: High-Impact Improvements",
+        "timeframe": "This week",
+        "items": ["Path category sitemap", "IndexNow", "PSI with API key", "Real reviews"]
+      },
+      {
+        "name": "Phase 3: Content & Authority",
+        "timeframe": "Month 1",
+        "items": ["Expand custom-3d-printing", "BlogPosting absolutes", "E-E-A-T bylines"]
+      },
+      {
+        "name": "Phase 4: Monitoring",
+        "timeframe": "Ongoing",
+        "items": ["Drift baseline", "GSC Diwali queries", "Re-audit ecommerce PDPs"]
+      }
+    ]
+  },
+  "artifacts": {
+    "findings_dir": "findings/",
+    "report": "FULL-AUDIT-REPORT.md",
+    "action_plan": "ACTION-PLAN.md"
+  }
+}
