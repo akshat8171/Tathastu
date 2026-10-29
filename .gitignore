@@ -64,6 +64,8 @@ next-env.d.ts
 !docs/ops/*.md
 !docs/superpowers/specs/*.md
 !docs/superpowers/plans/*.md
+!docs/seo-audit-*/**/*.md
+!docs/seo-audit-*/**/*.json
 !scripts/pinterest/SETUP.md
 !docs/GO-LIVE-MIGRATIONS.md
 !.github/BRANCH_PROTECTION.md
