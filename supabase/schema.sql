@@ -270,7 +270,7 @@ VALUES (
     NOW(),
     NULL,         -- never expires
     TRUE,         -- FIRST20 is first-order only
-    TRUE
+    FALSE         -- deactivated — no longer offered on the storefront
 )
 ON CONFLICT (code) DO NOTHING;
 
