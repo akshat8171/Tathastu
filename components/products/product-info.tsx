@@ -198,31 +198,6 @@ export function ProductInfo({
         <p className="text-xs text-muted font-sans mt-1">Inclusive of all taxes</p>
       </div>
 
-      {/* ── Coupon ────────────────────────────────────────────────────────────── */}
-      <div className="flex items-center gap-3 bg-brand/5 border border-brand/20 rounded-xl px-4 py-3">
-        <svg
-          className="w-5 h-5 text-brand flex-shrink-0"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"
-          />
-        </svg>
-        <p className="text-sm font-sans text-ink">
-          Use code{' '}
-          <code className="font-display font-semibold text-brand bg-brand/10 px-1.5 py-0.5 rounded">
-            FIRST20
-          </code>{' '}
-          for <strong>20% OFF</strong> your first order
-        </p>
-      </div>
-
       {/* ── Option selectors (P0) ─────────────────────────────────────────────── */}
       {hasOptions && (
         <ProductOptions

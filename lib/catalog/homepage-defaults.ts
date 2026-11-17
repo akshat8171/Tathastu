@@ -5,7 +5,7 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
   sections: {
     hero: true,
     categories: true,
-    promo: true,
+    promo: false,
     bestSellers: true,
     trust: true,
     rails: true,
@@ -147,10 +147,10 @@ export const DEFAULT_HOMEPAGE_SETTINGS: HomepageSettings = {
     'home-decor-bilingual-name',
   ],
   promo: {
-    enabled: true,
-    headline: '20% OFF your first order',
-    subcopy: 'One-time use · Min order ₹199 · Free shipping on orders above ₹1500',
-    code: 'FIRST20',
+    enabled: false,
+    headline: '',
+    subcopy: 'Free shipping on orders above ₹1500',
+    code: '',
   },
   categoryRails: [
     {

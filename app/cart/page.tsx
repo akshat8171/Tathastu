@@ -332,13 +332,6 @@ function CartCouponField() {
       {couponError && (
         <p className="text-xs text-red-600 font-sans">{couponError}</p>
       )}
-      <p className="text-xs text-muted font-sans">
-        Try <button
-          type="button"
-          onClick={() => setCouponInput('FIRST20')}
-          className="text-brand underline hover:no-underline"
-        >FIRST20</button> for 20% off your first order
-      </p>
     </div>
   )
 }

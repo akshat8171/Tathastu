@@ -10,7 +10,6 @@ import type { Metadata } from 'next'
 import { HeroCarousel }        from '@/components/homepage/hero-carousel'
 import { DiwaliIdolsBanner }   from '@/components/homepage/diwali-idols-banner'
 import { CategoryIcons }       from '@/components/homepage/category-icons'
-import { PromoStrip }          from '@/components/homepage/promo-strip'
 import { BestSellers }         from '@/components/homepage/best-sellers'
 import { TrustBand }           from '@/components/homepage/trust-band'
 import { CategoryRails }       from '@/components/homepage/category-rails'
@@ -100,14 +99,6 @@ export default async function HomePage() {
       <DiwaliIdolsBanner products={diwaliIdols} />
 
       {sections.categories && <CategoryIcons minPriceByCategory={minPriceByCategory} />}
-
-      {sections.promo && settings.promo.enabled && (
-        <PromoStrip
-          headline="Diwali gifting · 20% off your first order"
-          subcopy="One-time code · Printed in Agra · Free shipping on orders above ₹1500"
-          code={settings.promo.code}
-        />
-      )}
 
       {sections.bestSellers && (
         <BestSellers
