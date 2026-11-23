@@ -120,11 +120,6 @@ export function ProductInfo({
     setOpenSection((prev) => (prev === s ? null : s))
   }
 
-  const discountPct =
-    originalPrice && originalPrice > price
-      ? Math.round(((originalPrice - price) / originalPrice) * 100)
-      : null
-
   // Specs rows — only non-null values
   const specRows: { label: string; value: string }[] = specs
     ? [
@@ -190,7 +185,7 @@ export function ProductInfo({
 
       {/* ── Price ─────────────────────────────────────────────────────────────── */}
       <div>
-        <Price current={price} compareAt={originalPrice} showDiscount />
+        <Price current={price} />
         <p className="text-xs text-muted font-sans mt-1">Inclusive of all taxes</p>
       </div>
 

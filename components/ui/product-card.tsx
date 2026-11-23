@@ -98,12 +98,6 @@ export function ProductCard({
   const secondaryImage = images[1] ?? images[0] ?? ''
   const displayImage   = isHovered && secondaryImage ? secondaryImage : primaryImage
 
-  // Compute % off
-  const discountPct =
-    originalPrice && originalPrice > price
-      ? Math.round(((originalPrice - price) / originalPrice) * 100)
-      : null
-
   const hasOptions    = !!options && options.length > 0
   const isCustomizable = !!customizable
   const hasColors      = !!colors && colors.length > 0
@@ -114,9 +108,7 @@ export function ProductCard({
   // From ₹X pricing label (shown when product has options/colors variants)
   const showFromPrice = hasOptions || hasColors
 
-  const showDiscountBadge = !isSoldOut && discountPct !== null
-  const showNewBadge      = labelType === 'new' && !isSoldOut && discountPct === null
-  const showSaleBadge     = !isSoldOut && discountPct !== null
+  const showNewBadge = labelType === 'new' && !isSoldOut
 
   function handleAddToCart(e: React.MouseEvent) {
     e.preventDefault()
@@ -178,13 +170,6 @@ export function ProductCard({
           </span>
         )}
 
-        {/* ── Sale badge – top-left (when not customizable) ── */}
-        {showSaleBadge && !isCustomizable && (
-          <span className="absolute top-2 left-2 z-10">
-            <Badge variant="sale">Sale</Badge>
-          </span>
-        )}
-
         {/* ── Sold-out overlay ── */}
         {isSoldOut && (
           <span className="absolute top-2 left-2 z-10">
@@ -192,23 +177,16 @@ export function ProductCard({
           </span>
         )}
 
-        {/* ── New badge – top-left (when no sale / customizable) ── */}
+        {/* ── New badge – top-left (when not customizable) ── */}
         {showNewBadge && !isCustomizable && (
           <span className="absolute top-2 left-2 z-10">
             <Badge variant="new">New</Badge>
           </span>
         )}
 
-        {/* ── Discount badge – top-right ── */}
-        {showDiscountBadge && (
-          <span className="absolute top-2 right-2 z-10">
-            <Badge variant="discount">{discountPct}% OFF</Badge>
-          </span>
-        )}
-
         {/* ── Wishlist heart – top-right ── */}
         <button
-          className={`absolute ${showDiscountBadge ? 'top-9' : 'top-2'} right-2 z-10 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white`}
+          className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white"
           aria-label={isWishlisted(id) ? `Remove ${name} from wishlist` : `Add ${name} to wishlist`}
           aria-pressed={isWishlisted(id)}
           onClick={async (e) => {
@@ -257,7 +235,7 @@ export function ProductCard({
             From <span className="tabular-nums">₹{price.toLocaleString('en-IN')}</span>
           </p>
         ) : (
-          <Price current={price} compareAt={originalPrice} showDiscount={false} />
+          <Price current={price} />
         )}
 
         {/* Color swatches (P1) — show up to SWATCH_MAX with +N overflow */}

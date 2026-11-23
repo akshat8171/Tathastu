@@ -199,11 +199,6 @@ export function SearchOverlay({ open, onClose }: SearchOverlayProps) {
                       <p className="text-sm font-display font-semibold text-ink">
                         ₹{product.price.toLocaleString('en-IN')}
                       </p>
-                      {product.originalPrice && product.originalPrice > product.price && (
-                        <p className="text-xs font-sans text-muted line-through">
-                          ₹{product.originalPrice.toLocaleString('en-IN')}
-                        </p>
-                      )}
                     </div>
                   </Link>
                 </li>

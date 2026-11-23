@@ -157,11 +157,6 @@ export default function WishlistPage() {
                         <span className="font-display font-bold text-ink text-sm">
                           ₹{product.price.toLocaleString('en-IN')}
                         </span>
-                        {product.originalPrice != null && product.originalPrice > product.price && (
-                          <s className="text-muted text-xs font-sans">
-                            ₹{product.originalPrice.toLocaleString('en-IN')}
-                          </s>
-                        )}
                       </div>
                     </div>
 

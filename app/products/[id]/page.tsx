@@ -64,13 +64,7 @@ export async function generateMetadata({ params }: ProductPageParams): Promise<M
 
   const category = getCategoryBySlug(product.category)
   const categoryName = category?.displayName ?? 'Product'
-  const discount = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0
-
-  const priceTag = product.originalPrice
-    ? `₹${product.price} (${discount}% Off)`
-    : `₹${product.price}`
+  const priceTag = `₹${product.price}`
 
   return {
     title: `Buy ${product.name} | 3D Printed ${categoryName} Online India | ${priceTag}`,

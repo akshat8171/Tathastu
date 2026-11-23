@@ -1,7 +1,7 @@
 interface PriceProps {
   current: number          // current selling price (₹)
-  compareAt?: number       // original / compare-at price
-  showDiscount?: boolean   // show computed % off badge (default true when compareAt > current)
+  compareAt?: number       // kept for callers / Merchant MRP; not shown on storefront
+  showDiscount?: boolean   // deprecated — storefront no longer shows % OFF
   className?: string
 }
 
@@ -13,29 +13,13 @@ function formatINR(amount: number): string {
   }).format(amount)
 }
 
-export function Price({ current, compareAt, showDiscount = true, className = '' }: PriceProps) {
-  const discountPct =
-    compareAt && compareAt > current
-      ? Math.round(((compareAt - current) / compareAt) * 100)
-      : null
-
+/** Renders the selling price only — no strikethrough MRP or % OFF badge. */
+export function Price({ current, className = '' }: PriceProps) {
   return (
     <div className={`flex items-baseline gap-2 flex-wrap ${className}`}>
       <span className="text-base font-display font-bold text-ink">
         {formatINR(current)}
       </span>
-
-      {compareAt && compareAt > current && (
-        <s className="text-sm text-muted font-sans line-through">
-          {formatINR(compareAt)}
-        </s>
-      )}
-
-      {showDiscount && discountPct && (
-        <span className="badge-discount">
-          {discountPct}% OFF
-        </span>
-      )}
     </div>
   )
 }

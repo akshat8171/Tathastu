@@ -121,13 +121,10 @@ describe('ProductCard', () => {
   })
 
   describe('sale / discount badge behaviour', () => {
-    it('shows Sale badge and % OFF badge when originalPrice is present and > price', () => {
+    it('does NOT show Sale or % OFF badge when originalPrice is present', () => {
       renderCard({ originalPrice: 2799 })
-      // Should show a "Sale" badge (the showSaleBadge logic)
-      expect(screen.getByText('Sale')).toBeInTheDocument()
-      // Should show a % OFF badge via the discount badge
-      // (2799-2299)/2799*100 ≈ 17.86 → 18%
-      expect(screen.getByText(/18% OFF/i)).toBeInTheDocument()
+      expect(screen.queryByText('Sale')).not.toBeInTheDocument()
+      expect(screen.queryByText(/OFF/i)).not.toBeInTheDocument()
     })
 
     it('does NOT show Sale or % OFF badge when originalPrice is absent', () => {
@@ -138,16 +135,14 @@ describe('ProductCard', () => {
 
     it('shows Sold Out badge and disables cart button when isSoldOut is true', () => {
       renderCard({ isSoldOut: true, originalPrice: 2799 })
-      // Multiple elements may say "Sold Out" (badge + button text), use getAllByText
       const soldOutEls = screen.getAllByText('Sold Out')
       expect(soldOutEls.length).toBeGreaterThan(0)
       const cartBtn = screen.getByRole('button', { name: /rustic charm lamp is sold out/i })
       expect(cartBtn).toBeDisabled()
     })
 
-    it('shows New badge when labelType is new and no discount', () => {
+    it('shows New badge when labelType is new', () => {
       renderCard({ labelType: 'new' })
-      // No originalPrice → discountPct is null → showNewBadge = true
       expect(screen.getByText('New')).toBeInTheDocument()
     })
   })

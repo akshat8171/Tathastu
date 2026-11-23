@@ -19,11 +19,6 @@ const byId = (products: ProductCardData[], id: string) => products.find((p) => p
 const AUTO_ADVANCE_MS = 5500
 
 function MiniCard({ product, priority = false }: { product: ProductCardData; priority?: boolean }) {
-  const discountPct =
-    product.originalPrice && product.originalPrice > product.price
-      ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-      : null
-
   return (
     <Link
       href={`/products/${product.id}`}
@@ -39,23 +34,8 @@ function MiniCard({ product, priority = false }: { product: ProductCardData; pri
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           priority={priority}
         />
-        {/* Sale badge top-left */}
-        <span className="absolute top-2 left-2 bg-sale text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded leading-none shadow-badge">
-          Sale
-        </span>
-        {discountPct !== null && (
-          <span className="absolute top-2 right-2 bg-discount text-white text-[10px] sm:text-xs font-display font-semibold px-2 py-1 rounded leading-none shadow-badge">
-            {discountPct}% OFF
-          </span>
-        )}
-        {/* Price badge at bottom - like competitor site */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-2">
-          <div className="flex items-center justify-between gap-2">
-            <span className="font-display font-bold text-sm sm:text-base">₹{product.price}</span>
-            {product.originalPrice && product.originalPrice > product.price && (
-              <span className="font-display text-xs line-through opacity-80">₹{product.originalPrice}</span>
-            )}
-          </div>
+          <span className="font-display font-bold text-sm sm:text-base">₹{product.price}</span>
         </div>
       </div>
     </Link>

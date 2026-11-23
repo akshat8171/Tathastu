@@ -128,9 +128,6 @@ function CartLineItem({
             {/* Per-item price */}
             <p className="text-xs text-muted mt-1">
               {formatINR(item.price)} each
-              {item.originalPrice > item.price && (
-                <s className="ml-1.5 text-muted/70">{formatINR(item.originalPrice)}</s>
-              )}
             </p>
           </div>
 
