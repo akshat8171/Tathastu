@@ -104,6 +104,8 @@ export const metadata: Metadata = {
     other: {
       // Pinterest website claim / domain verification
       'p:domain_verify': '65224e05871639c1c24f11bb217f0de2',
+      // Meta (Facebook) domain verification for tathastukeepsakes.in
+      'facebook-domain-verification': 'jtgfjhqkims9sf5ix1vvxlpnh4tz1q',
     },
   },
 }
