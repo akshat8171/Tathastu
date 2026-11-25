@@ -1,42 +1,168 @@
-# Tathastu Keepsakes — product facts for assistants
+# Tathastu Keepsakes — order any product
 
-> Compact 3D-printed PLA dashboard idols, made to order in Agra and shipped across India.
+> 3D-printed gifts made to order in Agra and shipped across India. Every product below is in stock and can be ordered from its own page.
 
-- [Pooja decor catalog](https://www.tathastukeepsakes.in/products?category=pooja-decor)
-- [Lord Shiva Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-shiva)
-- [Car dashboard God idols](https://www.tathastukeepsakes.in/blog/car-dashboard-god-idols-india)
+Workshop: Agra, India. Material: PLA / PLA+. Payment: Razorpay on the product page. Dispatch: usually 2–4 days. Shipping: free when the order is above ₹1500; otherwise ₹99.
 
-Site: https://www.tathastukeepsakes.in
-Workshop: Agra, India
-Material: PLA / PLA+ (FDM 3D print), made to order
-Dispatch: 2–4 days · Free shipping over ₹199 · PAN India
-Heat note: PLA softens ~55–60°C — keep dashboard idols out of direct sun in a parked car.
+Order from the product link. The price shown is the selling price in INR.
 
-## Car dashboard God idols (New Arrival, 2026-10-21)
+## Shop
 
-Category: pooja-decor · Badge: New Arrival · reviewCount: 0 · Option: Size
+- [All products](https://www.tathastukeepsakes.in/products)
+- [Custom order](https://www.tathastukeepsakes.in/customize): upload a design to print
+- [Home Decor](https://www.tathastukeepsakes.in/products?category=home-decor): Personalised name signs, photo gifts, miniatures, and shelf pieces.
+- [Pooja & Decor](https://www.tathastukeepsakes.in/products?category=pooja-decor): Idols, temples, and incense holders, including car-dashboard murtis. PLA softens around 55–60°C, so keep dashboard idols out of direct sun in a parked car.
+- [Keyrings & Bag Tags](https://www.tathastukeepsakes.in/products?category=keyrings): Name keyrings, bag tags, and collectible charms.
+- [Gaming](https://www.tathastukeepsakes.in/products?category=gaming): Collectible pieces for fans and gamers.
+- [Lamps & Lighting](https://www.tathastukeepsakes.in/products?category=lamps): Table lamps printed to order. Use an LED bulb.
+- [Desk & Workspace](https://www.tathastukeepsakes.in/products?category=organizers): Desk organisers, phone stands, and holders.
+- [Planters & Garden](https://www.tathastukeepsakes.in/products?category=planters): Planters for succulents and small house plants.
+- [Rakhi](https://www.tathastukeepsakes.in/rakhi): Customised 3D-printed rakhi that stay as keychain keepsakes.
 
-| SKU id | Name | Price (INR) | MRP (INR) | Sizes |
-|---|---|---:|---:|---|
-| pooja-decor-dashboard-shiva | Lord Shiva Car Dashboard Idol | 799 | 2500 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-baby-shiva | Baby Shiva Car Dashboard Idol | 1399 | 2500 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-shiva-nandi | Lord Shiva on Nandi Idol | 2899 | 4500 | 5 Inch, 6 Inch, 8 Inch |
-| pooja-decor-dashboard-ganesha | Lord Ganesha Car Dashboard Idol | 1199 | 2900 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-bal-ganesha | Bal Ganesha Car Dashboard Idol | 1199 | 3000 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-krishna-flute | Krishna with Flute Car Dashboard Idol | 1199 | 3000 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-krishna-bust | Krishna Bust Car Dashboard Idol | 999 | 2400 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-hanuman | Bal Hanuman Car Dashboard Idol | 1499 | 3000 | 4 Inch, 5 Inch |
-| pooja-decor-dashboard-laxmi-ganesh | Laxmi Ganesh Pair Idol | 2149 | 4000 | 4 Inch, 5 Inch |
+## Home Decor
 
-Product URLs use https://www.tathastukeepsakes.in/products/{SKU id}
+Personalised name signs, photo gifts, miniatures, and shelf pieces.
 
-Merchant offerIds: TK-P34-FS-MLT … TK-P42-FS-MLT (same order as the table).
+- [Personalized Alphabet Name Showpiece](https://www.tathastukeepsakes.in/products/home-decor-alphabet-name): ₹849. Custom 3D printed alphabet name showpiece for kids rooms, study tables and birthday gifts. Color: Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Sliding Photo Book](https://www.tathastukeepsakes.in/products/home-decor-sliding-photo-book): ₹549. Sliding Instax Mini photo book for anniversary and couple gifts. Color: Pink, Mint, Purple, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Instax Mini Fridge Magnet](https://www.tathastukeepsakes.in/products/home-decor-instax-magnet): ₹249. Scalloped Instax Mini fridge magnet photo frame for kitchen memories and gifting. Color: Pink, Mint, Purple, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Couple Initials Heart Sign](https://www.tathastukeepsakes.in/products/home-decor-couple-initials): ₹1099. Large 3D printed couple initials sign with heart overlay, names and date. Color: Orange, Mint, Purple, Pink, Blue, Yellow, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Photo Rotator](https://www.tathastukeepsakes.in/products/home-decor-photo-rotator): ₹499. Two-window photo rotator with flower knob for desk, rakhi and sister gifts. Color: Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Butterfly Name Sign](https://www.tathastukeepsakes.in/products/home-decor-butterfly-name): ₹849. Layered butterfly outline name sign for bedroom shelves and name gifts. Color: Multicolor, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Couple Name Sign](https://www.tathastukeepsakes.in/products/home-decor-couple-name): ₹699. 3D printed couple name sign with heart, for anniversary and shelf display. Color: Red, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Mermaid Gown Flower Vase](https://www.tathastukeepsakes.in/products/home-decor-mermaid-vase): ₹849. Gown-shaped 3D printed flower vase for table décor and gifting. Color: Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Kids Room Door Nameplate](https://www.tathastukeepsakes.in/products/home-decor-kids-door-nameplate): ₹399. Kids bedroom door nameplate. Color: Purple, Mint, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Couple Miniature](https://www.tathastukeepsakes.in/products/home-decor-couple-miniature): ₹899. Custom couple miniature on a named base for anniversary and wedding gifts. Color: Multicolor, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Abstract Twisted Loop Sculpture](https://www.tathastukeepsakes.in/products/home-decor-twisted-loop): ₹599. Abstract twisted-loop 3D printed sculpture for modern shelf décor. Color: Grey, Mint, Purple, Pink, Blue, Yellow, Orange, Cream; name, photo, or message is collected at checkout.
+- [Personalized Child Car Miniature](https://www.tathastukeepsakes.in/products/home-decor-child-car): ₹899. Custom child-on-car miniature with personalised number-plate text. Color: Silver, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized First Year Photo Board](https://www.tathastukeepsakes.in/products/home-decor-first-year-board): ₹999. First-year milestone photo board with twelve monthly windows. Color: Blue, Mint, Purple, Pink, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Sitar Name Plaque](https://www.tathastukeepsakes.in/products/home-decor-sitar-plaque): ₹849. Sitar academy style name plaque for music schools and gifts. Color: Brown, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Lady with Umbrella Showpiece](https://www.tathastukeepsakes.in/products/home-decor-umbrella-lady): ₹549. Filigree lady-with-umbrella 3D printed showpiece for shelf décor. Color: Beige, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Bilingual Name Sign](https://www.tathastukeepsakes.in/products/home-decor-bilingual-name): ₹449. Bilingual 3D printed name sign (script plus English). Color: Multicolor, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Dual Name Plank](https://www.tathastukeepsakes.in/products/home-decor-dual-name-plank): ₹499. Freestanding dual name plank for a shelf or desk. Color: Blue, Gold, Purple, Yellow, Baby Pink, White, Black, Sky Blue, Red, Green; name, photo, or message is collected at checkout.
+- [Dual Name Photo Frame](https://www.tathastukeepsakes.in/products/home-decor-dual-name-photo-frame): ₹1899. Standing LED photo frame with two photo windows and a dual-name base. Color: Gold, Red, Yellow, Sky Blue, Purple, Baby Pink, White; name, photo, or message is collected at checkout.
+- [Dual Name Plank with Light](https://www.tathastukeepsakes.in/products/home-decor-dual-name-plank-light): ₹798. Dual name plank on a slim warm LED base. Color: Blue, Gold, Yellow, Black, Red, Sky Blue; name, photo, or message is collected at checkout.
+- [Soulmate Combo](https://www.tathastukeepsakes.in/products/home-decor-soulmate-combo): ₹649. Three-piece couple set: a dual name plank, a small rose, and a heart keychain. Color: Blue, Yellow, Black, White, Baby Pink, Gold, Sky Blue, Red; name, photo, or message is collected at checkout.
+- [Soulmate Combo with Light](https://www.tathastukeepsakes.in/products/home-decor-soulmate-combo-light): ₹899. Soulmate set with a warm light in the name plank, plus a rose and a heart keychain. Color: Blue, Yellow, Black, White, Baby Pink, Gold, Sky Blue, Red; name, photo, or message is collected at checkout.
+- [Premium Dual Name Plank](https://www.tathastukeepsakes.in/products/home-decor-premium-dual-name-plank): ₹1399. Dual name plank in a clear case with a warm LED, rechargeable cell, and USB-C charging. Color: Purple, Gold, Yellow, Blue, Sky Blue, Red, White, Pink; name, photo, or message is collected at checkout.
 
-## Quick answers
+## Pooja & Decor
 
-- What is a Tathastu dashboard idol? A compact 3D-printed PLA murti with a flat base for car dash, desk, or home mandir.
-- Where are they made? Printed to order in Agra by Tathastu Keepsakes.
-- Lowest priced dashboard idol in this set? Lord Shiva Car Dashboard Idol at ₹799.
-- Largest size options? Lord Shiva on Nandi up to 8 Inch.
-- Full pooja catalog: https://www.tathastukeepsakes.in/products?category=pooja-decor
-- Blog: https://www.tathastukeepsakes.in/blog/car-dashboard-god-idols-india
+Idols, temples, and incense holders, including car-dashboard murtis. PLA softens around 55–60°C, so keep dashboard idols out of direct sun in a parked car.
+
+- [Golden Ganesha Idol](https://www.tathastukeepsakes.in/products/pooja-decor-ganesha): ₹899. Golden Ganesha Idol — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Shiva Trishul & Om Stand](https://www.tathastukeepsakes.in/products/pooja-decor-trishul): ₹699. Shiva Trishul & Om Stand — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Lotus Incense Holder](https://www.tathastukeepsakes.in/products/pooja-decor-incense): ₹299. Lotus Incense Holder — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Maa Saraswati Idol](https://www.tathastukeepsakes.in/products/pooja-decor-saraswati): ₹999. Maa Saraswati Idol — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Meditating Mahadev Idol](https://www.tathastukeepsakes.in/products/pooja-decor-shiva): ₹1199. Meditating Mahadev Idol — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Mahalakshmi Idol on Lotus](https://www.tathastukeepsakes.in/products/pooja-decor-lakshmi): ₹1099. Mahalakshmi Idol on Lotus — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Bal Krishna Idol](https://www.tathastukeepsakes.in/products/pooja-decor-krishna): ₹799. Bal Krishna Idol — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Kedarnath Temple Miniature](https://www.tathastukeepsakes.in/products/pooja-decor-temple): ₹1499. Kedarnath Temple Miniature — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Shrikrishna Devotional Sign](https://www.tathastukeepsakes.in/products/pooja-decor-sign): ₹499. Shrikrishna Devotional Sign — intricately detailed and beautifully 3D printed for your sacred space. Color: Multi-colour, Golden, Ivory White.
+- [Glowing Kanhaji Showpiece](https://www.tathastukeepsakes.in/products/pooja-decor-kanhaji): ₹299. Cute Baby Krishna (Kanhaji) 3D printed showpiece for mandir, festive gifting and home décor. Color: Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Aham Brahmasmi Wall Sign](https://www.tathastukeepsakes.in/products/pooja-decor-aham-brahmasmi): ₹449. Sanskrit Aham Brahmasmi 3D printed shelf sign for home and pooja décor. Color: Orange, Mint, Purple, Pink, Blue, Yellow, Cream, Grey; name, photo, or message is collected at checkout.
+- [Lord Shiva Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-shiva): ₹850. Compact Lord Shiva (Mahadev) idol for a car dashboard, desk, or home mandir. Size: 4 Inch, 5 Inch.
+- [Baby Shiva Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-baby-shiva): ₹850. Cute Baby Shiva idol sized for a car dashboard or office desk. Size: 4 Inch, 5 Inch.
+- [Lord Shiva on Nandi Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-shiva-nandi): ₹1150. Lord Shiva seated on Nandi — a statement PLA idol for home mandir shelves and larger dashboards. Size: 5 Inch, 6 Inch, 8 Inch.
+- [Lord Ganesha Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-ganesha): ₹850. Lord Ganesha idol for car dashboard, new beginnings, and daily puja. Size: 4 Inch, 5 Inch.
+- [Bal Ganesha Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-bal-ganesha): ₹850. Joyful Bal Ganesha idol sized for dashboard and desk. Size: 4 Inch, 5 Inch.
+- [Krishna with Flute Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-krishna-flute): ₹850. Shri Krishna with flute — a compact PLA idol for car dashboard or Janmashtami gifting. Size: 4 Inch, 5 Inch.
+- [Krishna Bust Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-krishna-bust): ₹850. Peaceful Krishna bust murti for dashboard, mandir shelf, or gifting. Size: 4 Inch, 5 Inch.
+- [Bal Hanuman Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-hanuman): ₹850. Bal Hanuman (Bajrangbali) idol for car dashboard strength and calm. Size: 4 Inch, 5 Inch.
+- [Laxmi Ganesh Pair Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-laxmi-ganesh): ₹1150. Laxmi and Ganesh pair idol for Diwali puja, home temple, or a blessed dashboard. Size: 4 Inch, 5 Inch.
+
+## Keyrings & Bag Tags
+
+Name keyrings, bag tags, and collectible charms.
+
+- [Piano Keys Keychain](https://www.tathastukeepsakes.in/products/keyrings-piano): ₹149. Piano Keys Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Pop-It Fidget Keychain](https://www.tathastukeepsakes.in/products/keyrings-popit): ₹129. Pop-It Fidget Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Mini Backpack Keychain](https://www.tathastukeepsakes.in/products/keyrings-backpack): ₹149. Mini Backpack Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Caduceus Medical Keychain](https://www.tathastukeepsakes.in/products/keyrings-caduceus): ₹179. Caduceus Medical Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Oreo Cookie Keychain](https://www.tathastukeepsakes.in/products/keyrings-oreo): ₹129. Oreo Cookie Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Mahadev Face Keychain](https://www.tathastukeepsakes.in/products/keyrings-shiva): ₹149. Mahadev Face Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Custom Name Keychain](https://www.tathastukeepsakes.in/products/keyrings-name): ₹199. Custom Name Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Custom Number Plate Keychain](https://www.tathastukeepsakes.in/products/keyrings-numberplate): ₹199. Custom Number Plate Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Paper Airplane Keychain](https://www.tathastukeepsakes.in/products/keyrings-airplane): ₹129. Paper Airplane Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Slides Keychain](https://www.tathastukeepsakes.in/products/keyrings-nike): ₹149. Slides Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Mini Phone Keychain](https://www.tathastukeepsakes.in/products/keyrings-iphone): ₹179. Mini Phone Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Custom Gym Weight Plate Keychain](https://www.tathastukeepsakes.in/products/keyrings-gymplate): ₹199. Custom Gym Weight Plate Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Knitted Puppy Keychain](https://www.tathastukeepsakes.in/products/keyrings-puppy): ₹199. Knitted Puppy Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+- [Tennis Ball Keychain](https://www.tathastukeepsakes.in/products/keyrings-tennis): ₹129. Tennis Ball Keychain — personalised, multi-colour and built to last. Color: Multi-colour, Black & White, Red & White; name, photo, or message is collected at checkout.
+
+## Gaming
+
+Collectible pieces for fans and gamers.
+
+- [AK-47 Keychain](https://www.tathastukeepsakes.in/products/gaming-ak47): ₹179. AK-47 Keychain — a fun, collectible 3D-printed piece for fans and gamers. Color: Multi-colour, Black, Red.
+- [Marlboro Keychain](https://www.tathastukeepsakes.in/products/gaming-marlboro): ₹149. Marlboro Keychain — a fun, collectible 3D-printed piece for fans and gamers. Color: Multi-colour, Black, Red.
+- [Toad Character Keychain](https://www.tathastukeepsakes.in/products/gaming-toad): ₹199. Toad Character Keychain — a fun, collectible 3D-printed piece for fans and gamers. Color: Multi-colour, Black, Red.
+- [Captain America Shield Keychain](https://www.tathastukeepsakes.in/products/gaming-shield): ₹199. Captain America Shield Keychain — a fun, collectible 3D-printed piece for fans and gamers. Color: Multi-colour, Black, Red.
+- [Gamer Character Keychain](https://www.tathastukeepsakes.in/products/gaming-streamer): ₹199. Gamer Character Keychain — a fun, collectible 3D-printed piece for fans and gamers. Color: Multi-colour, Black, Red.
+- [Gamepad Keychain](https://www.tathastukeepsakes.in/products/gaming-gamepad): ₹179. Gamepad Keychain — a fun, collectible 3D-printed piece for fans and gamers. Color: Multi-colour, Black, Red.
+- [Question Block Keychain](https://www.tathastukeepsakes.in/products/gaming-question): ₹149. Question Block Keychain — a fun, collectible 3D-printed piece for fans and gamers. Color: Multi-colour, Black, Red.
+
+## Lamps & Lighting
+
+Table lamps printed to order. Use an LED bulb.
+
+- [Rustic Charm Lamp](https://www.tathastukeepsakes.in/products/lamps-lamp1): ₹2299. A stunning rustic lamp that brings warmth and character to any space. Finish: Matte, Gloss.
+- [Modern Elegance Lamp](https://www.tathastukeepsakes.in/products/lamps-lamp2): ₹2499. A beautifully crafted lamp that combines modern design with rustic charm. Finish: Matte, Gloss.
+- [Contemporary Style Lamp](https://www.tathastukeepsakes.in/products/lamps-lamp3): ₹2799. An elegant and sophisticated lamp design that brings warmth and style to your living space. Finish: Matte, Gloss.
+- [Artistic Designer Lamp](https://www.tathastukeepsakes.in/products/lamps-lamp4): ₹3199. A stunning contemporary lamp that blends functionality with artistic design. Finish: Matte, Gloss.
+- [Minimalist Modern Lamp](https://www.tathastukeepsakes.in/products/lamps-lamp5): ₹2899. A sleek and minimalist lamp design that complements contemporary interiors. Finish: Matte, Gloss.
+- [Glow Arc Pendant Lamp](https://www.tathastukeepsakes.in/products/lamps-glow-arc): ₹1999. An arc-shaped pendant lamp with a smooth matte finish, designed to hang over dining tables or reading nooks. Finish: Matte, Gloss.
+- [Terra Glow Table Lamp](https://www.tathastukeepsakes.in/products/lamps-terra-glow): ₹2149. Earth-toned 3D-printed lamp with a terracotta-inspired palette. Finish: Matte, Gloss.
+- [Lunar Night Lamp](https://www.tathastukeepsakes.in/products/lamps-lunar-night): ₹1699. Inspired by the moon's craters and surface, this night lamp casts a warm celestial glow. Size: Small (~15cm), Standard (~20cm).
+
+## Desk & Workspace
+
+Desk organisers, phone stands, and holders.
+
+- [Multi-Purpose Desk Organizer](https://www.tathastukeepsakes.in/products/organizers-organizer1): ₹1899. A beautifully designed organizer that helps you keep your space tidy and organized. Color: Black, White, Grey.
+- [Premium Storage Organizer](https://www.tathastukeepsakes.in/products/organizers-organizer2): ₹2199. An elegant storage solution that combines form and function. Color: Black, White, Grey.
+- [TISTWO Tissue Box Organizer](https://www.tathastukeepsakes.in/products/organizers-organizer3): ₹1599. A stylish tissue box organizer with hidden magnets for secure placement. Color: Black, White, Grey.
+- [THALOR Kitchen Tissue Holder](https://www.tathastukeepsakes.in/products/organizers-organizer4): ₹1399. A practical kitchen tissue holder designed for convenience and style. Color: Black, White, Grey.
+- [StackDesk Pro Organizer](https://www.tathastukeepsakes.in/products/organizers-stackdesk-pro): ₹999. A modular stacking desk organizer system with interlocking tiers. Tiers: 2 tiers, 3 tiers.
+- [Cable Den Desk Tidy](https://www.tathastukeepsakes.in/products/organizers-cable-den): ₹799. Tame the cable chaos on your desk with this wall-mountable or freestanding cable organizer. Color: Black, White, Grey.
+- [MagBase Tissue Caddy](https://www.tathastukeepsakes.in/products/organizers-mag-tissue): ₹1299. Magnetic-base tissue caddy that stays put on metallic surfaces — fridges, filing cabinets, whiteboards. Color: Black, White, Grey.
+- [Counter Caddy Kitchen Holder](https://www.tathastukeepsakes.in/products/organizers-counter-caddy): ₹1199. Keep your kitchen counter clutter-free with this slim and practical caddy. Color: Black, White, Grey.
+- [Personalized Desk Pen Holder](https://www.tathastukeepsakes.in/products/organizers-desk-pen-holder): ₹599. Custom 3D printed name desk pen holder for office, WFH and student desks. Color: Purple, Mint, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Giant Name Pencil](https://www.tathastukeepsakes.in/products/organizers-giant-name-pencil): ₹849. Giant 3D printed name pencil for kids, teachers and school gifts. Color: Yellow, Mint, Purple, Pink, Blue, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Name Pen Stand](https://www.tathastukeepsakes.in/products/organizers-name-pen-stand): ₹849. Custom 3D printed name pen stand with three compartments for office, study table and gifting. Color: Pink, Mint, Purple, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Pencil Shape Pen Stand](https://www.tathastukeepsakes.in/products/organizers-pencil-shape-stand): ₹499. Cute pencil-shaped 3D printed pen stand for kids study tables, school and art supplies. Color: Blue, Mint, Purple, Pink, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Wall Key Holder](https://www.tathastukeepsakes.in/products/organizers-wall-key-holder): ₹1299. Wall-mounted 3D printed name key holder with shelves, pegs and hanging slots. Color: Beige, Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Seashell Nautilus Jewelry Dish](https://www.tathastukeepsakes.in/products/organizers-seashell-jewelry-dish): ₹499. Nautilus seashell jewellery and trinket dish for dresser or bathroom. Color: Mint, Purple, Pink, Blue, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Bow Handle Jewelry Basket](https://www.tathastukeepsakes.in/products/organizers-bow-jewelry-basket): ₹699. Bow-handle 3D printed jewellery basket for dresser storage and gifting. Color: Orange, Mint, Purple, Pink, Blue, Yellow, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Name Perfume Tray](https://www.tathastukeepsakes.in/products/organizers-name-perfume-tray): ₹549. Named perfume and vanity tray with rolled ends. Color: Blue, Mint, Purple, Pink, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+- [Personalized Office Name Pen Stand](https://www.tathastukeepsakes.in/products/organizers-office-name-sign): ₹699. Office desk name pen stand with compartments. Color: Blue, Mint, Purple, Pink, Yellow, Orange, Cream, Grey; name, photo, or message is collected at checkout.
+
+## Planters & Garden
+
+Planters for succulents and small house plants.
+
+- [CACTIA Cactus Planter](https://www.tathastukeepsakes.in/products/planters-planter1): ₹1499. A charming cactus-themed planter perfect for succulents and small plants. Color: Terracotta, White, Sage Green.
+- [STEMRA Stackable Planter Set](https://www.tathastukeepsakes.in/products/planters-planter2): ₹2199. Innovative stackable planters that maximize vertical space. Tiers: 2 tiers, 3 tiers, 4 tiers.
+- [Artisan Geometric Planter](https://www.tathastukeepsakes.in/products/planters-planter3): ₹1599. A beautiful geometric planter that brings nature into your home. Color: Terracotta, White, Sage Green.
+- [Herb Tower Planter](https://www.tathastukeepsakes.in/products/planters-herb-tower): ₹1299. A tall tower planter with three self-watering pockets — perfect for growing basil, mint, and coriander on your kitchen windowsill. Pockets: 3 pockets, 5 pockets.
+- [Wall Bloom Hanging Planter](https://www.tathastukeepsakes.in/products/planters-wall-bloom): ₹899. Mount it, hang it, or set it on a shelf — this versatile planter works three ways. Color: Terracotta, White, Sage Green.
+- [Urban Pocket Pot Set](https://www.tathastukeepsakes.in/products/planters-urban-pot): ₹699. A set of two minimalist pocket pots for desk succulents or air plants. Color: Terracotta, White, Sage Green.
+- [Terrace Trio Planter Bundle](https://www.tathastukeepsakes.in/products/planters-terrace-trio): ₹2499. Three graduating-size planters sold as a bundle — small for succulents, medium for herbs, large for a statement monstera. Color: Terracotta, White, Sage Green.
+- [Geo Fern Floor Planter](https://www.tathastukeepsakes.in/products/planters-geo-fern): ₹3499. A bold geometric floor planter that makes a statement in hallways, living corners, and entryways. Color: Terracotta, White, Sage Green.
+
+## Rakhi
+
+Customised 3D-printed rakhi that stay as keychain keepsakes.
+
+- [Gaming Console Rakhi – Customised Gamer Rakhi for Brother](https://www.tathastukeepsakes.in/products/rakhi-gaming-console): ₹299. A customised gaming rakhi shaped like a mini game controller — the perfect personalised rakhi for a gamer brother this Raksha Bandhan. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Cricket Bat & Ball Rakhi – Customised Sports Rakhi](https://www.tathastukeepsakes.in/products/rakhi-cricket-bat-ball): ₹259. A customised cricket rakhi with a mini 3D-printed bat and ball — a personalised rakhi for a cricket-loving brother. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Personalised Name Rakhi – Custom Name Rakhi for Brother](https://www.tathastukeepsakes.in/products/rakhi-personalised-name): ₹259. A personalised name rakhi 3D-printed with any name you choose — the classic customised rakhi for Raksha Bandhan 2026. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Secret Message Rakhi – Hidden Message Keepsake Rakhi](https://www.tathastukeepsakes.in/products/rakhi-secret-message): ₹299. A secret message rakhi with a hidden engraved note only your brother can read — the most heartfelt customised rakhi for Raksha Bandhan. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Photo Rakhi – Customised Picture Rakhi for Raksha Bandhan](https://www.tathastukeepsakes.in/products/rakhi-photo): ₹299. A customised photo rakhi featuring your favourite sibling memory — a personalised picture rakhi for Raksha Bandhan 2026. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Superhero Shield Rakhi – Customised Hero Rakhi for Kids](https://www.tathastukeepsakes.in/products/rakhi-superhero-shield): ₹269. A customised superhero rakhi shaped like a hero's shield — a personalised kids rakhi for Raksha Bandhan. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Cartoon Kids Rakhi – Customised Character Rakhi for Kids](https://www.tathastukeepsakes.in/products/rakhi-cartoon-kids): ₹259. A fun customised cartoon rakhi for kids — a colourful character-style rakhi for Raksha Bandhan 2026 with your child's name. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Car Lover Rakhi – Customised Car Rakhi for Brother](https://www.tathastukeepsakes.in/products/rakhi-car-lover): ₹269. A customised car rakhi for the petrolhead brother — a personalised rakhi with a mini 3D-printed car and his name or number plate. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Profession Rakhi – Doctor, Engineer & Pilot Rakhi](https://www.tathastukeepsakes.in/products/rakhi-profession): ₹349. A customised profession rakhi celebrating what your brother does best — doctor, engineer, pilot and more. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Initial Letter Rakhi – Customised Alphabet Keychain Rakhi](https://www.tathastukeepsakes.in/products/rakhi-initial-letter): ₹259. A minimalist customised initial rakhi 3D-printed with your brother's first letter — a modern personalised rakhi for Raksha Bandhan. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Bhaiya Bhabhi Rakhi Set – Customised Lumba Rakhi (Set of 2)](https://www.tathastukeepsakes.in/products/rakhi-bhaiya-bhabhi-set): ₹549. A customised Bhaiya Bhabhi rakhi set (set of 2) with a lumba rakhi for your sister-in-law — personalised with both names for Raksha Bandhan 2026. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
+- [Family Rakhi Set – Customised Rakhi Set of 4 Keepsakes](https://www.tathastukeepsakes.in/products/rakhi-family-set): ₹1049. A customised family rakhi set of 4 — personalised with a name on each rakhi for every brother in the family this Raksha Bandhan 2026. Thread Colour: Traditional Red & Gold, Saffron, Maroon, Multi-colour; Keepsake Format: Rakhi + Free Keychain Converter, Rakhi only; name, photo, or message is collected at checkout.
