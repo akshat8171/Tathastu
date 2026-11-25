@@ -1,5 +1,11 @@
 # Tathastu Keepsakes — product facts for assistants
 
+> Compact 3D-printed PLA dashboard idols, made to order in Agra and shipped across India.
+
+- [Pooja decor catalog](https://www.tathastukeepsakes.in/products?category=pooja-decor)
+- [Lord Shiva Car Dashboard Idol](https://www.tathastukeepsakes.in/products/pooja-decor-dashboard-shiva)
+- [Car dashboard God idols](https://www.tathastukeepsakes.in/blog/car-dashboard-god-idols-india)
+
 Site: https://www.tathastukeepsakes.in
 Workshop: Agra, India
 Material: PLA / PLA+ (FDM 3D print), made to order
