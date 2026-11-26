@@ -1,0 +1,36 @@
+services:
+  n8n:
+    image: n8nio/n8n:2.7.5
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      N8N_HOST: 0.0.0.0
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      GENERIC_TIMEZONE: Asia/Kolkata
+      N8N_BLOCK_ENV_ACCESS_IN_NODE: "false"
+      NODE_FUNCTION_ALLOW_BUILTIN: fs
+      # Set to your stable public URL, e.g. https://n8n.tathastukeepsakes.in
+      WEBHOOK_URL: ${WEBHOOK_URL}
+      META_VERIFY_TOKEN: ${META_VERIFY_TOKEN}
+      META_PAGE_ACCESS_TOKEN: ${META_PAGE_ACCESS_TOKEN}
+      META_IG_USER_ID: ${META_IG_USER_ID}
+      META_GRAPH_VERSION: ${META_GRAPH_VERSION:-v27.0}
+      REEL_MAP_CSV_PATH: /data/reel-message-map.csv
+      REEL_MAP_SETTINGS_PATH: /data/settings.csv
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ../config:/data:ro
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --config /etc/cloudflared/config.yml run
+    volumes:
+      - ./cloudflared:/etc/cloudflared:ro
+    depends_on:
+      - n8n
+
+volumes:
+  n8n_data:

@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+cloudflared/*.json
+cloudflared/config.yml
+cloudflared/config.local.yml
+cloudflared/cert.pem
+cloudflared/*.pem
+*.log

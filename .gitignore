@@ -58,6 +58,8 @@ next-env.d.ts
 !DEPLOYMENT.md
 !README.md
 !QUICK-START.md
+!AGENTS.md
+!CLAUDE.md
 !.env.example
 !docs/archive/*.md
 !docs/social/*.md
@@ -67,4 +69,5 @@ next-env.d.ts
 !scripts/pinterest/SETUP.md
 !docs/GO-LIVE-MIGRATIONS.md
 !.github/BRANCH_PROTECTION.md
+!n8n-auto-insta-dm/**/*.md
 

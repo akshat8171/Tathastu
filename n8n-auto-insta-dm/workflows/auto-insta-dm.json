@@ -1,0 +1,429 @@
+{
+  "name": "Auto Insta DM — Comment → Reply + DM",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## Auto Insta DM\\nMap products in `config/reel-message-map.csv` or Google Sheet.\\nMultiple reels/posts per product: separate links with `|` in reel_url.\\nWebhook: `{{WEBHOOK_URL}}/webhook/instagram-comments`",
+        "height": 340,
+        "width": 420,
+        "color": 5
+      },
+      "id": "note-setup",
+      "name": "Setup Notes",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        -120
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "instagram-comments",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-verify",
+      "name": "Meta Webhook Verify (GET)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -40,
+        -200
+      ],
+      "webhookId": "insta-dm-verify"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "instagram-comments",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-comments",
+      "name": "Meta Comment Webhook (POST)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -40,
+        180
+      ],
+      "webhookId": "insta-dm-comments"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "mode-subscribe",
+              "leftValue": "={{ $json.query['hub.mode'] }}",
+              "rightValue": "subscribe",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "token-match",
+              "leftValue": "={{ $json.query['hub.verify_token'] }}",
+              "rightValue": "={{ $env.META_VERIFY_TOKEN }}",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-verify-ok",
+      "name": "Verify Token OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.query['hub.challenge'] }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-challenge",
+      "name": "Respond Challenge",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        -280
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "Verification failed",
+        "options": {
+          "responseCode": 403
+        }
+      },
+      "id": "respond-verify-fail",
+      "name": "Respond Verify Fail",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        480,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { \"ok\": true } }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-ack",
+      "name": "Ack Meta Fast",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        220,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body ?? $input.first().json;\nconst events = [];\nif (!body || body.object !== 'instagram' || !Array.isArray(body.entry)) {\n  return [];\n}\nfor (const entry of body.entry) {\n  const changes = entry.changes || [];\n  for (const change of changes) {\n    if (change.field !== 'comments') continue;\n    const value = change.value || {};\n    const from = value.from || {};\n    const media = value.media || {};\n    events.push({\n      igAccountId: entry.id,\n      commentId: value.id,\n      commentText: value.text || '',\n      fromUserId: from.id || '',\n      fromUsername: from.username || '',\n      mediaId: media.id || '',\n      mediaProductType: media.media_product_type || '',\n      receivedAt: new Date().toISOString()\n    });\n  }\n}\nreturn events.map((e) => ({ json: e }));"
+      },
+      "id": "parse-comments",
+      "name": "Parse Comment Events",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\n\nfunction parseCsv(text) {\n  const rows = [];\n  let row = [];\n  let cell = '';\n  let inQuotes = false;\n  for (let i = 0; i < text.length; i++) {\n    const ch = text[i];\n    const next = text[i + 1];\n    if (inQuotes) {\n      if (ch === '\"' && next === '\"') { cell += '\"'; i++; continue; }\n      if (ch === '\"') { inQuotes = false; continue; }\n      cell += ch;\n      continue;\n    }\n    if (ch === '\"') { inQuotes = true; continue; }\n    if (ch === ',') { row.push(cell); cell = ''; continue; }\n    if (ch === '\\n' || ch === '\\r') {\n      if (ch === '\\r' && next === '\\n') i++;\n      row.push(cell); cell = '';\n      if (row.length > 1 || (row[0] || '') !== '') rows.push(row);\n      row = [];\n      continue;\n    }\n    cell += ch;\n  }\n  if (cell.length || row.length) { row.push(cell); rows.push(row); }\n  if (!rows.length) return [];\n  const headers = rows[0].map((h) => String(h || '').trim());\n  return rows.slice(1).map((r) => {\n    const obj = {};\n    headers.forEach((h, idx) => { obj[h] = r[idx] ?? ''; });\n    return obj;\n  });\n}\n\nfunction parseBool(v, defaultValue = true) {\n  if (v === undefined || v === null || String(v).trim() === '') return defaultValue;\n  return ['1', 'true', 'yes', 'y'].includes(String(v).trim().toLowerCase());\n}\n\nfunction splitPipe(value) {\n  return String(value || '')\n    .split('|')\n    .map((p) => p.trim())\n    .filter(Boolean);\n}\n\nfunction shortcodesFrom(value) {\n  const out = [];\n  const re = /instagram\\.com\\/(?:reel|p|tv)\\/([A-Za-z0-9_-]+)/i;\n  for (const part of splitPipe(value)) {\n    const m = part.match(re);\n    if (m) out.push(m[1]);\n    else if (/^[A-Za-z0-9_-]+$/.test(part) && !/^\\d+$/.test(part)) out.push(part);\n  }\n  return out;\n}\n\nfunction mediaIdsFrom(value) {\n  return splitPipe(value).filter((p) => /^\\d+$/.test(p));\n}\n\nfunction normalizeProduct(row) {\n  const enabledRaw = String(row.enabled || '').trim();\n  let enabled = true;\n  let name = String(row.reel_name || '').trim();\n  if (enabledRaw && !['TRUE','FALSE','1','0','YES','NO','Y','N'].includes(enabledRaw.toUpperCase())) {\n    name = enabledRaw;\n    enabled = true;\n  } else {\n    enabled = parseBool(enabledRaw, true);\n  }\n  const mediaIds = mediaIdsFrom(row.media_id);\n  const shortcodes = shortcodesFrom(row.reel_url);\n  const msg = String(row.dm_message || '').trim();\n  if (!name) name = mediaIds[0] || shortcodes[0] || '';\n  if (!name || !msg) return null;\n  return {\n    name,\n    mediaIds,\n    shortcodes,\n    enabled,\n    messages: [msg],\n  };\n}\n\nfunction loadMapFromCsv() {\n  const csvPath = $env.REEL_MAP_CSV_PATH;\n  if (!csvPath || !fs.existsSync(csvPath)) return null;\n  const rows = parseCsv(fs.readFileSync(csvPath, 'utf8'));\n  const settingsPath = $env.REEL_MAP_SETTINGS_PATH;\n  const settings = {\n    publicCommentReply: 'Please check your DM',\n    messagePickMode: 'first',\n    ignoreOwnComments: true,\n    ignoreEmptyComments: true,\n    dedupeWindowMinutes: 60,\n  };\n  if (settingsPath && fs.existsSync(settingsPath)) {\n    for (const row of parseCsv(fs.readFileSync(settingsPath, 'utf8'))) {\n      const key = String(row.key || '').trim();\n      const val = String(row.value || '').trim();\n      if (key === 'public_comment_reply' && val) settings.publicCommentReply = val;\n      if (key === 'message_pick_mode' && val) settings.messagePickMode = val;\n      if (key === 'ignore_own_comments') settings.ignoreOwnComments = parseBool(val, true);\n      if (key === 'ignore_empty_comments') settings.ignoreEmptyComments = parseBool(val, true);\n      if (key === 'dedupe_window_minutes' && val) settings.dedupeWindowMinutes = Number(val) || 60;\n      if (key === 'prepend_reel_link') settings.prependReelLink = parseBool(val, true);\n    }\n  }\n  if (settings.prependReelLink === undefined) settings.prependReelLink = true;\n  const reels = rows.map(normalizeProduct).filter(Boolean);\n  return { settings, reels };\n}\n\nconst map = loadMapFromCsv() || {\"settings\": {\"publicCommentReply\": \"Please check your DM\", \"messagePickMode\": \"first\", \"ignoreOwnComments\": true, \"ignoreEmptyComments\": true, \"dedupeWindowMinutes\": 60, \"prependReelLink\": true}, \"reels\": [{\"name\": \"Couple Name Board\", \"mediaIds\": [\"18432159742183038\"], \"shortcodes\": [\"Ddq_D0fA5QL\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized couple Name board is for  ₹1000 + delivery charges\\n\\nSize: 9 inches height, 12inches length\\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Keychains\", \"mediaIds\": [\"18353715055247127\", \"17957672820259366\"], \"shortcodes\": [\"Ddl7m5KgYzp\", \"DfPjzVegY4s\"], \"enabled\": true, \"messages\": [\"Thanks for reaching out to us. \\nThe price for the key chain is 80/- per piece. \\n\\nIf you order more than 15 then it will be 70rs/-\\n\\n+shipping charges\"]}, {\"name\": \"Name Board\", \"mediaIds\": [\"18064198259726946\", \"18111713420327431\", \"17971562274133670\", \"18061794032769206\", \"18159890674486231\", \"18092623760167709\", \"17904799959221925\"], \"shortcodes\": [\"DbIzZziB-iO\", \"DdBx1RsgkJH\", \"DctE3Mxgq2A\", \"Dbf-GcnBa_-\", \"DbVtbIMgRHA\", \"DWWSyMtAQLf\", \"DWbOLRdge5p\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized Name board is for  ₹450 + delivery charges\\n\\nSize: 8 inches height \\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Dual Name Plank\", \"mediaIds\": [\"18174111424456604\"], \"shortcodes\": [\"Dewk4Wigg6g\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized Dual Name plank comes in multi variant.\\n1.  ₹300 for normal base and without light\\n2.  ₹400 for black big base and without light\\n3.  ₹600 for big base and with light\\n\\n+ shipping charges. \\n\\nSize: 8 inches length \\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there\"]}, {\"name\": \"Big Stationary Organizer\", \"mediaIds\": [\"18134829637671220\", \"17935360008361410\"], \"shortcodes\": [\"DeMa74sARhd\", \"DcYgp10gOuN\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized stationary organizer is for  ₹450 + delivery charges\\n\\nSize: 8 inches length\\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Lip Bam + Keychain Holder\", \"mediaIds\": [\"18095303327550106\"], \"shortcodes\": [\"DdbkwI3Ad5r\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized Lip Bam + Keychain Holder is for  ₹250 + delivery charges\\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Mini Mic\", \"mediaIds\": [\"18126093604862988\", \"17912364735669038\"], \"shortcodes\": [\"DdyuO7CAU8i\", \"DgKsGAHh6sa\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur Mini Mic is for  ₹350 + delivery charges\\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Room Door Name Plate\", \"mediaIds\": [\"18135692296648774\"], \"shortcodes\": [\"DejtBxvgtnR\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur room door name plate is for  ₹550 + delivery charges\\n\\nSize: 10 inches width\\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Small Stationary Organizer\", \"mediaIds\": [\"18122713885885840\"], \"shortcodes\": [\"DcTiMzhABd5\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized stationary organizer is for  ₹250 + delivery charges\\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Lithophane Art\", \"mediaIds\": [\"17897477298413135\"], \"shortcodes\": [\"DWLoZ-qhXaR\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur Lithophane Art is for  ₹1000 + delivery charges\\n\\nSize: 6 inches by 6 inches \\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Divine Wall Frame\", \"mediaIds\": [\"18125287240938550\"], \"shortcodes\": [\"DfmucI5ARYN\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized divine wall frame is for  ₹750 + delivery charges\\n\\nSize: 8 inches by 8 inches \\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}, {\"name\": \"Personalized Key Holder\", \"mediaIds\": [\"18027370259693059\"], \"shortcodes\": [\"DdjL0NlA-r6\"], \"enabled\": true, \"messages\": [\"Hi! 😊, Thank you for contacting us. \\n\\nOur personalized key holder is for  ₹1000 + delivery charges\\n\\nSize: 10 inches by 10 inches \\n\\n🚚 Delivery: 5–7 days across India.\\n\\nJust send us your name and PIN code, and we’ll take it from there!\"]}]};\nif (map.settings && map.settings.prependReelLink === undefined) map.settings.prependReelLink = true;\nconst event = $input.first().json;\nconst ownIgUserId = $env.META_IG_USER_ID || '';\nconst settings = map.settings;\nconst token = $env.META_PAGE_ACCESS_TOKEN || '';\nconst graphVersion = $env.META_GRAPH_VERSION || 'v27.0';\nconst graphHost = 'graph.instagram.com';\n\nif (settings.ignoreEmptyComments && !String(event.commentText || '').trim()) {\n  return [];\n}\nif (settings.ignoreOwnComments && ownIgUserId && event.fromUserId === ownIgUserId) {\n  return [];\n}\n\nconst staticData = $getWorkflowStaticData('global');\nif (!staticData.recentCommentIds) staticData.recentCommentIds = {};\nif (!staticData.mediaShortcodeCache) staticData.mediaShortcodeCache = {};\nif (!staticData.mediaPermalinkCache) staticData.mediaPermalinkCache = {};\nconst now = Date.now();\nconst windowMs = (settings.dedupeWindowMinutes || 60) * 60 * 1000;\nfor (const [id, ts] of Object.entries(staticData.recentCommentIds)) {\n  if (now - ts > windowMs) delete staticData.recentCommentIds[id];\n}\nif (event.commentId && staticData.recentCommentIds[event.commentId]) {\n  return [];\n}\n\nfunction findByMediaId(mediaId) {\n  const id = String(mediaId || '');\n  return (map.reels || []).find(\n    (r) => r.enabled !== false && Array.isArray(r.mediaIds) && r.mediaIds.map(String).includes(id)\n  );\n}\n\nfunction findByShortcode(shortcode) {\n  const code = String(shortcode || '');\n  return (map.reels || []).find(\n    (r) => r.enabled !== false && Array.isArray(r.shortcodes) && r.shortcodes.includes(code)\n  );\n}\n\nfunction linkFromShortcode(code) {\n  if (!code) return '';\n  return `https://www.instagram.com/reel/${code}/`;\n}\n\nasync function resolveMediaLink(mediaId) {\n  const id = String(mediaId || '');\n  if (!id) return { shortcode: '', permalink: '' };\n  if (staticData.mediaPermalinkCache[id] || staticData.mediaShortcodeCache[id]) {\n    const shortcode = staticData.mediaShortcodeCache[id] || '';\n    const permalink = staticData.mediaPermalinkCache[id] || linkFromShortcode(shortcode);\n    return { shortcode, permalink };\n  }\n  if (!token) return { shortcode: '', permalink: '' };\n  try {\n    const info = await this.helpers.httpRequest({\n      method: 'GET',\n      url: `https://${graphHost}/${graphVersion}/${id}`,\n      qs: {\n        fields: 'id,permalink,shortcode',\n        access_token: token,\n      },\n      json: true,\n      timeout: 10000,\n    });\n    let shortcode = info.shortcode || '';\n    let permalink = info.permalink || '';\n    if (!shortcode && permalink) {\n      const m = String(permalink).match(/instagram\\.com\\/(?:reel|p|tv)\\/([A-Za-z0-9_-]+)/i);\n      if (m) shortcode = m[1];\n    }\n    if (!permalink && shortcode) permalink = linkFromShortcode(shortcode);\n    if (shortcode) staticData.mediaShortcodeCache[id] = shortcode;\n    if (permalink) staticData.mediaPermalinkCache[id] = permalink;\n    return { shortcode, permalink };\n  } catch (err) {\n    return { shortcode: '', permalink: '' };\n  }\n}\n\nconst mediaInfo = await resolveMediaLink(event.mediaId);\nlet reel = findByMediaId(event.mediaId);\nlet matchedVia = reel ? 'media_id' : '';\nif (!reel && mediaInfo.shortcode) {\n  reel = findByShortcode(mediaInfo.shortcode);\n  if (reel) matchedVia = 'shortcode';\n}\n\nif (!reel) {\n  return [{\n    json: {\n      ...event,\n      matched: false,\n      reason: 'no_reel_mapping'\n    }\n  }];\n}\n\nconst messages = Array.isArray(reel.messages) ? reel.messages.filter(Boolean) : [];\nif (!messages.length) {\n  return [{\n    json: {\n      ...event,\n      matched: false,\n      reason: 'empty_messages'\n    }\n  }];\n}\n\nlet bodyMessage = messages[0];\nconst mode = settings.messagePickMode || 'first';\nif (mode === 'random') {\n  bodyMessage = messages[Math.floor(Math.random() * messages.length)];\n} else if (mode === 'all') {\n  bodyMessage = messages.join('\\n\\n');\n}\n\n// Prefer the exact reel/post that was commented on.\nlet reelLink = mediaInfo.permalink || '';\nif (!reelLink && mediaInfo.shortcode) {\n  const fromSheet = (reel.reelUrls || []).find((u) => String(u).includes(mediaInfo.shortcode));\n  reelLink = fromSheet || linkFromShortcode(mediaInfo.shortcode);\n}\nif (!reelLink && Array.isArray(reel.reelUrls) && reel.reelUrls[0]) {\n  reelLink = reel.reelUrls[0];\n}\n\nconst prependLink = settings.prependReelLink !== false;\nlet dmMessage = bodyMessage;\nif (prependLink && reelLink) {\n  dmMessage = `${reelLink}\\n\\n${bodyMessage}`;\n}\n\nif (event.commentId) {\n  staticData.recentCommentIds[event.commentId] = now;\n}\n\nreturn [{\n  json: {\n    ...event,\n    matched: true,\n    matchedVia,\n    reelName: reel.name,\n    reelLink,\n    publicCommentReply: settings.publicCommentReply || 'Please check your DM',\n    dmMessage,\n    graphVersion,\n    pageAccessToken: token,\n    graphHost\n  }\n}];\n"
+      },
+      "id": "load-and-match",
+      "name": "Load Reel Map & Match",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        460,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "is-matched",
+              "leftValue": "={{ $json.matched }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-matched",
+      "name": "Reel Matched?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        700,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $json.graphHost }}/{{ $json.graphVersion }}/{{ $json.commentId }}/replies",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $json.pageAccessToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"message\": {{ JSON.stringify($json.publicCommentReply) }}\n}",
+        "options": {
+          "timeout": 15000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "public-reply",
+      "name": "Public Reply: Please check your DM",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        960,
+        160
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://{{ $('Load Reel Map & Match').item.json.graphHost }}/{{ $('Load Reel Map & Match').item.json.graphVersion }}/{{ $env.META_IG_USER_ID }}/messages",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "access_token",
+              "value": "={{ $('Load Reel Map & Match').item.json.pageAccessToken }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ recipient: { comment_id: $('Load Reel Map & Match').item.json.commentId }, message: { text: $('Load Reel Map & Match').item.json.dmMessage } }) }}",
+        "options": {
+          "timeout": 15000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "private-dm",
+      "name": "Send Private DM (mapped message)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1200,
+        160
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const matched = $('Load Reel Map & Match').item.json;\nconst publicReply = $('Public Reply: Please check your DM').item.json;\nconst privateDm = $input.first().json;\nreturn [{\n  json: {\n    status: 'processed',\n    mediaId: matched.mediaId,\n    reelName: matched.reelName,\n    fromUsername: matched.fromUsername,\n    commentId: matched.commentId,\n    dmPreview: String(matched.dmMessage || '').slice(0, 120),\n    publicReplyResult: publicReply,\n    privateDmResult: privateDm,\n    at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "log-success",
+      "name": "Log Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1440,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    status: 'skipped',\n    reason: $json.reason || 'unmatched_or_filtered',\n    mediaId: $json.mediaId || null,\n    commentId: $json.commentId || null,\n    at: new Date().toISOString()\n  }\n}];"
+      },
+      "id": "log-skip",
+      "name": "Log Skipped",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        960,
+        360
+      ]
+    }
+  ],
+  "connections": {
+    "Meta Webhook Verify (GET)": {
+      "main": [
+        [
+          {
+            "node": "Verify Token OK?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify Token OK?": {
+      "main": [
+        [
+          {
+            "node": "Respond Challenge",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond Verify Fail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta Comment Webhook (POST)": {
+      "main": [
+        [
+          {
+            "node": "Ack Meta Fast",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ack Meta Fast": {
+      "main": [
+        [
+          {
+            "node": "Parse Comment Events",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Comment Events": {
+      "main": [
+        [
+          {
+            "node": "Load Reel Map & Match",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Load Reel Map & Match": {
+      "main": [
+        [
+          {
+            "node": "Reel Matched?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Reel Matched?": {
+      "main": [
+        [
+          {
+            "node": "Public Reply: Please check your DM",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Skipped",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Public Reply: Please check your DM": {
+      "main": [
+        [
+          {
+            "node": "Send Private DM (mapped message)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Private DM (mapped message)": {
+      "main": [
+        [
+          {
+            "node": "Log Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

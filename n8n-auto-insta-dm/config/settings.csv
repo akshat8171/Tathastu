@@ -1,0 +1,7 @@
+key,value
+public_comment_reply,Please check your DM
+message_pick_mode,first
+ignore_own_comments,TRUE
+ignore_empty_comments,TRUE
+dedupe_window_minutes,60
+prepend_reel_link,TRUE

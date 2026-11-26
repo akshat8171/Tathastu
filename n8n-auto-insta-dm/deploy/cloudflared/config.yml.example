@@ -1,0 +1,12 @@
+# Copy to config.yml after creating the tunnel.
+# tunnel: UUID from `cloudflared tunnel create tathastu-n8n`
+# credentials-file: JSON file cloudflared writes into this folder
+
+tunnel: REPLACE_TUNNEL_ID
+credentials-file: /etc/cloudflared/REPLACE_TUNNEL_ID.json
+
+ingress:
+  # Public hostname must be a DNS record in your Cloudflare zone
+  - hostname: n8n.YOURDOMAIN.com
+    service: http://n8n:5678
+  - service: http_status:404

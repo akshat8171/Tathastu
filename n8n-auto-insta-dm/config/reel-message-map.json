@@ -1,0 +1,256 @@
+{
+  "_readme": "Generated from config/reel-message-map.csv. Multiple reels/posts per product: separate media_id or reel_url values with |",
+  "settings": {
+    "publicCommentReply": "Please check your DM",
+    "messagePickMode": "first",
+    "ignoreOwnComments": true,
+    "ignoreEmptyComments": true,
+    "dedupeWindowMinutes": 60,
+    "prependReelLink": true
+  },
+  "reels": [
+    {
+      "name": "Couple Name Board",
+      "mediaIds": [
+        "18432159742183038"
+      ],
+      "mediaId": "18432159742183038",
+      "shortcodes": [
+        "Ddq_D0fA5QL"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/Ddq_D0fA5QL/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized couple Name board is for  ₹1000 + delivery charges\n\nSize: 9 inches height, 12inches length\n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Keychains",
+      "mediaIds": [
+        "18353715055247127",
+        "17957672820259366"
+      ],
+      "mediaId": "18353715055247127",
+      "shortcodes": [
+        "Ddl7m5KgYzp",
+        "DfPjzVegY4s"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/Ddl7m5KgYzp/",
+        "https://www.instagram.com/p/DfPjzVegY4s/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Thanks for reaching out to us. \nThe price for the key chain is 80/- per piece. \n\nIf you order more than 15 then it will be 70rs/-\n\n+shipping charges"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Name Board",
+      "mediaIds": [
+        "18064198259726946",
+        "18111713420327431",
+        "17971562274133670",
+        "18061794032769206",
+        "18159890674486231",
+        "18092623760167709",
+        "17904799959221925"
+      ],
+      "mediaId": "18064198259726946",
+      "shortcodes": [
+        "DbIzZziB-iO",
+        "DdBx1RsgkJH",
+        "DctE3Mxgq2A",
+        "Dbf-GcnBa_-",
+        "DbVtbIMgRHA",
+        "DWWSyMtAQLf",
+        "DWbOLRdge5p"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DbIzZziB-iO/",
+        "https://www.instagram.com/p/DdBx1RsgkJH/",
+        "https://www.instagram.com/p/DctE3Mxgq2A/",
+        "https://www.instagram.com/p/Dbf-GcnBa_-/",
+        "https://www.instagram.com/p/DbVtbIMgRHA/?img_index=1",
+        "https://www.instagram.com/p/DWWSyMtAQLf/",
+        "https://www.instagram.com/p/DWbOLRdge5p/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized Name board is for  ₹450 + delivery charges\n\nSize: 8 inches height \n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Dual Name Plank",
+      "mediaIds": [
+        "18174111424456604"
+      ],
+      "mediaId": "18174111424456604",
+      "shortcodes": [
+        "Dewk4Wigg6g"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/Dewk4Wigg6g/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized Dual Name plank comes in multi variant.\n1.  ₹300 for normal base and without light\n2.  ₹400 for black big base and without light\n3.  ₹600 for big base and with light\n\n+ shipping charges. \n\nSize: 8 inches length \n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Big Stationary Organizer",
+      "mediaIds": [
+        "18134829637671220",
+        "17935360008361410"
+      ],
+      "mediaId": "18134829637671220",
+      "shortcodes": [
+        "DeMa74sARhd",
+        "DcYgp10gOuN"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DeMa74sARhd/",
+        "https://www.instagram.com/p/DcYgp10gOuN/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized stationary organizer is for  ₹450 + delivery charges\n\nSize: 8 inches length\n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Lip Bam + Keychain Holder",
+      "mediaIds": [
+        "18095303327550106"
+      ],
+      "mediaId": "18095303327550106",
+      "shortcodes": [
+        "DdbkwI3Ad5r"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DdbkwI3Ad5r/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized Lip Bam + Keychain Holder is for  ₹250 + delivery charges\n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Mini Mic",
+      "mediaIds": [
+        "18126093604862988",
+        "17912364735669038"
+      ],
+      "mediaId": "18126093604862988",
+      "shortcodes": [
+        "DdyuO7CAU8i",
+        "DgKsGAHh6sa"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DdyuO7CAU8i/",
+        "https://www.instagram.com/p/DgKsGAHh6sa/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur Mini Mic is for  ₹350 + delivery charges\n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Room Door Name Plate",
+      "mediaIds": [
+        "18135692296648774"
+      ],
+      "mediaId": "18135692296648774",
+      "shortcodes": [
+        "DejtBxvgtnR"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DejtBxvgtnR/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur room door name plate is for  ₹550 + delivery charges\n\nSize: 10 inches width\n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Small Stationary Organizer",
+      "mediaIds": [
+        "18122713885885840"
+      ],
+      "mediaId": "18122713885885840",
+      "shortcodes": [
+        "DcTiMzhABd5"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DcTiMzhABd5/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized stationary organizer is for  ₹250 + delivery charges\n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Lithophane Art",
+      "mediaIds": [
+        "17897477298413135"
+      ],
+      "mediaId": "17897477298413135",
+      "shortcodes": [
+        "DWLoZ-qhXaR"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DWLoZ-qhXaR/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur Lithophane Art is for  ₹1000 + delivery charges\n\nSize: 6 inches by 6 inches \n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Divine Wall Frame",
+      "mediaIds": [
+        "18125287240938550"
+      ],
+      "mediaId": "18125287240938550",
+      "shortcodes": [
+        "DfmucI5ARYN"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DfmucI5ARYN/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized divine wall frame is for  ₹750 + delivery charges\n\nSize: 8 inches by 8 inches \n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "Personalized Key Holder",
+      "mediaIds": [
+        "18027370259693059"
+      ],
+      "mediaId": "18027370259693059",
+      "shortcodes": [
+        "DdjL0NlA-r6"
+      ],
+      "reelUrls": [
+        "https://www.instagram.com/p/DdjL0NlA-r6/"
+      ],
+      "enabled": true,
+      "messages": [
+        "Hi! 😊, Thank you for contacting us. \n\nOur personalized key holder is for  ₹1000 + delivery charges\n\nSize: 10 inches by 10 inches \n\n🚚 Delivery: 5–7 days across India.\n\nJust send us your name and PIN code, and we’ll take it from there!"
+      ],
+      "notes": ""
+    }
+  ]
+}
